@@ -1,0 +1,16 @@
+<div 
+  class="book-item"
+  *ngFor="let book of books"
+>
+  <p>{{book.volumeInfo.title}}</p><span> by {{book.volumeInfo.authors}}</span>
+  <button
+    (click)="remove.emit(book.id)"
+    data-test="remove-button"
+  >Remove from Collection</button>
+</div>
+
+
+<!-- 
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at https://github.com/ngrx/platform
+-->
