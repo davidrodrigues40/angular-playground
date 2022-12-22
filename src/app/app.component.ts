@@ -10,18 +10,10 @@ import { GoogleBooksService } from './book-list/books.service';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
+  constructor(private booksService: GoogleBooksService, private store: Store) { }
+
   books$ = this.store.select(selectBooks);
   bookCollection$ = this.store.select(selectBookCollection);
-
-  onAdd(bookId: string) {
-    this.store.dispatch(BooksActions.addBook({ bookId }));
-  }
-
-  onRemove(bookId: string) {
-    this.store.dispatch(BooksActions.removeBook({ bookId }));
-  }
-
-  constructor(private booksService: GoogleBooksService, private store: Store) {}
 
   ngOnInit() {
     this.booksService
@@ -30,10 +22,12 @@ export class AppComponent {
         this.store.dispatch(BooksApiActions.retrievedBookList({ books }))
       );
   }
+
+  onAdd(bookId: string) {
+    this.store.dispatch(BooksActions.addBook({ bookId }));
+  }
+
+  onRemove(bookId: string) {
+    this.store.dispatch(BooksActions.removeBook({ bookId }));
+  }
 }
-
-
-/*
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://github.com/ngrx/platform
-*/
