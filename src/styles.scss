@@ -4,15 +4,27 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+a:visited {
+  color: blue;
+}
+
 .main h2 {
   margin-top: 0;
 }
 
 .main {
   display: flex;
-  gap: calc($gap * 2);
+  gap: $gap;
   &-column {
-    border: 1px solid black;
     padding: $gap;
   }
+  &-divider {
+    width: 2px;
+    background-color: black;
+  }
+}
+
+.menu {
+  display: flex;
+  gap: $gap;
 }
