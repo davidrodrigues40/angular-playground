@@ -1,20 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { booksReducer } from './state/books/books.reducer';
-import { collectionReducer } from './state/books/collection.reducer';
-import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
-import { BookListComponent } from './book-list/book-list.component';
-import { BookCollectionComponent } from './book-collection/book-collection.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { BooksComponent } from './books/books.component';
-import { ScoreboardModule } from './state/game/scoreboard.module';
-import { ScoreboardComponent } from './scoreboard/scoreboard.component';
+import { ScoreboardModule } from './scoreboard/scoreboard.module';
+import { BooksComponent } from './books/components/books/books.component';
+import { ScoreboardComponent } from './scoreboard/components/scoreboard/scoreboard.component';
+import { BooksModule } from './books/books.module';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: 'login',
     component: LoginPageComponent
@@ -32,13 +29,14 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
     BrowserModule,
-    StoreModule.forRoot({ books: booksReducer, collection: collectionReducer }),
-    ScoreboardModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BooksModule,
+    ScoreboardModule
   ],
-  declarations: [AppComponent, BookListComponent, BookCollectionComponent, LoginPageComponent, BooksComponent, ScoreboardComponent],
+  declarations: [AppComponent, LoginPageComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

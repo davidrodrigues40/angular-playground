@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { BooksActions, BooksApiActions } from 'src/app/state/books/books.actions';
-import { Book } from '../../book-list/books.model';
+import { Book } from '../../state/books/books.model';
 
 @Injectable({ providedIn: 'root' })
 export class GoogleBooksService {

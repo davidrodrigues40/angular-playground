@@ -1,0 +1,16 @@
+<div>{{teamName}}: {{score}}</div>
+<div>
+  <button mat-flat-button
+          [color]="buttonColor"
+          (click)="addRuns.emit(1)">Add Run</button>
+</div>
+
+<mat-form-field>
+  <mat-label>Runs to Add</mat-label>
+  <input matInput
+         [(ngModel)]="runsToAdd">
+</mat-form-field>
+
+<button mat-button
+        [color]="buttonColor"
+        (click)="addRuns.emit(runsToAdd)">Add</button>

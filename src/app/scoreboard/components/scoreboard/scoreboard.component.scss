@@ -1,0 +1,23 @@
+@import "../../../../assets/styles/variables";
+
+.scoreboard {
+  display: flex;
+  flex-direction: row;
+  margin-top: $gap;
+  gap: $gap;
+  margin-bottom: $gap;
+  &-teams {
+    display: flex;
+    flex-direction: column;
+  }
+  &-team > app-scorecard {
+    display: flex;
+    align-items: center;
+    gap: $gap;
+    padding: $gap;
+    border-bottom: 1px solid black;
+  }
+  & ::ng-deep mat-form-field {
+    width: 110px;
+  }
+}

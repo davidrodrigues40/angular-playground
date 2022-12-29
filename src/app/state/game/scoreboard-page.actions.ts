@@ -1,7 +1,12 @@
-import { createAction, props } from '@ngrx/store';
+import { createActionGroup, props } from '@ngrx/store';
 import { Game } from './game.model';
 
-export const homeScore = createAction('[Scoreboard Page] Home Score');
-export const awayScore = createAction('[Scoreboard Page] Away Score');
-export const resetScore = createAction('[Scoreboard Page] Score Reset');
-export const setScores = createAction('[Scoreboard Page] Set Scores', props<{ game: Game }>());
+export const ScoreActions = createActionGroup({
+  source: 'Game',
+  events: {
+    'Home Score': props<{ runs: number }>(),
+    'Away Score': props<{ runs: number }>(),
+    'Reset Score': props<null>(),
+    'Set Scores': props<{ game: Game }>()
+  },
+});

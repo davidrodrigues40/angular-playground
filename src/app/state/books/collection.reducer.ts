@@ -1,5 +1,6 @@
-import { createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, on } from '@ngrx/store';
 import { BooksActions } from './books.actions';
+import { collectionFeatureKey } from './books.reducer';
 
 export const initialState: ReadonlyArray<string> = [];
 
@@ -14,3 +15,7 @@ export const collectionReducer = createReducer(
     return [...state, bookId];
   })
 );
+export const booksFeature = createFeature({
+  name: collectionFeatureKey,
+  reducer: collectionReducer
+});

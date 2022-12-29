@@ -1,0 +1,24 @@
+<div class="scoreboard">
+  <div class="scoreboard-teams">
+    <div class="scoreboard-team">
+      <app-scorecard #homeCard
+                     teamName="Home"
+                     buttonColor="primary"
+                     [score]="homeScore$|async"
+                     (addRuns)="addRuns(teamType.home, $event)"></app-scorecard>
+
+    </div>
+    <div class="scoreboard-team">
+      <app-scorecard #awayCard
+                     teamName="Away"
+                     buttonColor="accent"
+                     [score]="awayScore$|async"
+                     (addRuns)="addRuns(teamType.away, $event)"></app-scorecard>
+    </div>
+  </div>
+</div>
+<div>
+  <button mat-flat-button
+          color="warn"
+          (click)="resetScore()">Reset Score</button>
+</div>
