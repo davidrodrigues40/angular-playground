@@ -1,0 +1,9 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/material";
+
+.row {
+  & > app-scorecard {
+    display: flex;
+    gap: $gap;
+  }
+}

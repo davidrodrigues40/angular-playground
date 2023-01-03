@@ -1,20 +1,34 @@
 <div class="scoreboard">
-  <div class="scoreboard-teams">
-    <div class="scoreboard-team">
-      <app-scorecard #homeCard
-                     teamName="Home"
-                     buttonColor="primary"
-                     [score]="homeScore$|async"
-                     (addRuns)="addRuns(teamType.home, $event)"></app-scorecard>
+  <div>
+    <h2>Game Scoreboard</h2>
+    <div class="scoreboard-teams">
+      <div class="scoreboard-team">
+        <app-scorecard #homeCard
+                       teamName="Home"
+                       buttonColor="primary"
+                       [score]="homeScore$ | async"
+                       (addRuns)="addRuns(teamType.home, $event)"></app-scorecard>
 
+      </div>
+      <div class="scoreboard-team">
+        <app-scorecard #awayCard
+                       teamName="Away"
+                       buttonColor="accent"
+                       [score]="awayScore$ | async"
+                       (addRuns)="addRuns(teamType.away, $event)"></app-scorecard>
+      </div>
     </div>
-    <div class="scoreboard-team">
-      <app-scorecard #awayCard
-                     teamName="Away"
-                     buttonColor="accent"
-                     [score]="awayScore$|async"
-                     (addRuns)="addRuns(teamType.away, $event)"></app-scorecard>
-    </div>
+  </div>
+  <div>
+    <ng-container *ngIf="manualScore; else manualButton">
+      <h2>Enter Game Score</h2>
+      <app-enter-score (enterScore)="enterGameScore($event)"></app-enter-score>
+    </ng-container>
+    <ng-template #manualButton>
+      <button mat-flat-button
+              color="warn"
+              (click)="manualScore = !manualScore">Manual Score</button>
+    </ng-template>
   </div>
 </div>
 <div>

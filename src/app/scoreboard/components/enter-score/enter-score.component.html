@@ -1,0 +1,23 @@
+<div class="row">
+  <mat-form-field>
+    <mat-label>Home: </mat-label>
+    <input matInput
+           placeholder="Enter Home Score"
+           type="number"
+           [(ngModel)]="homeScore">
+  </mat-form-field>
+</div>
+<div class="row">
+  <mat-form-field>
+    <mat-label>Away: </mat-label>
+    <input matInput
+           placeholder="Enter Away Score"
+           type="number"
+           [(ngModel)]="awayScore">
+  </mat-form-field>
+</div>
+<div class="row">
+  <button mat-flat-button
+          color="warn"
+          (click)="enterScore.emit({ home: homeScore, away: awayScore })">Enter Score</button>
+</div>

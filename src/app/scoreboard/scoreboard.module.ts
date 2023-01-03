@@ -8,9 +8,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ScorecardComponent } from './components/scorecard/scorecard.component';
+import { EnterScoreComponent } from './components/enter-score/enter-score.component';
 
 @NgModule({
-  declarations: [ScoreboardComponent, ScorecardComponent],
+  declarations: [ScoreboardComponent, ScorecardComponent, EnterScoreComponent],
   imports: [
     CommonModule,
     FormsModule,

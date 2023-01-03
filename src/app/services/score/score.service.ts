@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import { TeamType } from 'src/app/enums/scorecard-enums';
 import { Game } from 'src/app/state/game/game.model';
-import { ScoreActions } from 'src/app/state/game/scoreboard-page.actions';
+import { ScoreActions } from 'src/app/state/game/scoreboard.actions';
 import { selectScore } from 'src/app/state/game/scoreboard.selector';
 
 @Injectable({
@@ -28,6 +28,11 @@ export class ScoreService {
 
   public resetRuns(): void {
     this._store.dispatch(ScoreActions.resetScore());
+  }
+
+  public setScore(home: number, away: number): void {
+    const game: Game = { home: home, away: away };
+    this._store.dispatch(ScoreActions.setScores({ game }));
   }
 
 }
