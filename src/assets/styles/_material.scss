@@ -1,0 +1,11 @@
+.mdc-text-field {
+  background-color: transparent !important;
+  & label,
+  input {
+    color: black !important;
+  }
+}
+
+::placeholder {
+  color: gray !important;
+}

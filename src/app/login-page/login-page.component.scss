@@ -1,0 +1,7 @@
+@import "../../assets/styles/variables";
+
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}

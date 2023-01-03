@@ -1,28 +1,42 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { booksReducer } from './state/books.reducer';
-import { collectionReducer } from './state/collection.reducer';
-import { StoreModule } from '@ngrx/store';
-
 import { AppComponent } from './app.component';
-import { BookListComponent } from './book-list/book-list.component';
-import { BookCollectionComponent } from './book-collection/book-collection.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { ScoreboardModule } from './scoreboard/scoreboard.module';
+import { BooksComponent } from './books/components/books/books.component';
+import { ScoreboardComponent } from './scoreboard/components/scoreboard/scoreboard.component';
+import { BooksModule } from './books/books.module';
+
+export const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginPageComponent
+  },
+  {
+    path: 'scoreboard',
+    component: ScoreboardComponent
+  },
+  {
+    path: '**',
+    component: BooksComponent
+  }
+]
 
 @NgModule({
   imports: [
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
     BrowserModule,
-    StoreModule.forRoot({ books: booksReducer, collection: collectionReducer }),
     HttpClientModule,
+    FormsModule,
+    BooksModule,
+    ScoreboardModule
   ],
-  declarations: [AppComponent, BookListComponent, BookCollectionComponent],
+  declarations: [AppComponent, LoginPageComponent],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
-
-
-/*
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://github.com/ngrx/platform
-*/
+export class AppModule { }

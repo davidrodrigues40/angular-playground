@@ -1,0 +1,17 @@
+$input-width: 110px;
+$score-width: 100px;
+$add-width: 100px;
+
+.scorecard {
+  &-score {
+    width: $score-width;
+  }
+  &-add {
+    width: $score-width;
+  }
+  &-add-input {
+    & ::ng-deep mat-form-field {
+      width: $input-width;
+    }
+  }
+}
