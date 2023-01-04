@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { BooksComponent } from './components/books/books.component';
 import { reducers } from '../state/app.reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { BookEffects } from '../state/books/books.effects';
+import { BookEffects, CollectionEffects } from '../state/books/books.effects';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,9 @@ import { BookEffects } from '../state/books/books.effects';
     BookCollectionComponent,
     BooksComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([BookEffects, CollectionEffects]),
   ]
 })
 export class BooksModule { }

@@ -10,22 +10,22 @@ export const collectionState: CollectionState = { books: [], message: '' };
 // reducers - used for result methods
 const _booksReducer = createReducer(
   booksState,
-  on(fromActions.GetAllBooksSuccess, (_state, { payload }) => ({ books: payload, message: 'Success' }))
+  on(fromActions.bookActions.getAllSuccess, (_state, { payload }) => ({ books: payload, message: 'Success' }))
 );
 
 const _collectionReducer = createReducer(
   collectionState,
-  on(fromActions.GetCollectionSuccess, (_state, { payload }) => ({ books: payload, message: 'Success' })),
-  on(fromActions.AddBookToCollectionSuccess, (_state, { payload }) => {
+  on(fromActions.collectionActions.getAllSuccess, (_state, { payload }) => ({ books: payload, message: 'Success' })),
+  on(fromActions.collectionActions.addBookSuccess, (_state, { payload }) => {
     if (_state.books.indexOf(payload) > -1) return { books: _state.books, message: 'Success' };
 
     return { books: [..._state.books, payload], message: 'Success' };
   }),
-  on(fromActions.RemoveBookFromCollectionSuccess, (_state, { payload }) => {
+  on(fromActions.collectionActions.removeBookSuccess, (_state, { payload }) => {
     console.log('payload', payload);
     return { books: _state.books.filter(book => book.id !== payload.id), message: 'Success' };
   }),
-  on(fromActions.ClearCollectionSuccess, (_state) => {
+  on(fromActions.collectionActions.clearCollectionSuccess, (_state) => {
     _state = collectionState;
     return { books: [], message: 'Success' };
   })

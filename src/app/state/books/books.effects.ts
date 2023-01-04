@@ -11,12 +11,12 @@ export class BookEffects {
     private readonly _service: GoogleBooksService) { }
 
   loadGoogleBooks$ = createEffect(() => this._actions$.pipe(
-    ofType(fromActions.GetAllBooks),
+    ofType(fromActions.bookActions.getAll),
     mergeMap(() =>
       this._service.getBooks$()
         .pipe(
-          map(books => fromActions.GetAllBooksSuccess({ payload: books })),
-          catchError(error => of(fromActions.GetAllBooksFail({ payload: error })))
+          map(books => fromActions.bookActions.getAllSuccess({ payload: books })),
+          catchError(error => of(fromActions.bookActions.getAllFailed({ payload: error })))
         )
     )
   ));
@@ -28,43 +28,43 @@ export class CollectionEffects {
     private readonly _service: GoogleBooksService) { }
 
   loadCollection$ = createEffect(() => this._actions$.pipe(
-    ofType(fromActions.GetCollection),
+    ofType(fromActions.collectionActions.getAll),
     mergeMap(() =>
       this._service.getCollection$()
         .pipe(
           tap(books => console.log('books', books)),
-          map(books => fromActions.GetCollectionSuccess({ payload: books })),
+          map(books => fromActions.collectionActions.getAllSuccess({ payload: books })),
           catchError(() => EMPTY)
         )
     )
   ));
 
   addBook$ = createEffect(() => this._actions$.pipe(
-    ofType(fromActions.AddBookToCollection),
+    ofType(fromActions.collectionActions.addBook),
     map(action => action.payload),
     switchMap(id =>
       this._service.addBook$(id)
         .pipe(
-          map(response => fromActions.AddBookToCollectionSuccess({ payload: response })))
+          map(response => fromActions.collectionActions.addBookSuccess({ payload: response })))
     )
   ));
 
   removeBook$ = createEffect(() => this._actions$.pipe(
-    ofType(fromActions.RemoveBookFromCollection),
+    ofType(fromActions.collectionActions.removeBook),
     map(action => action.payload),
     switchMap(id =>
       this._service.removeBook$(id)
         .pipe(
           tap(response => console.log('response', response)),
-          map(response => fromActions.RemoveBookFromCollectionSuccess({ payload: response })))
+          map(response => fromActions.collectionActions.removeBookSuccess({ payload: response })))
     )
   ));
 
   clearCollection$ = createEffect(() => this._actions$.pipe(
-    ofType(fromActions.ClearCollection),
+    ofType(fromActions.collectionActions.clearCollection),
     switchMap(_ => this._service.clearCollection$()
       .pipe(
-        map(_ => fromActions.ClearCollectionSuccess())
+        map(_ => fromActions.collectionActions.clearCollectionSuccess())
       ))
   ));
 }
