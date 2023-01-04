@@ -10,6 +10,10 @@ import { ScoreboardModule } from './scoreboard/scoreboard.module';
 import { BooksComponent } from './books/components/books/books.component';
 import { ScoreboardComponent } from './scoreboard/components/scoreboard/scoreboard.component';
 import { BooksModule } from './books/books.module';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './state/app.reducers';
+import { BookEffects } from './state/books/books.effects';
 
 export const routes: Routes = [
   {
@@ -29,6 +33,8 @@ export const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes),
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([BookEffects]),
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,

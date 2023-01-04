@@ -10,6 +10,5 @@ export class LoginService {
   }
 
   login(username: string, password: string): void {
-    console.log('loging in');
   }
 }

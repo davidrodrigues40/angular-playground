@@ -2,12 +2,11 @@ import { NgModule } from '@angular/core';
 import { BookCollectionComponent } from './components/book-collection/book-collection.component';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { StoreModule } from '@ngrx/store';
-import { booksFeatureKey, booksReducer, collectionFeatureKey } from '../state/books/books.reducer';
 import { CommonModule } from '@angular/common';
-import { collectionReducer } from '../state/books/collection.reducer';
 import { BooksComponent } from './components/books/books.component';
-import { BookEffects } from '../state/books/books.effects';
+import { reducers } from '../state/app.reducers';
 import { EffectsModule } from '@ngrx/effects';
+import { BookEffects } from '../state/books/books.effects';
 
 @NgModule({
   declarations: [
@@ -15,11 +14,6 @@ import { EffectsModule } from '@ngrx/effects';
     BookCollectionComponent,
     BooksComponent],
   imports: [
-    StoreModule.forFeature(booksFeatureKey, booksReducer),
-    StoreModule.forFeature(collectionFeatureKey, collectionReducer),
-    EffectsModule.forFeature([BookEffects]),
-    EffectsModule.forRoot(),
-    StoreModule.forRoot({}),
     CommonModule
   ]
 })

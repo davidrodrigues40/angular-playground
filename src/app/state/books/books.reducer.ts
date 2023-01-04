@@ -1,15 +1,29 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
-import * as BooksApiActions from './books.actions';
-import { Book } from './books.model';
+import { Action, createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
+import * as fromActions from './books.actions';
+import { BooksState } from '../app.state';
 
 export const booksFeatureKey = 'books';
 export const collectionFeatureKey = 'collection';
-export const initialState: ReadonlyArray<Book> = [];
-export const booksReducer = createReducer(
+export const initialState: BooksState = { books: [], message: '' };
+
+// reducers
+const _booksReducer = createReducer(
   initialState,
-  on(BooksApiActions.BooksApiActions.retrievedBookList, (_state, { books }) => books)
+  on(fromActions.GetAllBooksSuccess, (_state, { payload }) => ({ books: payload, message: 'Success' }))
 );
-export const booksFeature = createFeature({
-  name: booksFeatureKey,
-  reducer: booksReducer
-});
+
+export function booksReducer(state: any, action: Action) {
+  return _booksReducer(state, action);
+};
+
+// selectors
+export const getBooksState = createFeatureSelector<BooksState>('booksState');
+
+export const getBooks = createSelector(
+  getBooksState,
+  (state: BooksState) => state.books
+);
+export const getMessage = createSelector(
+  getBooksState,
+  (state: BooksState) => state.message
+);
