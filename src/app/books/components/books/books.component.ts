@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { GoogleBooksService } from 'src/app/services/books/books.service';
-import { BookEvent } from 'src/app/state/books/book.events';
+import { BooksState } from 'src/app/state/app.state';
 import { Book } from 'src/app/state/books/books.model';
-import { selectBookCollection } from 'src/app/state/books/books.selectors';
+import * as booksReducers from '../../../state/books/books.reducer';
+import * as booksActions from '../../../state/books/books.actions';
 
 @Component({
   selector: 'app-books',
@@ -12,13 +13,13 @@ import { selectBookCollection } from 'src/app/state/books/books.selectors';
   styleUrls: ['./books.component.scss']
 })
 export class BooksComponent {
-  constructor(private booksService: GoogleBooksService, private store: Store<{ books: Book[] }>) { }
+  constructor(private booksService: GoogleBooksService, private store: Store<BooksState>) { }
 
-  books$: Observable<Book[]> = this.store.select(state => state.books);
-  bookCollection$ = this.store.select(selectBookCollection);
+  books$: Observable<ReadonlyArray<Book>> = this.store.select(booksReducers.getBooks);
 
   ngOnInit() {
-    this.store.dispatch({ type: BookEvent.getBooks });
+
+    this.store.dispatch(booksActions.GetAllBooks());
   }
 
   onAdd(bookId: string) {

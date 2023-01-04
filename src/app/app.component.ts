@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectBookCollection, selectBooks } from './state/books/books.selectors';
 import { GoogleBooksService } from './services/books/books.service';
 
 @Component({
@@ -10,11 +9,8 @@ import { GoogleBooksService } from './services/books/books.service';
 export class AppComponent {
   constructor(private booksService: GoogleBooksService, private store: Store) { }
 
-  books$ = this.store.select(selectBooks);
-  bookCollection$ = this.store.select(selectBookCollection);
-
   ngOnInit() {
-    this.booksService.getBooks();
+    //this.booksService.getBooks();
   }
 
   onAdd(bookId: string) {
