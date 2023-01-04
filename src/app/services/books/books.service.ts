@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, map, BehaviorSubject, Subject } from 'rxjs';
 import { Book } from '../../state/books/books.model';
 
 @Injectable({ providedIn: 'root' })
 export class GoogleBooksService {
+  private _books: Book[] = [];
+
   constructor(private http: HttpClient, private store: Store) { }
 
   getBooks(): void {
@@ -16,17 +17,41 @@ export class GoogleBooksService {
   getBooks$(): Observable<Book[]> {
     return this.http
       .get<{ items: Book[] }>(
-        'https://www.googleapis.com/books/v1/volumes?maxResults=10&orderBy=relevance&q=oliver%20sacks'
-      )
+        'https://www.googleapis.com/books/v1/volumes?maxResults=10&orderBy=relevance&q=oliver%20sacks')
       .pipe(
-        map((books) => books.items || []));
+        map((books) => {
+          this._books = books.items || [];
+          return this._books || []
+        }));
   }
 
-  addBook(bookId: string): void {
-    //this.store.dispatch(BooksActions.addBook({ bookId }));
+  getCollection$(): Observable<Book[]> {
+    return this.collectionGetApi$();
   }
 
-  removeBook(bookId: string): void {
-    //this.store.dispatch(BooksActions.removeBook({ bookId }));
+  addBook$(bookId: string): Observable<Book> {
+    return this.addBookApi$(bookId);
+  }
+
+  removeBook$(bookId: string): Observable<Book> {
+    return this.removeBookApi$(bookId);
+  }
+
+  clearCollection$(): Observable<void> {
+    return of(null);
+  }
+
+  collectionGetApi$(): Observable<Book[]> {
+    return of([]);
+  }
+
+  addBookApi$(bookId: string): Observable<Book> {
+    const found: Book = this._books.find(b => b.id === bookId);
+
+    return of(found);
+  }
+
+  removeBookApi$(bookId: string): Observable<Book> {
+    return of(this._books.find(b => b.id === bookId));
   }
 }

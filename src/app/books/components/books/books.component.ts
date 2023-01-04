@@ -16,17 +16,22 @@ export class BooksComponent {
   constructor(private booksService: GoogleBooksService, private store: Store<BooksState>) { }
 
   books$: Observable<ReadonlyArray<Book>> = this.store.select(booksReducers.getBooks);
+  collection$: Observable<ReadonlyArray<Book>> = this.store.select(booksReducers.getCollection);
 
   ngOnInit() {
-
     this.store.dispatch(booksActions.GetAllBooks());
+    this.store.dispatch(booksActions.GetCollection());
   }
 
-  onAdd(bookId: string) {
-    this.booksService.addBook(bookId);
+  onAdd(bookId: string): void {
+    this.store.dispatch(booksActions.AddBookToCollection({ payload: bookId }));
   }
 
-  onRemove(bookId: string) {
-    this.booksService.removeBook(bookId);
+  onRemove(bookId: string): void {
+    this.store.dispatch(booksActions.RemoveBookFromCollection({ payload: bookId }));
+  }
+
+  onClear(): void {
+    this.store.dispatch(booksActions.ClearCollection());
   }
 }
