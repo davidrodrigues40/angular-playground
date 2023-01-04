@@ -7,7 +7,7 @@ export const collectionFeatureKey = 'collection';
 export const booksState: BooksState = { books: [], message: '' };
 export const collectionState: CollectionState = { books: [], message: '' };
 
-// reducers
+// reducers - used for result methods
 const _booksReducer = createReducer(
   booksState,
   on(fromActions.GetAllBooksSuccess, (_state, { payload }) => ({ books: payload, message: 'Success' }))
@@ -39,7 +39,7 @@ export function collectionReducer(state: any, action: Action) {
   return _collectionReducer(state, action);
 }
 
-// selectors
+// selectors - used for get methods
 export const getBooksState = createFeatureSelector<BooksState>('booksState');
 
 export const getBooks = createSelector(

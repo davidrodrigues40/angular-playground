@@ -3,6 +3,7 @@ import { Book } from './books.model';
 
 export const GetAllBooks = createAction('[BOOKS] Get All');
 export const GetAllBooksSuccess = createAction('[BOOKS] Get All Success', props<{ payload: ReadonlyArray<Book> }>());
+export const GetAllBooksFail = createAction('[BOOKS] Get All Failed', props<{ payload: any }>());
 
 export const GetCollection = createAction('[COLLECTION] Get All');
 export const GetCollectionSuccess = createAction('[COLLECTION] Get All Success', props<{ payload: ReadonlyArray<Book> }>());

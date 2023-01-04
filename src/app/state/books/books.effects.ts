@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
+import { FormArray } from "@angular/forms";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, EMPTY, map, tap, mergeMap, switchMap } from "rxjs";
+import { catchError, EMPTY, map, tap, mergeMap, switchMap, of } from "rxjs";
 import { GoogleBooksService } from "src/app/services/books/books.service";
 import * as fromActions from './books.actions';
 
@@ -15,7 +16,7 @@ export class BookEffects {
       this._service.getBooks$()
         .pipe(
           map(books => fromActions.GetAllBooksSuccess({ payload: books })),
-          catchError(() => EMPTY)
+          catchError(error => of(fromActions.GetAllBooksFail({ payload: error })))
         )
     )
   ));
