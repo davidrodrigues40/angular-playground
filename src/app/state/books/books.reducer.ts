@@ -38,22 +38,3 @@ export function booksReducer(state: any, action: Action) {
 export function collectionReducer(state: any, action: Action) {
   return _collectionReducer(state, action);
 }
-
-// selectors - used for get methods
-export const getBooksState = createFeatureSelector<BooksState>('booksState');
-
-export const getBooks = createSelector(
-  getBooksState,
-  (state: BooksState) => state.books
-);
-export const getMessage = createSelector(
-  getBooksState,
-  (state: BooksState) => state.message
-);
-
-export const getCollectionState = createFeatureSelector<CollectionState>('collectionState');
-
-export const getCollection = createSelector(
-  getCollectionState,
-  (state: CollectionState) => state.books
-);

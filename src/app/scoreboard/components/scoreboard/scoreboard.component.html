@@ -6,7 +6,7 @@
         <app-scorecard #homeCard
                        teamName="Home"
                        buttonColor="primary"
-                       [score]="homeScore$ | async"
+                       [score]="home$ | async"
                        (addRuns)="addRuns(teamType.home, $event)"></app-scorecard>
 
       </div>
@@ -14,7 +14,7 @@
         <app-scorecard #awayCard
                        teamName="Away"
                        buttonColor="accent"
-                       [score]="awayScore$ | async"
+                       [score]="away$ | async"
                        (addRuns)="addRuns(teamType.away, $event)"></app-scorecard>
       </div>
     </div>

@@ -33,6 +33,8 @@ export const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes),
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(),
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
