@@ -1,4 +1,4 @@
-import { Action, createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import { GameState } from '../app.state';
 import { GameActions } from './game.actions';
 

@@ -3,8 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BooksState } from 'src/app/state/app.state';
 import { Book } from 'src/app/state/books/books.model';
-import * as booksReducers from '../../../state/books/books.reducer';
-import * as bookSelectors from '../../../state/books/books.selectors';
+import * as selectors from '../../../state/books/books.selectors';
 import * as actions from '../../../state/books/books.actions';
 
 @Component({
@@ -15,8 +14,8 @@ import * as actions from '../../../state/books/books.actions';
 export class BooksComponent {
   constructor(private store: Store<BooksState>) { }
 
-  books$: Observable<ReadonlyArray<Book>> = this.store.select(bookSelectors.getBooks);
-  collection$: Observable<ReadonlyArray<Book>> = this.store.select(bookSelectors.getCollection);
+  books$: Observable<ReadonlyArray<Book>> = this.store.select(selectors.getBooks);
+  collection$: Observable<ReadonlyArray<Book>> = this.store.select(selectors.getCollection);
 
   ngOnInit() {
     this.store.dispatch(actions.bookActions.getAll());

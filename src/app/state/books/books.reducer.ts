@@ -1,9 +1,7 @@
-import { Action, createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import * as fromActions from './books.actions';
 import { BooksState, CollectionState } from '../app.state';
 
-export const booksFeatureKey = 'books';
-export const collectionFeatureKey = 'collection';
 export const booksState: BooksState = { books: [], message: '' };
 export const collectionState: CollectionState = { books: [], message: '' };
 
@@ -26,7 +24,6 @@ const _collectionReducer = createReducer(
     return { books: _state.books.filter(book => book.id !== payload.id), message: 'Success' };
   }),
   on(fromActions.collectionActions.clearCollectionSuccess, (_state) => {
-    _state = collectionState;
     return { books: [], message: 'Success' };
   })
 )

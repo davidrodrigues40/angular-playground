@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, Observable, of } from 'rxjs';
-import { TeamType } from 'src/app/enums/scorecard-enums';
+import { Observable, of } from 'rxjs';
 import { Game } from 'src/app/state/game/game.model';
-import { GameActions } from 'src/app/state/game/game.actions';
-import * as selectors from 'src/app/state/game/game.selectors';
-import { GameState } from 'src/app/state/app.state';
 
 @Injectable({
   providedIn: 'root'
