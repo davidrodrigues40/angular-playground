@@ -2,7 +2,7 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { Book } from './books.model';
 
 export const bookActions = createActionGroup({
-  source: '[BOOKS]',
+  source: 'BOOKS',
   events: {
     'Get All': emptyProps(),
     'Get All Success': props<{ payload: ReadonlyArray<Book> }>(),

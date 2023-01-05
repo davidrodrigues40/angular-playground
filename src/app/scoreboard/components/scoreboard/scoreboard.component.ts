@@ -31,14 +31,18 @@ export class ScoreboardComponent implements OnInit {
   public resetScore(): void {
     this.homeCard.runsToAdd = null;
     this.awayCard.runsToAdd = null;
+    this._state.dispatch(actions.GameActions.resetScore());
   }
 
   public addRuns(team: TeamType, runs: number): void {
-
+    if (team === TeamType.home)
+      this._state.dispatch(actions.GameActions.addRunsToHome({ payload: runs }));
+    else
+      this._state.dispatch(actions.GameActions.addRunsToAway({ payload: runs }));
   }
 
   public enterGameScore(game: Game): void {
-
+    this._state.dispatch(actions.GameActions.setScores({ payload: game }));
 
     this.manualScore = false;
   }
