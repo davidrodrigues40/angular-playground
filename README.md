@@ -2,11 +2,16 @@
 This is a sample project for Angular ngrx.
 
 # Structure
+## Model
+The models are stored under the associated state folder. 
+_i.e. app -> state -> books -> models_
+
 ## Service
-All services should be written prior to writing the state.  This is to handle the effects.
+All services should be written prior to writing the state.
 
 ## State
-The state of all objects is stored in the state folder under the associated object state.
+The state of all objects is stored in the state folder under the associated object state. 
+_i.e. app => state -> books_
 
 ### Actions
 Actions are all the events which will occur for a specific scope.
@@ -14,7 +19,7 @@ Each action will contain at least a request action and response action.
 
 ### Reducers
 These are functions to perform upon an action occuring.
-They will update the associated state with the data received or the function performed in teh handler.
+They will update the associated state with the data received or the function performed in the handler.
 
 ### Effects
 Effects are handlers for the request actions.  
