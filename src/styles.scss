@@ -5,27 +5,29 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+body {
+  background-color: $color--dark;
+  color: $color--white;
+}
+
 a:visited {
-  color: blue;
+  color: $color--blue;
 }
 
-.main h2 {
-  margin-top: 0;
-}
-
-.main {
-  display: flex;
-  gap: $gap;
-  &-column {
-    padding: $gap;
-  }
-  &-divider {
-    width: 2px;
-    background-color: black;
-  }
+h1,
+h2 {
+  color: $color--primary;
 }
 
 .menu {
   display: flex;
   gap: $gap;
+}
+
+.button--full-width {
+  width: 100%;
+}
+
+.mat-primary:is(button):not(.mdc-button--unelevated) {
+  color: $color--primary !important;
 }

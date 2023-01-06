@@ -6,6 +6,9 @@
   margin-top: $gap;
   gap: $gap;
   margin-bottom: $gap;
+  &-manual {
+    width: 212px;
+  }
   &-teams {
     display: flex;
     flex-direction: column;

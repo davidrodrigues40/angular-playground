@@ -18,21 +18,21 @@
                        (addRuns)="addRuns(teamType.away, $event)"></app-scorecard>
       </div>
     </div>
+    <button mat-flat-button
+            color="warn"
+            class="button--full-width"
+            (click)="resetScore()">Reset Score</button>
   </div>
-  <div>
+  <div class="scoreboard-manual">
+    <h2>Enter Game Score</h2>
     <ng-container *ngIf="manualScore; else manualButton">
-      <h2>Enter Game Score</h2>
       <app-enter-score (enterScore)="enterGameScore($event)"></app-enter-score>
     </ng-container>
     <ng-template #manualButton>
       <button mat-flat-button
               color="warn"
+              class="button--full-width"
               (click)="manualScore = !manualScore">Manual Score</button>
     </ng-template>
   </div>
-</div>
-<div>
-  <button mat-flat-button
-          color="warn"
-          (click)="resetScore()">Reset Score</button>
 </div>

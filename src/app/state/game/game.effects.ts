@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { mergeMap, map, switchMap } from "rxjs";
+import { mergeMap, map, switchMap, filter } from "rxjs";
 import { ScoreService } from "src/app/services/score/score.service";
-import * as fromActions from './game.actions';
+import * as actions from './game.actions';
 
 @Injectable()
 export class GameEffects {
@@ -10,49 +10,51 @@ export class GameEffects {
     private readonly _service: ScoreService) { }
 
   getGame$ = createEffect(() => this._actions$.pipe(
-    ofType(fromActions.GameActions.getScore),
+    ofType(actions.GameActions.getScore),
     mergeMap(() =>
       this._service.getScore$()
         .pipe(
-          map(game => fromActions.GameActions.getScoreSuccess({ payload: game }))
+          map(game => actions.GameActions.getScoreSuccess({ payload: game }))
         )
     )
   ));
 
   addRunsToHome$ = createEffect(() => this._actions$.pipe(
-    ofType(fromActions.GameActions.addRunsToHome),
+    ofType(actions.GameActions.addRunsToHome),
     map(action => action.payload),
+    filter(runs => !isNaN(runs)),
     switchMap(runs => this._service.addRunsToHome$(runs)
       .pipe(
-        map(runs => fromActions.GameActions.addRunsToHomeSuccess({ payload: runs }))
+        map(runs => actions.GameActions.addRunsToHomeSuccess({ payload: runs }))
       )
     )
   ));
 
   addRunsToAway$ = createEffect(() => this._actions$.pipe(
-    ofType(fromActions.GameActions.addRunsToAway),
+    ofType(actions.GameActions.addRunsToAway),
     map(action => action.payload),
+    filter(runs => !isNaN(runs)),
     switchMap(runs => this._service.addRunsToAway$(runs)
       .pipe(
-        map(runs => fromActions.GameActions.addRunsToAwaySuccess({ payload: runs }))
+        map(runs => actions.GameActions.addRunsToAwaySuccess({ payload: runs }))
       )
     )
   ));
 
   resetScore$ = createEffect(() => this._actions$.pipe(
-    ofType(fromActions.GameActions.resetScore),
+    ofType(actions.GameActions.resetScore),
     switchMap(_ => this._service.resetScore$()
       .pipe(
-        map(_ => fromActions.GameActions.resetScoreSuccess())
+        map(_ => actions.GameActions.resetScoreSuccess())
       ))
   ));
 
   setScores$ = createEffect(() => this._actions$.pipe(
-    ofType(fromActions.GameActions.setScores),
+    ofType(actions.GameActions.setScores),
     map(action => action.payload),
     switchMap(game => this._service.setScores$(game)
       .pipe(
-        map(game => fromActions.GameActions.setScoresSuccess({ payload: game }))
+        map(game => actions.GameActions.setScoresSuccess({ payload: game }))
       ))
   ));
 }

@@ -1,6 +1,6 @@
 <div class="row">
   <mat-form-field>
-    <mat-label>Home: </mat-label>
+    <mat-label>Home</mat-label>
     <input matInput
            placeholder="Enter Home Score"
            type="number"
@@ -9,7 +9,7 @@
 </div>
 <div class="row">
   <mat-form-field>
-    <mat-label>Away: </mat-label>
+    <mat-label>Away</mat-label>
     <input matInput
            placeholder="Enter Away Score"
            type="number"
@@ -19,5 +19,6 @@
 <div class="row">
   <button mat-flat-button
           color="warn"
+          class="button--full-width"
           (click)="enterScore.emit({ home: homeScore, away: awayScore })">Enter Score</button>
 </div>

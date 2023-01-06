@@ -13,6 +13,7 @@ import { BooksModule } from './books/books.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './state/app.reducers';
+import { EmptyDataComponent } from './common-components/empty-data/empty-data.component';
 
 export const routes: Routes = [
   {

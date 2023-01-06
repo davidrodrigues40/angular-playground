@@ -13,6 +13,9 @@
                          [books]="collection$ | async"
                          (remove)="onRemove($event)">
     </app-book-collection>
-    <button (click)="onClear()">Clear Collection</button>
+    <button mat-flat-button
+            color="warn"
+            style="width: 100%"
+            (click)="onClear()">Clear Collection</button>
   </div>
 </div>

@@ -1,11 +1,14 @@
+@import "../../../../assets/styles/variables";
+
 div {
   padding: 10px;
 }
 span {
   margin: 0 10px 0 2px;
 }
-p {
-  display: inline-block;
-  font-style: italic;
-  margin: 0;
+
+.book-item {
+  display: flex;
+  gap: $gap;
+  align-items: center;
 }
