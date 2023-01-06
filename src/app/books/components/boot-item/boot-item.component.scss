@@ -1,0 +1,13 @@
+@import "../../../../assets/styles/variables";
+$margin: 5px;
+
+p {
+  font-style: italic;
+  margin: 0;
+  color: $color--yellow;
+  margin-bottom: $margin;
+}
+
+.book-item {
+  margin-bottom: $margin;
+}

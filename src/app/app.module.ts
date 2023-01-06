@@ -13,7 +13,7 @@ import { BooksModule } from './books/books.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './state/app.reducers';
-import { BookEffects } from './state/books/books.effects';
+import { EmptyDataComponent } from './common-components/empty-data/empty-data.component';
 
 export const routes: Routes = [
   {
@@ -34,7 +34,7 @@ export const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([BookEffects]),
+    EffectsModule.forRoot(),
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,

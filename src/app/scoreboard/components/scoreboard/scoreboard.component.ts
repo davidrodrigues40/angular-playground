@@ -1,46 +1,48 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { TeamType } from 'src/app/enums/scorecard-enums';
-import { ScoreService } from 'src/app/services/score/score.service';
+import { GameState } from 'src/app/state/app.state';
 import { Game } from 'src/app/state/game/game.model';
 import { ScorecardComponent } from '../scorecard/scorecard.component';
+import * as selectors from '../../../state/game/game.selectors';
+import * as actions from '../../../state/game/game.actions';
 
 @Component({
   selector: 'app-scoreboard',
   templateUrl: './scoreboard.component.html',
   styleUrls: ['./scoreboard.component.scss']
 })
-export class ScoreboardComponent {
+export class ScoreboardComponent implements OnInit {
   @ViewChild('homeCard') homeCard!: ScorecardComponent;
   @ViewChild('awayCard') awayCard!: ScorecardComponent;
 
   public teamType = TeamType;
   public manualScore: boolean = false;
+  public home$: Observable<number> = this._state.select(selectors.getHomeScore);
+  public away$: Observable<number> = this._state.select(selectors.getAwayScore);
 
-  constructor(private readonly _scoreService: ScoreService) { }
+  constructor(private readonly _state: Store<GameState>) { }
 
-  public get homeScore$(): Observable<number> {
-    return this._scoreService.homeScore$;
-  };
-
-  public get awayScore$(): Observable<number> {
-    return this._scoreService.awayScore$;
-  };
+  ngOnInit(): void {
+    this._state.dispatch(actions.GameActions.getScore());
+  }
 
   public resetScore(): void {
-    this._scoreService.resetRuns();
     this.homeCard.runsToAdd = null;
     this.awayCard.runsToAdd = null;
+    this._state.dispatch(actions.GameActions.resetScore());
   }
 
   public addRuns(team: TeamType, runs: number): void {
-    if (runs)
-      this._scoreService.addRunsToTeam(team, runs);
+    if (team === TeamType.home)
+      this._state.dispatch(actions.GameActions.addRunsToHome({ payload: runs }));
+    else
+      this._state.dispatch(actions.GameActions.addRunsToAway({ payload: runs }));
   }
 
   public enterGameScore(game: Game): void {
-    if (game.away && game.home)
-      this._scoreService.setScore(game.home, game.away);
+    this._state.dispatch(actions.GameActions.setScores({ payload: game }));
 
     this.manualScore = false;
   }

@@ -9,6 +9,13 @@
   <div class="main-divider">&nbsp;</div>
   <div class="main-column">
     <h2>My Collection</h2>
-
+    <app-book-collection class="book-collection"
+                         [books]="collection$ | async"
+                         (remove)="onRemove($event)">
+    </app-book-collection>
+    <button mat-flat-button
+            color="warn"
+            style="width: 100%"
+            (click)="onClear()">Clear Collection</button>
   </div>
 </div>
