@@ -11,7 +11,7 @@ export const bookActions = createActionGroup({
 });
 
 export const collectionActions = createActionGroup({
-  source: '[COLLECTIONS]',
+  source: 'COLLECTIONS',
   events: {
     'Get All': emptyProps(),
     'Get All Success': props<{ payload: ReadonlyArray<Book> }>(),
