@@ -1,4 +1,4 @@
-import { Book } from './books/books.model';
+import { Book } from './books/models/books.model';
 import { ChuckNorrisFact } from './chuck-norris/models/chuck-norris-fact';
 import { FactCategory } from './chuck-norris/models/fact-category';
 import { Game } from './game/game.model';

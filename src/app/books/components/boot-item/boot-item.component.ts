@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Book } from 'src/app/state/books/books.model';
+import { Book } from 'src/app/state/books/models/books.model';
 
 @Component({
   selector: 'app-boot-item',

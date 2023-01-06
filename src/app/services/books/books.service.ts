@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, map } from 'rxjs';
-import { Book } from '../../state/books/books.model';
+import { Book } from '../../state/books/models/books.model';
 
 @Injectable({ providedIn: 'root' })
 export class GoogleBooksService {

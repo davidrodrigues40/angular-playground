@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BooksState } from 'src/app/state/app.state';
-import { Book } from 'src/app/state/books/books.model';
+import { Book } from 'src/app/state/books/models/books.model';
 import * as selectors from '../../../state/books/books.selectors';
 import * as actions from '../../../state/books/books.actions';
 
