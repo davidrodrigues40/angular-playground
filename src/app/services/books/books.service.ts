@@ -8,7 +8,7 @@ import { Book } from '../../state/books/books.model';
 export class GoogleBooksService {
   private _books: Book[] = [];
 
-  constructor(private http: HttpClient, private store: Store) { }
+  constructor(private http: HttpClient) { }
 
   getBooks(): void {
     this.getBooks$();

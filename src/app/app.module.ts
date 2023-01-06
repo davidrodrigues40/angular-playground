@@ -13,7 +13,8 @@ import { BooksModule } from './books/books.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './state/app.reducers';
-import { EmptyDataComponent } from './common-components/empty-data/empty-data.component';
+import { FactGeneratorComponent } from './chuck-norris-fact/components/fact-generator/fact-generator.component';
+import { ChuckNorrisFactModule } from './chuck-norris-fact/chuck-norris-fact.module';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,10 @@ export const routes: Routes = [
   {
     path: 'scoreboard',
     component: ScoreboardComponent
+  },
+  {
+    path: 'facts',
+    component: FactGeneratorComponent
   },
   {
     path: '**',
@@ -40,7 +45,8 @@ export const routes: Routes = [
     HttpClientModule,
     FormsModule,
     BooksModule,
-    ScoreboardModule
+    ScoreboardModule,
+    ChuckNorrisFactModule
   ],
   declarations: [AppComponent, LoginPageComponent],
   bootstrap: [AppComponent],

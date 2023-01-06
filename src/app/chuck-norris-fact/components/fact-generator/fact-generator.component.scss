@@ -1,0 +1,11 @@
+@import "src/assets/styles/variables";
+
+.generator {
+  display: flex;
+  gap: $gap;
+  &-column {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+  }
+}
