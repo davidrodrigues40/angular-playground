@@ -24,10 +24,13 @@ When the ofType action is dispatched/called the appropriate action is performed 
 Selectors are ways of retrieving data from the state.
 
 # Steps to create a feature using an API.
+1. Create model.
 1. Create the service and needed methods.
 1. Create the actions for all the methods.
-1. Create the reducers to handle the responses of the API actions.
-1. Create the effects to handle the request of the API actions.
-1. Create the selectors to handle retrieving the data from the state.
-1. Add the reducers to the StoreModule.
-1. Add the EffectsModule for feature in the features module.
+1. Create the model state in the app.state.ts
+3. Create the reducers to handle the responses of the API actions.
+4. Add model state and reducer to app.reducers.ts.
+5. Create the effects to handle the request of the API actions.
+6. Create the selectors to handle retrieving the data from the state.
+7. Add the reducers to the StoreModule in app.module.ts.
+8. Add the EffectsModule for feature in the features module.
