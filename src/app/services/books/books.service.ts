@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable, of, map } from 'rxjs';
 import { Book } from '../../state/books/books.model';
 
@@ -8,7 +7,7 @@ import { Book } from '../../state/books/books.model';
 export class GoogleBooksService {
   private _books: Book[] = [];
 
-  constructor(private http: HttpClient, private store: Store) { }
+  constructor(private http: HttpClient) { }
 
   getBooks(): void {
     this.getBooks$();

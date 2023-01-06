@@ -20,7 +20,6 @@ const _collectionReducer = createReducer(
     return { books: [..._state.books, payload], message: 'Success' };
   }),
   on(fromActions.collectionActions.removeBookSuccess, (_state, { payload }) => {
-    console.log('payload', payload);
     return { books: _state.books.filter(book => book.id !== payload.id), message: 'Success' };
   }),
   on(fromActions.collectionActions.clearCollectionSuccess, (_state) => {

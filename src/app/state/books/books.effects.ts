@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, EMPTY, map, tap, mergeMap, switchMap, of } from "rxjs";
+import { catchError, EMPTY, map, mergeMap, switchMap, of } from "rxjs";
 import { GoogleBooksService } from "src/app/services/books/books.service";
 import * as fromActions from './books.actions';
 
@@ -31,7 +31,6 @@ export class CollectionEffects {
     mergeMap(() =>
       this._service.getCollection$()
         .pipe(
-          tap(books => console.log('books', books)),
           map(books => fromActions.collectionActions.getAllSuccess({ payload: books })),
           catchError(() => EMPTY)
         )
@@ -54,7 +53,6 @@ export class CollectionEffects {
     switchMap(id =>
       this._service.removeBook$(id)
         .pipe(
-          tap(response => console.log('response', response)),
           map(response => fromActions.collectionActions.removeBookSuccess({ payload: response })))
     )
   ));
