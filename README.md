@@ -29,3 +29,5 @@ Selectors are ways of retrieving data from the state.
 3. Create the reducers to handle the responses of the API actions.
 4. Create the effects to handle the request of the API actions.
 5. Create the selectors to handle retrieving the data from the state.
+6. Add the reducers to the StoreModule.
+7. Add the EffectsModule for feature in the features module.
