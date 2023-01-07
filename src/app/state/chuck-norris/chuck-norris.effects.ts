@@ -32,11 +32,16 @@ export class ChuckNorrisEffects {
   ));
 
   getCategories$ = createEffect(() => this._actions$.pipe(
-    ofType(actions.catetoryActions.getAll),
+    ofType(actions.categoryActions.getAll),
     mergeMap(() =>
       this._service.getCategories$()
         .pipe(
-          map(categories => actions.catetoryActions.getAllSuccess({ payload: categories }))
+          map(categories => actions.categoryActions.getAllSuccess({ payload: categories }))
         ))
+  ));
+
+  categorySelected$ = createEffect(() => this._actions$.pipe(
+    ofType(actions.categoryActions.categorySelected),
+    map(action => actions.categoryActions.catetorySelectedSuccess(action))
   ));
 }

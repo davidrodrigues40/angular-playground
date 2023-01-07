@@ -11,5 +11,6 @@ export const reducers: ActionReducerMap<AppState> = {
   gameState: gameReducers.gameReducer,
   chuckNorrisFactState: factReducers.factReducer,
   categoriesState: factReducers.categoryReducer,
-  menuState: menuReducers.menuReducer
+  menuState: menuReducers.menuReducer,
+  selectedCategoryState: factReducers.selectedCategoryReducer
 }

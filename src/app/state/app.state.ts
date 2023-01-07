@@ -11,6 +11,7 @@ export interface AppState {
   chuckNorrisFactState: ChuckNorrisFactState;
   categoriesState: CategoriesState;
   menuState: MenuState;
+  selectedCategoryState: SelectedCategoryState;
 }
 
 export interface BooksState {
@@ -37,4 +38,8 @@ export interface CategoriesState {
 
 export interface MenuState {
   items: ReadonlyArray<MenuItem>
+}
+
+export interface SelectedCategoryState {
+  value: Readonly<FactCategory>
 }

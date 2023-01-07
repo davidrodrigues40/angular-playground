@@ -4,8 +4,7 @@
     <app-fact [fact]="fact$ | async"></app-fact>
 
     <h2>Catgories</h2>
-    <app-fact-categories [options]="categories$ | async"
-                         (selectionChange)="categoryChange($event)"></app-fact-categories>
+    <app-fact-categories [options]="categories$ | async"></app-fact-categories>
     <div>
       <button mat-flat-button
               color="primary"

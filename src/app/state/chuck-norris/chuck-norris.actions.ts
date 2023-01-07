@@ -12,10 +12,12 @@ export const factActions = createActionGroup({
   }
 });
 
-export const catetoryActions = createActionGroup({
+export const categoryActions = createActionGroup({
   source: 'CATEGORIES',
   events: {
     'Get All': emptyProps(),
-    'Get All Success': props<{ payload: ReadonlyArray<FactCategory> }>()
+    'Get All Success': props<{ payload: ReadonlyArray<FactCategory> }>(),
+    'Category Selected': props<{ payload: Readonly<FactCategory> }>(),
+    'Catetory Selected Success': props<{ payload: FactCategory }>()
   }
 })
