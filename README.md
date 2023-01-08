@@ -11,7 +11,8 @@ All services should be written prior to writing the state.
 
 ## State
 The state of all objects is stored in the state folder under the associated object state.<br>
-_i.e. app 
+_i.e. <br>
+app 
 &nbsp;&nbsp;&nbsp;-> state <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> books <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> facts <br>
