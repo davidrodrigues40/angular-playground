@@ -12,10 +12,10 @@ All services should be written prior to writing the state.
 ## State
 The state of all objects is stored in the state folder under the associated object state.<br>
 _i.e. app 
-&ngsp;&ngsp;&ngsp;-> state <br>
-&ngsp;&ngsp;&ngsp;&ngsp;&ngsp;&ngsp;-> books <br>
-&ngsp;&ngsp;&ngsp;&ngsp;&ngsp;&ngsp;-> facts <br>
-&ngsp;&ngsp;&ngsp;&ngsp;&ngsp;&ngsp;-> game <br>
+&nbsp;&nbsp;&nbsp;-> state <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> books <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> facts <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> game <br>
 
 ### Actions
 Actions are all the events which will occur for a specific scope.<br>
