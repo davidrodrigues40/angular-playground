@@ -8,6 +8,6 @@ import { Game } from 'src/app/state/game/game.model';
 })
 export class EnterScoreComponent {
   @Output() enterScore: EventEmitter<Game> = new EventEmitter<Game>();
-  public homeScore: number;
-  public awayScore: number;
+  public homeScore: number = 0;
+  public awayScore: number = 0;
 }

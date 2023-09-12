@@ -1,0 +1,36 @@
+<div class="alley">
+    <h2>Welcome to Virtual Lanes</h2>
+
+    <div class="add-player">
+        <mat-form-field>
+            <mat-label>Player</mat-label>
+            <input matInput
+                   placeholder="Bowler Full Name"
+                   [(ngModel)]="playerName" />
+        </mat-form-field>
+        <button mat-raised-button
+                color="accent"
+                (click)="addPlayer()">
+            <mat-icon>add</mat-icon>
+            <label>Add Player</label>
+        </button>
+    </div>
+
+    <div class="players">
+        <div *ngFor="let player of players$ | async">
+            <app-player [player]="player"
+                        [score]="(getScore$(player.name) | async)!"
+                        (removePlayer)="removePlayer($event)"></app-player>
+        </div>
+        <button mat-raised-button
+                color="primary"
+                (click)="startGame()"
+                [disabled]="(players$ | async)!.length < 1">
+            <mat-icon>play_arrow</mat-icon>
+            <label>Start Game</label>
+        </button>
+    </div>
+    <div>
+        Winner: {{(game$ | async)!.winner.name}}
+    </div>
+</div>

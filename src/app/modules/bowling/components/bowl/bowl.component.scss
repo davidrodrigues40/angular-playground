@@ -1,0 +1,18 @@
+@import 'src/assets/styles/variables';
+
+.alley {
+    display: flex;
+    gap: $gap;
+    flex-direction: column;
+}
+
+.bowlers {
+    display: flex;
+}
+
+.players {
+    display: flex;
+    gap: $gap;
+    align-items: center;
+    justify-content: space-between;
+}

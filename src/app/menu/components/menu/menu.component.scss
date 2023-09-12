@@ -1,5 +1,6 @@
 @import "src/assets/styles/variables";
+
 .menu {
   display: flex;
-  padding: $gap;
+  padding: $gap * 0.5;
 }

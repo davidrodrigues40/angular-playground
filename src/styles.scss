@@ -8,6 +8,7 @@
 body {
   background-color: $color--dark;
   color: $color--white;
+  height: 100vh;
 }
 
 a,
@@ -22,7 +23,7 @@ h2 {
 
 .menu {
   display: flex;
-  gap: $gap;
+  gap: $gap * 0.5;
 }
 
 .button--full-width {
@@ -31,4 +32,13 @@ h2 {
 
 .mat-primary:is(button):not(.mdc-button--unelevated) {
   color: $color--primary !important;
+}
+
+.content {
+  padding: $gap;
+  background-color: lighten($color--dark, 10%);
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  align-items: stretch;
 }

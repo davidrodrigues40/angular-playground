@@ -7,5 +7,11 @@ import { Book } from 'src/app/state/books/models/books.model';
   styleUrls: ['./boot-item.component.scss']
 })
 export class BootItemComponent {
-  @Input() book: Book;
+  @Input() book: Book = {
+    id: '',
+    volumeInfo: {
+      title: '',
+      authors: []
+    }
+  };
 }

@@ -7,5 +7,10 @@ import { ChuckNorrisFact } from 'src/app/state/chuck-norris/models/chuck-norris-
   styleUrls: ['./fact.component.scss']
 })
 export class FactComponent {
-  @Input() fact: ChuckNorrisFact;
+  @Input() fact: ChuckNorrisFact = {
+    icon_url: '',
+    id: '',
+    url: '',
+    value: ''
+  };
 }

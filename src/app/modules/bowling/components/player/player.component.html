@@ -1,0 +1,11 @@
+<div class="player-container">
+    <div class="player">
+        <div>
+            <label>Player {{player.number}}: {{player.name}}</label>
+        </div><mat-icon color="warn"
+                  (click)="removePlayer.emit(player.number)">delete</mat-icon>
+    </div>
+    <div>
+        Score: {{score}}
+    </div>
+</div>

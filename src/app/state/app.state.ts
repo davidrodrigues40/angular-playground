@@ -1,4 +1,6 @@
 import { Book } from './books/models/books.model';
+import { BowlingGame } from './bowling/models/bowling-game.model';
+import { Player } from './bowling/models/player.model';
 import { ChuckNorrisFact } from './chuck-norris/models/chuck-norris-fact';
 import { FactCategory } from './chuck-norris/models/fact-category';
 import { Game } from './game/game.model';
@@ -12,6 +14,7 @@ export interface AppState {
   categoriesState: CategoriesState;
   menuState: MenuState;
   selectedCategoryState: SelectedCategoryState;
+  bowlingState: BowlingState;
 }
 
 export interface BooksState {
@@ -42,4 +45,9 @@ export interface MenuState {
 
 export interface SelectedCategoryState {
   value: Readonly<FactCategory>
+}
+
+export interface BowlingState {
+  players: ReadonlyArray<Player>;
+  game: Readonly<BowlingGame>;
 }

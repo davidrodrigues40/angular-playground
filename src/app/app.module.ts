@@ -16,6 +16,7 @@ import { reducers } from './state/app.reducers';
 import { FactGeneratorComponent } from './chuck-norris-fact/components/fact-generator/fact-generator.component';
 import { ChuckNorrisFactModule } from './chuck-norris-fact/chuck-norris-fact.module';
 import { MenuModule } from './menu/menu.module';
+import { BowlComponent } from './modules/bowling/components/bowl/bowl.component';
 
 export const routes: Routes = [
   {
@@ -29,6 +30,11 @@ export const routes: Routes = [
   {
     path: 'facts',
     component: FactGeneratorComponent
+  },
+  {
+    path: 'bowling',
+    component: BowlComponent,
+    loadChildren: () => import('./modules/bowling/bowling.module').then(m => m.BowlingModule)
   },
   {
     path: '**',

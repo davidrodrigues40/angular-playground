@@ -8,7 +8,7 @@ import { MenuItem } from 'src/app/state/menu/models/menu-item';
 export class MenuService {
 
   getAll$(): Observable<MenuItem[]> {
-    const arr: string[] = ['Books', 'Scoreboard', 'Facts'];
+    const arr: string[] = ['Books', 'Scoreboard', 'Facts', 'Bowling'];
     const items: MenuItem[] = arr.map(a => { return { value: a, route: a.toLowerCase() }; });
 
     return of(items);
