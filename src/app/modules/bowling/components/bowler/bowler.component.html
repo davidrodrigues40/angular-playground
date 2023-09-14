@@ -1,0 +1,21 @@
+<div class="scorecard">
+    <div class="player">
+        <h2>{{bowler.name}}</h2>
+    </div>
+    <div *ngFor="let frame of frames()"
+         class="frame">
+        <div class="frame-rolls">
+            <div *ngFor="let role of roles(frame)"
+                 class="frame-ball">
+                <div>{{role}}</div>
+            </div>
+        </div>
+        <div class="frame-score">{{frame.score}}</div>
+    </div>
+    <div class="frame">
+        <div class="frame-rolls">&nbsp;</div>
+        <div class="frame-score">
+            {{bowler.score}}
+        </div>
+    </div>
+</div>

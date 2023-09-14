@@ -1,0 +1,40 @@
+@import 'src/assets/styles/variables';
+
+.scorecard {
+    display: flex;
+}
+
+.player,
+.frame,
+.frame-ball {
+    border: 1px solid yellow;
+}
+
+.player {
+    padding: $gap * 0.25;
+}
+
+.frame {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: space-between;
+    width: $gap * 3;
+    text-align: center;
+
+    &-rolls {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+    }
+
+    &-score {
+        padding: $gap;
+    }
+
+    &-ball {
+        padding: 1px;
+        width: 15px;
+        text-align: center;
+    }
+}

@@ -6,6 +6,7 @@ import * as actions from 'src/app/state/bowling/bowling.actions';
 import * as selectors from 'src/app/state/bowling/bowling.selectors';
 import { BowlingGame } from 'src/app/state/bowling/models/bowling-game.model';
 import { Player } from 'src/app/state/bowling/models/player.model';
+import { Scorecard } from 'src/app/state/bowling/models/scorecard.model';
 
 @Component({
   selector: 'app-bowl',
@@ -30,15 +31,34 @@ export class BowlComponent {
     this._store.dispatch(actions.BowlingActions.removePlayer({ payload: playerNumber }));
   }
 
-  startGame() {
+  playGame() {
     this._store.select(selectors.getPlayers)
       .pipe(first())
       .subscribe(players => this._store.dispatch(actions.BowlingActions.bowl({ payload: players })));
   }
 
   getScore$(playerName: string): Observable<number | undefined> {
+    return this._store.select(selectors.getScore(playerName));
+  }
+
+  keypressed(event: KeyboardEvent) {
+    if (event.key === 'Enter')
+      if (this.playerName.length > 0 && this.playerName !== 'clear')
+        this.addPlayer();
+      else if (this.playerName === 'clear')
+        this.newGame();
+      else
+        this.playGame();
+  }
+
+  getWinner$(): Observable<Scorecard | undefined> {
     return this.game$
       .pipe(
-        map(game => game.bowlers.find(b => b.name === playerName)?.score))
+        map(game => game.winner))
+  }
+
+  newGame() {
+    this.playerName = '';
+    this._store.dispatch(actions.BowlingActions.newGame());
   }
 }

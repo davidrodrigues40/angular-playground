@@ -18,3 +18,8 @@ export const getWinner = createSelector(
   bowlingState,
   (state: BowlingState) => state.game.winner
 );
+
+export const getScore = (name: string) => createSelector(
+  bowlingState,
+  (state: BowlingState) => state.game.bowlers.find(b => b.name === name)?.score
+);

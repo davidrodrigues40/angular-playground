@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable, first, map } from 'rxjs';
 import { ChuckNorrisFactState, SelectedCategoryState } from 'src/app/state/app.state';
-import * as selectors from 'src/app/state/chuck-norris/chuck-norris.selectors';
 import * as actions from 'src/app/state/chuck-norris/chuck-norris.actions';
+import * as selectors from 'src/app/state/chuck-norris/chuck-norris.selectors';
 import { ChuckNorrisFact } from 'src/app/state/chuck-norris/models/chuck-norris-fact';
-import { first, map, Observable } from 'rxjs';
 import { FactCategory } from 'src/app/state/chuck-norris/models/fact-category';
-import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-fact-generator',

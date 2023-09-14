@@ -1,6 +1,6 @@
-<ng-component *ngIf="fact.value; else empty">
+<ng-container *ngIf="fact.value; else empty">
   <p>{{fact.value}}</p>
-</ng-component>
+</ng-container>
 <ng-template #empty>
   <p>
     <app-empty-data [dataName]="'fact'"></app-empty-data>

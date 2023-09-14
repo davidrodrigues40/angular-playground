@@ -1,5 +1,12 @@
 @import 'src/assets/styles/variables';
 
+.add-player {
+    display: flex;
+    gap: $gap;
+    align-items: center;
+    margin-bottom: $gap;
+}
+
 .alley {
     display: flex;
     gap: $gap;
@@ -7,12 +14,23 @@
 }
 
 .bowlers {
-    display: flex;
+    padding: $gap;
 }
 
-.players {
+.game {
     display: flex;
     gap: $gap;
     align-items: center;
     justify-content: space-between;
+
+    &-controls {
+        display: flex;
+        gap: $gap;
+        align-items: center;
+    }
+}
+
+.players {
+    display: flex;
+    align-items: center;
 }
