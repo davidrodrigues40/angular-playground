@@ -1,4 +1,4 @@
-@import "../../../../assets/styles/variables";
+@import "src/assets/styles/variables";
 
 .scoreboard {
   display: flex;
@@ -6,14 +6,17 @@
   margin-top: $gap;
   gap: $gap;
   margin-bottom: $gap;
+
   &-manual {
     width: 212px;
   }
+
   &-teams {
     display: flex;
     flex-direction: column;
   }
-  &-team > app-scorecard {
+
+  &-team>app-scorecard {
     display: flex;
     align-items: center;
     gap: $gap;

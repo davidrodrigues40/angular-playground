@@ -1,26 +1,17 @@
-@import 'src/assets/styles/variables';
+@import 'src/assets/styles/variables.scss';
 
-.scorecard {
-    display: flex;
-}
-
-.player,
 .frame,
 .frame-ball {
     border: 1px solid yellow;
-}
-
-.player {
-    padding: $gap * 0.25;
 }
 
 .frame {
     display: flex;
     flex-direction: column;
     justify-content: right;
-    align-items: space-between;
-    width: $gap * 3;
+    width: $frame-width;
     text-align: center;
+    align-items: stretch;
 
     &-rolls {
         display: flex;

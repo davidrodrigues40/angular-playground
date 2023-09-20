@@ -1,0 +1,37 @@
+<section>
+    <div>
+        <div *ngIf="players.length > 0"
+             class="game">
+            <div class="players">
+                <div *ngFor="let player of players">
+                    <app-player [player]="player"
+                                [rating]="(getRating(player.rating))"
+                                (removePlayer)="removePlayer.emit($event)"></app-player>
+                </div>
+            </div>
+            <div class="game-controls">
+                <button mat-raised-button
+                        color="primary"
+                        (click)="playGame.emit()"
+                        [disabled]="disablePlayGame">
+                    <mat-icon>play_arrow</mat-icon>
+                    <label>Play Game</label>
+                </button>
+                <button mat-stroked-button
+                        color="accent"
+                        (click)="newGame.emit()"
+                        [disabled]="newGameDisabled">
+                    <mat-icon>clear</mat-icon>
+                    <label>New Game</label>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="game">
+            <h1>Winner: {{game.winner.name}} with a score of {{game.winner.score}}</h1>
+            <div *ngFor="let bowler of game.bowlers"
+                 class="bowlers">
+                <app-scorecard [bowler]="bowler"></app-scorecard>
+            </div>
+        </div>
+    </div>
+</section>

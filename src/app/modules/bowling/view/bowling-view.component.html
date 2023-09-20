@@ -1,0 +1,18 @@
+<div class="alley">
+    <h2>Welcome to Virtual Lanes</h2>
+
+    <div class="add-player">
+        <app-add-player [ratings]="(ratings$ | async)!"
+                        (addPlayer)="addPlayer($event)"
+                        (newGame)="playGame()"></app-add-player>
+    </div>
+    <div>
+        <app-game [game]="game$ | async"
+                  [ratings]="(ratings$ | async)!"
+                  [players]="(players$ | async)!"
+                  [disablePlayGame]="(players$ | async)!.length === 0"
+                  (removePlayer)="removePlayer($event)"
+                  (newGame)="newGame()"
+                  (playGame)="playGame()"></app-game>
+    </div>
+</div>

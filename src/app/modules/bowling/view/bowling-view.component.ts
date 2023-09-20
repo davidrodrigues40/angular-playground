@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, first, map } from 'rxjs';
 import { BowlingState } from 'src/app/state/app.state';
@@ -6,25 +6,27 @@ import * as actions from 'src/app/state/bowling/bowling.actions';
 import * as selectors from 'src/app/state/bowling/bowling.selectors';
 import { BowlingGame } from 'src/app/state/bowling/models/bowling-game.model';
 import { Player } from 'src/app/state/bowling/models/player.model';
-import { Scorecard } from 'src/app/state/bowling/models/scorecard.model';
+import { BowlerRating } from '../models/bowler-rating.model';
 
 @Component({
   selector: 'app-bowl',
-  templateUrl: './bowl.component.html',
-  styleUrls: ['./bowl.component.scss']
+  templateUrl: './bowling-view.component.html',
+  styleUrls: ['./bowling-view.component.scss']
 })
-export class BowlComponent {
+export class BowlingViewComponent implements OnInit {
   players$: Observable<ReadonlyArray<Player>> = this._store.select(selectors.getPlayers);
-  game$: Observable<Readonly<BowlingGame>> = this._store.select(selectors.getGame);
-
-  playerName: string = '';
+  game$: Observable<Readonly<BowlingGame | undefined>> = this._store.select(selectors.getGame);
+  ratings$: Observable<ReadonlyArray<BowlerRating>> = this._store.select(selectors.getRatings);
 
   constructor(private readonly _store: Store<BowlingState>) {
   }
 
-  addPlayer() {
-    this._store.dispatch(actions.BowlingActions.addPlayer({ payload: this.playerName }));
-    this.playerName = '';
+  ngOnInit() {
+    this._store.dispatch(actions.BowlingActions.getRatings());
+  }
+
+  addPlayer(player: { name: string, rating: number }) {
+    this._store.dispatch(actions.BowlingActions.addPlayer({ payload: { name: player.name, rating: player.rating } }));
   }
 
   removePlayer(playerNumber: number) {
@@ -41,24 +43,11 @@ export class BowlComponent {
     return this._store.select(selectors.getScore(playerName));
   }
 
-  keypressed(event: KeyboardEvent) {
-    if (event.key === 'Enter')
-      if (this.playerName.length > 0 && this.playerName !== 'clear')
-        this.addPlayer();
-      else if (this.playerName === 'clear')
-        this.newGame();
-      else
-        this.playGame();
-  }
-
-  getWinner$(): Observable<Scorecard | undefined> {
-    return this.game$
-      .pipe(
-        map(game => game.winner))
+  getRating$(rating: number): Observable<string> {
+    return this._store.select(selectors.getRating(rating)).pipe(map(rating => rating ? rating.value : 'Beginner'));
   }
 
   newGame() {
-    this.playerName = '';
     this._store.dispatch(actions.BowlingActions.newGame());
   }
 }

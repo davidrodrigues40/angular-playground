@@ -5,20 +5,25 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { EffectsModule } from '@ngrx/effects';
 import { BowlingEffects } from 'src/app/state/bowling/bowling.effects';
 import { BowlingService } from 'src/app/state/bowling/services/bowling.service';
-import { BowlComponent } from './components/bowl/bowl.component';
-import { BowlerComponent } from './components/bowler/bowler.component';
+import { AddPlayerComponent } from './components/add-player/add-player.component';
+import { GameComponent } from './components/game/game.component';
 import { PlayerComponent } from './components/player/player.component';
-
-
+import { BowlerComponent } from './components/scorecard/scorecard.component';
+import { BowlingViewComponent } from './view/bowling-view.component';
+import { FrameComponent } from './components/frame/frame.component';
 
 @NgModule({
   declarations: [
-    BowlComponent,
+    BowlingViewComponent,
     BowlerComponent,
-    PlayerComponent
+    PlayerComponent,
+    AddPlayerComponent,
+    GameComponent,
+    FrameComponent
   ],
   imports: [
     CommonModule,
@@ -26,12 +31,13 @@ import { PlayerComponent } from './components/player/player.component';
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
+    MatSelectModule,
     MatInputModule,
     EffectsModule.forFeature([BowlingEffects]),
   ],
   providers: [BowlingService],
   exports: [
-    BowlComponent
+    BowlingViewComponent
   ]
 })
 export class BowlingModule { }

@@ -4,13 +4,8 @@ import * as actions from './bowling.actions';
 
 export const bowlingState: BowlingState = {
   players: [],
-  game: {
-    bowlers: [],
-    winner: {
-      name: '',
-      score: 0
-    }
-  }
+  game: undefined,
+  ratings: []
 };
 
 const _bowlingReducer = createReducer(
@@ -18,6 +13,7 @@ const _bowlingReducer = createReducer(
   on(actions.BowlingActions.updatePlayersSuccess, (_state, { payload }) => ({ ..._state, players: payload })),
   on(actions.BowlingActions.bowlSuccess, (_state, { payload }) => ({ ..._state, game: payload })),
   on(actions.BowlingActions.newGame, (_state) => ({ ..._state, players: [], game: { bowlers: [], winner: { name: '', score: 0 } } })),
+  on(actions.BowlingActions.getRatingsSuccess, (_state, { payload }) => ({ ..._state, ratings: payload }))
 );
 
 export function bowlingReducer(state: any, action: Action) {

@@ -1,0 +1,15 @@
+<div class="scorecard">
+    <div class="player">
+        <h2>{{bowler.name}}</h2>
+    </div>
+    <div class="frames">
+        <app-frame *ngFor="let frame of frames; index as i;"
+                   [frame]="frame"
+                   [score]="frameScore(frame.score, i)"></app-frame>
+    </div>
+    <div class="score">
+        <div class="frame-score">
+            {{bowler.score}}
+        </div>
+    </div>
+</div>

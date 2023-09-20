@@ -1,0 +1,9 @@
+<div class="frame">
+    <div class="frame-rolls">
+        <div *ngFor="let role of roles(frame)"
+             class="frame-ball">
+            <div>{{role}}</div>
+        </div>
+    </div>
+    <div class="frame-score">{{score}}</div>
+</div>

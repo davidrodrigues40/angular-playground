@@ -3,9 +3,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { TeamType } from 'src/app/enums/scorecard-enums';
 import { GameState } from 'src/app/state/app.state';
+import * as actions from 'src/app/state/game/game.actions';
 import { Game } from 'src/app/state/game/game.model';
-import * as actions from '../../../state/game/game.actions';
-import * as selectors from '../../../state/game/game.selectors';
+import * as selectors from 'src/app/state/game/game.selectors';
 import { ScorecardComponent } from '../scorecard/scorecard.component';
 
 @Component({

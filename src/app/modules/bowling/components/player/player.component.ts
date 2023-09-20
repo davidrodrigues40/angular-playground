@@ -9,10 +9,11 @@ import { Player } from 'src/app/state/bowling/models/player.model';
 export class PlayerComponent {
   @Input() player: Player = {
     number: 0,
-    name: ''
+    name: '',
+    rating: 0
   };
 
-  @Input() score: number = 0;
+  @Input() rating: string = '';
 
   @Output() removePlayer = new EventEmitter<number>();
 }

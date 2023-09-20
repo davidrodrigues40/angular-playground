@@ -1,3 +1,4 @@
+import { BowlerRating } from '../modules/bowling/models/bowler-rating.model';
 import { Book } from './books/models/books.model';
 import { BowlingGame } from './bowling/models/bowling-game.model';
 import { Player } from './bowling/models/player.model';
@@ -49,5 +50,6 @@ export interface SelectedCategoryState {
 
 export interface BowlingState {
   players: ReadonlyArray<Player>;
-  game: Readonly<BowlingGame>;
+  game?: Readonly<BowlingGame>;
+  ratings: ReadonlyArray<BowlerRating>;
 }

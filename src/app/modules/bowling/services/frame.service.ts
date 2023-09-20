@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Frame } from 'src/app/state/bowling/models/frame.model';
 
 @Injectable()
 export class FrameService {
@@ -14,6 +15,15 @@ export class FrameService {
       return [value1, value2, this.caclulateValue1(values[2])];
 
     return [value1, value2];
+  }
+
+  calculateFrameValue(score: number, currentIndex: number, frames: Frame[]) {
+    if (currentIndex === 0)
+      return score;
+
+    var currentScore = frames.filter((frame, index) => index < currentIndex).map(x => x.score).reduce((a, b) => a + b, 0);
+
+    return currentScore + score;
   }
 
   private caclulateValue1(value: number): string {

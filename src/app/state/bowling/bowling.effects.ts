@@ -12,7 +12,7 @@ export class BowlingEffects {
   addPlayer$ = createEffect(() => this._actions$.pipe(
     ofType(actions.BowlingActions.addPlayer),
     mergeMap(action =>
-      this._service.addPlayer$(action.payload)
+      this._service.addPlayer$(action.payload.name, action.payload.rating)
         .pipe(
           map(players => actions.BowlingActions.updatePlayersSuccess({ payload: players }))
         ))
@@ -33,6 +33,15 @@ export class BowlingEffects {
       this._service.bowl$(action.payload)
         .pipe(
           map(game => actions.BowlingActions.bowlSuccess({ payload: game }))
+        ))
+  ));
+
+  getRatings$ = createEffect(() => this._actions$.pipe(
+    ofType(actions.BowlingActions.getRatings),
+    mergeMap(() =>
+      this._service.getRatings$()
+        .pipe(
+          map(ratings => actions.BowlingActions.getRatingsSuccess({ payload: ratings }))
         ))
   ));
 }

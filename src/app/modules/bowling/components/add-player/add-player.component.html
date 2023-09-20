@@ -1,0 +1,22 @@
+<section>
+    <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Player</mat-label>
+        <input matInput
+               placeholder="Bowler Full Name"
+               (keypress)="keypressed($event)"
+               [(ngModel)]="playerName" />
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Rating</mat-label>
+        <mat-select [(value)]="playerRating">
+            <mat-option *ngFor="let rating of ratings"
+                        [value]="rating.key">{{rating.value}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-raised-button
+            color="accent"
+            (click)="add()">
+        <mat-icon>add</mat-icon>
+        <label>Add Player</label>
+    </button>
+</section>
