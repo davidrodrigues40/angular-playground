@@ -4,15 +4,14 @@ import { map, Observable } from 'rxjs';
 import { ChuckNorrisFact } from 'src/app/state/chuck-norris/models/chuck-norris-fact';
 import { FactCategory } from 'src/app/state/chuck-norris/models/fact-category';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ChuckNorrisFactsService {
   private readonly _url: string = 'https://api.chucknorris.io/jokes';
 
   constructor(private readonly http: HttpClient) { }
 
   getFact$(): Observable<Readonly<ChuckNorrisFact>> {
+    console.log("getting fact");
     return this.http.get<ChuckNorrisFact>(`${this._url}/random`);
   }
 

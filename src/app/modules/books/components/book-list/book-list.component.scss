@@ -1,0 +1,24 @@
+@import "src/assets/styles/variables";
+
+div {
+  padding: 10px;
+}
+
+span {
+  margin: 0 10px 0 2px;
+}
+
+.book {
+  display: flex;
+  gap: $gap;
+  align-items: center;
+
+  &-list-item {
+    flex-grow: 2;
+  }
+
+  &-action {
+    flex-grow: 1;
+    align-self: flex-start;
+  }
+}

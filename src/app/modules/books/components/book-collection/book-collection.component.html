@@ -1,0 +1,13 @@
+<ng-container *ngIf="books.length > 0; else empty;">
+  <div *ngFor="let book of books"
+       class="book-item">
+    <app-book-item [book]="book"></app-book-item>
+    <button mat-stroked-button
+            color="primary"
+            (click)="remove.emit(book.id)"
+            data-test="remove-button">Remove</button>
+  </div>
+</ng-container>
+<ng-template #empty>
+  <app-empty-data dataName='books'></app-empty-data>
+</ng-template>

@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { CategoriesState, ChuckNorrisFactState, SelectedCategoryState } from "../app.state";
+import { ChuckNorrisFactState } from "../app.state";
 import * as actions from './chuck-norris.actions';
 
 export const factState: ChuckNorrisFactState = {
@@ -8,42 +8,18 @@ export const factState: ChuckNorrisFactState = {
     id: "",
     url: "",
     value: ""
-  }
+  },
+  categories: [],
+  selectedCategory: undefined
 };
-
-export const catetoriesState: CategoriesState = {
-  categories: []
-};
-
-export const selectedCategoryState: SelectedCategoryState = {
-  value: {
-    category: ''
-  }
-}
 
 const _factReducer = createReducer(
   factState,
-  on(actions.factActions.getFactSuccess, (_state, { payload }) => { return { fact: payload }; })
-);
-
-const _categoriesReducer = createReducer(
-  catetoriesState,
-  on(actions.categoryActions.getAllSuccess, (_state, { payload }) => { return { categories: payload }; })
-);
-
-const _selectedCategoryReducer = createReducer(
-  selectedCategoryState,
-  on(actions.categoryActions.catetorySelectedSuccess, (_state, { payload }) => { return { value: payload }; })
+  on(actions.factActions.getFactSuccess, (_state, { payload }) => ({ ..._state, fact: payload })),
+  on(actions.categoryActions.getAllSuccess, (_state, { payload }) => ({ ..._state, categories: payload })),
+  on(actions.categoryActions.catetorySelectedSuccess, (_state, { payload }) => ({ ..._state, selectedCategory: payload }))
 );
 
 export function factReducer(state: any, action: Action) {
   return _factReducer(state, action);
 };
-
-export function categoryReducer(state: any, action: Action) {
-  return _categoriesReducer(state, action);
-};
-
-export function selectedCategoryReducer(state: any, action: Action) {
-  return _selectedCategoryReducer(state, action);
-}

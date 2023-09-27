@@ -4,22 +4,22 @@ import { Observable, map, of } from 'rxjs';
 import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model';
 import { BowlingGame } from 'src/app/state/bowling/models/bowling-game.model';
 import { Player } from 'src/app/state/bowling/models/player.model';
+import { ApiService } from '../api.service';
 
 @Injectable()
-export class BowlingService {
-  #base_url = 'https://localhost:7067';
+export class BowlingService extends ApiService {
   #ratings?: BowlerRating[];
 
-  constructor(private readonly _httpClient: HttpClient,) { }
+  constructor(private readonly _httpClient: HttpClient,) { super(); }
 
   bowl$(players: ReadonlyArray<Player>): Observable<BowlingGame> {
-    return this._httpClient.post<BowlingGame>(`${this.#base_url}/api/game-rated`, players);
+    return this._httpClient.post<BowlingGame>(`${this.base_url}/api/game-rated`, players);
   }
 
   getRatings$(): Observable<BowlerRating[]> {
     if (this.#ratings) return of(this.#ratings);
 
-    return this._httpClient.get<BowlerRating[]>(`${this.#base_url}/api/ratings`, {})
+    return this._httpClient.get<BowlerRating[]>(`${this.base_url}/api/ratings`, {})
       .pipe(map(ratings => this.#ratings = ratings));
   }
 

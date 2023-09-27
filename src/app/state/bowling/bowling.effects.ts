@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { map, mergeMap } from "rxjs";
 import { BowlingService } from "src/app/services/bowling/bowling.service";
 import * as actions from './bowling.actions';
-import { BowlingStateService } from "./services/bowling-state.service";
+import { BowlingStateService } from "./service/bowling-state.service";
 
 @Injectable()
 export class BowlingEffects {

@@ -1,0 +1,27 @@
+<div class="generator">
+  <div class="generator-row">
+    <app-fact-categories [options]="(categories$ | async)!"
+                         (categorySelected)="categorySelected($event)"></app-fact-categories>
+    <div>
+      <button mat-flat-button
+              color="primary"
+              (click)="getFactForCategory()">Get Fact</button>
+    </div>
+  </div>
+  <div class="generator-column">
+    <h2>FACT</h2>
+    <ng-container *ngIf="(fact$ |async)?.value; else nofact">
+      <app-fact [fact]="(fact$ | async)!"></app-fact>
+    </ng-container>
+
+    <ng-template #nofact>
+      <ng-container *ngIf="!(selectedCategory$ | async); else nocategory;">
+        <p>Please select a catetory or get kicked in the head by Chuck Norris!</p>
+        <p>He knows where you live!</p>
+      </ng-container>
+      <ng-template #nocategory>
+        Now select "Get Fact" to see an awesome fact about Chuck Norris!
+      </ng-template>
+    </ng-template>
+  </div>
+</div>

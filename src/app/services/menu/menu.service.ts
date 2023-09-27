@@ -1,16 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { MenuItem } from 'src/app/state/menu/models/menu-item';
+import { ApiService } from '../api.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class MenuService {
+@Injectable()
+export class MenuService extends ApiService {
+
+  constructor(private readonly _httpClient: HttpClient) { super(); }
 
   getAll$(): Observable<MenuItem[]> {
-    const arr: string[] = ['Books', 'Scoreboard', 'Facts', 'Bowling'];
-    const items: MenuItem[] = arr.map(a => { return { value: a, route: a.toLowerCase() }; });
-
-    return of(items);
+    return this._httpClient.get<MenuItem[]>(`${this.base_url}/api/menus`);
   }
 }

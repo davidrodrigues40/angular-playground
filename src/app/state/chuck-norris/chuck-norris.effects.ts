@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, map, mergeMap, of } from "rxjs";
+import { catchError, map, mergeMap, of, tap } from "rxjs";
 import { ChuckNorrisFactsService } from "src/app/services/chuck-norris/chuck-norris-facts.service";
 import * as actions from './chuck-norris.actions';
 

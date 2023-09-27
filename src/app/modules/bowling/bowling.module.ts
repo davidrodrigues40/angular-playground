@@ -9,7 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { EffectsModule } from '@ngrx/effects';
 import { BowlingService } from 'src/app/services/bowling/bowling.service';
 import { BowlingEffects } from 'src/app/state/bowling/bowling.effects';
-import { BowlingStateService } from 'src/app/state/bowling/services/bowling-state.service';
+import { BowlingStateService } from 'src/app/state/bowling/service/bowling-state.service';
 import { AddPlayerComponent } from './components/add-player/add-player.component';
 import { FrameComponent } from './components/frame/frame.component';
 import { GameComponent } from './components/game/game.component';

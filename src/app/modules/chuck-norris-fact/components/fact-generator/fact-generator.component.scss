@@ -1,0 +1,18 @@
+@import "src/assets/styles/variables";
+
+.generator {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+
+  &-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-row {
+    display: flex;
+    gap: $gap;
+    align-items: center;
+  }
+}

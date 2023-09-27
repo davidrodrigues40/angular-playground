@@ -1,0 +1,18 @@
+<ng-container *ngIf="books.length > 0; else empty;">
+  <ng-container *ngFor="let book of books">
+    <div class="book">
+      <div class="book-list-item">
+        <app-book-item [book]="book"></app-book-item>
+      </div>
+      <div class="book-action">
+        <button mat-stroked-button
+                color="accent"
+                (click)="add.emit(book.id)"
+                data-test="add-button">Add to Collection</button>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+<ng-template #empty>
+  <app-empty-data dataName='books'></app-empty-data>
+</ng-template>

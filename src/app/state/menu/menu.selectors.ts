@@ -3,7 +3,7 @@ import { MenuState } from "../app.state";
 
 export const getMenuState = createFeatureSelector<MenuState>('menuState');
 
-export const getFact = createSelector(
+export const getMenu = createSelector(
   getMenuState,
   (state: MenuState) => state.items
 );
