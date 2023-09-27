@@ -1,10 +1,10 @@
 <div class="generator">
   <div class="generator-column">
     <h2>FACT</h2>
-    <app-fact [fact]="fact$ | async"></app-fact>
+    <app-fact [fact]="(fact$ | async)!"></app-fact>
 
     <h2>Catgories</h2>
-    <app-fact-categories [options]="categories$ | async"></app-fact-categories>
+    <app-fact-categories [options]="(categories$ | async)!"></app-fact-categories>
     <div>
       <button mat-flat-button
               color="primary"

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { Book } from '../../state/books/models/books.model';
 
 @Injectable({ providedIn: 'root' })
@@ -37,7 +37,7 @@ export class GoogleBooksService {
   }
 
   clearCollection$(): Observable<void> {
-    return of(null);
+    return of(void 0);
   }
 
   collectionGetApi$(): Observable<Book[]> {
@@ -45,12 +45,12 @@ export class GoogleBooksService {
   }
 
   addBookApi$(bookId: string): Observable<Book> {
-    const found: Book = this._books.find(b => b.id === bookId);
+    const found: Book | undefined = this._books.find(b => b.id === bookId);
 
-    return of(found);
+    return of(found as Book);
   }
 
   removeBookApi$(bookId: string): Observable<Book> {
-    return of(this._books.find(b => b.id === bookId));
+    return of(this._books.find(b => b.id === bookId) as Book);
   }
 }

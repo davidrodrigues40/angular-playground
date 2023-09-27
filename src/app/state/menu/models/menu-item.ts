@@ -1,4 +1,4 @@
 export class MenuItem {
-  value: string;
-  route: string;
+  value: string = '';
+  route: string = '';
 }

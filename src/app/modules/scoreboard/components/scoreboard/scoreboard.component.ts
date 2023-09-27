@@ -3,10 +3,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { TeamType } from 'src/app/enums/scorecard-enums';
 import { GameState } from 'src/app/state/app.state';
+import * as actions from 'src/app/state/game/game.actions';
 import { Game } from 'src/app/state/game/game.model';
+import * as selectors from 'src/app/state/game/game.selectors';
 import { ScorecardComponent } from '../scorecard/scorecard.component';
-import * as selectors from '../../../state/game/game.selectors';
-import * as actions from '../../../state/game/game.actions';
 
 @Component({
   selector: 'app-scoreboard',
@@ -29,8 +29,8 @@ export class ScoreboardComponent implements OnInit {
   }
 
   public resetScore(): void {
-    this.homeCard.runsToAdd = null;
-    this.awayCard.runsToAdd = null;
+    this.homeCard.runsToAdd = 0;
+    this.awayCard.runsToAdd = 0;
     this._state.dispatch(actions.GameActions.resetScore());
   }
 

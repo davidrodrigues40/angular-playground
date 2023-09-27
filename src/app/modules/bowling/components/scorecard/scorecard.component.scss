@@ -1,0 +1,33 @@
+@import 'src/assets/styles/variables';
+
+app-frame {
+    display: flex;
+    align-items: stretch;
+}
+
+.scorecard {
+    display: flex;
+    align-items: stretch;
+}
+
+.player,
+.score {
+    border: 1px solid yellow;
+}
+
+.player {
+    padding: $gap * 0.25;
+    width: $player-width;
+}
+
+.frames {
+    display: flex;
+    align-items: stretch;
+}
+
+.score {
+    width: $frame-width;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

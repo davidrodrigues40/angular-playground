@@ -7,5 +7,8 @@ import { MenuItem } from 'src/app/state/menu/models/menu-item';
   styleUrls: ['./menu-item.component.scss']
 })
 export class MenuItemComponent {
-  @Input() item: MenuItem;
+  @Input() item: MenuItem = {
+    value: '',
+    route: ''
+  };
 }

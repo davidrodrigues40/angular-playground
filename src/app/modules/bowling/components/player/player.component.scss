@@ -1,0 +1,15 @@
+@import 'src/assets/styles/variables';
+
+.player {
+    display: flex;
+    align-items: center;
+    gap: $gap;
+
+    &-container {
+        padding: $gap;
+    }
+}
+
+mat-icon {
+    cursor: pointer;
+}

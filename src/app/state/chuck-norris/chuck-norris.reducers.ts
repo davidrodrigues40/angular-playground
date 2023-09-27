@@ -33,7 +33,7 @@ const _categoriesReducer = createReducer(
 
 const _selectedCategoryReducer = createReducer(
   selectedCategoryState,
-  on(actions.categoryActions.catetorySelectedSuccess, (_state, { payload }) => { console.log('pl', payload); return { value: payload }; })
+  on(actions.categoryActions.catetorySelectedSuccess, (_state, { payload }) => { return { value: payload }; })
 );
 
 export function factReducer(state: any, action: Action) {

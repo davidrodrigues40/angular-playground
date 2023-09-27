@@ -1,0 +1,31 @@
+@import 'src/assets/styles/variables.scss';
+
+.frame,
+.frame-ball {
+    border: 1px solid yellow;
+}
+
+.frame {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    width: $frame-width;
+    text-align: center;
+    align-items: stretch;
+
+    &-rolls {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+    }
+
+    &-score {
+        padding: $gap;
+    }
+
+    &-ball {
+        padding: 1px;
+        width: 15px;
+        text-align: center;
+    }
+}

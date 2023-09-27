@@ -1,0 +1,19 @@
+@import 'src/assets/styles/variables';
+
+.game {
+    display: flex;
+    gap: $gap;
+    align-items: center;
+    justify-content: space-between;
+
+    &-controls {
+        display: flex;
+        gap: $gap;
+        align-items: center;
+    }
+}
+
+.players {
+    display: flex;
+    align-items: center;
+}

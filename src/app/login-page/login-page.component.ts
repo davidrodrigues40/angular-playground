@@ -9,8 +9,8 @@ import { login } from '../state/login/login.actions';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent {
-  public username: string;
-  public password: string;
+  public username: string = '';
+  public password: string = '';
 
   constructor(private readonly _store: Store, private readonly _loginService: LoginService) { }
 
