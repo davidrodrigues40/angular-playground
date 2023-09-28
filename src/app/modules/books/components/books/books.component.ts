@@ -11,23 +11,23 @@ import { BookStateService } from 'src/app/state/books/service/book-state.service
 export class BooksComponent {
   constructor(private readonly _service: BookStateService) { }
 
-  books$: Observable<ReadonlyArray<Book>> = this._service.books$;
-  collection$: Observable<ReadonlyArray<Book>> = this._service.collection$;
+  books$: Observable<ReadonlyArray<Book>> = this._service.observables.books$;
+  collection$: Observable<ReadonlyArray<Book>> = this._service.observables.collection$;
 
   ngOnInit() {
-    this._service.fetchBooks$();
-    this._service.fetchCollections$();
+    this._service.events.fetchBooks().emit();
+    this._service.events.fetchCollections().emit();
   }
 
   onAdd(bookId: string): void {
-    this._service.addBook$(bookId);
+    this._service.events.addBook(bookId).emit();
   }
 
   onRemove(bookId: string): void {
-    this._service.removeBook$(bookId);
+    this._service.events.removeBook(bookId).emit();
   }
 
   onClear(): void {
-    this._service.clearCollection$();
+    this._service.events.clearCollection().emit();
   }
 }

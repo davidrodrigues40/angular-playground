@@ -3,58 +3,58 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model';
 import { BowlingState } from '../../app.state';
+import { Event } from '../../common/event';
 import * as actions from '../bowling.actions';
 import * as selectors from '../bowling.selectors';
 import { BowlingGame } from '../models/bowling-game.model';
 import { Player } from '../models/player.model';
 import { Scorecard } from '../models/scorecard.model';
+import { IStateService } from 'src/app/interfaces/services/state-service.interface';
 
 @Injectable()
-export class BowlingStateService {
+export class BowlingStateService implements IStateService {
 
   constructor(private readonly _store: Store<BowlingState>) { }
 
-  addPlayer(name: string, rating: number, players: ReadonlyArray<Player>): void {
-    this._store.dispatch(actions.BowlingActions.addPlayer({ payload: { name, rating, players } }));
+  events = {
+    _store: this._store,
+    addPlayer(name: string, rating: number, players: ReadonlyArray<Player>): Event<string, Store<BowlingState>> {
+      return new Event(actions.BowlingActions.addPlayer({ payload: { name, rating, players } }), this._store);
+    },
+    removePlayer(id: number, players: ReadonlyArray<Player>): Event<string, Store<BowlingState>> {
+      return new Event(actions.BowlingActions.removePlayer({ payload: { id, players } }), this._store);
+    },
+    bowl(players: ReadonlyArray<Player>): Event<string, Store<BowlingState>> {
+      return new Event(actions.BowlingActions.bowl({ payload: players }), this._store);
+    },
+    getRatings(): Event<string, Store<BowlingState>> {
+      return new Event(actions.BowlingActions.getRatings(), this._store);
+    },
+    newGame(): Event<string, Store<BowlingState>> {
+      return new Event(actions.BowlingActions.newGame(), this._store);
+    }
   }
 
-  removePlayer(id: number, players: ReadonlyArray<Player>): void {
-    this._store.dispatch(actions.BowlingActions.removePlayer({ payload: { id, players } }));
-  }
+  observables = {
+    _store: this._store,
+    get players$(): Observable<ReadonlyArray<Player>> {
+      return this._store.select(selectors.getPlayers);
+    },
+    get game$(): Observable<BowlingGame | undefined> {
+      return this._store.select(selectors.getGame);
+    },
 
-  bowl(players: ReadonlyArray<Player>): void {
-    this._store.dispatch(actions.BowlingActions.bowl({ payload: players }));
-  }
-
-  getRatings(): void {
-    this._store.dispatch(actions.BowlingActions.getRatings());
-  }
-
-  newGame(): void {
-    this._store.dispatch(actions.BowlingActions.newGame());
-  }
-
-  get players$(): Observable<ReadonlyArray<Player>> {
-    return this._store.select(selectors.getPlayers);
-  }
-
-  get game$(): Observable<BowlingGame | undefined> {
-    return this._store.select(selectors.getGame);
-  }
-
-  get winner$(): Observable<Scorecard | undefined> {
-    return this._store.select(selectors.getWinner);
-  }
-
-  get ratings$(): Observable<ReadonlyArray<BowlerRating>> {
-    return this._store.select(selectors.getRatings);
-  }
-
-  getScore$(name: string): Observable<number | undefined> {
-    return this._store.select(selectors.getScore(name));
-  }
-
-  getRating$(ratingKey: number): Observable<BowlerRating | undefined> {
-    return this._store.select(selectors.getRating(ratingKey));
+    get winner$(): Observable<Scorecard | undefined> {
+      return this._store.select(selectors.getWinner);
+    },
+    get ratings$(): Observable<ReadonlyArray<BowlerRating>> {
+      return this._store.select(selectors.getRatings);
+    },
+    score$(name: string): Observable<number | undefined> {
+      return this._store.select(selectors.getScore(name));
+    },
+    rating$(ratingKey: number): Observable<BowlerRating | undefined> {
+      return this._store.select(selectors.getRating(ratingKey));
+    }
   }
 }

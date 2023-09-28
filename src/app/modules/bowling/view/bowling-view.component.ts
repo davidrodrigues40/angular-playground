@@ -11,44 +11,44 @@ import { BowlerRating } from '../models/bowler-rating.model';
   styleUrls: ['./bowling-view.component.scss']
 })
 export class BowlingViewComponent implements OnInit {
-  players$: Observable<ReadonlyArray<Player>> = this._service.players$;
-  game$: Observable<Readonly<BowlingGame | undefined>> = this._service.game$;
-  ratings$: Observable<ReadonlyArray<BowlerRating>> = this._service.ratings$;
+  players$: Observable<ReadonlyArray<Player>> = this._service.observables.players$;
+  game$: Observable<Readonly<BowlingGame | undefined>> = this._service.observables.game$;
+  ratings$: Observable<ReadonlyArray<BowlerRating>> = this._service.observables.ratings$;
 
   constructor(private readonly _service: BowlingStateService) {
   }
 
   ngOnInit() {
-    this._service.getRatings();
+    this._service.events.getRatings();
   }
 
   addPlayer(player: { name: string, rating: number }): void {
-    this._service.players$
+    this._service.observables.players$
       .pipe(first())
-      .subscribe(players => this._service.addPlayer(player.name, player.rating, players));
+      .subscribe(players => this._service.events.addPlayer(player.name, player.rating, players));
   }
 
   removePlayer(playerNumber: number) {
-    this._service.players$
+    this._service.observables.players$
       .pipe(first())
-      .subscribe(players => this._service.removePlayer(playerNumber, players));
+      .subscribe(players => this._service.events.removePlayer(playerNumber, players));
   }
 
   playGame() {
-    this._service.players$
+    this._service.observables.players$
       .pipe(first())
-      .subscribe(players => this._service.bowl(players));
+      .subscribe(players => this._service.events.bowl(players));
   }
 
   getScore$(playerName: string): Observable<number | undefined> {
-    return this._service.getScore$(playerName);
+    return this._service.observables.score$(playerName);
   }
 
   getRating$(rating: number): Observable<string> {
-    return this._service.getRating$(rating).pipe(map(rating => rating ? rating.value : 'Beginner'));
+    return this._service.observables.rating$(rating).pipe(map(rating => rating ? rating.value : 'Beginner'));
   }
 
   newGame() {
-    this._service.newGame();
+    this._service.events.newGame();
   }
 }

@@ -1,48 +1,51 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { IStateService } from 'src/app/interfaces/services/state-service.interface';
 import { BooksState } from '../../app.state';
+import { Event } from '../../common/event';
 import * as actions from '../books.actions';
 import * as selectors from '../books.selectors';
 import { Book } from '../models/books.model';
 
 @Injectable()
-export class BookStateService {
+export class BookStateService implements IStateService {
 
   constructor(private readonly _store: Store<BooksState>) { }
 
-  // Events
-  fetchBooks$(): void {
-    this._store.dispatch(actions.bookActions.getAll());
-  }
+  events = {
+    _store: this._store,
 
-  fetchCollections$(): void {
-    this._store.dispatch(actions.collectionActions.getAll());
-  }
+    fetchBooks(): Event<string, Store<BooksState>> {
+      return new Event(actions.bookActions.getAll(), this._store);
+    },
+    fetchCollections(): Event<string, Store<BooksState>> {
+      return new Event(actions.collectionActions.getAll(), this._store);
+    },
+    addBook(bookId: string): Event<string, Store<BooksState>> {
+      return new Event(actions.collectionActions.addBook({ payload: bookId }), this._store);
+    },
+    removeBook(bookId: string): Event<string, Store<BooksState>> {
+      return new Event(actions.collectionActions.removeBook({ payload: bookId }), this._store);
+    },
+    clearCollection(): Event<string, Store<BooksState>> {
+      return new Event(actions.collectionActions.clearCollection(), this._store);
+    }
 
-  addBook$(bookId: string): void {
-    this._store.dispatch(actions.collectionActions.addBook({ payload: bookId }));
-  }
-
-  removeBook$(bookId: string): void {
-    this._store.dispatch(actions.collectionActions.removeBook({ payload: bookId }));
-  }
-
-  clearCollection$(): void {
-    this._store.dispatch(actions.collectionActions.clearCollection());
-  }
-
-  // Selectors
-  get books$(): Observable<ReadonlyArray<Book>> {
-    return this._store.select(selectors.getBooks);
   };
 
-  get message$(): Observable<string> {
-    return this._store.select(selectors.getMessage);
-  };
+  observables = {
+    _store: this._store,
 
-  get collection$(): Observable<ReadonlyArray<Book>> {
-    return this._store.select(selectors.getCollection);
+    get books$(): Observable<ReadonlyArray<Book>> {
+      return this._store.select(selectors.getBooks);
+    },
+    get message$(): Observable<string> {
+      return this._store.select(selectors.getMessage);
+    },
+    get collection$(): Observable<ReadonlyArray<Book>> {
+      return this._store.select(selectors.getCollection);
+    }
   }
 
 }

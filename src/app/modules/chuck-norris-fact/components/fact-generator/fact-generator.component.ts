@@ -10,27 +10,27 @@ import { ChuckNorrisStateService } from 'src/app/state/chuck-norris/service/chuc
   styleUrls: ['./fact-generator.component.scss']
 })
 export class FactGeneratorComponent implements OnInit {
-  public fact$: Observable<ChuckNorrisFact> = this._service.fact$;
-  public categories$: Observable<ReadonlyArray<FactCategory>> = this._service.categories$;
-  public selectedCategory$: Observable<FactCategory | undefined> = this._service.selectedCategory$;
+  public fact$: Observable<ChuckNorrisFact> = this._service.observables.fact$;
+  public categories$: Observable<ReadonlyArray<FactCategory>> = this._service.observables.categories$;
+  public selectedCategory$: Observable<FactCategory | undefined> = this._service.observables.selectedCategory$;
 
   constructor(private readonly _service: ChuckNorrisStateService) { }
 
   ngOnInit(): void {
-    this._service.fetchCategories$();
+    this._service.events.fetchCategories().emit();
   }
 
   getFact(): void {
-    this._service.fetchFact$();
+    this._service.events.fetchFact().emit();
   }
 
   getFactForCategory(): void {
-    this._service.selectedCategory$
+    this._service.observables.selectedCategory$
       .pipe(first())
-      .subscribe(category => this._service.fetchFactForCategory$(category as FactCategory));
+      .subscribe(category => this._service.events.fetchFactForCategory(category as FactCategory).emit());
   }
 
   categorySelected(category: FactCategory): void {
-    this._service.setSelectedCategory$(category);
+    this._service.events.setSelectedCategory(category).emit();
   }
 }
