@@ -30,4 +30,17 @@ export class BowlingService extends ApiService {
       .pipe(
         map(ratings => ratings.find(rating => rating.key === ratingKey)));
   }
+
+  addPlayer$(name: string, rating: number, players: ReadonlyArray<Player>): Observable<ReadonlyArray<Player>> {
+    const nextNumber = players.length + 1;
+
+    return of([...players, { number: nextNumber, name, rating }]);
+  }
+
+  removePlayer$(playerNumber: number, players: ReadonlyArray<Player>): Observable<ReadonlyArray<Player>> {
+    let newList: Player[] = [];
+    players.filter(player => player.number !== playerNumber).forEach((player, index) => newList.push({ number: index + 1, name: player.name, rating: player.rating }));
+
+    return of(newList);
+  }
 }

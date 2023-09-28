@@ -6,7 +6,9 @@ describe('FrameService', () => {
   let service: FrameService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [FrameService]
+    });
     service = TestBed.inject(FrameService);
   });
 

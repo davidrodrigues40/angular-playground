@@ -7,7 +7,7 @@ import { ApiService } from '../api.service';
 @Injectable()
 export class GoogleBooksService extends ApiService {
   private _books: Book[] = [];
-  protected base_url: string = 'https://www.googleapis.com/books/v1/volumes?maxResults=10&orderBy=relevance&q=oliver%20sacks';
+  protected override base_url: string = 'https://www.googleapis.com/books/v1/volumes?maxResults=10&orderBy=relevance&q=oliver%20sacks';
 
   constructor(private http: HttpClient) { super(); }
 

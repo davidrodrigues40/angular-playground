@@ -9,6 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { BooksModule } from './modules/books/books.module';
 import { BooksComponent } from './modules/books/components/books/books.component';
+import { BowlingModule } from './modules/bowling/bowling.module';
 import { BowlingViewComponent } from './modules/bowling/view/bowling-view.component';
 import { ChuckNorrisFactModule } from './modules/chuck-norris-fact/chuck-norris-fact.module';
 import { FactGeneratorComponent } from './modules/chuck-norris-fact/components/fact-generator/fact-generator.component';
@@ -42,6 +43,7 @@ export const routes: Routes = [
     FormsModule,
     BooksModule,
     ChuckNorrisFactModule,
+    BowlingModule,
     MenuModule
   ],
   declarations: [AppComponent],

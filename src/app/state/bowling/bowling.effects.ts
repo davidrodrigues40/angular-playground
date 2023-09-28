@@ -3,18 +3,16 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { map, mergeMap } from "rxjs";
 import { BowlingService } from "src/app/services/bowling/bowling.service";
 import * as actions from './bowling.actions';
-import { BowlingStateService } from "./service/bowling-state.service";
 
 @Injectable()
 export class BowlingEffects {
   constructor(private readonly _actions$: Actions,
-    private readonly _stateService: BowlingStateService,
     private readonly _service: BowlingService) { }
 
   addPlayer$ = createEffect(() => this._actions$.pipe(
     ofType(actions.BowlingActions.addPlayer),
     mergeMap(action =>
-      this._stateService.addPlayer$(action.payload.name, action.payload.rating)
+      this._service.addPlayer$(action.payload.name, action.payload.rating, action.payload.players)
         .pipe(
           map(players => actions.BowlingActions.updatePlayersSuccess({ payload: players }))
         ))
@@ -23,7 +21,7 @@ export class BowlingEffects {
   removePlayer$ = createEffect(() => this._actions$.pipe(
     ofType(actions.BowlingActions.removePlayer),
     mergeMap(action =>
-      this._stateService.removePlayer$(action.payload)
+      this._service.removePlayer$(action.payload.id, action.payload.players)
         .pipe(
           map(players => actions.BowlingActions.updatePlayersSuccess({ payload: players }))
         ))

@@ -6,8 +6,8 @@ import { Player } from './models/player.model';
 export const BowlingActions = createActionGroup({
   source: 'BOwLING',
   events: {
-    'Add Player': props<{ payload: { name: string, rating: number } }>(),
-    'Remove Player': props<{ payload: number }>(),
+    'Add Player': props<{ payload: { name: string, rating: number, players: ReadonlyArray<Player> } }>(),
+    'Remove Player': props<{ payload: { id: number, players: ReadonlyArray<Player> } }>(),
     'Update Players Success': props<{ payload: ReadonlyArray<Player> }>(),
     'Bowl': props<{ payload: ReadonlyArray<Player> }>(),
     'Bowl Success': props<{ payload: Readonly<BowlingGame> }>(),

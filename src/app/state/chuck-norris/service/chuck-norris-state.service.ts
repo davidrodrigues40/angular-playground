@@ -7,9 +7,7 @@ import * as selectors from '../chuck-norris.selectors';
 import { ChuckNorrisFact } from '../models/chuck-norris-fact';
 import { FactCategory } from '../models/fact-category';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ChuckNorrisStateService {
 
   constructor(private readonly _store: Store<ChuckNorrisFactState>) { }

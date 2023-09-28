@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable, first, map } from 'rxjs';
-import { BowlingState } from 'src/app/state/app.state';
-import * as actions from 'src/app/state/bowling/bowling.actions';
-import * as selectors from 'src/app/state/bowling/bowling.selectors';
 import { BowlingGame } from 'src/app/state/bowling/models/bowling-game.model';
 import { Player } from 'src/app/state/bowling/models/player.model';
+import { BowlingStateService } from 'src/app/state/bowling/service/bowling-state.service';
 import { BowlerRating } from '../models/bowler-rating.model';
 
 @Component({
@@ -14,40 +11,44 @@ import { BowlerRating } from '../models/bowler-rating.model';
   styleUrls: ['./bowling-view.component.scss']
 })
 export class BowlingViewComponent implements OnInit {
-  players$: Observable<ReadonlyArray<Player>> = this._store.select(selectors.getPlayers);
-  game$: Observable<Readonly<BowlingGame | undefined>> = this._store.select(selectors.getGame);
-  ratings$: Observable<ReadonlyArray<BowlerRating>> = this._store.select(selectors.getRatings);
+  players$: Observable<ReadonlyArray<Player>> = this._service.players$;
+  game$: Observable<Readonly<BowlingGame | undefined>> = this._service.game$;
+  ratings$: Observable<ReadonlyArray<BowlerRating>> = this._service.ratings$;
 
-  constructor(private readonly _store: Store<BowlingState>) {
+  constructor(private readonly _service: BowlingStateService) {
   }
 
   ngOnInit() {
-    this._store.dispatch(actions.BowlingActions.getRatings());
+    this._service.getRatings();
   }
 
-  addPlayer(player: { name: string, rating: number }) {
-    this._store.dispatch(actions.BowlingActions.addPlayer({ payload: { name: player.name, rating: player.rating } }));
+  addPlayer(player: { name: string, rating: number }): void {
+    this._service.players$
+      .pipe(first())
+      .subscribe(players => this._service.addPlayer(player.name, player.rating, players));
   }
 
   removePlayer(playerNumber: number) {
-    this._store.dispatch(actions.BowlingActions.removePlayer({ payload: playerNumber }));
+    this._service.players$
+      .pipe(first())
+      .subscribe(players => this._service.removePlayer(playerNumber, players));
   }
 
   playGame() {
-    this._store.select(selectors.getPlayers)
+    this._service.players$
       .pipe(first())
-      .subscribe(players => this._store.dispatch(actions.BowlingActions.bowl({ payload: players })));
+      .subscribe(players => this._service.bowl(players));
   }
 
   getScore$(playerName: string): Observable<number | undefined> {
-    return this._store.select(selectors.getScore(playerName));
+    return this._service.getScore$(playerName);
   }
 
   getRating$(rating: number): Observable<string> {
-    return this._store.select(selectors.getRating(rating)).pipe(map(rating => rating ? rating.value : 'Beginner'));
+    return this._service.getRating$(rating).pipe(map(rating => rating ? rating.value : 'Beginner'));
   }
 
   newGame() {
-    this._store.dispatch(actions.BowlingActions.newGame());
+    this._service.newGame();
   }
 }
