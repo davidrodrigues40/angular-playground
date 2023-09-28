@@ -4,6 +4,7 @@
     <div class="add-player">
         <app-add-player [ratings]="(ratings$ | async)!"
                         (addPlayer)="addPlayer($event)"
+                        (clear)="newGame()"
                         (newGame)="playGame()"></app-add-player>
     </div>
     <div>

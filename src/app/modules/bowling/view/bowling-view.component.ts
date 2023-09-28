@@ -19,25 +19,25 @@ export class BowlingViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._service.events.getRatings();
+    this._service.events.getRatings().emit();
   }
 
   addPlayer(player: { name: string, rating: number }): void {
     this._service.observables.players$
       .pipe(first())
-      .subscribe(players => this._service.events.addPlayer(player.name, player.rating, players));
+      .subscribe(players => this._service.events.addPlayer(player.name, player.rating, players).emit());
   }
 
   removePlayer(playerNumber: number) {
     this._service.observables.players$
       .pipe(first())
-      .subscribe(players => this._service.events.removePlayer(playerNumber, players));
+      .subscribe(players => this._service.events.removePlayer(playerNumber, players).emit());
   }
 
   playGame() {
     this._service.observables.players$
       .pipe(first())
-      .subscribe(players => this._service.events.bowl(players));
+      .subscribe(players => this._service.events.bowl(players).emit());
   }
 
   getScore$(playerName: string): Observable<number | undefined> {
@@ -49,6 +49,6 @@ export class BowlingViewComponent implements OnInit {
   }
 
   newGame() {
-    this._service.events.newGame();
+    this._service.events.newGame().emit();
   }
 }
