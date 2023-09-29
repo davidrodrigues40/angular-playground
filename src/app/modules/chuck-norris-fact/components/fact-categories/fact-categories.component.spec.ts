@@ -1,13 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FactCategory } from 'src/app/state/chuck-norris/models/fact-category';
 import { FactCategoriesComponent } from './fact-categories.component';
 
 describe('FactCategoriesComponent', () => {
   let component: FactCategoriesComponent;
   let fixture: ComponentFixture<FactCategoriesComponent>;
+  let selectChange: jasmine.SpyObj<MatSelectChange> = jasmine.createSpyObj('MatSelectChange', ['value']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -27,5 +29,17 @@ describe('FactCategoriesComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('selection change', () => {
+    it('should emit selectedCategory', () => {
+      const category: FactCategory = { category: 'test' };
+      spyOn(component.categorySelected, 'emit');
+      selectChange.value = category;
+
+      component.selectionChange(selectChange);
+
+      expect(component.categorySelected.emit).toHaveBeenCalledOnceWith(category);
+    });
   });
 });

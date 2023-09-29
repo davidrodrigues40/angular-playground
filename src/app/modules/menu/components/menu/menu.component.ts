@@ -9,11 +9,11 @@ import { MenuStateService } from 'src/app/state/menu/service/menu-state.service'
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  public items$: Observable<ReadonlyArray<MenuItem>> = this._service.menu$;
+  public items$: Observable<ReadonlyArray<MenuItem>> = this._service.observables.menu$;
 
   constructor(private readonly _service: MenuStateService) { }
 
   ngOnInit(): void {
-    this._service.fetchMenu$();
+    this._service.events.fetchMenu().emit();
   }
 }

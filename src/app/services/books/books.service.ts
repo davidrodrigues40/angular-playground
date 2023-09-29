@@ -11,47 +11,31 @@ export class GoogleBooksService extends ApiService {
 
   constructor(private http: HttpClient) { super(); }
 
-  getBooks(): void {
-    this.getBooks$();
-  }
-
   getBooks$(): Observable<Book[]> {
     return this.http
       .get<{ items: Book[] }>(this.base_url)
       .pipe(
         map((books) => {
           this._books = books.items || [];
-          return this._books || []
+          return this._books;
         }));
   }
 
   getCollection$(): Observable<Book[]> {
-    return this.collectionGetApi$();
-  }
-
-  addBook$(bookId: string): Observable<Book> {
-    return this.addBookApi$(bookId);
-  }
-
-  removeBook$(bookId: string): Observable<Book> {
-    return this.removeBookApi$(bookId);
-  }
-
-  clearCollection$(): Observable<void> {
-    return of(void 0);
-  }
-
-  collectionGetApi$(): Observable<Book[]> {
     return of([]);
   }
 
-  addBookApi$(bookId: string): Observable<Book> {
+  addBook$(bookId: string): Observable<Book> {
     const found: Book | undefined = this._books.find(b => b.id === bookId);
 
     return of(found as Book);
   }
 
-  removeBookApi$(bookId: string): Observable<Book> {
+  removeBook$(bookId: string): Observable<Book> {
     return of(this._books.find(b => b.id === bookId) as Book);
+  }
+
+  clearCollection$(): Observable<void> {
+    return of(void 0);
   }
 }

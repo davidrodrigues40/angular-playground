@@ -11,7 +11,6 @@ export class ChuckNorrisFactsService {
   constructor(private readonly http: HttpClient) { }
 
   getFact$(): Observable<Readonly<ChuckNorrisFact>> {
-    console.log("getting fact");
     return this.http.get<ChuckNorrisFact>(`${this._url}/random`);
   }
 

@@ -20,7 +20,8 @@ export class GameComponent {
   @Output() newGame = new EventEmitter<void>();
 
   getRating(rating: number): string {
-    const found = this.ratings.find(r => r.key === rating)!.value;
+    const found = this.ratings.find(r => r.key === rating)?.value;
+
     return found ?? 'Beginner';
   }
 }

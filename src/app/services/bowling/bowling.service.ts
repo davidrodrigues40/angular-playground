@@ -8,7 +8,7 @@ import { ApiService } from '../api.service';
 
 @Injectable()
 export class BowlingService extends ApiService {
-  #ratings?: BowlerRating[];
+  private _ratings?: BowlerRating[];
 
   constructor(private readonly _httpClient: HttpClient,) { super(); }
 
@@ -17,14 +17,14 @@ export class BowlingService extends ApiService {
   }
 
   getRatings$(): Observable<BowlerRating[]> {
-    if (this.#ratings) return of(this.#ratings);
+    if (this._ratings) return of(this._ratings);
 
     return this._httpClient.get<BowlerRating[]>(`${this.base_url}/api/ratings`, {})
-      .pipe(map(ratings => this.#ratings = ratings));
+      .pipe(map(ratings => this._ratings = ratings));
   }
 
   getRating$(ratingKey: number): Observable<BowlerRating | undefined> {
-    if (this.#ratings) return of(this.#ratings.find(rating => rating.key === ratingKey));
+    if (this._ratings) return of(this._ratings.find(rating => rating.key === ratingKey));
 
     return this.getRatings$()
       .pipe(

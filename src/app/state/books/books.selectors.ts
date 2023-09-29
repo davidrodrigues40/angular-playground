@@ -8,6 +8,7 @@ export const getBooks = createSelector(
   getBooksState,
   (state: BooksState) => state.books
 );
+
 export const getMessage = createSelector(
   getBooksState,
   (state: BooksState) => state.message

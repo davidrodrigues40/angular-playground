@@ -25,11 +25,6 @@ export class BowlerComponent implements OnInit {
     this.frames = Object.values(this.bowler.frames);
   }
 
-  roles(frame: Frame) {
-    const values: number[] = Object.values(frame.roles);
-    return this._frameService.getFrameValues(values);
-  }
-
   frameScore(frameScore: number, index: number): number {
     return this._frameService.calculateFrameValue(frameScore, index, this.frames);
   }

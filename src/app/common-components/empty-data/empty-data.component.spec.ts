@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { EmptyDataComponent } from './empty-data.component';
 
 describe('EmptyDataComponent', () => {
@@ -8,9 +7,9 @@ describe('EmptyDataComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EmptyDataComponent ]
+      declarations: [EmptyDataComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(EmptyDataComponent);
     component = fixture.componentInstance;

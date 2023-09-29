@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { IStateService } from 'src/app/interfaces/services/state-service.interface';
 import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model';
 import { BowlingState } from '../../app.state';
 import { Event } from '../../common/event';
@@ -9,7 +10,6 @@ import * as selectors from '../bowling.selectors';
 import { BowlingGame } from '../models/bowling-game.model';
 import { Player } from '../models/player.model';
 import { Scorecard } from '../models/scorecard.model';
-import { IStateService } from 'src/app/interfaces/services/state-service.interface';
 
 @Injectable()
 export class BowlingStateService implements IStateService {
