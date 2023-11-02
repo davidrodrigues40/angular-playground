@@ -10,7 +10,8 @@ import { CacheService } from '../cache/cache.service';
 
 @Injectable()
 export class BowlingService extends ApiService {
-  private _ratings?: BowlerRating[];
+  private readonly _ratingsCacheKey: string = 'bowler-ratings';
+  private _ratings: BowlerRating[] = this._cacheService.getLocal(this._ratingsCacheKey, StorageTranscoders.JSON) as BowlerRating[] || [];
 
   constructor(private readonly _httpClient: HttpClient,
     private readonly _cacheService: CacheService) { super(); }
@@ -20,17 +21,12 @@ export class BowlingService extends ApiService {
   }
 
   getRatings$(): Observable<BowlerRating[]> {
-    if (this._ratings) return of(this._ratings);
+    if (this._cacheService.localHas(this._ratingsCacheKey)) return of(this._ratings);
 
     return this._httpClient.get<BowlerRating[]>(`${this.base_url}/api/ratings`, {})
-      .pipe(map(ratings => this._ratings = ratings));
-  }
-
-  getRating$(ratingKey: number): Observable<BowlerRating | undefined> {
-    if (this._ratings) return of(this._ratings.find(rating => rating.key === ratingKey));
-
-    return this.getRatings$()
-      .pipe(
-        map(ratings => ratings.find(rating => rating.key === ratingKey)));
+      .pipe(map(ratings => {
+        this._cacheService.setLocal(this._ratingsCacheKey, ratings, StorageTranscoders.JSON);
+        return ratings;
+      }));
   }
 }

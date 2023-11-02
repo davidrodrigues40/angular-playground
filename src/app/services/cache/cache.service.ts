@@ -22,4 +22,12 @@ export class CacheService {
   getLocal<T>(key: string, decoder: StorageDecoder<T>): any {
     return this._local.get(key, decoder);
   }
+
+  localHas(key: string): boolean {
+    return this._local.has(key);
+  }
+
+  sessionHas(key: string): boolean {
+    return this._session.has(key);
+  }
 }
