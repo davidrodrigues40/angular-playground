@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PlayerRatingComponent } from '../player-rating/player-rating.component';
 import { AddPlayerComponent } from './add-player.component';
 
 describe('AddPlayerComponent', () => {
@@ -14,7 +15,9 @@ describe('AddPlayerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddPlayerComponent],
+      declarations: [
+        AddPlayerComponent,
+        PlayerRatingComponent],
       imports: [
         MatFormFieldModule,
         MatInputModule,
@@ -71,5 +74,15 @@ describe('AddPlayerComponent', () => {
 
       expect(component.newGame.emit).toHaveBeenCalledTimes(1);
     })
+  });
+
+  describe('when rating changed', () => {
+    it('should set playerRating', () => {
+      component.playerRating = 0;
+
+      component.ratingChanged(1);
+
+      expect(component.playerRating).toEqual(1);
+    });
   });
 });

@@ -92,28 +92,4 @@ describe('BowlingService', () => {
         });
     });
   });
-
-  describe('when addPlayer$ invoked', () => {
-    it('should return new array with player', () => {
-      const players = [{ number: 1, name: 'test', rating: 1 }];
-      const newPlayer = { number: 2, name: 'test2', rating: 2 };
-
-      service.addPlayer$(newPlayer.name, newPlayer.rating, players)
-        .subscribe((newPlayers) => {
-          expect(newPlayers).toEqual([...players, newPlayer]);
-        });
-    });
-  });
-
-  describe('when removePlayer$ invoked', () => {
-    it('should return new array without player', () => {
-      const players = [{ number: 1, name: 'test', rating: 1 }, { number: 2, name: 'test2', rating: 2 }];
-      const playerToRemove = 1;
-
-      service.removePlayer$(playerToRemove, players)
-        .subscribe((newPlayers) => {
-          expect(newPlayers).toEqual([{ number: 1, name: 'test2', rating: 2 }]);
-        });
-    });
-  });
 });

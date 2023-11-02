@@ -10,9 +10,9 @@ export const bowlingState: BowlingState = {
 
 const _bowlingReducer = createReducer(
   bowlingState,
-  on(actions.BowlingActions.updatePlayersSuccess, (_state, { payload }) => ({ ..._state, players: payload })),
+  on(actions.BowlingActions.getPlayersSuccess, (_state, { payload }) => ({ ..._state, players: payload })),
   on(actions.BowlingActions.bowlSuccess, (_state, { payload }) => ({ ..._state, game: payload })),
-  on(actions.BowlingActions.newGame, (_state) => ({ ..._state, players: [], game: undefined })),
+  on(actions.BowlingActions.newGame, (_state) => ({ ..._state, game: undefined })),
   on(actions.BowlingActions.getRatingsSuccess, (_state, { payload }) => ({ ..._state, ratings: payload }))
 );
 

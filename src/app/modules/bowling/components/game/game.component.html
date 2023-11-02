@@ -8,6 +8,13 @@
                                 [rating]="(getRating(player.rating))"
                                 (removePlayer)="removePlayer.emit($event)"></app-player>
                 </div>
+                <div>
+                    <button mat-raised-button
+                            color="accent"
+                            (click)="changeAllPlayersRatings.emit()">
+                        <label>Change Ratings</label>
+                    </button>
+                </div>
             </div>
             <div class="game-controls">
                 <button mat-raised-button

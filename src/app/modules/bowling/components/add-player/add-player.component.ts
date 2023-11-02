@@ -35,4 +35,8 @@ export class AddPlayerComponent {
       this.playerName = '';
     }
   }
+
+  ratingChanged(rating: number): void {
+    this.playerRating = rating;
+  }
 }

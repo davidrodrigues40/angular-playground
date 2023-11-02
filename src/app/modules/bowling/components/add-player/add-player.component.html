@@ -6,13 +6,8 @@
                (keypress)="keypressed($event)"
                [(ngModel)]="playerName" />
     </mat-form-field>
-    <mat-form-field subscriptSizing="dynamic">
-        <mat-label>Rating</mat-label>
-        <mat-select [(value)]="playerRating">
-            <mat-option *ngFor="let rating of ratings"
-                        [value]="rating.key">{{rating.value}}</mat-option>
-        </mat-select>
-    </mat-form-field>
+    <app-player-rating [ratings]="ratings"
+                       (ratingChanged)="ratingChanged($event)"></app-player-rating>
     <button mat-raised-button
             color="accent"
             (click)="add()">

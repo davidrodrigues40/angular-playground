@@ -26,10 +26,6 @@ describe('Bowling Selectors', () => {
         name: '',
         rating: 0
     };
-    const defaultRating: BowlerRating = {
-        key: 0,
-        value: ''
-    };
 
     describe('when getPlayers invoked', () => {
         it('should return players', () => {

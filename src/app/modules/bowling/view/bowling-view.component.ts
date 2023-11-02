@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable, first, map } from 'rxjs';
 import { BowlingGame } from 'src/app/state/bowling/models/bowling-game.model';
 import { Player } from 'src/app/state/bowling/models/player.model';
 import { BowlingStateService } from 'src/app/state/bowling/service/bowling-state.service';
+import { PlayerRatingDialogComponent } from '../components/player-rating-dialog/player-rating-dialog.component';
 import { BowlerRating } from '../models/bowler-rating.model';
 
 @Component({
@@ -15,11 +17,11 @@ export class BowlingViewComponent implements OnInit {
   game$: Observable<Readonly<BowlingGame | undefined>> = this._service.observables.game$;
   ratings$: Observable<ReadonlyArray<BowlerRating>> = this._service.observables.ratings$;
 
-  constructor(private readonly _service: BowlingStateService) {
-  }
+  constructor(private readonly _service: BowlingStateService, private readonly _dialog: MatDialog) { }
 
   ngOnInit() {
     this._service.events.getRatings().emit();
+    this._service.events.getPlayers().emit();
   }
 
   addPlayer(player: { name: string, rating: number }): void {
@@ -50,5 +52,28 @@ export class BowlingViewComponent implements OnInit {
 
   newGame() {
     this._service.events.newGame().emit();
+  }
+
+  changePlayerRatings(): void {
+    this.ratings$
+      .pipe(first())
+      .subscribe(ratings => this.openDialog(ratings));
+  }
+
+  private openDialog(ratings: ReadonlyArray<BowlerRating>): void {
+    const dialogRef = this._dialog.open(PlayerRatingDialogComponent, { data: { ratings } });
+
+    dialogRef.afterClosed().subscribe((rating: number) => {
+      if (rating) {
+        this.ratingChanged(rating);
+      }
+    });
+  }
+
+  private ratingChanged(rating: number): void {
+    this.players$
+      .pipe(first())
+      .subscribe(players => this._service.events.changeAllPlayersRatings(rating, players).emit());
+    ;
   }
 }

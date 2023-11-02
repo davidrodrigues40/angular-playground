@@ -14,6 +14,7 @@
                   [disablePlayGame]="(players$ | async)!.length === 0"
                   (removePlayer)="removePlayer($event)"
                   (newGame)="newGame()"
-                  (playGame)="playGame()"></app-game>
+                  (playGame)="playGame()"
+                  (changeAllPlayersRatings)="changePlayerRatings()"></app-game>
     </div>
 </div>

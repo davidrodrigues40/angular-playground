@@ -18,6 +18,9 @@ export class BowlingStateService implements IStateService {
 
   events = {
     _store: this._store,
+    getPlayers(): Event<string, Store<BowlingState>> {
+      return new Event(actions.BowlingActions.getPlayers(), this._store);
+    },
     addPlayer(name: string, rating: number, players: ReadonlyArray<Player>): Event<string, Store<BowlingState>> {
       return new Event(actions.BowlingActions.addPlayer({ payload: { name, rating, players } }), this._store);
     },
@@ -32,6 +35,9 @@ export class BowlingStateService implements IStateService {
     },
     newGame(): Event<string, Store<BowlingState>> {
       return new Event(actions.BowlingActions.newGame(), this._store);
+    },
+    changeAllPlayersRatings(rating: number, players: ReadonlyArray<Player>): Event<string, Store<BowlingState>> {
+      return new Event(actions.BowlingActions.changeAllPlayersRatings({ payload: { rating, players } }), this._store);
     }
   }
 

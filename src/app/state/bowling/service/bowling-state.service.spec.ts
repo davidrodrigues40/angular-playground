@@ -46,6 +46,15 @@ describe('BowlingStateService', () => {
   });
 
   describe('events', () => {
+    describe('when getPlayers invoked', () => {
+      it('should return getPlayers event', () => {
+        const expected = new Event(actions.BowlingActions.getPlayers(), store);
+
+        const actual = service.events.getPlayers();
+
+        expect(actual).toEqual(expected);
+      });
+    });
     describe('when addPlayer invoked', () => {
       it('should return addPlayer event', () => {
         const expected = new Event(actions.BowlingActions.addPlayer({ payload: { name: 'john', rating: 1, players: [] } }), store);
@@ -93,6 +102,15 @@ describe('BowlingStateService', () => {
 
           expect(actual).toEqual(expected);
         });
+      });
+    });
+    describe('when changeAllPlayersRatings invoked', () => {
+      it('should return changeAllPlayersRatings event', () => {
+        const expected = new Event(actions.BowlingActions.changeAllPlayersRatings({ payload: { rating: 1, players: [] } }), store);
+
+        const actual = service.events.changeAllPlayersRatings(1, []);
+
+        expect(actual).toEqual(expected);
       });
     });
   });

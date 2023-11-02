@@ -1,4 +1,6 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
@@ -8,8 +10,7 @@ import { BowlingState } from 'src/app/state/app.state';
 import { Player } from 'src/app/state/bowling/models/player.model';
 import { BowlingStateService } from 'src/app/state/bowling/service/bowling-state.service';
 import { Event } from 'src/app/state/common/event';
-import { AddPlayerComponent } from '../components/add-player/add-player.component';
-import { GameComponent } from '../components/game/game.component';
+import { PlayerRatingDialogComponent } from '../components/player-rating-dialog/player-rating-dialog.component';
 import { BowlerRating } from '../models/bowler-rating.model';
 import { BowlingViewComponent } from './bowling-view.component';
 
@@ -18,6 +19,10 @@ describe('BowlingViewComponent', () => {
   let fixture: ComponentFixture<BowlingViewComponent>;
   let service: jasmine.SpyObj<BowlingStateService> = jasmine.createSpyObj('BowlingStateService', ['events', 'observables']);
   let event: jasmine.SpyObj<Event<string, Store<BowlingState>>> = jasmine.createSpyObj('Event', ['emit']);
+  let playerEvent: jasmine.SpyObj<Event<string, Store<BowlingState>>> = jasmine.createSpyObj('Event', ['emit']);
+  let dialog: jasmine.SpyObj<MatDialog> = jasmine.createSpyObj('MatDialog', ['open']);
+  let dialogRef: jasmine.SpyObj<MatDialogRef<PlayerRatingDialogComponent>> = jasmine.createSpyObj('MatDialogRef', ['afterClosed']);
+
   let player: Player = {
     number: 0,
     name: '',
@@ -28,14 +33,27 @@ describe('BowlingViewComponent', () => {
     value: 'beginner'
   };
 
+  @Component({
+    selector: 'app-add-player',
+    template: ''
+  })
+  class MockAddPlayerComponent { };
+  @Component({
+    selector: 'app-game',
+    template: ''
+  })
+  class MockGameComponent { };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
         BowlingViewComponent,
-        AddPlayerComponent,
-        GameComponent],
+        MockAddPlayerComponent,
+        MockGameComponent
+      ],
       providers: [
-        { provide: BowlingStateService, useValue: service }
+        { provide: BowlingStateService, useValue: service },
+        { provide: MatDialog, useValue: dialog }
       ],
       imports: [
         MatFormFieldModule,
@@ -51,26 +69,29 @@ describe('BowlingViewComponent', () => {
     Object.defineProperties(service, {
       events: {
         value: {
+          getPlayers: function () { return playerEvent; },
           getRatings: function () { return event; },
           newGame: function () { return event; },
           bowl: function () { return event; },
           addPlayer: function () { return event; },
-          removePlayer: function () { return event; }
+          removePlayer: function () { return event; },
+          changeAllPlayersRatings: function (rating: number, players: Player[]) { return event; }
         }
       },
       observables: {
         value: {
           players$: of([player]),
           score$: function (playerName: string) { return of(100) },
-          rating$: function (rated: number) { return of(rating) }
+          rating$: function (rated: number) { return of(rating) },
+          ratings$: of([rating])
         }
       }
     });
-
     event.emit.calls.reset();
   });
 
   it('should create', () => {
+
     expect(component).toBeTruthy();
   });
 
@@ -78,7 +99,8 @@ describe('BowlingViewComponent', () => {
     it('should call subscribe', () => {
       component.ngOnInit();
 
-      expect(service.events.getRatings().emit).toHaveBeenCalledTimes(1);
+      expect(event.emit).toHaveBeenCalledTimes(1);
+      expect(playerEvent.emit).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -145,5 +167,28 @@ describe('BowlingViewComponent', () => {
 
       expect(service.events.newGame().emit).toHaveBeenCalledTimes(1);
     }));
-  })
+  });
+
+  describe('when changePlayerRatings invoked', () => {
+    beforeEach(() => {
+      dialog.open.calls.reset();
+      dialogRef.afterClosed.calls.reset();
+
+      dialogRef.afterClosed.and.returnValue(of(1));
+      dialog.open.and.returnValue(dialogRef);
+    });
+    it('should call openDialog', waitForAsync(() => {
+      component.changePlayerRatings();
+
+      expect(dialog.open).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should call ratingChanged', waitForAsync(() => {
+      spyOn(service.events, 'changeAllPlayersRatings').and.returnValue(event);
+      component.changePlayerRatings();
+
+      expect(event.emit).toHaveBeenCalledTimes(1);
+      expect(service.events.changeAllPlayersRatings).toHaveBeenCalledOnceWith(1, [player]);
+    }));
+  });
 });

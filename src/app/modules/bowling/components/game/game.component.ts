@@ -18,6 +18,7 @@ export class GameComponent {
   @Output() removePlayer = new EventEmitter<number>();
   @Output() playGame = new EventEmitter<void>();
   @Output() newGame = new EventEmitter<void>();
+  @Output() changeAllPlayersRatings = new EventEmitter<void>();
 
   getRating(rating: number): string {
     const found = this.ratings.find(r => r.key === rating)?.value;
