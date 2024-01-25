@@ -15,10 +15,10 @@ export class ChuckNorrisFactsService {
   }
 
   getFactForCategory$(category: FactCategory): Observable<Readonly<ChuckNorrisFact>> {
-    if (category.category === 'random')
+    if (category.name === 'random')
       return this.getFact$();
 
-    return this.http.get<ChuckNorrisFact>(`${this._url}/random?category=${category.category}`);
+    return this.http.get<ChuckNorrisFact>(`${this._url}/random?category=${category.name}`);
   }
 
   getCategories$(): Observable<ReadonlyArray<FactCategory>> {
@@ -26,7 +26,7 @@ export class ChuckNorrisFactsService {
       .pipe(
         map(arr => {
           arr.unshift('random');
-          return arr.map(a => { return { category: a }; });
+          return arr.map(a => { return { name: a }; });
         })
       )
   }

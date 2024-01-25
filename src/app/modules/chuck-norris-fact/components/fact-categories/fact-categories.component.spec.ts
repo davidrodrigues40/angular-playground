@@ -33,7 +33,7 @@ describe('FactCategoriesComponent', () => {
 
   describe('selection change', () => {
     it('should emit selectedCategory', () => {
-      const category: FactCategory = { category: 'test' };
+      const category: FactCategory = { name: 'test' };
       spyOn(component.categorySelected, 'emit');
       selectChange.value = category;
 

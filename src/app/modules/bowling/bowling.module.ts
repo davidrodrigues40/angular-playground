@@ -20,6 +20,7 @@ import { PlayerComponent } from './components/player/player.component';
 import { BowlerComponent } from './components/scorecard/scorecard.component';
 import { BowlingViewComponent } from './view/bowling-view.component';
 import { PlayerRatingDialogComponent } from './components/player-rating-dialog/player-rating-dialog.component';
+import { CommonComponentModule } from 'src/app/common-components/common.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { PlayerRatingDialogComponent } from './components/player-rating-dialog/p
   ],
   imports: [
     CommonModule,
+    CommonComponentModule,
     FormsModule,
     MatButtonModule,
     MatIconModule,

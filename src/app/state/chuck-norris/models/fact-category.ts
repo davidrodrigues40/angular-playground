@@ -1,3 +1,3 @@
 export interface FactCategory {
-  category: string;
+  name: string;
 }

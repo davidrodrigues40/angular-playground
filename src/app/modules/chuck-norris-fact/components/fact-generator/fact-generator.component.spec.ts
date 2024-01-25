@@ -23,7 +23,7 @@ describe('FactGeneratorComponent', () => {
     value: ''
   };
   const category: FactCategory = {
-    category: ''
+    name: ''
   };
   const categories: FactCategory[] = [category];
 

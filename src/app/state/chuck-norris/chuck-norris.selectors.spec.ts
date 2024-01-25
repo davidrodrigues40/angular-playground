@@ -12,7 +12,7 @@ describe('Bowling Selectors', () => {
     };
 
     const defaultCategory: FactCategory = {
-        category: ""
+        name: ""
     };
 
     const initialState: ChuckNorrisFactState = {

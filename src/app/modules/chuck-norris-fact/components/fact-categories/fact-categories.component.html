@@ -4,7 +4,7 @@
   <mat-select (selectionChange)="selectionChange($event)">
     <mat-option *ngFor="let option of options"
                 [value]="option">
-      {{option.category}}
+      {{option.name}}
     </mat-option>
   </mat-select>
 </mat-form-field>

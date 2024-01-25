@@ -44,7 +44,7 @@ describe('ChuckNorrisFactsService', () => {
   describe('when getFactForCategory$ invoked', () => {
     it('should call httpClient.get and return fact', () => {
       const category: FactCategory = {
-        category: ''
+        name: ''
       };
       httpClient.get.and.returnValue(of(defaultFact));
 
@@ -56,7 +56,7 @@ describe('ChuckNorrisFactsService', () => {
 
     it('shoul get random fact', () => {
       const category: FactCategory = {
-        category: 'random'
+        name: 'random'
       };
       httpClient.get.and.returnValue(of(defaultFact));
 
@@ -71,7 +71,7 @@ describe('ChuckNorrisFactsService', () => {
     it('should call httpClient.get and return categories', () => {
       const categories: string[] = ['help', 'me'];
       const expected: FactCategory[] = categories.map((category) => ({ category }));
-      expected.unshift({ category: 'random' });
+      expected.unshift({ name: 'random' });
 
       httpClient.get.and.returnValue(of(categories));
 
