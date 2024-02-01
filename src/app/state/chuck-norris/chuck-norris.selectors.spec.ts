@@ -1,9 +1,10 @@
-import { ChuckNorrisFactState } from "../app.state";
+import { ChuckNorrisFactState } from "./chuck-norris.state";
 import * as selectors from './chuck-norris.selectors';
 import { ChuckNorrisFact } from "./models/chuck-norris-fact";
 import { FactCategory } from "./models/fact-category";
 
-describe('Bowling Selectors', () => {
+describe('Bowling Selectors', () =>
+{
     const defaultFact: ChuckNorrisFact = {
         icon_url: "",
         id: "",
@@ -21,8 +22,10 @@ describe('Bowling Selectors', () => {
         selectedCategory: undefined
     };
 
-    describe('when getFact invoked', () => {
-        it('should return fact', () => {
+    describe('when getFact invoked', () =>
+    {
+        it('should return fact', () =>
+        {
             const expected: ChuckNorrisFact = { ...defaultFact, value: 'chuck rules' };
 
             const fact = selectors.getFact.projector({ ...initialState, fact: expected });
@@ -31,8 +34,10 @@ describe('Bowling Selectors', () => {
         });
     });
 
-    describe('when getCategories invoked', () => {
-        it('should return categories', () => {
+    describe('when getCategories invoked', () =>
+    {
+        it('should return categories', () =>
+        {
             const expected = [{ ...defaultCategory, category: 'dev' }];
 
             const categories = selectors.getCategories.projector({ ...initialState, categories: expected });
@@ -41,8 +46,10 @@ describe('Bowling Selectors', () => {
         });
     });
 
-    describe('when getSelectedCategory invoked', () => {
-        it('should return selected category', () => {
+    describe('when getSelectedCategory invoked', () =>
+    {
+        it('should return selected category', () =>
+        {
             const expected = { ...defaultCategory, category: 'dev' };
 
             const category = selectors.getSelectedCategory.projector({ ...initialState, selectedCategory: expected });

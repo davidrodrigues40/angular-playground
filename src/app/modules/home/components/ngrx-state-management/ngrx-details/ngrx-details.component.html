@@ -1,0 +1,39 @@
+<app-title2>NGRX State Management</app-title2>
+<p>For full documentation on NGRX <a href="https://ngrx.io/"
+       target="_blank">click here</a>.</p>
+<p>This section will talk about how I use NGRX in this application.<br>
+    I break it down to the following 5 parts:
+</p>
+<table>
+    <tbody>
+        <tr>
+            <td>State</td>
+            <td>This is where the information is stored for a given feature.</td>
+        </tr>
+        <tr>
+            <td>Actions</td>
+            <td>These are the actions that can be performed on the state.</td>
+        </tr>
+        <tr>
+            <td>Effects</td>
+            <td>
+                I like to think of these as event handlers for performing actions on state data.<br><br>
+                These are injectable classes which handle the actions that require more than just a simple state update.
+                When the action is complete they will trigger the appropriate action for the reducer to handle.<br>
+            </td>
+        </tr>
+        <tr>
+            <td>Reducers</td>
+            <td>
+                I like to think of these as event handlers for updating the state.<br><br>
+                These objects handle the actions which change the state.</td>
+        </tr>
+        <tr>
+            <td>Selectors</td>
+            <td>
+                These are functions which return a <a href="https://en.wikipedia.org/wiki/Memoization"
+                   target="_blank">memoized</a> selector containing a subset of the state.
+            </td>
+        </tr>
+    </tbody>
+</table>

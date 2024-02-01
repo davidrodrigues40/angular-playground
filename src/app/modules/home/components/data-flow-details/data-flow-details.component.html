@@ -1,0 +1,12 @@
+<app-title2>Data Flow</app-title2>
+
+<p>Using ngrx for state management coupled with services which exposes the state so I don't have to inject multiple
+    states into any one component I can achieve a state in one location.
+    Unit testing a component with multiple states injected is a pain.
+</p>
+
+<p>Each component will inject the service associated with the state it needs.
+    The service will expose actions as events and selectors as observables.
+    If a component requires data from multple states then that component will inject multiple services.
+</p>
+<app-data-flow-canvas></app-data-flow-canvas>

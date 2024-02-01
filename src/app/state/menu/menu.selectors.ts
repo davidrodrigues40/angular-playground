@@ -1,9 +1,9 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { MenuState } from "../app.state";
+import { MenuState } from "./menu.state";
 
-export const getMenuState = createFeatureSelector<MenuState>('menuState');
+const getMenuState = createFeatureSelector<MenuState>('menuState');
 
 export const getMenu = createSelector(
-  getMenuState,
-  (state: MenuState) => state.items
+    getMenuState,
+    (state: MenuState) => state.items
 );

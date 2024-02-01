@@ -20,38 +20,38 @@ import { PlayerComponent } from './components/player/player.component';
 import { BowlerComponent } from './components/scorecard/scorecard.component';
 import { BowlingViewComponent } from './view/bowling-view.component';
 import { PlayerRatingDialogComponent } from './components/player-rating-dialog/player-rating-dialog.component';
-import { CommonComponentModule } from 'src/app/common-components/common.module';
+import { TitleComponent } from 'src/app/components/title/title.component';
 
 @NgModule({
-  declarations: [
-    BowlingViewComponent,
-    BowlerComponent,
-    PlayerComponent,
-    AddPlayerComponent,
-    GameComponent,
-    FrameComponent,
-    PlayerRatingComponent,
-    PlayerRatingDialogComponent
-  ],
-  imports: [
-    CommonModule,
-    CommonComponentModule,
-    FormsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatInputModule,
-    MatDialogModule,
-    EffectsModule.forFeature([BowlingEffects]),
-  ],
-  providers: [
-    BowlingService,
-    BowlingStateService,
-    PlayersService
-  ],
-  exports: [
-    BowlingViewComponent
-  ]
+    declarations: [
+        BowlingViewComponent,
+        BowlerComponent,
+        PlayerComponent,
+        AddPlayerComponent,
+        GameComponent,
+        FrameComponent,
+        PlayerRatingComponent,
+        PlayerRatingDialogComponent
+    ],
+    imports: [
+        CommonModule,
+        TitleComponent,
+        FormsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
+        MatDialogModule,
+        EffectsModule.forFeature([BowlingEffects]),
+    ],
+    providers: [
+        BowlingService,
+        BowlingStateService,
+        PlayersService
+    ],
+    exports: [
+        BowlingViewComponent
+    ]
 })
 export class BowlingModule { }

@@ -1,0 +1,11 @@
+@import "src/assets/styles/variables.scss";
+
+table {
+    padding: 0;
+    border-spacing: 0;
+}
+
+td {
+    border: 1px solid $color--white;
+    padding: $gap * 0.5;
+}

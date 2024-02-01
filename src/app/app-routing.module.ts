@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BooksComponent } from './modules/books/components/books/books.component';
 import { BowlingViewComponent } from './modules/bowling/view/bowling-view.component';
 import { FactGeneratorComponent } from './modules/chuck-norris-fact/components/fact-generator/fact-generator.component';
-import { HomeComponent } from './modules/home/views/home/home.component';
+import { HomeComponent } from './modules/home/home.component';
 
 const routes: Routes = [
     {
@@ -13,12 +13,12 @@ const routes: Routes = [
     {
         path: 'bowling',
         component: BowlingViewComponent,
-        loadChildren: () => import('./modules/bowling/bowling.module').then(m => m.BowlingModule)
+        loadChildren: () => import('./modules/bowling/bowling.module').then(m => m.BowlingModule),
     },
     {
         path: 'books',
         component: BooksComponent,
-        loadChildren: () => import('./modules/books/books.module').then(m => m.BooksModule)
+        loadChildren: () => import('./modules/books/books.module').then(m => m.BooksModule),
     },
     {
         path: 'home',
@@ -26,9 +26,13 @@ const routes: Routes = [
         loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
     },
     {
+        path: 'chuck-norris-facts',
+        component: FactGeneratorComponent,
+        loadChildren: () => import('./modules/chuck-norris-fact/chuck-norris-fact.module').then(m => m.ChuckNorrisFactModule),
+    },
+    {
         path: '**',
-        component: HomeComponent,
-        loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
+        redirectTo: 'home',
     }
 ]
 

@@ -10,7 +10,8 @@ export class MenuService extends ApiService
     private readonly _menuItems: MenuItem[] = [
         { value: 'Home', route: '/home' },
         { value: 'Books', route: '/books' },
-        { value: 'Bowling', route: '/bowling' }
+        { value: 'Bowling', route: '/bowling' },
+        { value: 'Chuck Norris Facts', route: '/chuck-norris-facts' },
     ];
 
     constructor(private readonly _httpClient: HttpClient) { super(); }

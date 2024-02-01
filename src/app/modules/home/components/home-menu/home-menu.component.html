@@ -1,3 +1,10 @@
 <div class="home-menu">
-    <button mat-flat-button color="primary" routerLink="home/ngrx">ngrx</button>
+    <div *ngFor="let item of menuItems | async">
+        <button mat-flat-button
+                type="button"
+                color="basic"
+                [routerLink]="item.route"
+                [disabled]="markDisabled(item.route)"
+                class="menu-item">{{item.value}}</button>
+    </div>
 </div>

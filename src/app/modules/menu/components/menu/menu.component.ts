@@ -17,6 +17,5 @@ export class MenuComponent implements OnInit
     ngOnInit(): void
     {
         this._service.events.fetchMenu().emit();
-        this.items$.subscribe(items => console.log(items));
     }
 }

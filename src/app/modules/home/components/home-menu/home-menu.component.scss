@@ -1,0 +1,6 @@
+@import 'src/assets/styles/variables.scss';
+
+.home-menu {
+    display: flex;
+    column-gap: $gap;
+}

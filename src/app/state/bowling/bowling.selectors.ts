@@ -1,35 +1,34 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { BowlingState } from "../app.state";
+import { BowlingState } from "./bowling.state";
 
-// selectors
-export const bowlingState = createFeatureSelector<Readonly<BowlingState>>('bowlingState');
+const bowlingState = createFeatureSelector<Readonly<BowlingState>>('bowlingState');
 
 export const getPlayers = createSelector(
-  bowlingState,
-  (state: BowlingState) => state.players
+    bowlingState,
+    (state: BowlingState) => state.players
 );
 
 export const getGame = createSelector(
-  bowlingState,
-  (state: BowlingState) => state.game
+    bowlingState,
+    (state: BowlingState) => state.game
 );
 
 export const getWinner = createSelector(
-  bowlingState,
-  (state: BowlingState) => state.game?.winner
+    bowlingState,
+    (state: BowlingState) => state.game?.winner
 );
 
 export const getScore = (name: string) => createSelector(
-  bowlingState,
-  (state: BowlingState) => state.game?.bowlers.find(b => b.name === name)?.score
+    bowlingState,
+    (state: BowlingState) => state.game?.bowlers.find(b => b.name === name)?.score
 );
 
 export const getRatings = createSelector(
-  bowlingState,
-  (state: BowlingState) => state.ratings
+    bowlingState,
+    (state: BowlingState) => state.ratings
 );
 
 export const getRating = (ratingKey: number) => createSelector(
-  bowlingState,
-  (state: BowlingState) => state.ratings.find(rating => rating.key === ratingKey)
+    bowlingState,
+    (state: BowlingState) => state.ratings.find(rating => rating.key === ratingKey)
 );
