@@ -11,7 +11,7 @@ export class HomeMenuService implements ISignalService
 
    private _getHomeMenu(): void
    {
-      homeMenuSignals().signal.set([
+      const menuItems = [
          {
             value: 'NGRX',
             route: 'home/ngrx'
@@ -19,18 +19,14 @@ export class HomeMenuService implements ISignalService
          {
             value: 'Data Flow',
             route: 'home/dataflow'
-         }]);
+         }];
+
+      homeMenuSignals().signal.set(menuItems);
    }
 
    private readonly _methods: { [k: string]: Function } = {
       getHomeMenu: this._getHomeMenu
    };
-
-
-   private getMenuFromApi(): void
-   {
-
-   }
 
    dispatch(name: string): void
    {
