@@ -9,7 +9,7 @@ export class HomeMenuService implements ISignalService
 {
    constructor() { }
 
-   private getHomeMenuSignals(): void
+   private _getHomeMenu(): void
    {
       homeMenuSignals().signal.set([
          {
@@ -23,8 +23,14 @@ export class HomeMenuService implements ISignalService
    }
 
    private readonly _methods: { [k: string]: Function } = {
-      getHomeMenuSignals: this.getHomeMenuSignals
+      getHomeMenu: this._getHomeMenu
    };
+
+
+   private getMenuFromApi(): void
+   {
+
+   }
 
    dispatch(name: string): void
    {

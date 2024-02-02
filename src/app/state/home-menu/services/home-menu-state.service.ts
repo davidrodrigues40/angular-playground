@@ -16,7 +16,7 @@ export class HomeMenuStateService implements ISignalStateService
       _service: this._service,
       fetchMenu(): SignalEvent
       {
-         return new SignalEvent('getHomeMenuSignals', this._service);
+         return new SignalEvent('getHomeMenu', this._service);
       }
    };
    observables = {
