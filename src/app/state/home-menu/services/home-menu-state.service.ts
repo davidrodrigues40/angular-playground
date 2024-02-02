@@ -1,31 +1,28 @@
-import { Observable } from 'rxjs';
-import { IStateService } from 'src/app/interfaces/services/state-service.interface';
+import { ISignalStateService } from 'src/app/interfaces/services/signal-state-service.interface';
+import { HomeMenuService } from 'src/app/services/home-menu/home-menu.service';
 
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 
-import { StateEvent } from '../../common/state-event';
+import { SignalEvent } from '../../common/state-event';
 import { MenuItem } from '../../menu/models/menu-item';
-import * as actions from '../home-menu.actions';
-import * as selectors from '../home-menu.selectors';
-import { HomeMenuState } from '../home-menu.state';
+import { homeMenuSignals } from '../home-menu.signals';
 
 @Injectable()
-export class HomeMenuStateService implements IStateService
+export class HomeMenuStateService implements ISignalStateService
 {
-    constructor(private readonly _store: Store<HomeMenuState>) { }
-    events = {
-        _store: this._store,
-        fetchMenu(): StateEvent<string, Store<HomeMenuState>>
-        {
-            return new StateEvent(actions.homeMenuActions.getHomeMenu(), this._store);
-        }
-    };
-    observables = {
-        _store: this._store,
-        get menu$(): Observable<ReadonlyArray<MenuItem>>
-        {
-            return this._store.select(selectors.getMenu);
-        }
-    };
+   constructor(
+      private readonly _service: HomeMenuService,) { }
+   events = {
+      _service: this._service,
+      fetchMenu(): SignalEvent
+      {
+         return new SignalEvent('getHomeMenuSignals', this._service);
+      }
+   };
+   observables = {
+      get menu(): ReadonlyArray<MenuItem>
+      {
+         return homeMenuSignals().signal();
+      }
+   };
 }

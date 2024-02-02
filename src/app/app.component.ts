@@ -1,4 +1,4 @@
-import { filter, Subject, tap } from 'rxjs';
+import { filter, Subject } from 'rxjs';
 
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
@@ -24,8 +24,8 @@ export class AppComponent implements OnInit, OnDestroy
       this._router.events
          .pipe(
             filter((event) => event instanceof NavigationEnd),
-            tap(event => console.log(event)))
-         .subscribe(event => this.loadComponent((event as NavigationEnd).urlAfterRedirects));
+         )
+         .subscribe(event => this.loadFooter((event as NavigationEnd).urlAfterRedirects));
    }
 
    ngOnDestroy(): void
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, OnDestroy
       this._destroy$.complete();
    }
 
-   private loadComponent(url: string): void
+   private loadFooter(url: string): void
    {
       const component = FooterComponentFactory[url as FooterTypes];
       this._footer.viewContainerRef.clear();

@@ -1,25 +1,34 @@
-import { Observable, of } from 'rxjs';
-import { MenuItem } from 'src/app/state/menu/models/menu-item';
+import { homeMenuSignals } from 'src/app/state/home-menu/home-menu.signals';
 
 import { Injectable } from '@angular/core';
 
-@Injectable()
-export class HomeMenuService
-{
-   private readonly _menuItems: ReadonlyArray<MenuItem> = [
-      {
-         value: 'NGRX',
-         route: 'home/ngrx'
-      },
-      {
-         value: 'Data Flow',
-         route: 'home/dataflow'
-      }];
+import { ISignalService } from '../../interfaces/services/signal-service.interface';
 
+@Injectable()
+export class HomeMenuService implements ISignalService
+{
    constructor() { }
 
-   getHomeMenu$(): Observable<ReadonlyArray<MenuItem>>
+   private getHomeMenuSignals(): void
    {
-      return of(this._menuItems);
+      homeMenuSignals().signal.set([
+         {
+            value: 'NGRX',
+            route: 'home/ngrx'
+         },
+         {
+            value: 'Data Flow',
+            route: 'home/dataflow'
+         }]);
+   }
+
+   private readonly _methods: { [k: string]: Function } = {
+      getHomeMenuSignals: this.getHomeMenuSignals
+   };
+
+   dispatch(name: string): void
+   {
+      if (this._methods[name])
+         this._methods[name]();
    }
 }

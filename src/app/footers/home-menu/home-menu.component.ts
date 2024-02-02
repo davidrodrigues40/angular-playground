@@ -1,9 +1,9 @@
-import { Observable } from 'rxjs';
+import { homeMenuSignals } from 'src/app/state/home-menu/home-menu.signals';
 import { HomeMenuStateService } from 'src/app/state/home-menu/services/home-menu-state.service';
 import { MenuItem } from 'src/app/state/menu/models/menu-item';
 
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 
@@ -21,11 +21,18 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class HomeMenuComponent
 {
-   menuItems: Observable<ReadonlyArray<MenuItem>> = this._stateService.observables.menu$;
+   signalMenuItems: ReadonlyArray<MenuItem> = this._stateService.observables.menu;
 
-   constructor(public readonly router: Router, private readonly _stateService: HomeMenuStateService)
+   constructor(public readonly router: Router,
+      private readonly _stateService: HomeMenuStateService)
    {
-      this._stateService.events.fetchMenu().emit();
+      effect(() =>
+      {
+         this.signalMenuItems = homeMenuSignals().signal();
+      });
+
+      if (this.signalMenuItems.length === 0)
+         this._stateService.events.fetchMenu().emit();
    }
 
    markDisabled(route: string): boolean

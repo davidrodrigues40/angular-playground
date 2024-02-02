@@ -1,7 +1,6 @@
 import { BooksState, CollectionState } from './books/books.state';
 import { BowlingState } from './bowling/bowling.state';
 import { ChuckNorrisFactState } from './chuck-norris/chuck-norris.state';
-import { HomeMenuState } from './home-menu/home-menu.state';
 import { MenuState } from './menu/menu.state';
 
 export interface AppState
@@ -11,7 +10,6 @@ export interface AppState
    chuckNorrisFactState: ChuckNorrisFactState;
    menuState: MenuState;
    bowlingState: BowlingState;
-   homeMenuState: HomeMenuState;
 }
 
 

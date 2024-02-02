@@ -1,10 +1,10 @@
 <div class="home-menu">
-    <div *ngFor="let item of menuItems | async">
-        <button mat-flat-button
-                type="button"
-                color="basic"
-                [routerLink]="item.route"
-                [disabled]="markDisabled(item.route)"
-                class="menu-item">{{item.value}}</button>
-    </div>
+   <div *ngFor="let item of signalMenuItems">
+      <button mat-flat-button
+              type="button"
+              color="basic"
+              [routerLink]="item.route"
+              [disabled]="markDisabled(item.route)"
+              class="menu-item">{{item.value}}</button>
+   </div>
 </div>
