@@ -8,10 +8,10 @@ import * as homeMenuReducers from './home-menu/home-menu.reducers';
 import * as menuReducers from './menu/menu.reducers';
 
 export const reducers: ActionReducerMap<AppState> = {
-    booksState: bookReducers.booksReducer,
-    collectionState: bookReducers.collectionReducer,
-    chuckNorrisFactState: factReducers.factReducer,
-    menuState: menuReducers.menuReducer,
-    bowlingState: bowlingReducers.bowlingReducer,
-    homeMenuState: homeMenuReducers.homeMenuReducer
+   booksState: bookReducers.booksReducer,
+   collectionState: bookReducers.collectionReducer,
+   chuckNorrisFactState: factReducers.factReducer,
+   menuState: menuReducers.menuReducer,
+   bowlingState: bowlingReducers.bowlingReducer,
+   homeMenuState: homeMenuReducers.homeMenuReducer
 }

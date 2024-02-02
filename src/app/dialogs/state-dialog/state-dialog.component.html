@@ -1,0 +1,12 @@
+<div class="dialog">
+    <div class="dialog-content">
+        <app-state-details></app-state-details>
+    </div>
+    <div class="dialog-actions">
+        <button mat-button
+                *ngIf="data?.options?.cancelButton"
+                (click)="onClick(data.options.cancelButton)">Close</button>
+        <button mat-button
+                *ngIf="data?.options?.okButton"
+                (click)="onClick(data.options.okButton)">Ok</button>
+    </div>

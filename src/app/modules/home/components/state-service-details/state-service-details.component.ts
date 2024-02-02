@@ -1,0 +1,19 @@
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+
+import { StateCanvasComponent } from '../state-canvas/state-canvas.component';
+
+@Component({
+    selector: 'app-state-service-details',
+    standalone: true,
+    imports: [
+        CommonModule,
+        StateCanvasComponent
+    ],
+    templateUrl: './state-service-details.component.html',
+    styleUrls: ['./state-service-details.component.scss']
+})
+export class StateServiceDetailsComponent
+{
+
+}

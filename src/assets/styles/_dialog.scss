@@ -1,0 +1,11 @@
+@import './variables';
+
+.dialog {
+    padding: $gap;
+
+    &-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: $gap;
+    }
+}

@@ -6,20 +6,20 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class HomeMenuService
 {
-    private readonly _menuItems: ReadonlyArray<MenuItem> = [
-        {
-            value: 'NGRX',
-            route: 'ngrx'
-        },
-        {
-            value: 'Data Flow',
-            route: 'dataflow'
-        }];
+   private readonly _menuItems: ReadonlyArray<MenuItem> = [
+      {
+         value: 'NGRX',
+         route: 'home/ngrx'
+      },
+      {
+         value: 'Data Flow',
+         route: 'home/dataflow'
+      }];
 
-    constructor() { }
+   constructor() { }
 
-    getHomeMenu$(): Observable<ReadonlyArray<MenuItem>>
-    {
-        return of(this._menuItems);
-    }
+   getHomeMenu$(): Observable<ReadonlyArray<MenuItem>>
+   {
+      return of(this._menuItems);
+   }
 }

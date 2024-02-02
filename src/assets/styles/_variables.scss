@@ -9,3 +9,11 @@ $color--warn: #eb9595;
 
 $player-width: 150px;
 $frame-width: $gap * 3.5;
+
+$title-margin-offset: 5px;
+$title-margin-block: 20px;
+$title2-margin-block: $title-margin-block - $title-margin-offset;
+$title3-margin-block: $title2-margin-block - $title-margin-offset;
+$title4-margin-block: $title3-margin-block - $title-margin-offset;
+
+$margin: 5px;

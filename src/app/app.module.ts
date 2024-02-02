@@ -5,31 +5,34 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FooterHostDirective } from './components/footer/footer-host.directive';
 import { BooksModule } from './modules/books/books.module';
 import { BowlingModule } from './modules/bowling/bowling.module';
 import { ChuckNorrisFactModule } from './modules/chuck-norris-fact/chuck-norris-fact.module';
+import { HomeModule } from './modules/home/home.module';
 import { MenuModule } from './modules/menu/menu.module';
 import { reducers } from './state/app.reducers';
-import { HomeModule } from './modules/home/home.module';
-import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-    imports: [
-        AppRoutingModule,
-        StoreModule.forRoot(reducers),
-        EffectsModule.forRoot(),
-        BrowserAnimationsModule,
-        BrowserModule,
-        HttpClientModule,
-        FormsModule,
-        BooksModule,
-        ChuckNorrisFactModule,
-        BowlingModule,
-        HomeModule,
-        MenuModule
-    ],
-    declarations: [AppComponent],
-    bootstrap: [AppComponent],
+   imports: [
+      AppRoutingModule,
+      StoreModule.forRoot(reducers),
+      EffectsModule.forRoot(),
+      BrowserAnimationsModule,
+      BrowserModule,
+      HttpClientModule,
+      FormsModule,
+      BooksModule,
+      ChuckNorrisFactModule,
+      BowlingModule,
+      HomeModule,
+      MenuModule,
+      FooterHostDirective
+   ],
+   declarations: [AppComponent],
+   bootstrap: [AppComponent],
 })
 export class AppModule { }

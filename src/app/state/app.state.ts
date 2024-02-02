@@ -6,12 +6,12 @@ import { MenuState } from './menu/menu.state';
 
 export interface AppState
 {
-    booksState: BooksState;
-    collectionState: CollectionState;
-    chuckNorrisFactState: ChuckNorrisFactState;
-    menuState: MenuState;
-    bowlingState: BowlingState;
-    homeMenuState: HomeMenuState;
+   booksState: BooksState;
+   collectionState: CollectionState;
+   chuckNorrisFactState: ChuckNorrisFactState;
+   menuState: MenuState;
+   bowlingState: BowlingState;
+   homeMenuState: HomeMenuState;
 }
 
 

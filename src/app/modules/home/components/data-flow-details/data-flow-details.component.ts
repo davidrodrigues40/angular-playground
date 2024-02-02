@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { DataFlowCanvasComponent } from '../data-flow-canvas/data-flow-canvas.component';
+
 import { Title2Component } from '../../../../components/title2/title2.component';
+import { DataFlowCanvasComponent } from '../data-flow-canvas/data-flow-canvas.component';
 
 @Component({
     selector: 'app-data-flow-details',
