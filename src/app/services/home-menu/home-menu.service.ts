@@ -11,6 +11,7 @@ export class HomeMenuService implements ISignalService
 
    private _getHomeMenu(): void
    {
+      console.log("getting menu");
       const menuItems = [
          {
             value: 'NGRX',
@@ -21,14 +22,19 @@ export class HomeMenuService implements ISignalService
             route: 'home/dataflow'
          }];
 
-      homeMenuSignals().signal.set(menuItems);
+      homeMenuSignals().items.set(menuItems);
    }
+   methods: {
+      getHomeMenu: string;
+   } = {
+         getHomeMenu: 'getHomeMenu'
+      };
 
    private readonly _methods: { [k: string]: Function } = {
       getHomeMenu: this._getHomeMenu
    };
 
-   dispatch(name: string): void
+   dispatch(name: string): any
    {
       if (this._methods[name])
          this._methods[name]();

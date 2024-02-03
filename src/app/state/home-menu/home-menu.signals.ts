@@ -1,11 +1,7 @@
-import { signal, WritableSignal } from '@angular/core';
+import { signal } from '@angular/core';
 
 import { MenuItem } from '../menu/models/menu-item';
-
-export interface ISignals<T>
-{
-   signal: WritableSignal<T>;
-}
+import { HomeMenuState } from './home-menu.state';
 
 export function homeMenuSignals()
 {
@@ -14,7 +10,7 @@ export function homeMenuSignals()
 
 let _homeMenuItems: MenuItem[] = [];
 
-const _homeMenuSignals: ISignals<ReadonlyArray<MenuItem>> =
+const _homeMenuSignals: HomeMenuState =
 {
-   signal: signal<MenuItem[]>(_homeMenuItems)
+   items: signal<MenuItem[]>(_homeMenuItems)
 }

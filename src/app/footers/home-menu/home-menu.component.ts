@@ -1,5 +1,5 @@
-import { homeMenuSignals } from 'src/app/state/home-menu/home-menu.signals';
-import { HomeMenuStateService } from 'src/app/state/home-menu/services/home-menu-state.service';
+import { HomeMenuService } from 'src/app/services/home-menu/home-menu.service';
+import { HomeMenuSignalService } from 'src/app/state/home-menu/services/home-menu-signal.service';
 import { MenuItem } from 'src/app/state/menu/models/menu-item';
 
 import { CommonModule } from '@angular/common';
@@ -17,26 +17,32 @@ import { Router, RouterModule } from '@angular/router';
       RouterModule,
       CommonModule
    ],
-   providers: [HomeMenuStateService]
+   providers: [
+      HomeMenuSignalService,
+      HomeMenuService]
 })
 export class HomeMenuComponent
 {
-   signalMenuItems: ReadonlyArray<MenuItem> = this._stateService.observables.menu;
+   menuItems: Array<MenuItem> = [];
 
    constructor(public readonly router: Router,
-      private readonly _stateService: HomeMenuStateService)
+      private readonly _stateService: HomeMenuSignalService)
    {
-      effect(() =>
-      {
-         this.signalMenuItems = homeMenuSignals().signal();
-      });
-
-      if (this.signalMenuItems.length === 0)
-         this._stateService.events.fetchMenu().emit();
+      this.loadMenu();
    }
 
    markDisabled(route: string): boolean
    {
       return this.router.url === `/${route}`;
+   }
+
+   private loadMenu(): void
+   {
+      effect(() =>
+      {
+         this.menuItems = this._stateService.observables.menu;
+      });
+
+      this._stateService.events.fetchMenu();
    }
 }

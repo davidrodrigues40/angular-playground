@@ -3,8 +3,6 @@ import { Title2Component } from 'src/app/components/title2/title2.component';
 import { Title3Component } from 'src/app/components/title3/title3.component';
 import { Title4Component } from 'src/app/components/title4/title4.component';
 import { DataFlowDetailsComponent } from 'src/app/modules/home/components/data-flow-details/data-flow-details.component';
-import { HomeMenuService } from 'src/app/services/home-menu/home-menu.service';
-import { HomeMenuStateService } from 'src/app/state/home-menu/services/home-menu-state.service';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -40,9 +38,6 @@ import { NgrxViewComponent } from './views/ngrx-view/ngrx-view.component';
       HomeMenuComponent,
       StateCanvasComponent,
       NgrxDetailsComponent,
-   ],
-   providers: [
-      HomeMenuStateService,
-      HomeMenuService]
+   ]
 })
 export class HomeModule { }
