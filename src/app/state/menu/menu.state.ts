@@ -1,6 +1,8 @@
-import { MenuItem } from "./models/menu-item";
+import { WritableSignal } from '@angular/core';
+
+import { MenuItem } from './models/menu-item';
 
 export interface MenuState
 {
-    items: ReadonlyArray<MenuItem>
+   items: WritableSignal<ReadonlyArray<MenuItem>>;
 }

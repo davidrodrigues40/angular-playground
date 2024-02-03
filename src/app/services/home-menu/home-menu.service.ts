@@ -11,7 +11,6 @@ export class HomeMenuService implements ISignalService
 
    private _getHomeMenu(): void
    {
-      console.log("getting menu");
       const menuItems = [
          {
             value: 'NGRX',

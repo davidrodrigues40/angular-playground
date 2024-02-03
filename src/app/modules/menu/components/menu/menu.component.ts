@@ -1,21 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { MenuService } from 'src/app/services/menu/menu.service';
 import { MenuItem } from 'src/app/state/menu/models/menu-item';
-import { MenuStateService } from 'src/app/state/menu/service/menu-state.service';
+import { MenuSignalService } from 'src/app/state/menu/service/menu-signal.service';
+
+import { Component, effect } from '@angular/core';
 
 @Component({
-    selector: 'app-menu',
-    templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.scss']
+   selector: 'app-menu',
+   templateUrl: './menu.component.html',
+   styleUrls: ['./menu.component.scss'],
+   providers: [MenuSignalService, MenuService]
 })
-export class MenuComponent implements OnInit
+export class MenuComponent
 {
-    public items$: Observable<ReadonlyArray<MenuItem>> = this._service.observables.menu$;
+   public items: ReadonlyArray<MenuItem> = this._service.observables.menu;
 
-    constructor(private readonly _service: MenuStateService) { }
+   constructor(private readonly _service: MenuSignalService)
+   {
+      this.loadMenu();
+   }
 
-    ngOnInit(): void
-    {
-        this._service.events.fetchMenu().emit();
-    }
+   private loadMenu(): void
+   {
+      effect(() =>
+      {
+         this.items = this._service.observables.menu;
+      });
+
+      this._service.events.fetchMenu();
+   }
 }

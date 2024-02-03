@@ -1,23 +1,40 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { first, of } from 'rxjs';
+import { ISignalService } from 'src/app/interfaces/services/signal-service.interface';
+import { menuSignals } from 'src/app/state/menu/menu.signals';
 import { MenuItem } from 'src/app/state/menu/models/menu-item';
-import { ApiService } from '../api.service';
+
+import { Injectable } from '@angular/core';
 
 @Injectable()
-export class MenuService extends ApiService
+export class MenuService implements ISignalService
 {
-    private readonly _menuItems: MenuItem[] = [
-        { value: 'Home', route: '/home' },
-        { value: 'Books', route: '/books' },
-        { value: 'Bowling', route: '/bowling' },
-        { value: 'Chuck Norris Facts', route: '/chuck-norris-facts' },
-    ];
+   methods: {
+      getMenu: string;
+   } = {
+         getMenu: 'getMenu'
+      };
 
-    constructor(private readonly _httpClient: HttpClient) { super(); }
+   private readonly _methods: { [k: string]: Function } = {
+      getMenu: this._getMenu
+   };
 
-    getAll$(): Observable<MenuItem[]>
-    {
-        return of(this._menuItems);
-    }
+   dispatch(name: string): void
+   {
+      if (this._methods[name])
+         this._methods[name]();
+   }
+
+   private _getMenu(): void
+   {
+      const _menuItems: MenuItem[] = [
+         { value: 'Home', route: '/home' },
+         { value: 'Books', route: '/books' },
+         { value: 'Bowling', route: '/bowling' },
+         { value: 'Chuck Norris Facts', route: '/chuck-norris-facts' },
+      ];
+
+      of(_menuItems)
+         .pipe(first())
+         .subscribe((items: ReadonlyArray<MenuItem>) => menuSignals().items.set(items));
+   }
 }
