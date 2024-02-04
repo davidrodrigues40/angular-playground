@@ -9,7 +9,6 @@ import { MenuItem } from '../models/menu-item';
 @Injectable()
 export class MenuSignalService implements ISignalStateService
 {
-
    constructor(private readonly _service: MenuService) { }
 
    events = {
@@ -17,7 +16,6 @@ export class MenuSignalService implements ISignalStateService
       _menuItems: menuSignals().items(),
       fetchMenu(): void
       {
-         console.log('menu items', this._menuItems);
          if (this._menuItems.length === 0)
             this._service.dispatch(this._service.methods.getMenu);
       }

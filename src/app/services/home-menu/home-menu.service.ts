@@ -7,7 +7,19 @@ import { ISignalService } from '../../interfaces/services/signal-service.interfa
 @Injectable()
 export class HomeMenuService implements ISignalService
 {
-   constructor() { }
+   methods: {
+      getHomeMenu: string;
+   } = {
+         getHomeMenu: 'getHomeMenu'
+      };
+
+   private readonly _methods: { [k: string]: Function } = {
+      getHomeMenu: this._getHomeMenu
+   };
+
+   readonly details = {
+      methods: this._methods
+   };
 
    private _getHomeMenu(): void
    {
@@ -23,15 +35,6 @@ export class HomeMenuService implements ISignalService
 
       homeMenuSignals().items.set(menuItems);
    }
-   methods: {
-      getHomeMenu: string;
-   } = {
-         getHomeMenu: 'getHomeMenu'
-      };
-
-   private readonly _methods: { [k: string]: Function } = {
-      getHomeMenu: this._getHomeMenu
-   };
 
    dispatch(name: string): any
    {

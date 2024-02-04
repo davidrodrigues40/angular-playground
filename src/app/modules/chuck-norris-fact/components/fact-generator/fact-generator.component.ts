@@ -1,36 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, first } from 'rxjs';
 import { ChuckNorrisFact } from 'src/app/state/chuck-norris/models/chuck-norris-fact';
 import { FactCategory } from 'src/app/state/chuck-norris/models/fact-category';
-import { ChuckNorrisStateService } from 'src/app/state/chuck-norris/service/chuck-norris-state.service';
+import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
+
+import { Component, effect } from '@angular/core';
 
 @Component({
-  selector: 'app-fact-generator',
-  templateUrl: './fact-generator.component.html',
-  styleUrls: ['./fact-generator.component.scss']
+   selector: 'app-fact-generator',
+   templateUrl: './fact-generator.component.html',
+   styleUrls: ['./fact-generator.component.scss']
 })
-export class FactGeneratorComponent implements OnInit {
-  public fact$: Observable<ChuckNorrisFact> = this._service.observables.fact$;
-  public categories$: Observable<ReadonlyArray<FactCategory>> = this._service.observables.categories$;
-  public selectedCategory$: Observable<FactCategory | undefined> = this._service.observables.selectedCategory$;
+export class FactGeneratorComponent
+{
+   public fact: Readonly<ChuckNorrisFact> | null = this._service.observables.fact;
+   public categories: ReadonlyArray<FactCategory> | null = this._service.observables.categories;
+   public selectedCategory: FactCategory | null = this._service.observables.selectedCategory;
 
-  constructor(private readonly _service: ChuckNorrisStateService) { }
+   constructor(private readonly _service: ChuckNorrisSignalService)
+   {
+      effect(() =>
+      {
+         this.fact = this._service.observables.fact;
+         this.categories = this._service.observables.categories;
+         this.selectedCategory = this._service.observables.selectedCategory;
+      });
+   }
 
-  ngOnInit(): void {
-    this._service.events.fetchCategories().emit();
-  }
+   getFact(): void
+   {
+      this._service.events.fetchFact();
+   }
 
-  getFact(): void {
-    this._service.events.fetchFact().emit();
-  }
+   getFactForCategory(): void
+   {
+      if (this.selectedCategory)
+         this._service.events.fetchFactForCategory(this.selectedCategory);
+   }
 
-  getFactForCategory(): void {
-    this._service.observables.selectedCategory$
-      .pipe(first())
-      .subscribe(category => this._service.events.fetchFactForCategory(category as FactCategory).emit());
-  }
-
-  categorySelected(category: FactCategory): void {
-    this._service.events.setSelectedCategory(category).emit();
-  }
+   categorySelected(category: FactCategory): void
+   {
+      this._service.events.setSelectedCategory(category);
+   }
 }

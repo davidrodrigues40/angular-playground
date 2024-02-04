@@ -6,7 +6,6 @@ export interface AppState
 {
    booksState: BooksState;
    collectionState: CollectionState;
-   chuckNorrisFactState: ChuckNorrisFactState;
    bowlingState: BowlingState;
 }
 
