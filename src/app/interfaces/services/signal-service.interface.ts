@@ -11,7 +11,7 @@ export interface ISignalService
 export interface IHttpSignalService
 {
    details: {
-      [k: string]: Function | HttpClient | string | undefined,
+      [k: string]: any,
       httpClient: HttpClient,
       base_url: string
    }

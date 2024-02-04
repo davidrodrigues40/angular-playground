@@ -1,13 +1,10 @@
-import { Book } from "./models/books.model";
+import { WritableSignal } from '@angular/core';
+
+import { Book } from './models/books.model';
 
 export interface BooksState
 {
-    books: ReadonlyArray<Book>;
-    message: any;
-}
-
-export interface CollectionState
-{
-    books: ReadonlyArray<Book>;
-    message: any;
+   books: WritableSignal<ReadonlyArray<Book>>;
+   message: WritableSignal<any>;
+   collection: WritableSignal<Array<Book>>;
 }

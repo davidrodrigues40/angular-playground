@@ -1,5 +1,3 @@
-import { HttpClient } from '@angular/common/http';
-
 import { IHttpSignalService, ISignalService } from './signal-service.interface';
 
 export interface ISignalStateService
@@ -12,6 +10,9 @@ export interface ISignalStateService
 
 export interface IHttpSignalStateService
 {
+   effects: {
+      _service: IHttpSignalService
+   };
    events: {
       _service: IHttpSignalService;
    };

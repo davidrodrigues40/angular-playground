@@ -1,8 +1,9 @@
+import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { ChuckNorrisFact } from 'src/app/state/chuck-norris/models/chuck-norris-fact';
 import { FactCategory } from 'src/app/state/chuck-norris/models/fact-category';
 import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
 
-import { Component, effect } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
    selector: 'app-fact-generator',
@@ -11,18 +12,13 @@ import { Component, effect } from '@angular/core';
 })
 export class FactGeneratorComponent
 {
-   public fact: Readonly<ChuckNorrisFact> | null = this._service.observables.fact;
-   public categories: ReadonlyArray<FactCategory> | null = this._service.observables.categories;
-   public selectedCategory: FactCategory | null = this._service.observables.selectedCategory;
+   public fact: SignalObject<Readonly<ChuckNorrisFact | null>> = { value: this._service.observables.fact };
+   public selectedCategory: SignalObject<FactCategory | null> = { value: this._service.observables.selectedCategory };
 
    constructor(private readonly _service: ChuckNorrisSignalService)
    {
-      effect(() =>
-      {
-         this.fact = this._service.observables.fact;
-         this.categories = this._service.observables.categories;
-         this.selectedCategory = this._service.observables.selectedCategory;
-      });
+      this._service.effects.bindFact(this.fact);
+      this._service.effects.bindSelectedCategory(this.selectedCategory);
    }
 
    getFact(): void
@@ -33,7 +29,9 @@ export class FactGeneratorComponent
    getFactForCategory(): void
    {
       if (this.selectedCategory)
-         this._service.events.fetchFactForCategory(this.selectedCategory);
+         this._service.events.fetchFactForCategory(this.selectedCategory.value);
+      else
+         this.getFact();
    }
 
    categorySelected(category: FactCategory): void

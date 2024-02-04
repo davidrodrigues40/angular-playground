@@ -1,100 +1,122 @@
-import { HttpClient } from "@angular/common/http";
-import { TestBed, waitForAsync } from "@angular/core/testing";
-import { of } from "rxjs";
-import { Book } from "src/app/state/books/models/books.model";
-import { GoogleBooksService } from "./books.service";
+import { of } from 'rxjs';
+import { Book } from 'src/app/state/books/models/books.model';
 
-describe('BooksService', () => {
-    let httpClient: jasmine.SpyObj<HttpClient> = jasmine.createSpyObj('HttpClient', ['get']);
-    let service: GoogleBooksService;
-    const defaultBook: Book = {
-        id: "",
-        volumeInfo: {
-            title: "",
-            authors: []
-        }
-    };
-    const defaultBooks: { items?: Book[] } = {
-        items: undefined
-    };
+import { HttpClient } from '@angular/common/http';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            providers: [
-                GoogleBooksService,
-                { provide: HttpClient, useValue: httpClient }
-            ]
-        });
-        service = TestBed.inject(GoogleBooksService);
+import { BookService } from './books.service';
 
-        httpClient.get.calls.reset();
-    });
+describe('BooksService', () =>
+{
+   let httpClient: jasmine.SpyObj<HttpClient> = jasmine.createSpyObj('HttpClient', ['get']);
+   let service: BookService;
+   const defaultBook: Book = {
+      id: "",
+      volumeInfo: {
+         title: "",
+         authors: []
+      }
+   };
+   const defaultBooks: { items?: Book[] } = {
+      items: undefined
+   };
 
-    it('should be created', () => {
-        const service: GoogleBooksService = TestBed.inject(GoogleBooksService);
-        expect(service).toBeTruthy();
-    });
+   beforeEach(() =>
+   {
+      TestBed.configureTestingModule({
+         providers: [
+            BookService,
+            { provide: HttpClient, useValue: httpClient }
+         ]
+      });
+      service = TestBed.inject(BookService);
 
-    describe('when getBooks$ invoked', () => {
-        it('should call httpClient.get and return books', waitForAsync(() => {
-            var books = { ...defaultBooks, items: [defaultBook] }
-            httpClient.get.and.returnValue(of(books));
+      httpClient.get.calls.reset();
+   });
 
-            service.getBooks$()
-                .subscribe((books) => {
-                    expect(books).toEqual([defaultBook])
-                });
-        }));
+   it('should be created', () =>
+   {
+      const service: BookService = TestBed.inject(BookService);
+      expect(service).toBeTruthy();
+   });
 
-        it('should return empty array if no books found', () => {
-            httpClient.get.and.returnValue(of(defaultBooks));
+   describe('when getBooks$ invoked', () =>
+   {
+      it('should call httpClient.get and return books', waitForAsync(() =>
+      {
+         var books = { ...defaultBooks, items: [defaultBook] }
+         httpClient.get.and.returnValue(of(books));
 
-            service.getBooks$()
-                .subscribe((books) => {
-                    expect(books).toEqual([])
-                });
-        });
-    });
+         service.getBooks$()
+            .subscribe((books) =>
+            {
+               expect(books).toEqual([defaultBook])
+            });
+      }));
 
-    describe('when get collection invoked', () => {
-        it('should return empty array', waitForAsync(() => {
-            service.getCollection$()
-                .subscribe((books) => {
-                    expect(books).toEqual([])
-                });
-        }));
-    });
+      it('should return empty array if no books found', () =>
+      {
+         httpClient.get.and.returnValue(of(defaultBooks));
 
-    describe('when add book invoked', () => {
-        it('should return book', waitForAsync(() => {
-            var book = { ...defaultBook, id: 'id' };
-            service['_books'] = [book];
+         service.getBooks$()
+            .subscribe((books) =>
+            {
+               expect(books).toEqual([])
+            });
+      });
+   });
 
-            service.addBook$('id')
-                .subscribe((book) => {
-                    expect(book).toEqual(book)
-                });
-        }));
-    });
+   describe('when get collection invoked', () =>
+   {
+      it('should return empty array', waitForAsync(() =>
+      {
+         service.getCollection$()
+            .subscribe((books) =>
+            {
+               expect(books).toEqual([])
+            });
+      }));
+   });
 
-    describe('when remove book invoked', () => {
-        it('should return book', waitForAsync(() => {
-            var book = { ...defaultBook, id: 'id' };
-            service['_books'] = [book];
+   describe('when add book invoked', () =>
+   {
+      it('should return book', waitForAsync(() =>
+      {
+         var book = { ...defaultBook, id: 'id' };
+         service['_books'] = [book];
 
-            service.removeBook$('id')
-                .subscribe((book) => {
-                    expect(book).toEqual(book)
-                });
-        }));
-    });
+         service.addBook$('id')
+            .subscribe((book) =>
+            {
+               expect(book).toEqual(book)
+            });
+      }));
+   });
 
-    describe('when clear collection invoked', () => {
-        it('should return void', waitForAsync(() => {
-            service.clearCollection$()
-                .subscribe((response) => {
-                    expect(response).toEqual(void 0)
-                });
-        }));
-    });
+   describe('when remove book invoked', () =>
+   {
+      it('should return book', waitForAsync(() =>
+      {
+         var book = { ...defaultBook, id: 'id' };
+         service['_books'] = [book];
+
+         service.removeBook$('id')
+            .subscribe((book) =>
+            {
+               expect(book).toEqual(book)
+            });
+      }));
+   });
+
+   describe('when clear collection invoked', () =>
+   {
+      it('should return void', waitForAsync(() =>
+      {
+         service.clearCollection$()
+            .subscribe((response) =>
+            {
+               expect(response).toEqual(void 0)
+            });
+      }));
+   });
 });

@@ -1,21 +1,21 @@
 <app-title>Oliver Sacks Books Collection</app-title>
 <div class="main">
-  <div class="main-column">
-    <h2>Available Books</h2>
-    <app-book-list class="book-list"
-                   [books]="(books$ | async)!"
-                   (add)="onAdd($event)"></app-book-list>
-  </div>
-  <div class="main-divider">&nbsp;</div>
-  <div class="main-column">
-    <h2>My Collection</h2>
-    <app-book-collection class="book-collection"
-                         [books]="(collection$ | async)!"
-                         (remove)="onRemove($event)">
-    </app-book-collection>
-    <button mat-flat-button
-            color="warn"
-            style="width: 100%"
-            (click)="onClear()">Clear Collection</button>
-  </div>
+   <div class="main-column">
+      <h2>Available Books</h2>
+      <app-book-list class="book-list"
+                     [books]="books.value!"
+                     (add)="onAdd($event)"></app-book-list>
+   </div>
+   <div class="main-divider">&nbsp;</div>
+   <div class="main-column">
+      <h2>My Collection</h2>
+      <app-book-collection class="book-collection"
+                           [books]="collection.value!"
+                           (remove)="onRemove($event)">
+      </app-book-collection>
+      <button mat-flat-button
+              color="warn"
+              style="width: 100%"
+              (click)="onClear()">Clear Collection</button>
+   </div>
 </div>

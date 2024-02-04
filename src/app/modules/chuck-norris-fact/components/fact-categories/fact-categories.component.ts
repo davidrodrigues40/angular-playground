@@ -1,7 +1,8 @@
+import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { FactCategory } from 'src/app/state/chuck-norris/models/fact-category';
 import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
 
-import { Component, effect, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 
 @Component({
@@ -10,7 +11,7 @@ import { MatSelectChange } from '@angular/material/select';
 })
 export class FactCategoriesComponent
 {
-   options: ReadonlyArray<FactCategory> | null = [];
+   options: SignalObject<ReadonlyArray<FactCategory> | null> = { value: this._service.observables.categories };
    @Output() categorySelected: EventEmitter<FactCategory> = new EventEmitter<FactCategory>();
 
    constructor(private readonly _service: ChuckNorrisSignalService)
@@ -25,11 +26,7 @@ export class FactCategoriesComponent
 
    private loadCategories(): void
    {
-      effect(() =>
-      {
-         this.options = this._service.observables.categories;
-      });
-
+      this._service.effects.bindCategories(this.options);
       this._service.events.fetchCategories();
    }
 }

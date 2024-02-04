@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 export abstract class HttpSignalService
 {
    protected readonly details: {
-      [k: string]: Function | HttpClient | string | undefined,
+      [k: string]: any,
       httpClient: HttpClient | undefined,
       base_url: string,
    } = {

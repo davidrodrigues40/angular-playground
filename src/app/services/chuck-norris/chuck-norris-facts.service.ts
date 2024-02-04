@@ -40,12 +40,12 @@ export class ChuckNorrisFactsService extends HttpSignalService implements IHttpS
          .subscribe(fact => chuckNorrisSignals().fact.set(fact));
    }
 
-   private _getFactForCategory(payload: { category: FactCategory }): void
+   private _getFactForCategory(category: FactCategory): void
    {
-      if (payload.category.name === 'random')
+      if (category.name === 'random')
          this._getFact();
 
-      this.httpClient?.get<ChuckNorrisFact>(`${this.base_url}/random?category=${payload.category.name}`)
+      this.httpClient?.get<ChuckNorrisFact>(`${this.base_url}/random?category=${category.name}`)
          .pipe(first())
          .subscribe(fact => chuckNorrisSignals().fact.set(fact));;
    }
