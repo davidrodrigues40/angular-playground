@@ -3,7 +3,7 @@
            [matMenuTriggerFor]="menu">
       <mat-icon>menu</mat-icon></button>
    <mat-menu #menu>
-      <app-menu-item *ngFor="let item of items"
+      <app-menu-item *ngFor="let item of items.value"
                      [item]="item"></app-menu-item>
    </mat-menu>
 </div>

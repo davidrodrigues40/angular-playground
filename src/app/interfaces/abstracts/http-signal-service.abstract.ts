@@ -4,8 +4,8 @@ export abstract class HttpSignalService
 {
    protected readonly details: {
       [k: string]: any,
-      httpClient: HttpClient | undefined,
-      base_url: string,
+      httpClient?: HttpClient | undefined,
+      base_url?: string,
    } = {
          httpClient: undefined,
          base_url: ''

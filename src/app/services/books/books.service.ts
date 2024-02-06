@@ -1,6 +1,6 @@
 import { map } from 'rxjs';
 import { HttpSignalService } from 'src/app/interfaces/abstracts/http-signal-service.abstract';
-import { IHttpSignalService } from 'src/app/interfaces/services/signal-service.interface';
+import { ISignalService } from 'src/app/interfaces/services/signal-service.interface';
 import { bookSignals } from 'src/app/state/books/books.signals';
 
 import { HttpClient } from '@angular/common/http';
@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { Book } from '../../state/books/models/books.model';
 
 @Injectable()
-export class BookService extends HttpSignalService implements IHttpSignalService
+export class BookService extends HttpSignalService implements ISignalService
 {
    private _books: Book[] = [];
    private readonly base_url: string = 'https://www.googleapis.com/books/v1/volumes?maxResults=10&orderBy=relevance&q=oliver%20sacks';

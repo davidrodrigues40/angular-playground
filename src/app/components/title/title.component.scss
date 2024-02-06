@@ -1,7 +1,9 @@
 @import "src/assets/styles/variables";
+@import "src/assets/styles/functions";
 
 h1 {
-    color: $color--primary;
-    margin-block-start: 0;
-    margin-block-end: $title-margin-block;
+   color: $color--primary;
+   margin-block-start: 0;
+   font-size: $gap * 2;
+   line-height: 32px;
 }

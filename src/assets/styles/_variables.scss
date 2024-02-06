@@ -1,3 +1,5 @@
+@import 'functions';
+
 $gap: 16px;
 $color--white: rgb(218, 218, 218);
 $color--blue: rgb(64, 156, 218);
@@ -9,6 +11,9 @@ $color--warn: #eb9595;
 
 $player-width: 150px;
 $frame-width: $gap * 3.5;
+
+$font-family: Arial, Helvetica, sans-serif;
+$line-height: #{to-string($gap * 1.25)};
 
 $title-margin-offset: 5px;
 $title-margin-block: 20px;

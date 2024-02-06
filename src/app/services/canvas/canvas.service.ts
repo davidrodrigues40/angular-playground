@@ -12,24 +12,25 @@ export class CanvasService
 
    drawCanvas(canvas: CanvasElement): void
    {
-      const nodes: CanvasNode[] = canvas.nodes;
+      const node: CanvasNode = canvas.node;
       this._canvas = canvas;
       this._element = document.getElementById(canvas.elementId) as HTMLCanvasElement;
 
       if (this._element && this._canvas)
       {
          const context = this._element.getContext('2d');
-         this._element.height = Math.max(this.calculateHeight(nodes) + canvas.startX, canvas.height);
-         this._element.width = Math.max(this.calculateWidth(nodes, true) + canvas.startY, canvas.width);
+         this._element.height = Math.max(this.calculateHeight([node]) + canvas.startX, canvas.height);
+         this._element.width = Math.max(this.calculateWidth([node], true) + canvas.startY, canvas.width);
          this._element.style.backgroundColor = 'white';
 
          if (context)
             context.font = this._canvas.font;
 
-         Array.from(canvas.nodes).forEach((node: CanvasNode) =>
-         {
-            this.drawNode(node, canvas.startX, canvas.startY);
-         });
+         // Array.from(canvas.nodes).forEach((node: CanvasNode) =>
+         // {
+         //    this.drawNode(node, canvas.startX, canvas.startY);
+         // });
+         this.drawNode(canvas.node, canvas.startX, canvas.startY);
       }
    }
 
@@ -45,7 +46,7 @@ export class CanvasService
 
    createCanvas(startX: number, startY: number, width: number, height: number,
       lineHeight: number, lineLength: number,
-      backgroundColor: string, elementId: string, font: string, nodes: Array<CanvasNode>): CanvasElement
+      backgroundColor: string, elementId: string, font: string, node: CanvasNode): CanvasElement
    {
       return {
          startX: startX,
@@ -57,7 +58,7 @@ export class CanvasService
          backgroundColor: backgroundColor,
          elementId: elementId,
          font: font,
-         nodes: nodes
+         node: node
       }
    }
 

@@ -1,5 +1,5 @@
 import { first, of } from 'rxjs';
-import { SignalService } from 'src/app/interfaces/abstracts/signal-service.abstract';
+import { HttpSignalService } from 'src/app/interfaces/abstracts/http-signal-service.abstract';
 import { ISignalService } from 'src/app/interfaces/services/signal-service.interface';
 import { menuSignals } from 'src/app/state/menu/menu.signals';
 import { MenuItem } from 'src/app/state/menu/models/menu-item';
@@ -7,7 +7,7 @@ import { MenuItem } from 'src/app/state/menu/models/menu-item';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class MenuService extends SignalService implements ISignalService
+export class MenuService extends HttpSignalService implements ISignalService
 {
    methods: {
       getMenu: string;
@@ -15,12 +15,8 @@ export class MenuService extends SignalService implements ISignalService
          getMenu: 'getMenu'
       };
 
-   private readonly _methods: { [k: string]: Function } = {
+   override readonly details = {
       getMenu: this._getMenu
-   };
-
-   readonly details = {
-      methods: this._methods
    };
 
    private _getMenu(): void

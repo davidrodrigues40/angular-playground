@@ -1,5 +1,5 @@
 import { SignalObject } from 'src/app/interfaces/models/signal-object';
-import { IHttpSignalStateService } from 'src/app/interfaces/services/signal-state-service.interface';
+import { ISignalStateService } from 'src/app/interfaces/services/signal-state-service.interface';
 import { BookService } from 'src/app/services/books/books.service';
 
 import { effect, Injectable } from '@angular/core';
@@ -8,11 +8,10 @@ import { bookSignals } from '../books.signals';
 import { Book } from '../models/books.model';
 
 @Injectable()
-export class BookSignalService implements IHttpSignalStateService
+export class BookSignalService implements ISignalStateService
 {
    constructor(private readonly _service: BookService) { }
    effects = {
-      _service: this._service,
       bindBooks(obj: SignalObject<ReadonlyArray<Book>>): void
       {
          effect(() =>

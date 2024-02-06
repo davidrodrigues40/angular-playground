@@ -1,11 +1,14 @@
+import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { HomeMenuService } from 'src/app/services/home-menu/home-menu.service';
 import { HomeMenuSignalService } from 'src/app/state/home-menu/services/home-menu-signal.service';
 import { MenuItem } from 'src/app/state/menu/models/menu-item';
 
 import { CommonModule } from '@angular/common';
-import { Component, effect } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
+
+import { BaseFooter } from '../base-footer.component';
 
 @Component({
    selector: 'app-home-menu',
@@ -15,20 +18,25 @@ import { Router, RouterModule } from '@angular/router';
    imports: [
       MatButtonModule,
       RouterModule,
-      CommonModule
+      CommonModule,
+      BaseFooter
    ],
    providers: [
       HomeMenuSignalService,
       HomeMenuService]
 })
-export class HomeMenuComponent
+export class HomeMenuComponent implements OnInit   
 {
-   menuItems: Array<MenuItem> = [];
+   menuItems: SignalObject<Array<MenuItem>> = { value: [] };
 
    constructor(public readonly router: Router,
       private readonly _stateService: HomeMenuSignalService)
    {
-      this.loadMenu();
+      this._stateService.effects.bindMenu(this.menuItems);
+   }
+   ngOnInit(): void
+   {
+      this.loadData();
    }
 
    markDisabled(route: string): boolean
@@ -36,13 +44,8 @@ export class HomeMenuComponent
       return this.router.url === `/${route}`;
    }
 
-   private loadMenu(): void
+   private loadData(): void
    {
-      effect(() =>
-      {
-         this.menuItems = this._stateService.observables.menu;
-      });
-
       this._stateService.events.fetchMenu();
    }
 }

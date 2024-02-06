@@ -1,6 +1,7 @@
 @import "src/assets/styles/variables";
+@import "src/assets/styles/functions";
 
 h3 {
-    color: $color--primary;
-    margin-block: $title3-margin-block;
+   color: $color--primary;
+   font-size: $gap * 1.15;
 }

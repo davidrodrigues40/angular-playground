@@ -8,10 +8,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 
+import { SignalsDataFlowCanvasComponent } from '../../canvas/signals-data-flow-canvas/signals-data-flow-canvas.component';
+import { StateCanvasComponent } from '../../canvas/state-canvas/state-canvas.component';
 import { HomeMenuComponent } from '../../footers/home-menu/home-menu.component';
-import { NgrxCanvasComponent } from './components/ngrx-state-management/ngrx-canvas/ngrx-canvas.component';
 import { NgrxDetailsComponent } from './components/ngrx-state-management/ngrx-details/ngrx-details.component';
-import { StateCanvasComponent } from './components/state-canvas/state-canvas.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { DataFlowComponent } from './views/data-flow/data-flow.component';
@@ -24,7 +24,7 @@ import { NgrxViewComponent } from './views/ngrx-view/ngrx-view.component';
       HomeDetailsComponent,
       NgrxViewComponent,
       DataFlowComponent,
-      NgrxCanvasComponent,
+      SignalsDataFlowCanvasComponent,
    ],
    imports: [
       HomeRoutingModule,

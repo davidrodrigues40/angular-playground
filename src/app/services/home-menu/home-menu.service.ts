@@ -1,8 +1,7 @@
+import { ISignalService } from 'src/app/interfaces/services/signal-service.interface';
 import { homeMenuSignals } from 'src/app/state/home-menu/home-menu.signals';
 
 import { Injectable } from '@angular/core';
-
-import { ISignalService } from '../../interfaces/services/signal-service.interface';
 
 @Injectable()
 export class HomeMenuService implements ISignalService

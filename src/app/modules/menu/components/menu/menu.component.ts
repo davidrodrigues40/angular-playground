@@ -1,8 +1,9 @@
+import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { MenuService } from 'src/app/services/menu/menu.service';
 import { MenuItem } from 'src/app/state/menu/models/menu-item';
 import { MenuSignalService } from 'src/app/state/menu/service/menu-signal.service';
 
-import { Component, effect } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
    selector: 'app-menu',
@@ -10,22 +11,22 @@ import { Component, effect } from '@angular/core';
    styleUrls: ['./menu.component.scss'],
    providers: [MenuSignalService, MenuService]
 })
-export class MenuComponent
+export class MenuComponent implements OnInit
 {
-   public items: ReadonlyArray<MenuItem> = this._service.observables.menu;
+   public items: SignalObject<ReadonlyArray<MenuItem>> = { value: this._service.observables.menu };
 
    constructor(private readonly _service: MenuSignalService)
    {
-      this.loadMenu();
+      this._service.effects.bindMenu(this.items);
    }
 
-   private loadMenu(): void
+   ngOnInit(): void
    {
-      effect(() =>
-      {
-         this.items = this._service.observables.menu;
-      });
+      this.loadData();
+   }
 
+   private loadData(): void
+   {
       this._service.events.fetchMenu();
    }
 }

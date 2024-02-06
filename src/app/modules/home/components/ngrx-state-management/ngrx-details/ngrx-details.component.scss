@@ -1,15 +1,35 @@
 @import "src/assets/styles/variables.scss";
 
 table {
-    padding: 0;
-    border-spacing: 0;
+   padding: 0;
+   border-spacing: 0;
 }
 
 td {
-    border: 1px solid $color--white;
-    padding: $gap * 0.5;
+   border: 1px solid $color--white;
+   padding: $gap * 0.5;
 }
 
 a {
-    cursor: pointer;
+   cursor: pointer;
+}
+
+.ngrx {
+   display: table;
+
+   &-row {
+      display: table-row;
+      align-items: flex-start;
+      margin-bottom: $gap;
+   }
+
+   &-col {
+      display: table-cell;
+      padding: $gap * 0.5;
+      border-bottom: 1px solid $color--white;
+
+      &--left {
+         width: 70px;
+      }
+   }
 }
