@@ -34,6 +34,13 @@ export class ChuckNorrisSignalService implements ISignalStateService
          {
             obj.value = chuckNorrisSignals().selectedCategory();
          });
+      },
+      bindFooterFact(obj: SignalObject<Readonly<ChuckNorrisFact | null>>): void
+      {
+         effect(() =>
+         {
+            obj.value = chuckNorrisSignals().footerFact();
+         });
       }
    };
    events = {
@@ -41,7 +48,7 @@ export class ChuckNorrisSignalService implements ISignalStateService
       _categories: chuckNorrisSignals().categories(),
       fetchFact(): void
       {
-         this._service.dispatch(this._service.methods.getFact);
+         this._service.dispatch(this._service.methods.getFact, chuckNorrisSignals().fact);
       },
       fetchFactForCategory(category: FactCategory | null): void
       {
@@ -50,6 +57,10 @@ export class ChuckNorrisSignalService implements ISignalStateService
          else
             this.fetchFact();
       },
+      fetchFooterFact(): void
+      {
+         this._service.dispatch(this._service.methods.getFact, chuckNorrisSignals().footerFact);
+      },
       fetchCategories(): void
       {
          this._service.dispatch(this._service.methods.getCategories);
@@ -57,11 +68,13 @@ export class ChuckNorrisSignalService implements ISignalStateService
       setSelectedCategory(category: FactCategory): void
       {
          chuckNorrisSignals().selectedCategory.set(category);
-      }
+      },
    };
    observables = {
       get fact(): Readonly<ChuckNorrisFact | null>
       { return chuckNorrisSignals().fact() },
+      get footerFact(): Readonly<ChuckNorrisFact | null>
+      { return chuckNorrisSignals().footerFact() },
       get categories(): ReadonlyArray<FactCategory> | null
       { return chuckNorrisSignals().categories(); },
       get selectedCategory(): Readonly<FactCategory | null>

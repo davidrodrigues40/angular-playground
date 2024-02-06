@@ -6,7 +6,7 @@ import { ChuckNorrisFact } from 'src/app/state/chuck-norris/models/chuck-norris-
 import { FactCategory } from 'src/app/state/chuck-norris/models/fact-category';
 
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, WritableSignal } from '@angular/core';
 
 @Injectable()
 export class ChuckNorrisFactsService extends HttpSignalService implements ISignalService
@@ -33,17 +33,17 @@ export class ChuckNorrisFactsService extends HttpSignalService implements ISigna
 
    constructor(private readonly httpClient: HttpClient) { super(); }
 
-   private _getFact(): void
+   private _getFact(storage: WritableSignal<Readonly<ChuckNorrisFact> | null>): void
    {
       this.httpClient?.get<ChuckNorrisFact>(`${this.base_url}/random`)
          .pipe(first())
-         .subscribe(fact => chuckNorrisSignals().fact.set(fact));
+         .subscribe(fact => storage.set(fact));
    }
 
    private _getFactForCategory(category: FactCategory): void
    {
       if (category.name === 'random')
-         this._getFact();
+         this._getFact(chuckNorrisSignals().fact);
 
       this.httpClient?.get<ChuckNorrisFact>(`${this.base_url}/random?category=${category.name}`)
          .pipe(first())

@@ -8,4 +8,5 @@ export interface ChuckNorrisFactState
    fact: WritableSignal<Readonly<ChuckNorrisFact> | null>;
    categories: WritableSignal<ReadonlyArray<FactCategory> | null>;
    selectedCategory: WritableSignal<Readonly<FactCategory> | null>;
+   footerFact: WritableSignal<Readonly<ChuckNorrisFact> | null>;
 }

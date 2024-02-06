@@ -13,5 +13,6 @@ const _chuckNorrisSignals: ChuckNorrisFactState =
 {
    fact: signal<Readonly<ChuckNorrisFact> | null>(null),
    categories: signal<ReadonlyArray<FactCategory> | null>(null),
-   selectedCategory: signal<Readonly<FactCategory> | null>(null)
+   selectedCategory: signal<Readonly<FactCategory> | null>(null),
+   footerFact: signal<Readonly<ChuckNorrisFact> | null>(null)
 }
