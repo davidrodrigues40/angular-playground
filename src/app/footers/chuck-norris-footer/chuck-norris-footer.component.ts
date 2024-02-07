@@ -26,6 +26,5 @@ export class ChuckNorrisFooterComponent implements OnInit
    ngOnInit(): void
    {
       this._service.events.fetchFooterFact();
-      console.log('fact', this.fact);
    }
 }

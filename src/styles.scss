@@ -6,6 +6,10 @@
    font-family: $font-family;
 }
 
+* {
+   line-height: $line-height;
+}
+
 body {
    background-color: $color--dark;
    color: $color--white;

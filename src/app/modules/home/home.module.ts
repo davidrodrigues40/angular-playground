@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { SignalsDataFlowCanvasComponent } from '../../canvas/signals-data-flow-canvas/signals-data-flow-canvas.component';
 import { StateCanvasComponent } from '../../canvas/state-canvas/state-canvas.component';
 import { HomeMenuComponent } from '../../footers/home-menu/home-menu.component';
-import { NgrxDetailsComponent } from './components/ngrx-state-management/ngrx-details/ngrx-details.component';
+import { NgrxDetailsComponent } from './components/ngrx-details/ngrx-details.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { DataFlowComponent } from './views/data-flow/data-flow.component';

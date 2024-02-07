@@ -1,3 +1,5 @@
+import { NgrxCanvasComponent } from 'src/app/canvas/ngrx-canvas/ngrx-canvas.component';
+import { StateCanvasComponent } from 'src/app/canvas/state-canvas/state-canvas.component';
 import { Title2Component } from 'src/app/components/title2/title2.component';
 import { Title3Component } from 'src/app/components/title3/title3.component';
 import { StateDialogComponent } from 'src/app/dialogs/state-dialog/state-dialog.component';
@@ -5,9 +7,6 @@ import { DialogOptions } from 'src/app/interfaces/models/dialog-options';
 
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-
-import { StateCanvasComponent } from '../../../../../canvas/state-canvas/state-canvas.component';
-import { NgrxCanvasComponent } from '../ngrx-canvas/ngrx-canvas.component';
 
 @Component({
    selector: 'app-ngrx-details',

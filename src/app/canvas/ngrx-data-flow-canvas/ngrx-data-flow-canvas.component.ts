@@ -1,17 +1,20 @@
-import { CanvasElement, CanvasNode } from 'src/app/interfaces/models/canvas';
+import { CanvasDirective } from 'src/app/directives/canvas/canvas.directive';
+import { CanvasDrawing, CanvasNode } from 'src/app/interfaces/models/canvas';
 import { CanvasService } from 'src/app/services/canvas/canvas.service';
 
-import { AfterViewInit, Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
    selector: 'app-ngrx-data-flow-canvas',
    templateUrl: './ngrx-data-flow-canvas.component.html',
    styleUrls: ['./ngrx-data-flow-canvas.component.scss'],
    standalone: true,
+   imports: [CanvasDirective],
    providers: [CanvasService]
 })
-export class NgrxDataFlowCanvasComponent implements AfterViewInit
+export class NgrxDataFlowCanvasComponent implements OnInit
 {
+   public drawing: CanvasDrawing | undefined;
    private readonly _tier1Color: string = '#3399ff';
    private readonly _tier2Color: string = '#009900';
    private readonly _tier3Color: string = '#007399';
@@ -20,7 +23,7 @@ export class NgrxDataFlowCanvasComponent implements AfterViewInit
    {
    }
 
-   ngAfterViewInit(): void
+   ngOnInit(): void
    {
       this.drawCanvas();
    }
@@ -37,9 +40,9 @@ export class NgrxDataFlowCanvasComponent implements AfterViewInit
 
       const componentNode: CanvasNode = this._canvasService.addNode(1, this._tier1Color, 'component', [serviceNode, otherServiceNode]);
 
-      const canvas: CanvasElement = this._canvasService.createCanvas(10, 20, 0, 0, 30, 10, 'white', 'data-flow-canvas', '16px Arial', componentNode);
+      const canvas: CanvasDrawing = this._canvasService.createCanvas(10, 20, 0, 0, 30, 10, 'white', '16px Arial', componentNode);
 
-      this._canvasService.drawCanvas(canvas);
+      this.drawing = canvas;
    }
 
 }

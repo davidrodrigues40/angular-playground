@@ -1,4 +1,4 @@
-export interface CanvasElement
+export interface CanvasDrawing
 {
    startX: number;
    startY: number;
@@ -6,7 +6,6 @@ export interface CanvasElement
    width: number;
    lineHeight: number;
    lineLength: number;
-   elementId: string;
    backgroundColor: string;
    font: string;
    node: CanvasNode;

@@ -1,19 +1,21 @@
-import { CanvasElement, CanvasNode } from 'src/app/interfaces/models/canvas';
+import { CanvasDirective } from 'src/app/directives/canvas/canvas.directive';
+import { CanvasDrawing, CanvasNode } from 'src/app/interfaces/models/canvas';
 import { CanvasService } from 'src/app/services/canvas/canvas.service';
 
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
    selector: 'app-state-canvas',
    standalone: true,
-   imports: [CommonModule],
+   imports: [CommonModule, CanvasDirective],
    providers: [CanvasService],
    templateUrl: './state-canvas.component.html',
    styleUrls: ['./state-canvas.component.scss'],
 })
-export class StateCanvasComponent implements AfterViewInit
+export class StateCanvasComponent implements OnInit
 {
+   public drawing: CanvasDrawing | undefined;
    private readonly _tier1Color: string = '#3399ff';
    private readonly _tier2Color: string = '#009900';
    private readonly _tier3Color: string = '#007399';
@@ -23,12 +25,12 @@ export class StateCanvasComponent implements AfterViewInit
 
    constructor(private readonly _canvasService: CanvasService) { }
 
-   ngAfterViewInit(): void
+   ngOnInit(): void
    {
-      this.drawCanvas();
+      this.populateNodes();
    }
 
-   private drawCanvas(): void
+   private populateNodes(): void
    {
       const stateNode: CanvasNode = this._canvasService.addNode(1, this._tier6Color, 'state', []);
 
@@ -44,8 +46,8 @@ export class StateCanvasComponent implements AfterViewInit
 
       const serviceNode: CanvasNode = this._canvasService.addNode(1, this._tier1Color, 'state service', [eventNode, observablesNode]);
 
-      const canvas: CanvasElement = this._canvasService.createCanvas(10, 20, 0, 0, 30, 10, 'white', 'state-canvas', '16px Arial', serviceNode)
+      const canvas: CanvasDrawing = this._canvasService.createCanvas(10, 20, 0, 0, 30, 10, 'white', '16px Arial', serviceNode)
 
-      this._canvasService.drawCanvas(canvas);
+      this.drawing = canvas;
    }
 }

@@ -3,7 +3,7 @@ import { filter, Subject } from 'rxjs';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
-import { FooterHostDirective } from './components/footer/footer-host.directive';
+import { FooterHostDirective } from './directives/footer/footer-host.directive';
 import { FooterComponentFactory, FooterTypes } from './services/footer/footer.service';
 
 @Component({

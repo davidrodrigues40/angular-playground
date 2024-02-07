@@ -8,7 +8,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FooterHostDirective } from './components/footer/footer-host.directive';
+import { FooterHostDirective } from './directives/footer/footer-host.directive';
 import { BooksModule } from './modules/books/books.module';
 import { BowlingModule } from './modules/bowling/bowling.module';
 import { ChuckNorrisFactModule } from './modules/chuck-norris-fact/chuck-norris-fact.module';
