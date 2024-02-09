@@ -16,7 +16,7 @@ export class NgrxCanvasComponent implements OnInit
    private readonly _tier1Color: string = '#3399ff';
    private readonly _tier2Color: string = '#009900';
    private readonly _tier3Color: string = '#007399';
-   public drawing?: CanvasDrawing | undefined;
+   public drawing: CanvasDrawing = {} as CanvasDrawing;
 
    constructor(private readonly _canvasService: CanvasService) { }
 

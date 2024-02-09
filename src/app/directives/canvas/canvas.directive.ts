@@ -36,7 +36,7 @@ export class CanvasDirective implements AfterViewInit
       const context = this._htmlCanvas.getContext('2d') as CanvasRenderingContext2D;
 
       this._htmlCanvas.height = Math.max(this.calculateHeight([node]) + this.drawing.startX, this.drawing.height);
-      this._htmlCanvas.width = Math.max(this.calculateWidth([node], true) + this.drawing.startY, this.drawing.width);
+      this._htmlCanvas.width = this.drawing.width > 0 ? this.drawing.width : this.calculateWidth([node], true) + this.drawing.startX;
       this._htmlCanvas.style.backgroundColor = 'white';
 
       context.font = this.drawing.font;
@@ -67,10 +67,10 @@ export class CanvasDirective implements AfterViewInit
 
       nodes.forEach((node: CanvasNode) =>
       {
-         width += isPrimary ? this.getPxFromText(node.text) : this.getPxFromText(node.text) / 2;
+         width += (this.getPxFromText(node.text) / 2) + this.drawing.lineWidth;
          width += this.calculateWidth(node.nodes);
       });
-
+      console.log(width);
       return width;
    }
 
@@ -100,7 +100,7 @@ export class CanvasDirective implements AfterViewInit
       {
          this.drawHorizontalLine(subnodeX, subnodeY + this._yOffset, node.color);
 
-         this.drawNode(subNode, subnodeX + this.drawing.lineLength + this._xOffset, subnodeY + this._yOffset * 2);
+         this.drawNode(subNode, subnodeX + this.drawing.lineWidth + this._xOffset, subnodeY + this._yOffset * 2);
 
          subnodeY += (this.getSubNodeCount(subNode) + 1) * this.drawing.lineHeight;
       });
@@ -139,7 +139,7 @@ export class CanvasDirective implements AfterViewInit
    private drawHorizontalLine(x: number, y: number, color: string): void
    {
       const context = this._htmlCanvas.getContext('2d') as CanvasRenderingContext2D;
-      let lineToX: number = x + this.drawing.lineLength;
+      let lineToX: number = x + this.drawing.lineWidth;
 
       context.beginPath();
       context.strokeStyle = color;

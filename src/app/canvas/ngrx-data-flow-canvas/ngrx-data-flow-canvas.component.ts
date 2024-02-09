@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NgrxDataFlowCanvasComponent implements OnInit
 {
-   public drawing!: CanvasDrawing;
+   public drawing: CanvasDrawing = {} as CanvasDrawing;
    private readonly _tier1Color: string = '#3399ff';
    private readonly _tier2Color: string = '#009900';
    private readonly _tier3Color: string = '#007399';
@@ -40,6 +40,8 @@ export class NgrxDataFlowCanvasComponent implements OnInit
       const componentNode: CanvasNode = this._canvasService.addNode(1, this._tier1Color, 'component', [serviceNode, otherServiceNode]);
 
       const canvas: CanvasDrawing = this._canvasService.createCanvas(10, 20, 0, 0, 30, 10, 'white', '16px Arial', componentNode);
+
+      canvas.width = 210;
 
       this.drawing = canvas;
    }

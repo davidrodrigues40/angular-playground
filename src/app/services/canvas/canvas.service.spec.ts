@@ -68,7 +68,7 @@ describe('CanvasService', () =>
             width: width,
             height: height,
             lineHeight: lineHeight,
-            lineLength: lineLength,
+            lineWidth: lineLength,
             backgroundColor: backgroundColor,
             font: font,
             node: node

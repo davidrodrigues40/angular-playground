@@ -5,7 +5,7 @@ export interface CanvasDrawing
    height: number;
    width: number;
    lineHeight: number;
-   lineLength: number;
+   lineWidth: number;
    backgroundColor: string;
    font: string;
    node: CanvasNode;

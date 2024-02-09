@@ -17,7 +17,7 @@ describe('NgrxDataFlowCanvasComponent', () =>
       height: 0,
       width: 0,
       lineHeight: 0,
-      lineLength: 0,
+      lineWidth: 0,
       backgroundColor: 'white',
       font: 'Arial',
       node: {
@@ -68,7 +68,7 @@ describe('NgrxDataFlowCanvasComponent', () =>
                text: '',
                nodes: []
             },
-            lineLength: 0
+            lineWidth: 0
          }
          component.drawing = canvas;
          service.createCanvas.and.returnValue(myCanvas);

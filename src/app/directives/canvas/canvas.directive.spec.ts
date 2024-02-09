@@ -16,7 +16,7 @@ describe('CanvasDirective', () =>
       height: 0,
       width: 0,
       lineHeight: 0,
-      lineLength: 0,
+      lineWidth: 0,
       backgroundColor: '',
       font: '',
       node: {
