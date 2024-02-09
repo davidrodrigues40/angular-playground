@@ -1,4 +1,4 @@
-# Angular using ngrx demo
+# Angular using ngrx and signals
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
 
