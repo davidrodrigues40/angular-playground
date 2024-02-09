@@ -3,7 +3,7 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
 
 ## Requirements
-This project requirs the BowlingGame API to be running locally.  I will be adding a standalone version later.
+This project requires the BowlingGame API to be running locally.  I will be adding a standalone version later.
 
 ## Development server
 
