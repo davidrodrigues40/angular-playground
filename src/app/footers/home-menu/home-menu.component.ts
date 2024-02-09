@@ -1,7 +1,7 @@
+import { MenuItem } from 'src/app/interfaces/models/menu/menu-item';
 import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { HomeMenuService } from 'src/app/services/home-menu/home-menu.service';
 import { HomeMenuSignalService } from 'src/app/state/home-menu/services/home-menu-signal.service';
-import { MenuItem } from 'src/app/state/menu/models/menu-item';
 
 import { CommonModule } from '@angular/common';
 import

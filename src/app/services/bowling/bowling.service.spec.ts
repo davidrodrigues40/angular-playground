@@ -1,7 +1,7 @@
 import { of } from 'rxjs';
+import { BowlingGame } from 'src/app/interfaces/models/bowling/bowling-game';
+import { Player } from 'src/app/interfaces/models/bowling/player';
 import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model';
-import { BowlingGame } from 'src/app/state/bowling/models/bowling-game.model';
-import { Player } from 'src/app/state/bowling/models/player.model';
 
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';

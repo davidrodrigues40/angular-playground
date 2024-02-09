@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
+import { Book } from 'src/app/interfaces/models/books/book.';
 import { bookSignals } from 'src/app/state/books/books.signals';
-import { Book } from 'src/app/state/books/models/books.model';
 
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';

@@ -5,12 +5,12 @@ import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import { BowlingGame } from '../../../interfaces/models/bowling/bowling-game';
+import { Player } from '../../../interfaces/models/bowling/player';
+import { Scorecard } from '../../../interfaces/models/bowling/scorecard';
 import * as actions from '../bowling.actions';
 import * as selectors from '../bowling.selectors';
 import { BowlingState } from '../bowling.state';
-import { BowlingGame } from '../models/bowling-game.model';
-import { Player } from '../models/player.model';
-import { Scorecard } from '../models/scorecard.model';
 
 @Injectable()
 export class BowlingStateService implements IStateService

@@ -1,6 +1,6 @@
 import { WritableSignal } from '@angular/core';
 
-import { Book } from './models/books.model';
+import { Book } from '../../interfaces/models/books/book.';
 
 export interface BooksState
 {

@@ -1,8 +1,8 @@
 import { first, of } from 'rxjs';
 import { HttpSignalService } from 'src/app/interfaces/abstracts/http-signal-service.abstract';
+import { MenuItem } from 'src/app/interfaces/models/menu/menu-item';
 import { ISignalService } from 'src/app/interfaces/services/signal-service.interface';
 import { menuSignals } from 'src/app/state/menu/menu.signals';
-import { MenuItem } from 'src/app/state/menu/models/menu-item';
 
 import { Injectable } from '@angular/core';
 

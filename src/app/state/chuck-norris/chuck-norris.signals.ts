@@ -1,8 +1,9 @@
+import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
+
 import { signal } from '@angular/core';
 
+import { ChuckNorrisFact } from '../../interfaces/models/chuck-norris/chuck-norris-fact';
 import { ChuckNorrisFactState } from './chuck-norris.state';
-import { ChuckNorrisFact } from './models/chuck-norris-fact';
-import { FactCategory } from './models/fact-category';
 
 export function chuckNorrisSignals()
 {

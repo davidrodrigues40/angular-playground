@@ -4,9 +4,9 @@ import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
+import { BowlingGame } from '../../../interfaces/models/bowling/bowling-game';
+import { Scorecard } from '../../../interfaces/models/bowling/scorecard';
 import { BowlingState } from '../bowling.state';
-import { BowlingGame } from '../models/bowling-game.model';
-import { Scorecard } from '../models/scorecard.model';
 import { BowlingStateService } from './bowling-state.service';
 
 describe('BowlingStateService', () =>

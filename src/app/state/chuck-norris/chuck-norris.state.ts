@@ -1,7 +1,8 @@
+import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
+
 import { WritableSignal } from '@angular/core';
 
-import { ChuckNorrisFact } from './models/chuck-norris-fact';
-import { FactCategory } from './models/fact-category';
+import { ChuckNorrisFact } from '../../interfaces/models/chuck-norris/chuck-norris-fact';
 
 export interface ChuckNorrisFactState
 {

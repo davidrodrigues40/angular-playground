@@ -1,5 +1,5 @@
+import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
 import { SignalObject } from 'src/app/interfaces/models/signal-object';
-import { FactCategory } from 'src/app/state/chuck-norris/models/fact-category';
 import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
 
 import

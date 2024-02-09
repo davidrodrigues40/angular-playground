@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
+import { ChuckNorrisFact } from 'src/app/interfaces/models/chuck-norris/chuck-norris-fact';
 import { chuckNorrisSignals } from 'src/app/state/chuck-norris/chuck-norris.signals';
-import { ChuckNorrisFact } from 'src/app/state/chuck-norris/models/chuck-norris-fact';
 
 import { HttpClient } from '@angular/common/http';
 import { WritableSignal } from '@angular/core';

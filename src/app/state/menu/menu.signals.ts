@@ -1,7 +1,7 @@
 import { signal } from '@angular/core';
 
+import { MenuItem } from '../../interfaces/models/menu/menu-item';
 import { MenuState } from './menu.state';
-import { MenuItem } from './models/menu-item';
 
 export function menuSignals()
 {

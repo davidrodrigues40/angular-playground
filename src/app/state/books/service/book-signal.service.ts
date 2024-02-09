@@ -4,8 +4,8 @@ import { BookService } from 'src/app/services/books/books.service';
 
 import { effect, Injectable } from '@angular/core';
 
+import { Book } from '../../../interfaces/models/books/book.';
 import { bookSignals } from '../books.signals';
-import { Book } from '../models/books.model';
 
 @Injectable()
 export class BookSignalService implements ISignalStateService

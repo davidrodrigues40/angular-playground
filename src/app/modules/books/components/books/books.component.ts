@@ -1,6 +1,6 @@
+import { Book } from 'src/app/interfaces/models/books/book.';
 import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { BookService } from 'src/app/services/books/books.service';
-import { Book } from 'src/app/state/books/models/books.model';
 import { BookSignalService } from 'src/app/state/books/service/book-signal.service';
 
 import { Component } from '@angular/core';

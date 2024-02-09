@@ -1,9 +1,9 @@
 import { first, map } from 'rxjs';
 import { HttpSignalService } from 'src/app/interfaces/abstracts/http-signal-service.abstract';
+import { ChuckNorrisFact } from 'src/app/interfaces/models/chuck-norris/chuck-norris-fact';
+import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
 import { ISignalService } from 'src/app/interfaces/services/signal-service.interface';
 import { chuckNorrisSignals } from 'src/app/state/chuck-norris/chuck-norris.signals';
-import { ChuckNorrisFact } from 'src/app/state/chuck-norris/models/chuck-norris-fact';
-import { FactCategory } from 'src/app/state/chuck-norris/models/fact-category';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable, WritableSignal } from '@angular/core';

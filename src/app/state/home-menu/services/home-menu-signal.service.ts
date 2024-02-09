@@ -1,7 +1,7 @@
+import { MenuItem } from 'src/app/interfaces/models/menu/menu-item';
 import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { ISignalStateService } from 'src/app/interfaces/services/signal-state-service.interface';
 import { HomeMenuService } from 'src/app/services/home-menu/home-menu.service';
-import { MenuItem } from 'src/app/state/menu/models/menu-item';
 
 import { effect, Injectable } from '@angular/core';
 

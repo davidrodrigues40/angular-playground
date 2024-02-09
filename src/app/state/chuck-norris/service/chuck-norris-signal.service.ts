@@ -1,12 +1,12 @@
+import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
 import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { ISignalStateService } from 'src/app/interfaces/services/signal-state-service.interface';
 import { ChuckNorrisFactsService } from 'src/app/services/chuck-norris/chuck-norris-facts.service';
 
 import { effect, Injectable } from '@angular/core';
 
+import { ChuckNorrisFact } from '../../../interfaces/models/chuck-norris/chuck-norris-fact';
 import { chuckNorrisSignals } from '../chuck-norris.signals';
-import { ChuckNorrisFact } from '../models/chuck-norris-fact';
-import { FactCategory } from '../models/fact-category';
 
 @Injectable()
 export class ChuckNorrisSignalService implements ISignalStateService

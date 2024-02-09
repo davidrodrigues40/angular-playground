@@ -4,8 +4,8 @@ import { MockSignalComponent } from 'src/app/testing/testing.components';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MenuItem } from '../../../interfaces/models/menu/menu-item';
 import { menuSignals } from '../menu.signals';
-import { MenuItem } from '../models/menu-item';
 import { MenuSignalService } from './menu-signal.service';
 
 describe('MenuSignalService', () =>

@@ -4,8 +4,8 @@ import { MenuService } from 'src/app/services/menu/menu.service';
 
 import { effect, Injectable } from '@angular/core';
 
+import { MenuItem } from '../../../interfaces/models/menu/menu-item';
 import { menuSignals } from '../menu.signals';
-import { MenuItem } from '../models/menu-item';
 
 @Injectable()
 export class MenuSignalService implements ISignalStateService

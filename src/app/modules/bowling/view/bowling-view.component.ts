@@ -1,6 +1,6 @@
 import { first, map, Observable } from 'rxjs';
-import { BowlingGame } from 'src/app/state/bowling/models/bowling-game.model';
-import { Player } from 'src/app/state/bowling/models/player.model';
+import { BowlingGame } from 'src/app/interfaces/models/bowling/bowling-game';
+import { Player } from 'src/app/interfaces/models/bowling/player';
 import { BowlingStateService } from 'src/app/state/bowling/service/bowling-state.service';
 
 import { Component, OnInit } from '@angular/core';

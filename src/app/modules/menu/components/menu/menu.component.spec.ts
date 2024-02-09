@@ -1,5 +1,5 @@
+import { MenuItem } from 'src/app/interfaces/models/menu/menu-item';
 import { MenuService } from 'src/app/services/menu/menu.service';
-import { MenuItem } from 'src/app/state/menu/models/menu-item';
 import { MenuSignalService } from 'src/app/state/menu/service/menu-signal.service';
 import { TestingSpys } from 'src/app/testing/testing.spys';
 

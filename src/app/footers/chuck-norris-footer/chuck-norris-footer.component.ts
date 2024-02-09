@@ -1,5 +1,5 @@
+import { ChuckNorrisFact } from 'src/app/interfaces/models/chuck-norris/chuck-norris-fact';
 import { SignalObject } from 'src/app/interfaces/models/signal-object';
-import { ChuckNorrisFact } from 'src/app/state/chuck-norris/models/chuck-norris-fact';
 import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
 
 import { CommonModule } from '@angular/common';

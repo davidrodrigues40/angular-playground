@@ -1,4 +1,4 @@
-import { ChuckNorrisFact } from 'src/app/state/chuck-norris/models/chuck-norris-fact';
+import { ChuckNorrisFact } from 'src/app/interfaces/models/chuck-norris/chuck-norris-fact';
 import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
 import { TestingSpys } from 'src/app/testing/testing.spys';
 

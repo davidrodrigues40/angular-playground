@@ -1,6 +1,6 @@
 import { TitleComponent } from 'src/app/components/title/title.component';
+import { Book } from 'src/app/interfaces/models/books/book.';
 import { BookService } from 'src/app/services/books/books.service';
-import { Book } from 'src/app/state/books/models/books.model';
 import { BookSignalService } from 'src/app/state/books/service/book-signal.service';
 import { TestingSpys } from 'src/app/testing/testing.spys';
 

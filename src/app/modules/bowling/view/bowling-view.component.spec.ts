@@ -1,7 +1,7 @@
 import { of } from 'rxjs';
 import { TitleComponent } from 'src/app/components/title/title.component';
+import { Player } from 'src/app/interfaces/models/bowling/player';
 import { BowlingState } from 'src/app/state/bowling/bowling.state';
-import { Player } from 'src/app/state/bowling/models/player.model';
 import { BowlingStateService } from 'src/app/state/bowling/service/bowling-state.service';
 import { StateEvent } from 'src/app/state/common/state-event';
 

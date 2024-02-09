@@ -4,7 +4,7 @@ import { MockSignalComponent } from 'src/app/testing/testing.components';
 
 import { TestBed } from '@angular/core/testing';
 
-import { MenuItem } from '../../menu/models/menu-item';
+import { MenuItem } from '../../../interfaces/models/menu/menu-item';
 import { homeMenuSignals } from '../home-menu.signals';
 import { HomeMenuSignalService } from './home-menu-signal.service';
 

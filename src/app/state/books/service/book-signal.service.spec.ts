@@ -4,8 +4,8 @@ import { MockSignalComponent } from 'src/app/testing/testing.components';
 
 import { TestBed } from '@angular/core/testing';
 
+import { Book } from '../../../interfaces/models/books/book.';
 import { bookSignals } from '../books.signals';
-import { Book } from '../models/books.model';
 import { BookSignalService } from './book-signal.service';
 
 describe('BookSignalService', () =>

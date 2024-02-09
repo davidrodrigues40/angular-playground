@@ -1,5 +1,5 @@
+import { MenuItem } from 'src/app/interfaces/models/menu/menu-item';
 import { homeMenuSignals } from 'src/app/state/home-menu/home-menu.signals';
-import { MenuItem } from 'src/app/state/menu/models/menu-item';
 
 import { TestBed } from '@angular/core/testing';
 

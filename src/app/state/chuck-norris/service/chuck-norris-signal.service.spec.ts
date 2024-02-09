@@ -4,8 +4,8 @@ import { MockSignalComponent } from 'src/app/testing/testing.components';
 
 import { TestBed } from '@angular/core/testing';
 
+import { ChuckNorrisFact } from '../../../interfaces/models/chuck-norris/chuck-norris-fact';
 import { chuckNorrisSignals } from '../chuck-norris.signals';
-import { ChuckNorrisFact } from '../models/chuck-norris-fact';
 import { FactCategory } from '../models/fact-category';
 import { ChuckNorrisSignalService } from './chuck-norris-signal.service';
 

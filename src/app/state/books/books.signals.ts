@@ -1,7 +1,7 @@
 import { signal } from '@angular/core';
 
+import { Book } from '../../interfaces/models/books/book.';
 import { BooksState } from './books.state';
-import { Book } from './models/books.model';
 
 export function bookSignals()
 {

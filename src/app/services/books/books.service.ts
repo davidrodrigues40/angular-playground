@@ -6,7 +6,7 @@ import { bookSignals } from 'src/app/state/books/books.signals';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Book } from '../../state/books/models/books.model';
+import { Book } from '../../interfaces/models/books/book.';
 
 @Injectable()
 export class BookService extends HttpSignalService implements ISignalService
