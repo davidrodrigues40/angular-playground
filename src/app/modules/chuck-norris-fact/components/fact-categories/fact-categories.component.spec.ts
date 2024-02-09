@@ -1,45 +1,69 @@
+import { FactCategory } from 'src/app/state/chuck-norris/models/fact-category';
+import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
+import { TestingSpys } from 'src/app/testing/testing.spys';
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FactCategory } from 'src/app/state/chuck-norris/models/fact-category';
+
 import { FactCategoriesComponent } from './fact-categories.component';
 
-describe('FactCategoriesComponent', () => {
-  let component: FactCategoriesComponent;
-  let fixture: ComponentFixture<FactCategoriesComponent>;
-  let selectChange: jasmine.SpyObj<MatSelectChange> = jasmine.createSpyObj('MatSelectChange', ['value']);
+describe('FactCategoriesComponent', () =>
+{
+   let component: FactCategoriesComponent;
+   let fixture: ComponentFixture<FactCategoriesComponent>;
+   let selectChange: jasmine.SpyObj<MatSelectChange> = jasmine.createSpyObj('MatSelectChange', ['value']);
+   const signalService: jasmine.SpyObj<ChuckNorrisSignalService> = TestingSpys.signalService<ChuckNorrisSignalService>(['bindCategories'], ['fetchCategories']);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [FactCategoriesComponent],
-      imports: [
-        MatFormFieldModule,
-        MatSelectModule,
-        MatOptionModule,
-        BrowserAnimationsModule
-      ]
-    })
-      .compileComponents();
+   beforeEach(async () =>
+   {
+      await TestBed.configureTestingModule({
+         declarations: [FactCategoriesComponent],
+         imports: [
+            MatFormFieldModule,
+            MatSelectModule,
+            MatOptionModule,
+            BrowserAnimationsModule
+         ],
+         providers: [
+            { provide: ChuckNorrisSignalService, useValue: signalService }
+         ]
+      })
+         .compileComponents();
 
-    fixture = TestBed.createComponent(FactCategoriesComponent);
-    component = fixture.componentInstance;
-  });
+      fixture = TestBed.createComponent(FactCategoriesComponent);
+      component = fixture.componentInstance;
+   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+   it('should create', () =>
+   {
+      expect(component).toBeTruthy();
+   });
 
-  describe('selection change', () => {
-    it('should emit selectedCategory', () => {
-      const category: FactCategory = { name: 'test' };
-      spyOn(component.categorySelected, 'emit');
-      selectChange.value = category;
+   describe('ngOnInit', () =>
+   {
+      it('should call loadCategories', () =>
+      {
+         component.ngOnInit();
 
-      component.selectionChange(selectChange);
+         expect(signalService.effects.bindCategories).toHaveBeenCalled();
+         expect(signalService.events.fetchCategories).toHaveBeenCalled();
+      });
+   });
 
-      expect(component.categorySelected.emit).toHaveBeenCalledOnceWith(category);
-    });
-  });
+   describe('selection change', () =>
+   {
+      it('should emit selectedCategory', () =>
+      {
+         const category: FactCategory = { name: 'test' };
+         spyOn(component.categorySelected, 'emit');
+         selectChange.value = category;
+
+         component.selectionChange(selectChange);
+
+         expect(component.categorySelected.emit).toHaveBeenCalledOnceWith(category);
+      });
+   });
 });

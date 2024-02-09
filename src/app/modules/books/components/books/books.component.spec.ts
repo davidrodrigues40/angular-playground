@@ -1,103 +1,109 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
-import { BooksState } from 'src/app/state/app.state';
+import { TitleComponent } from 'src/app/components/title/title.component';
+import { BookService } from 'src/app/services/books/books.service';
 import { Book } from 'src/app/state/books/models/books.model';
-import { BookStateService } from 'src/app/state/books/service/book-state.service';
-import { StateEvent } from 'src/app/state/common/state-event';
+import { BookSignalService } from 'src/app/state/books/service/book-signal.service';
+import { TestingSpys } from 'src/app/testing/testing.spys';
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { BookCollectionComponent } from '../book-collection/book-collection.component';
 import { BookListComponent } from '../book-list/book-list.component';
 import { BooksComponent } from './books.component';
 
 describe('BooksComponent', () =>
 {
-    let component: BooksComponent;
-    let fixture: ComponentFixture<BooksComponent>;
-    let service: jasmine.SpyObj<BookStateService> = jasmine.createSpyObj('BookStateService', ['events', 'observables']);
-    let event: jasmine.SpyObj<StateEvent<string, Store<BooksState>>> = jasmine.createSpyObj('Event', ['emit']);
-    const books: Book[] = [];
+   let component: BooksComponent;
+   let fixture: ComponentFixture<BooksComponent>;
+   let signalService: jasmine.SpyObj<BookSignalService> = TestingSpys.signalService<BookSignalService>(['bindBooks', 'bindCollection'], ['fetchBooks', 'addBook', 'removeBook', 'clearCollection']);
+   let bookService: jasmine.SpyObj<BookService> = jasmine.createSpyObj('BookService', ['addBook', 'removeBook', 'clearCollection']);
 
-    beforeEach(async () =>
-    {
-        await TestBed.configureTestingModule({
-            declarations: [
-                BooksComponent,
-                BookListComponent,
-                BookCollectionComponent
-            ],
-            providers: [
-                { provide: BookStateService, useValue: service }
-            ]
-        })
-            .compileComponents();
+   const books: Book[] = [];
 
-        fixture = TestBed.createComponent(BooksComponent);
-        component = fixture.componentInstance;
-
-        Object.defineProperties(service, {
-            events: {
-                value: {
-                    removeBook: function (id: string) { return event; },
-                    addBook: function (id: string) { return event; },
-                    clearCollection: function () { return event; },
-                    fetchBooks: function () { return event; },
-                    fetchCollections: function () { return event; }
-                }
-            },
-            observables: {
-                value: {
-                    books$: of(books),
-                    collection$: of(books)
-                }
+   beforeAll(() =>
+   {
+      Object.defineProperties(signalService, {
+         observables: {
+            value: {
+               books: books,
+               collection: books
             }
-        });
+         }
+      });
+   });
 
-    });
+   beforeEach(async () =>
+   {
+      await TestBed.configureTestingModule({
+         declarations: [
+            BooksComponent,
+            BookListComponent,
+            BookCollectionComponent],
+         imports: [
+            TitleComponent
+         ],
+         providers: [
+            { provide: BookSignalService, useValue: signalService },
+            { provide: BookService, useValue: bookService }
+         ]
+      })
+         .overrideComponent(BooksComponent, {
+            set: {
+               providers: [
+                  { provide: BookSignalService, useValue: signalService },
+                  { provide: BookService, useValue: bookService }
+               ]
+            }
+         })
+         .compileComponents();
 
-    it('should create', () =>
-    {
-        expect(component).toBeTruthy();
-    });
+      fixture = TestBed.createComponent(BooksComponent);
+      component = fixture.componentInstance;
 
-    describe('ngOnInit', () =>
-    {
+   });
 
-        it('should call the service events', () =>
-        {
-            component.ngOnInit();
+   it('should create', () =>
+   {
+      expect(component).toBeTruthy();
+   });
 
-            expect(service.events.fetchBooks().emit).toHaveBeenCalled();
-            expect(service.events.fetchCollections().emit).toHaveBeenCalled();
-        });
-    });
+   describe('ngOnInit', () =>
+   {
 
-    describe('onAdd', () =>
-    {
-        it('should call the service events', () =>
-        {
-            component.onAdd("1");
+      it('should call the service events', () =>
+      {
+         component.ngOnInit();
 
-            expect(service.events.addBook("1").emit).toHaveBeenCalled();
-        });
-    });
+         expect(signalService.events.fetchBooks).toHaveBeenCalled();
+      });
+   });
 
-    describe('onRemove', () =>
-    {
-        it('should call the service events', () =>
-        {
-            component.onRemove("1");
+   describe('onAdd', () =>
+   {
+      it('should call the service events', () =>
+      {
+         component.onAdd("1");
 
-            expect(service.events.removeBook("1").emit).toHaveBeenCalled();
-        });
-    });
+         expect(signalService.events.addBook).toHaveBeenCalledOnceWith('1');
+      });
+   });
 
-    describe('onClear', () =>
-    {
-        it('should call the service events', () =>
-        {
-            component.onClear();
+   describe('onRemove', () =>
+   {
+      it('should call the service events', () =>
+      {
+         component.onRemove("1");
 
-            expect(service.events.clearCollection().emit).toHaveBeenCalled();
-        });
-    });
+         expect(signalService.events.removeBook).toHaveBeenCalledOnceWith('1');
+      });
+   });
+
+   describe('onClear', () =>
+   {
+      it('should call the service events', () =>
+      {
+         component.onClear();
+
+         expect(signalService.events.clearCollection).toHaveBeenCalled();
+      });
+   });
 });

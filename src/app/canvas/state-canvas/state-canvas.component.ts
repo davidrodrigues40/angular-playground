@@ -2,13 +2,12 @@ import { CanvasDirective } from 'src/app/directives/canvas/canvas.directive';
 import { CanvasDrawing, CanvasNode } from 'src/app/interfaces/models/canvas';
 import { CanvasService } from 'src/app/services/canvas/canvas.service';
 
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
    selector: 'app-state-canvas',
    standalone: true,
-   imports: [CommonModule, CanvasDirective],
+   imports: [CanvasDirective],
    providers: [CanvasService],
    templateUrl: './state-canvas.component.html',
    styleUrls: ['./state-canvas.component.scss'],
@@ -27,10 +26,10 @@ export class StateCanvasComponent implements OnInit
 
    ngOnInit(): void
    {
-      this.populateNodes();
+      this.drawCanvas();
    }
 
-   private populateNodes(): void
+   private drawCanvas(): void
    {
       const stateNode: CanvasNode = this._canvasService.addNode(1, this._tier6Color, 'state', []);
 

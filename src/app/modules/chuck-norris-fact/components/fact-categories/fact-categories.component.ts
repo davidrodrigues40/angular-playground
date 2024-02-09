@@ -2,19 +2,33 @@ import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { FactCategory } from 'src/app/state/chuck-norris/models/fact-category';
 import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
 
-import { Component, EventEmitter, Output } from '@angular/core';
+import
+{
+   Component,
+   EnvironmentInjector,
+   EventEmitter,
+   inject,
+   OnInit,
+   Output,
+   runInInjectionContext
+} from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 
 @Component({
    selector: 'app-fact-categories',
    templateUrl: './fact-categories.component.html'
 })
-export class FactCategoriesComponent
+export class FactCategoriesComponent implements OnInit
 {
    options: SignalObject<ReadonlyArray<FactCategory> | null> = { value: this._service.observables.categories };
    @Output() categorySelected: EventEmitter<FactCategory> = new EventEmitter<FactCategory>();
 
+   private _injector: EnvironmentInjector = inject(EnvironmentInjector);
+
    constructor(private readonly _service: ChuckNorrisSignalService)
+   { }
+
+   ngOnInit(): void
    {
       this.loadCategories();
    }
@@ -26,7 +40,10 @@ export class FactCategoriesComponent
 
    private loadCategories(): void
    {
-      this._service.effects.bindCategories(this.options);
+      runInInjectionContext(this._injector, () =>
+      {
+         this._service.effects.bindCategories(this.options);
+      });
       this._service.events.fetchCategories();
    }
 }

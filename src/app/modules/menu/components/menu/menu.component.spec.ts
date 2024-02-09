@@ -1,64 +1,69 @@
+import { MenuService } from 'src/app/services/menu/menu.service';
+import { MenuItem } from 'src/app/state/menu/models/menu-item';
+import { MenuSignalService } from 'src/app/state/menu/service/menu-signal.service';
+import { TestingSpys } from 'src/app/testing/testing.spys';
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
-import { BooksState } from 'src/app/state/app.state';
-import { StateEvent } from 'src/app/state/common/state-event';
-import { MenuItem } from 'src/app/state/menu/models/menu-item';
-import { MenuStateService } from 'src/app/state/menu/service/menu-state.service';
+
 import { MenuComponent } from './menu.component';
 
 describe('MenuComponent', () =>
 {
-    let component: MenuComponent;
-    let fixture: ComponentFixture<MenuComponent>;
-    let service: jasmine.SpyObj<MenuStateService> = jasmine.createSpyObj('MenuStateService', ['events', 'observables']);
-    let event: jasmine.SpyObj<StateEvent<string, Store<BooksState>>> = jasmine.createSpyObj('Event', ['emit']);
-    const menu: MenuItem[] = [];
+   let component: MenuComponent;
+   let fixture: ComponentFixture<MenuComponent>;
+   let signalService: jasmine.SpyObj<MenuSignalService> = TestingSpys.signalService<MenuSignalService>(['bindMenu'], ['fetchMenu']);
+   let service: jasmine.SpyObj<MenuService> = jasmine.createSpyObj('MenuService', ['dispatch']);
+   const menu: MenuItem[] = [];
 
-    beforeEach(async () =>
-    {
-        await TestBed.configureTestingModule({
-            declarations: [MenuComponent],
-            providers: [
-                { provide: MenuStateService, useValue: service }
-            ],
-            imports: [
-                MatIconModule,
-                MatMenuModule
-            ]
-        })
-            .compileComponents();
-
-        fixture = TestBed.createComponent(MenuComponent);
-        component = fixture.componentInstance;
-
-        Object.defineProperties(service, {
-            events: {
-                value: {
-                    fetchMenu: function (id: string) { return event; }
-                }
-            },
-            observables: {
-                value: {
-                    menu$: of(menu)
-                }
+   beforeAll(() =>
+   {
+      Object.defineProperties(signalService, {
+         observables: {
+            value: {
+               menu: menu
             }
-        });
-    });
-    it('should create', () =>
-    {
-        expect(component).toBeTruthy();
-    });
+         }
+      });
+   });
 
-    describe('ngOnInit', () =>
-    {
-        it('should call fetchMenu$', () =>
-        {
-            component.ngOnInit();
+   beforeEach(async () =>
+   {
+      await TestBed.configureTestingModule({
+         declarations: [MenuComponent],
+         imports: [
+            MatIconModule,
+            MatMenuModule
+         ]
+      })
+         .overrideComponent(MenuComponent, {
+            set: {
+               providers: [
+                  { provide: MenuSignalService, useValue: signalService },
+                  { provide: MenuService, useValue: service }
+               ]
+            }
+         })
+         .compileComponents();
 
-            expect(event.emit).toHaveBeenCalledTimes(1);
-        });
-    });
+      fixture = TestBed.createComponent(MenuComponent);
+      component = fixture.componentInstance;
+
+   });
+
+   it('should create', () =>
+   {
+      expect(component).toBeTruthy();
+   });
+
+   describe('when ngOnInit', () =>
+   {
+      it('should call fetchMenu', () =>
+      {
+         component.ngOnInit();
+
+         expect(signalService.events.fetchMenu).toHaveBeenCalledTimes(1);
+      });
+   });
 });

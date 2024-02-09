@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 @Component({
    selector: 'app-ngrx-canvas',
    templateUrl: './ngrx-canvas.component.html',
-   styleUrls: ['./ngrx-canvas.component.scss'],
    standalone: true,
    imports: [CanvasDirective],
    providers: [CanvasService]
@@ -19,10 +18,7 @@ export class NgrxCanvasComponent implements OnInit
    private readonly _tier3Color: string = '#007399';
    public drawing?: CanvasDrawing | undefined;
 
-   constructor(private readonly _canvasService: CanvasService)
-   {
-
-   }
+   constructor(private readonly _canvasService: CanvasService) { }
 
    ngOnInit(): void
    {

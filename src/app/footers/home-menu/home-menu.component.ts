@@ -4,7 +4,14 @@ import { HomeMenuSignalService } from 'src/app/state/home-menu/services/home-men
 import { MenuItem } from 'src/app/state/menu/models/menu-item';
 
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import
+{
+   Component,
+   EnvironmentInjector,
+   inject,
+   OnInit,
+   runInInjectionContext
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 
@@ -27,13 +34,15 @@ import { BaseFooter } from '../base-footer.component';
 })
 export class HomeMenuComponent implements OnInit   
 {
+   private readonly _injector: EnvironmentInjector = inject(EnvironmentInjector);
    menuItems: SignalObject<Array<MenuItem>> = { value: [] };
 
    constructor(public readonly router: Router,
       private readonly _stateService: HomeMenuSignalService)
    {
-      this._stateService.effects.bindMenu(this.menuItems);
+
    }
+
    ngOnInit(): void
    {
       this.loadData();
@@ -46,6 +55,10 @@ export class HomeMenuComponent implements OnInit
 
    private loadData(): void
    {
+      runInInjectionContext(this._injector, () =>
+      {
+         this._stateService.effects.bindMenu(this.menuItems);
+      });
       this._stateService.events.fetchMenu();
    }
 }

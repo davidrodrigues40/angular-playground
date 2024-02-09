@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { StateCanvasComponent } from '../../../../canvas/state-canvas/state-canvas.component';
@@ -7,7 +6,6 @@ import { StateCanvasComponent } from '../../../../canvas/state-canvas/state-canv
    selector: 'app-state-service-details',
    standalone: true,
    imports: [
-      CommonModule,
       StateCanvasComponent
    ],
    templateUrl: './state-service-details.component.html',

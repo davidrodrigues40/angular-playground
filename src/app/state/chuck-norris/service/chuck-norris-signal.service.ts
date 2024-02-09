@@ -12,6 +12,7 @@ import { FactCategory } from '../models/fact-category';
 export class ChuckNorrisSignalService implements ISignalStateService
 {
    constructor(private readonly _service: ChuckNorrisFactsService) { }
+
    effects = {
       _service: this._service,
       bindCategories(obj: SignalObject<ReadonlyArray<FactCategory> | null>): void

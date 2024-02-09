@@ -1,10 +1,14 @@
-import { filter, Subject } from 'rxjs';
+import { filter, Subject, tap } from 'rxjs';
 
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, Type, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 import { FooterHostDirective } from './directives/footer/footer-host.directive';
-import { FooterComponentFactory, FooterTypes } from './services/footer/footer.service';
+import {
+    FooterComponentFactory,
+    FooterComponentType,
+    FooterTypes
+} from './factories/footer.factory';
 
 @Component({
    selector: 'app-root',
@@ -36,7 +40,7 @@ export class AppComponent implements OnInit, OnDestroy
 
    private loadFooter(url: string): void
    {
-      const component = FooterComponentFactory[url as FooterTypes];
+      const component: Type<FooterComponentType> = FooterComponentFactory[url as FooterTypes];
       this._footer.viewContainerRef.clear();
 
       if (component)

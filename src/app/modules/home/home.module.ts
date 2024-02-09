@@ -8,7 +8,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 
-import { SignalsDataFlowCanvasComponent } from '../../canvas/signals-data-flow-canvas/signals-data-flow-canvas.component';
 import { StateCanvasComponent } from '../../canvas/state-canvas/state-canvas.component';
 import { HomeMenuComponent } from '../../footers/home-menu/home-menu.component';
 import { NgrxDetailsComponent } from './components/ngrx-details/ngrx-details.component';
@@ -23,8 +22,7 @@ import { NgrxViewComponent } from './views/ngrx-view/ngrx-view.component';
       HomeComponent,
       HomeDetailsComponent,
       NgrxViewComponent,
-      DataFlowComponent,
-      SignalsDataFlowCanvasComponent,
+      DataFlowComponent
    ],
    imports: [
       HomeRoutingModule,
@@ -37,7 +35,7 @@ import { NgrxViewComponent } from './views/ngrx-view/ngrx-view.component';
       DataFlowDetailsComponent,
       HomeMenuComponent,
       StateCanvasComponent,
-      NgrxDetailsComponent,
+      NgrxDetailsComponent
    ]
 })
 export class HomeModule { }

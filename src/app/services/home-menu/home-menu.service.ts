@@ -1,10 +1,11 @@
+import { HttpSignalService } from 'src/app/interfaces/abstracts/http-signal-service.abstract';
 import { ISignalService } from 'src/app/interfaces/services/signal-service.interface';
 import { homeMenuSignals } from 'src/app/state/home-menu/home-menu.signals';
 
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class HomeMenuService implements ISignalService
+export class HomeMenuService extends HttpSignalService implements ISignalService
 {
    methods: {
       getHomeMenu: string;
@@ -13,14 +14,16 @@ export class HomeMenuService implements ISignalService
       };
 
    private readonly _methods: { [k: string]: Function } = {
-      getHomeMenu: this._getHomeMenu
+      getHomeMenu: this.getHomeMenu
    };
 
-   readonly details = {
-      methods: this._methods
-   };
+   override readonly details = {
+      getHomeMenu: this.getHomeMenu,
+      httpClient: undefined,
+      base_url: undefined
+   }
 
-   private _getHomeMenu(): void
+   private getHomeMenu(): void
    {
       const menuItems = [
          {
@@ -33,11 +36,5 @@ export class HomeMenuService implements ISignalService
          }];
 
       homeMenuSignals().items.set(menuItems);
-   }
-
-   dispatch(name: string): any
-   {
-      if (this._methods[name])
-         this._methods[name]();
    }
 }

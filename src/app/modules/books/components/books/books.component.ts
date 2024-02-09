@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 })
 export class BooksComponent
 {
-   books: SignalObject<ReadonlyArray<Book>> = { value: this._service.observables.books };
+   books: SignalObject<ReadonlyArray<Book>> = { value: [] };
    collection: SignalObject<ReadonlyArray<Book>> = { value: this._service.observables.collection };
 
    constructor(private readonly _service: BookSignalService)

@@ -16,10 +16,12 @@ export class MenuService extends HttpSignalService implements ISignalService
       };
 
    override readonly details = {
-      getMenu: this._getMenu
+      getMenu: this.getMenu,
+      httpClient: undefined,
+      base_url: ''
    };
 
-   private _getMenu(): void
+   private getMenu(): void
    {
       const _menuItems: MenuItem[] = [
          { value: 'Home', route: '/home' },

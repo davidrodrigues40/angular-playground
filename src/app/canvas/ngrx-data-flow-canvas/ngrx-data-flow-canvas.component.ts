@@ -7,14 +7,13 @@ import { Component, OnInit } from '@angular/core';
 @Component({
    selector: 'app-ngrx-data-flow-canvas',
    templateUrl: './ngrx-data-flow-canvas.component.html',
-   styleUrls: ['./ngrx-data-flow-canvas.component.scss'],
    standalone: true,
    imports: [CanvasDirective],
    providers: [CanvasService]
 })
 export class NgrxDataFlowCanvasComponent implements OnInit
 {
-   public drawing: CanvasDrawing | undefined;
+   public drawing!: CanvasDrawing;
    private readonly _tier1Color: string = '#3399ff';
    private readonly _tier2Color: string = '#009900';
    private readonly _tier3Color: string = '#007399';

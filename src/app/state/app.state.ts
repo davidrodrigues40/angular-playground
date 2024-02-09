@@ -4,6 +4,3 @@ export interface AppState
 {
    bowlingState: BowlingState;
 }
-
-
-

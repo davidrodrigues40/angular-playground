@@ -2,7 +2,9 @@ import { ISignalService } from './signal-service.interface';
 
 export interface ISignalStateService
 {
-   effects: {};
+   effects: {
+      [key: string]: Function | ISignalService;
+   };
    events: {
       _service: ISignalService;
    };

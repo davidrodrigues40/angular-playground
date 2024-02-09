@@ -1,8 +1,9 @@
 import { of } from 'rxjs';
+import { bookSignals } from 'src/app/state/books/books.signals';
 import { Book } from 'src/app/state/books/models/books.model';
 
 import { HttpClient } from '@angular/common/http';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { BookService } from './books.service';
 
@@ -18,7 +19,7 @@ describe('BooksService', () =>
       }
    };
    const defaultBooks: { items?: Book[] } = {
-      items: undefined
+      items: [defaultBook]
    };
 
    beforeEach(() =>
@@ -40,83 +41,60 @@ describe('BooksService', () =>
       expect(service).toBeTruthy();
    });
 
-   describe('when getBooks$ invoked', () =>
+   describe('methods', () =>
    {
-      it('should call httpClient.get and return books', waitForAsync(() =>
+      it('should return all methods', () =>
       {
-         var books = { ...defaultBooks, items: [defaultBook] }
-         httpClient.get.and.returnValue(of(books));
-
-         service.getBooks$()
-            .subscribe((books) =>
-            {
-               expect(books).toEqual([defaultBook])
-            });
-      }));
-
-      it('should return empty array if no books found', () =>
-      {
-         httpClient.get.and.returnValue(of(defaultBooks));
-
-         service.getBooks$()
-            .subscribe((books) =>
-            {
-               expect(books).toEqual([])
-            });
+         expect(service.methods).toEqual({
+            getBooks: 'getBooks'
+         });
       });
    });
 
-   describe('when get collection invoked', () =>
+   describe('details', () =>
    {
-      it('should return empty array', waitForAsync(() =>
+      it('should return all details', () =>
       {
-         service.getCollection$()
-            .subscribe((books) =>
-            {
-               expect(books).toEqual([])
-            });
-      }));
+         expect(service.details).toEqual({
+            getBooks: service['getBooks'],
+            _books: [],
+            httpClient: httpClient,
+            base_url: 'https://www.googleapis.com/books/v1/volumes?maxResults=10&orderBy=relevance&q=oliver%20sacks'
+         });
+      });
    });
 
-   describe('when add book invoked', () =>
+   describe('getBooks', () =>
    {
-      it('should return book', waitForAsync(() =>
+      it('should call httpClient.get', () =>
       {
-         var book = { ...defaultBook, id: 'id' };
-         service['_books'] = [book];
+         httpClient.get.and.returnValue(of(defaultBooks));
 
-         service.addBook$('id')
-            .subscribe((book) =>
-            {
-               expect(book).toEqual(book)
-            });
-      }));
-   });
+         service['getBooks']();
 
-   describe('when remove book invoked', () =>
-   {
-      it('should return book', waitForAsync(() =>
+         expect(httpClient.get).toHaveBeenCalled();
+      });
+
+      it('should set books', () =>
       {
-         var book = { ...defaultBook, id: 'id' };
-         service['_books'] = [book];
+         let signalSpy = spyOn(bookSignals().books, 'set');
 
-         service.removeBook$('id')
-            .subscribe((book) =>
-            {
-               expect(book).toEqual(book)
-            });
-      }));
-   });
+         httpClient.get.and.returnValue(of(defaultBooks));
 
-   describe('when clear collection invoked', () =>
-   {
-      it('should return void', waitForAsync(() =>
+         service['getBooks']();
+
+         expect(signalSpy).toHaveBeenCalledWith(defaultBooks.items as Book[]);
+      });
+
+      it('should set books to empty array', () =>
       {
-         service.clearCollection$()
-            .subscribe((response) =>
-            {
-               expect(response).toEqual(void 0)
-            });
-      }));
+         const signalSpy = spyOn(bookSignals().books, 'set');
+
+         httpClient.get.and.returnValue(of({ ...defaultBooks, items: undefined }));
+
+         service['getBooks']();
+
+         expect(signalSpy).toHaveBeenCalledWith([] as Book[]);
+      });
    });
 });

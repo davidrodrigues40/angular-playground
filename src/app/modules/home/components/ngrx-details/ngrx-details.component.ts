@@ -38,7 +38,7 @@ export class NgrxDetailsComponent
       switch (name)
       {
          case 'state':
-            dialogRef = this._dialog.open(StateDialogComponent, {
+            this._dialog.open(StateDialogComponent, {
                data: { options: options },
                position: { top: '100px' }
             });

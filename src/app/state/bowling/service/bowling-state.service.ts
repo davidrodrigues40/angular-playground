@@ -5,7 +5,6 @@ import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { StateEvent } from '../../common/state-event';
 import * as actions from '../bowling.actions';
 import * as selectors from '../bowling.selectors';
 import { BowlingState } from '../bowling.state';
@@ -22,33 +21,33 @@ export class BowlingStateService implements IStateService
    };
    events = {
       _store: this._store,
-      getPlayers(): StateEvent<string, Store<BowlingState>>
+      getPlayers(): void
       {
-         return new StateEvent(actions.BowlingActions.getPlayers(), this._store);
+         this._store.dispatch(actions.BowlingActions.getPlayers());
       },
-      addPlayer(name: string, rating: number, players: ReadonlyArray<Player>): StateEvent<string, Store<BowlingState>>
+      addPlayer(name: string, rating: number, players: ReadonlyArray<Player>): void
       {
-         return new StateEvent(actions.BowlingActions.addPlayer({ payload: { name, rating, players } }), this._store);
+         this._store.dispatch(actions.BowlingActions.addPlayer({ payload: { name, rating, players } }));
       },
-      removePlayer(id: number, players: ReadonlyArray<Player>): StateEvent<string, Store<BowlingState>>
+      removePlayer(id: number, players: ReadonlyArray<Player>): void
       {
-         return new StateEvent(actions.BowlingActions.removePlayer({ payload: { id, players } }), this._store);
+         this._store.dispatch(actions.BowlingActions.removePlayer({ payload: { id, players } }));
       },
-      bowl(players: ReadonlyArray<Player>): StateEvent<string, Store<BowlingState>>
+      bowl(players: ReadonlyArray<Player>): void
       {
-         return new StateEvent(actions.BowlingActions.bowl({ payload: players }), this._store);
+         this._store.dispatch(actions.BowlingActions.bowl({ payload: players }));
       },
-      getRatings(): StateEvent<string, Store<BowlingState>>
+      getRatings(): void
       {
-         return new StateEvent(actions.BowlingActions.getRatings(), this._store);
+         this._store.dispatch(actions.BowlingActions.getRatings());
       },
-      newGame(): StateEvent<string, Store<BowlingState>>
+      newGame(): void
       {
-         return new StateEvent(actions.BowlingActions.newGame(), this._store);
+         this._store.dispatch(actions.BowlingActions.newGame());
       },
-      changeAllPlayersRatings(rating: number, players: ReadonlyArray<Player>): StateEvent<string, Store<BowlingState>>
+      changeAllPlayersRatings(rating: number, players: ReadonlyArray<Player>): void
       {
-         return new StateEvent(actions.BowlingActions.changeAllPlayersRatings({ payload: { rating, players } }), this._store);
+         return this._store.dispatch(actions.BowlingActions.changeAllPlayersRatings({ payload: { rating, players } }));
       }
    };
 

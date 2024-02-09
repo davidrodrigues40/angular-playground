@@ -24,33 +24,33 @@ export class ChuckNorrisFactsService extends HttpSignalService implements ISigna
       };
 
    override readonly details = {
-      getFact: this._getFact,
-      getFactForCategory: this._getFactForCategory,
-      getCategories: this._getCategories,
+      getFact: this.getFact,
+      getFactForCategory: this.getFactForCategory,
+      getCategories: this.getCategories,
       httpClient: this.httpClient,
       base_url: this.base_url
    };
 
    constructor(private readonly httpClient: HttpClient) { super(); }
 
-   private _getFact(storage: WritableSignal<Readonly<ChuckNorrisFact> | null>): void
+   private getFact(storage: WritableSignal<Readonly<ChuckNorrisFact> | null>): void
    {
       this.httpClient?.get<ChuckNorrisFact>(`${this.base_url}/random`)
          .pipe(first())
          .subscribe(fact => storage.set(fact));
    }
 
-   private _getFactForCategory(category: FactCategory): void
+   private getFactForCategory(category: FactCategory): void
    {
       if (category.name === 'random')
-         this._getFact(chuckNorrisSignals().fact);
-
-      this.httpClient?.get<ChuckNorrisFact>(`${this.base_url}/random?category=${category.name}`)
-         .pipe(first())
-         .subscribe(fact => chuckNorrisSignals().fact.set(fact));;
+         this.getFact(chuckNorrisSignals().fact);
+      else
+         this.httpClient?.get<ChuckNorrisFact>(`${this.base_url}/random?category=${category.name}`)
+            .pipe(first())
+            .subscribe(fact => chuckNorrisSignals().fact.set(fact));;
    }
 
-   private _getCategories(): void
+   private getCategories(): void
    {
       this.httpClient?.get<string[]>(`${this.base_url}/categories`)
          .pipe(
