@@ -1,4 +1,4 @@
-import { Title3Component } from 'src/app/components/title3/title3.component';
+import { MockComponent } from 'src/app/testing/testing.directive';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -12,10 +12,13 @@ describe('StateDetailsComponent', () =>
    beforeEach(() =>
    {
       TestBed.configureTestingModule({
-         imports: [
-            StateDetailsComponent,
-            Title3Component]
-      });
+         imports: [StateDetailsComponent]
+      })
+         .overrideComponent(StateDetailsComponent, {
+            set: {
+               imports: [MockComponent({ selector: 'app-title3', template: '', standalone: true })]
+            }
+         });
       fixture = TestBed.createComponent(StateDetailsComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();

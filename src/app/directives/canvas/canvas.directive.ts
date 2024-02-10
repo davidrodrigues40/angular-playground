@@ -70,7 +70,7 @@ export class CanvasDirective implements AfterViewInit
          width += (this.getPxFromText(node.text) / 2) + this.drawing.lineWidth;
          width += this.calculateWidth(node.nodes);
       });
-      console.log(width);
+
       return width;
    }
 

@@ -1,4 +1,4 @@
-import { BowlingGame } from 'src/app/interfaces/models/bowling/bowling-game';
+import { Game } from 'src/app/interfaces/models/bowling/game';
 import { Player } from 'src/app/interfaces/models/bowling/player';
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
@@ -12,7 +12,7 @@ import { BowlerRating } from '../../models/bowler-rating.model';
 })
 export class GameComponent
 {
-   @Input() game?: Readonly<BowlingGame | null>;
+   @Input() game?: Readonly<Game | null>;
    @Input() players: ReadonlyArray<Player> = [];
    @Input() ratings: ReadonlyArray<BowlerRating> = [];
    @Input() disablePlayGame: boolean = true;

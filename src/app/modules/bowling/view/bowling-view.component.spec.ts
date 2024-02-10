@@ -1,11 +1,10 @@
 import { of } from 'rxjs';
-import { TitleComponent } from 'src/app/components/title/title.component';
 import { Player } from 'src/app/interfaces/models/bowling/player';
 import { BowlingState } from 'src/app/state/bowling/bowling.state';
 import { BowlingStateService } from 'src/app/state/bowling/service/bowling-state.service';
 import { StateEvent } from 'src/app/state/common/state-event';
+import { MockComponent } from 'src/app/testing/testing.directive';
 
-import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -36,17 +35,6 @@ describe('BowlingViewComponent', () =>
       key: 0,
       value: 'beginner'
    };
-
-   @Component({
-      selector: 'app-add-player',
-      template: ''
-   })
-   class MockAddPlayerComponent { };
-   @Component({
-      selector: 'app-game',
-      template: ''
-   })
-   class MockGameComponent { };
 
    beforeAll(() =>
    {
@@ -79,9 +67,7 @@ describe('BowlingViewComponent', () =>
    {
       await TestBed.configureTestingModule({
          declarations: [
-            BowlingViewComponent,
-            MockAddPlayerComponent,
-            MockGameComponent
+            BowlingViewComponent
          ],
          providers: [
             { provide: BowlingStateService, useValue: service },
@@ -91,7 +77,9 @@ describe('BowlingViewComponent', () =>
             MatFormFieldModule,
             MatSelectModule,
             MatIconModule,
-            TitleComponent,
+            MockComponent({ selector: 'app-add-player' }),
+            MockComponent({ selector: 'app-title' }),
+            MockComponent({ selector: 'app-game' })
          ]
       })
          .compileComponents();

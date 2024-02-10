@@ -1,3 +1,4 @@
+import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
 import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { ChuckNorrisFactsService } from 'src/app/services/chuck-norris/chuck-norris-facts.service';
 import { MockSignalComponent } from 'src/app/testing/testing.components';
@@ -6,7 +7,6 @@ import { TestBed } from '@angular/core/testing';
 
 import { ChuckNorrisFact } from '../../../interfaces/models/chuck-norris/chuck-norris-fact';
 import { chuckNorrisSignals } from '../chuck-norris.signals';
-import { FactCategory } from '../models/fact-category';
 import { ChuckNorrisSignalService } from './chuck-norris-signal.service';
 
 describe('ChuckNorrisSignalService', () =>

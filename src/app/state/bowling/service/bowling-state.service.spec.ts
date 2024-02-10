@@ -4,7 +4,7 @@ import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
-import { BowlingGame } from '../../../interfaces/models/bowling/bowling-game';
+import { Game } from '../../../interfaces/models/bowling/game';
 import { Scorecard } from '../../../interfaces/models/bowling/scorecard';
 import { BowlingState } from '../bowling.state';
 import { BowlingStateService } from './bowling-state.service';
@@ -20,7 +20,7 @@ describe('BowlingStateService', () =>
       score: 0,
    };
 
-   const defaultGame: BowlingGame = {
+   const defaultGame: Game = {
       bowlers: [],
       winner: defaultWinner
    };

@@ -1,6 +1,4 @@
-import { Title2Component } from 'src/app/components/title2/title2.component';
-import { Title3Component } from 'src/app/components/title3/title3.component';
-import { Title4Component } from 'src/app/components/title4/title4.component';
+import { MockComponent } from 'src/app/testing/testing.directive';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -16,9 +14,9 @@ describe('HomeDetailsComponent', () =>
       TestBed.configureTestingModule({
          declarations: [HomeDetailsComponent],
          imports: [
-            Title2Component,
-            Title3Component,
-            Title4Component
+            MockComponent({ selector: 'app-title2', template: '', standalone: true }),
+            MockComponent({ selector: 'app-title3', template: '', standalone: true }),
+            MockComponent({ selector: 'app-title4', template: '', standalone: true })
          ]
       });
       fixture = TestBed.createComponent(HomeDetailsComponent);

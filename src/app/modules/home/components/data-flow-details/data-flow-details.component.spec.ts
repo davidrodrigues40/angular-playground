@@ -1,4 +1,4 @@
-import { Title2Component } from 'src/app/components/title2/title2.component';
+import { MockComponent } from 'src/app/testing/testing.directive';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -19,7 +19,8 @@ describe('DataFlowDetailsComponent', () =>
             set: {
                imports: [
                   NgrxDataFlowComponent,
-                  Title2Component]
+                  MockComponent({ selector: 'app-title2', standalone: true })
+               ]
             }
          });
 

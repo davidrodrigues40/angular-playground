@@ -76,6 +76,15 @@ describe('CanvasDirective', () =>
 
          expect().nothing();
       });
+
+      it('should draw canvas with fixed width', () =>
+      {
+         directive.drawing = { ...drawing, node: primaryNode(), width: 100 };
+
+         directive.ngAfterViewInit();
+
+         expect().nothing();
+      });
    });
 
    function primaryNode(): CanvasNode

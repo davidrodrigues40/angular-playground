@@ -12,7 +12,7 @@ describe('ScorecardComponent', () =>
    let fixture: ComponentFixture<BowlerComponent>;
    let frameService: jasmine.SpyObj<FrameService> = jasmine.createSpyObj('FrameService', ['calculateFrameValue']);
    const frame: Frame = {
-      roles: new Map<number, number>(),
+      rolls: new Map<number, number>(),
       score: 0
    };
    const frames: Frame[] = [frame];

@@ -1,5 +1,5 @@
 import { first, map, Observable } from 'rxjs';
-import { BowlingGame } from 'src/app/interfaces/models/bowling/bowling-game';
+import { Game } from 'src/app/interfaces/models/bowling/game';
 import { Player } from 'src/app/interfaces/models/bowling/player';
 import { BowlingStateService } from 'src/app/state/bowling/service/bowling-state.service';
 
@@ -17,7 +17,7 @@ import { BowlerRating } from '../models/bowler-rating.model';
 export class BowlingViewComponent implements OnInit
 {
    players$: Observable<ReadonlyArray<Player>> = this._service.observables.players$;
-   game$: Observable<Readonly<BowlingGame | undefined>> = this._service.observables.game$;
+   game$: Observable<Readonly<Game | undefined>> = this._service.observables.game$;
    ratings$: Observable<ReadonlyArray<BowlerRating>> = this._service.observables.ratings$;
 
    constructor(private readonly _service: BowlingStateService, private readonly _dialog: MatDialog) { }

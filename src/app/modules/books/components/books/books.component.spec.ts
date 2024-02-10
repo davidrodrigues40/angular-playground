@@ -1,7 +1,7 @@
-import { TitleComponent } from 'src/app/components/title/title.component';
 import { Book } from 'src/app/interfaces/models/books/book.';
 import { BookService } from 'src/app/services/books/books.service';
 import { BookSignalService } from 'src/app/state/books/service/book-signal.service';
+import { MockComponent } from 'src/app/testing/testing.directive';
 import { TestingSpys } from 'src/app/testing/testing.spys';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -37,13 +37,12 @@ describe('BooksComponent', () =>
          declarations: [
             BooksComponent,
             BookListComponent,
-            BookCollectionComponent],
-         imports: [
-            TitleComponent
+            BookCollectionComponent
          ],
+         imports: [MockComponent({ selector: 'app-title' })],
          providers: [
             { provide: BookSignalService, useValue: signalService },
-            { provide: BookService, useValue: bookService }
+            { provide: BookService, useValue: bookService },
          ]
       })
          .overrideComponent(BooksComponent, {

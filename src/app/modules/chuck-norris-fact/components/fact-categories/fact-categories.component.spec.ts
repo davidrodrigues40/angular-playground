@@ -1,4 +1,4 @@
-import { FactCategory } from 'src/app/state/chuck-norris/models/fact-category';
+import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
 import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
 import { TestingSpys } from 'src/app/testing/testing.spys';
 

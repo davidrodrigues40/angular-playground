@@ -1,12 +1,12 @@
 import { of } from 'rxjs';
-import { BowlingGame } from 'src/app/interfaces/models/bowling/bowling-game';
+import { Game } from 'src/app/interfaces/models/bowling/game';
 import { Player } from 'src/app/interfaces/models/bowling/player';
 import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model';
 
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
-import { CacheService } from '../cache/cache.service';
+import { CacheService } from '../../cache/cache.service';
 import { BowlingService } from './bowling.service';
 
 describe('BowlingService', () =>
@@ -15,7 +15,7 @@ describe('BowlingService', () =>
    let httpClient: jasmine.SpyObj<HttpClient> = jasmine.createSpyObj('HttpClient', ['get', 'post']);
    let cacheService: jasmine.SpyObj<CacheService> = jasmine.createSpyObj('CacheService', ['getLocal', 'localHas', 'setLocal']);
 
-   const defaultGame: BowlingGame = {
+   const defaultGame: Game = {
       bowlers: [],
       winner: {
          name: '',

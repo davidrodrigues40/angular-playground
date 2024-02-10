@@ -5,7 +5,7 @@ import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { BowlingGame } from '../../../interfaces/models/bowling/bowling-game';
+import { Game } from '../../../interfaces/models/bowling/game';
 import { Player } from '../../../interfaces/models/bowling/player';
 import { Scorecard } from '../../../interfaces/models/bowling/scorecard';
 import * as actions from '../bowling.actions';
@@ -57,7 +57,7 @@ export class BowlingStateService implements IStateService
       {
          return this._store.select(selectors.getPlayers);
       },
-      get game$(): Observable<BowlingGame | undefined>
+      get game$(): Observable<Game | undefined>
       {
          return this._store.select(selectors.getGame);
       },

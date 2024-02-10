@@ -1,7 +1,6 @@
-import { Title2Component } from 'src/app/components/title2/title2.component';
-import { ChuckNorrisFact } from 'src/app/interfaces/models/chuck-norris/chuck-norris-fact';
-import { FactCategory } from 'src/app/state/chuck-norris/models/fact-category';
+import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
 import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
+import { MockComponent } from 'src/app/testing/testing.directive';
 import { TestingSpys } from 'src/app/testing/testing.spys';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -17,12 +16,6 @@ describe('FactGeneratorComponent', () =>
    let fixture: ComponentFixture<FactGeneratorComponent>;
    const signalService: jasmine.SpyObj<ChuckNorrisSignalService> = TestingSpys.signalService<ChuckNorrisSignalService>(
       ['bindFact', 'bindSelectedCategory'], ['fetchFact', 'fetchFactForCategory', 'setSelectedCategory']);
-   const fact: ChuckNorrisFact = {
-      icon_url: '',
-      id: '',
-      url: '',
-      value: ''
-   };
    const category: FactCategory = {
       name: ''
    };
@@ -32,11 +25,13 @@ describe('FactGeneratorComponent', () =>
       await TestBed.configureTestingModule({
          declarations: [
             FactGeneratorComponent,
-            FactCategoriesComponent],
+            FactCategoriesComponent
+         ],
          imports: [
             MatFormFieldModule,
             MatSelectModule,
-            Title2Component
+            MockComponent({ selector: 'app-title2', standalone: true }),
+            MockComponent({ selector: 'app-fact', standalone: true })
          ],
          providers: [
             { provide: ChuckNorrisSignalService, useValue: signalService }

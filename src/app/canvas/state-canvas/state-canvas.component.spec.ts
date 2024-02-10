@@ -31,10 +31,9 @@ describe('StateCanvasComponent', () =>
    beforeEach(() =>
    {
       TestBed.configureTestingModule({
-         declarations: [
-            MockDirective({ selector: 'appCanvas', inputs: [], standalone: true })],
          imports: [
             StateCanvasComponent,
+            MockDirective({ selector: 'appCanvas', inputs: [], standalone: true }),
          ],
       })
          .overrideComponent(StateCanvasComponent, {

@@ -14,15 +14,15 @@ describe('NgrxCanvasComponent', () =>
    beforeEach(() =>
    {
       TestBed.configureTestingModule({
-         declarations: [
-            MockDirective({ selector: 'appCanvas', standalone: true })
-         ],
          imports: [
             NgrxCanvasComponent
          ],
       })
          .overrideComponent(NgrxCanvasComponent, {
             set: {
+               imports: [
+                  MockDirective({ selector: 'appCanvas' })
+               ],
                providers: [
                   { provide: CanvasService, useValue: service },
                ]

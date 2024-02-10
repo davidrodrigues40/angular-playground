@@ -31,11 +31,13 @@ describe('NgrxDataFlowCanvasComponent', () =>
    beforeEach(() =>
    {
       TestBed.configureTestingModule({
-         declarations: [MockDirective({ selector: 'appCanvas', standalone: true })],
          imports: [NgrxDataFlowCanvasComponent],
       })
          .overrideComponent(NgrxDataFlowCanvasComponent, {
             set: {
+               imports: [
+                  MockDirective({ selector: 'appCanvas' })
+               ],
                providers: [
                   { provide: CanvasService, useValue: service }
                ]

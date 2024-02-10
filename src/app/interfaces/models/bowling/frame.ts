@@ -1,5 +1,5 @@
 export interface Frame
 {
-   roles: Map<number, number>;
+   rolls: Map<number, number>;
    score: number;
 }

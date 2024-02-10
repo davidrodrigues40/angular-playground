@@ -7,21 +7,22 @@ export function MockDirective(options: Component): Type<Directive>
       exportAs: options.exportAs,
       inputs: options.inputs,
       outputs: options.outputs,
-      queries: options.queries
+      queries: options.queries,
+      standalone: options.standalone === undefined ? true : options.standalone,
    };
-   return <any>Directive(metadata)(class MockDirectiveClass { });
+   return <any>Directive(metadata)(class MockDirective { });
 };
 
 export function MockComponent(options: Component): Type<Component>
 {
    const metadata: Component = {
       selector: options.selector,
-      template: options.template,
+      template: options.template ?? '',
       exportAs: options.exportAs,
       inputs: options.inputs,
       outputs: options.outputs,
       queries: options.queries,
-      standalone: options.standalone,
+      standalone: options.standalone === undefined ? true : options.standalone,
    };
-   return <any>Component(metadata)(class MockComponentClass { });
+   return <any>Component(metadata)(class MockComponent { });
 }

@@ -16,7 +16,6 @@ import { FactComponent } from './components/fact/fact.component';
 @NgModule({
    declarations: [
       FactGeneratorComponent,
-      FactComponent,
       FactCategoriesComponent
    ],
    imports: [
@@ -25,7 +24,8 @@ import { FactComponent } from './components/fact/fact.component';
       MatButtonModule,
       MatFormFieldModule,
       MatSelectModule,
-      Title2Component
+      Title2Component,
+      FactComponent
    ],
    providers: [ChuckNorrisFactsService, ChuckNorrisSignalService]
 })

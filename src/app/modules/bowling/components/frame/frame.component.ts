@@ -12,7 +12,7 @@ import { FrameService } from '../../services/frame.service';
 export class FrameComponent
 {
    @Input() frame: Frame = {
-      roles: new Map<number, number>(),
+      rolls: new Map<number, number>(),
       score: 0
    };
    @Input() score: number = 0;
@@ -21,7 +21,7 @@ export class FrameComponent
 
    roles(frame: Frame)
    {
-      const values: number[] = Object.values(frame.roles);
+      const values: number[] = Object.values(frame.rolls);
       return this._frameService.getFrameValues(values);
    }
 }

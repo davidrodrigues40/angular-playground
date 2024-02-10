@@ -1,27 +1,27 @@
 import { StorageTranscoders } from 'ngx-webstorage-service';
 import { map, Observable, of } from 'rxjs';
-import { BowlingGame } from 'src/app/interfaces/models/bowling/bowling-game';
+import { Game } from 'src/app/interfaces/models/bowling/game';
 import { Player } from 'src/app/interfaces/models/bowling/player';
 import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { ApiService } from '../api.service';
-import { CacheService } from '../cache/cache.service';
+import { ApiService } from '../../api.service';
+import { CacheService } from '../../cache/cache.service';
+import { IBowlingService } from '../bowling-service.interface';
 
 @Injectable()
-export class BowlingService extends ApiService
+export class BowlingService extends ApiService implements IBowlingService
 {
    private readonly _ratingsCacheKey: string = 'bowler-ratings';
-   private _ratings: BowlerRating[] = this._cacheService.getLocal(this._ratingsCacheKey, StorageTranscoders.JSON) as BowlerRating[] || [];
 
    constructor(private readonly _httpClient: HttpClient,
       private readonly _cacheService: CacheService) { super(); }
 
-   bowl$(players: ReadonlyArray<Player>): Observable<BowlingGame>
+   bowl$(players: ReadonlyArray<Player>): Observable<Game>
    {
-      return this._httpClient.post<BowlingGame>(`${this.base_url}/api/game`, players);
+      return this._httpClient.post<Game>(`${this.base_url}/api/game`, players);
    }
 
    getRatings$(): Observable<BowlerRating[]>

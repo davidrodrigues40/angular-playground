@@ -1,8 +1,8 @@
 import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model';
 
 import { Bowler } from '../../interfaces/models/bowling/bowler';
-import { BowlingGame } from '../../interfaces/models/bowling/bowling-game';
 import { Frame } from '../../interfaces/models/bowling/frame';
+import { Game } from '../../interfaces/models/bowling/game';
 import { Scorecard } from '../../interfaces/models/bowling/scorecard';
 import * as selectors from './bowling.selectors';
 import { BowlingState } from './bowling.state';
@@ -14,7 +14,7 @@ describe('Bowling Selectors', () =>
       ratings: [],
       game: undefined
    };
-   const defaultGame: BowlingGame = {
+   const defaultGame: Game = {
       bowlers: [],
       winner: {
          name: '',
