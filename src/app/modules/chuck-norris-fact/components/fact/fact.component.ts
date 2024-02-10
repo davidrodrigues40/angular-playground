@@ -1,6 +1,7 @@
 import { EmptyDataComponent } from 'src/app/components/empty-data/empty-data.component';
 import { ChuckNorrisFact } from 'src/app/interfaces/models/chuck-norris/chuck-norris-fact';
 
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -8,7 +9,9 @@ import { Component, Input } from '@angular/core';
    standalone: true,
    templateUrl: './fact.component.html',
    styleUrls: ['./fact.component.scss'],
-   imports: [EmptyDataComponent]
+   imports: [
+      CommonModule,
+      EmptyDataComponent]
 })
 export class FactComponent
 {

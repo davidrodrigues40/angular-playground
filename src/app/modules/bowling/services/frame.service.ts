@@ -25,7 +25,7 @@ export class FrameService
       if (currentIndex === 0)
          return score;
 
-      var currentScore = frames.filter((frame, index) => index < currentIndex).map(x => x.score).reduce((a, b) => a + b, 0);
+      let currentScore = frames.filter((frame, index) => index < currentIndex).map(x => x.score).reduce((a, b) => a + b, 0);
 
       return currentScore + score;
    }
