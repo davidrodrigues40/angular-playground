@@ -17,11 +17,19 @@ export class FrameComponent
    };
    @Input() score: number = 0;
 
-   constructor(private readonly _frameService: FrameService) { }
-
-   roles(frame: Frame)
+   constructor(private readonly _frameService: FrameService)
    {
-      const values: number[] = Object.values(frame.rolls);
+   }
+
+   rolls(frame: Frame)
+   {
+      let values: number[] = [];
+
+      if (frame.rolls instanceof Map)
+         values = Array.from(frame.rolls.values());
+      else
+         values = Object.values(frame.rolls);
+
       return this._frameService.getFrameValues(values);
    }
 }

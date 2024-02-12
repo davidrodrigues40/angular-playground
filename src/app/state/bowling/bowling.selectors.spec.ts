@@ -12,7 +12,8 @@ describe('Bowling Selectors', () =>
    const initialState: BowlingState = {
       players: [],
       ratings: [],
-      game: undefined
+      game: undefined,
+      status: 'offline'
    };
    const defaultGame: Game = {
       bowlers: [],
@@ -92,6 +93,16 @@ describe('Bowling Selectors', () =>
          const rating = selectors.getRating(200).projector({ ...initialState, ratings: [expected] });
 
          expect(rating).toEqual(expected);
+      });
+   });
+
+   describe('when getStatus invoked', () =>
+   {
+      it('should return status', () =>
+      {
+         const status = selectors.getStatus.projector({ ...initialState, status: 'online' });
+
+         expect(status).toEqual('online');
       });
    });
 });

@@ -1,4 +1,4 @@
-import { first, map, Observable } from 'rxjs';
+import { first, map, Observable, tap } from 'rxjs';
 import { Game } from 'src/app/interfaces/models/bowling/game';
 import { Player } from 'src/app/interfaces/models/bowling/player';
 import { BowlingStateService } from 'src/app/state/bowling/service/bowling-state.service';
@@ -16,9 +16,11 @@ import { BowlerRating } from '../models/bowler-rating.model';
 })
 export class BowlingViewComponent implements OnInit
 {
+   status$: Observable<string> = this._service.observables.status$;
    players$: Observable<ReadonlyArray<Player>> = this._service.observables.players$;
    game$: Observable<Readonly<Game | undefined>> = this._service.observables.game$;
    ratings$: Observable<ReadonlyArray<BowlerRating>> = this._service.observables.ratings$;
+   isChecked: boolean = true;
 
    constructor(private readonly _service: BowlingStateService, private readonly _dialog: MatDialog) { }
 
@@ -26,6 +28,8 @@ export class BowlingViewComponent implements OnInit
    {
       this._service.events.getRatings();
       this._service.events.getPlayers();
+      this._service.observables.status$
+         .subscribe(status => this.isChecked = status === 'online');
    }
 
    addPlayer(player: { name: string, rating: number }): void
@@ -69,6 +73,12 @@ export class BowlingViewComponent implements OnInit
       this.ratings$
          .pipe(first())
          .subscribe(ratings => this.openDialog(ratings));
+   }
+
+   toggleStatus(): void
+   {
+      this.isChecked = !this.isChecked;
+      this._service.events.setAvailability(this.isChecked ? 'online' : 'offline');
    }
 
    private openDialog(ratings: ReadonlyArray<BowlerRating>): void

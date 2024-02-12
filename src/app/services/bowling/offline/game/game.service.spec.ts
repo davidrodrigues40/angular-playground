@@ -4,7 +4,7 @@ import { Frame } from 'src/app/interfaces/models/bowling/frame';
 import { TestBed } from '@angular/core/testing';
 
 import { BowlService } from '../bowl-service/bowl.service';
-import { OfflineBowlingService } from '../offline-bowling.service';
+import { OfflineRatingService } from '../offline-rating/offline-rating.service';
 import { ScoreCalculatorService } from '../score-calculator/score-calculator.service';
 import { GameService } from './game.service';
 
@@ -13,7 +13,7 @@ describe('GameService', () =>
    let service: GameService;
    const scoreCalculator: jasmine.SpyObj<ScoreCalculatorService> = jasmine.createSpyObj('ScoreCalculatorService', ['clearScoreSheet', 'calculateBowlerScore']);
    const bowlService: jasmine.SpyObj<BowlService> = jasmine.createSpyObj('BowlService', ['rollFirstBall', 'rollSecondBall', 'rollBall']);
-   const bowlingService: jasmine.SpyObj<OfflineBowlingService> = jasmine.createSpyObj('OfflineBowlingService', ['getRating']);
+   const ratingService: jasmine.SpyObj<OfflineRatingService> = jasmine.createSpyObj('RatingService', ['getRatings$', 'getRating']);
 
    const bowler: Bowler = {
       frames: new Map<number, Frame>(),
@@ -44,13 +44,15 @@ describe('GameService', () =>
             GameService,
             { provide: ScoreCalculatorService, useValue: scoreCalculator },
             { provide: BowlService, useValue: bowlService },
-            { provide: OfflineBowlingService, useValue: bowlingService }
+            { provide: OfflineRatingService, useValue: ratingService }
          ]
       });
       service = TestBed.inject(GameService);
 
       scoreCalculator.calculateBowlerScore.calls.reset();
       scoreCalculator.clearScoreSheet.calls.reset();
+      ratingService.getRatings$.calls.reset();
+      ratingService.getRating.calls.reset();
       bowlService.rollFirstBall.calls.reset();
       bowlService.rollSecondBall.calls.reset();
    });

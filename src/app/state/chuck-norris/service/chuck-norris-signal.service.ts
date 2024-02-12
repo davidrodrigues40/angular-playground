@@ -79,6 +79,6 @@ export class ChuckNorrisSignalService implements ISignalStateService
       get categories(): ReadonlyArray<FactCategory> | null
       { return chuckNorrisSignals().categories(); },
       get selectedCategory(): Readonly<FactCategory | null>
-      { return chuckNorrisSignals().selectedCategory(); }
+      { return chuckNorrisSignals().selectedCategory(); },
    };
 }

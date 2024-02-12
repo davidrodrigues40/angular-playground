@@ -7,8 +7,6 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ScoreCalculatorService
 {
-   constructor() { }
-
    clearScoreSheet(): Map<number, Frame>
    {
       const frames: Map<number, Frame> = new Map<number, Frame>();
@@ -42,8 +40,6 @@ export class ScoreCalculatorService
 
    calculateBowlerScore(bowler: Bowler): void
    {
-      let frameNumber = 1;
-
       for (let x: number = 1; x <= 10; x++)
       {
          let nextFrame: Frame;
@@ -59,10 +55,12 @@ export class ScoreCalculatorService
                this.calculateNinthFrame(frame, nextFrame);
                break;
             default:
-               nextFrame = bowler.frames.get(x + 1)!;
-               const nextNextFrame = bowler.frames.get(x + 2)!;
-               this.calculateFrameScore(frame, nextFrame, nextNextFrame);
-               break;
+               {
+                  nextFrame = bowler.frames.get(x + 1)!;
+                  const nextNextFrame = bowler.frames.get(x + 2)!;
+                  this.calculateFrameScore(frame, nextFrame, nextNextFrame);
+                  break;
+               }
          }
 
          bowler.score += frame.score;
@@ -73,9 +71,9 @@ export class ScoreCalculatorService
    {
       frame.score = 0;
 
-      if (frame.rolls.get(1)! === 10)
+      if (frame.rolls.get(1) === 10)
          this.calculateStrike(frame, nextFrame, nextNextFrame);
-      else if (frame.rolls.get(1)! + frame.rolls.get(2)! === 10)
+      else if ((frame.rolls.get(1)! + frame.rolls.get(2)!) === 10)
          this.calculateSpare(frame, nextFrame);
       else
          this.calculateOpenFrame(frame);
@@ -98,7 +96,7 @@ export class ScoreCalculatorService
    {
       let score: number = 0;
 
-      if (frame.rolls.get(1)! === 10)
+      if (frame.rolls.get(1) && frame.rolls.get(1) === 10)
          frame.score = 10 + nextFrame.rolls.get(1)! + nextFrame.rolls.get(2)!;
       else if (frame.rolls.get(1)! + frame.rolls.get(2)! === 10)
          frame.score = 10 + nextFrame.rolls.get(1)!;

@@ -47,7 +47,8 @@ describe('BowlingViewComponent', () =>
                bowl: function () { return event; },
                addPlayer: function () { return event; },
                removePlayer: function () { return event; },
-               changeAllPlayersRatings: function (rating: number, players: Player[]) { return event; }
+               changeAllPlayersRatings: function (rating: number, players: Player[]) { return event; },
+               setAvailability: function (status: string) { return event; }
             },
             writable: true
          },
@@ -56,7 +57,8 @@ describe('BowlingViewComponent', () =>
                players$: of([player]),
                score$: function (playerName: string) { return of(100) },
                rating$: function (rated: number) { return of(rating) },
-               ratings$: of([rating])
+               ratings$: of([rating]),
+               status$: of('online')
             },
             writable: true
          }
@@ -79,7 +81,8 @@ describe('BowlingViewComponent', () =>
             MatIconModule,
             MockComponent({ selector: 'app-add-player' }),
             MockComponent({ selector: 'app-title' }),
-            MockComponent({ selector: 'app-game' })
+            MockComponent({ selector: 'app-game' }),
+            MockComponent({ selector: 'mat-slide-toggle' })
          ]
       })
          .compileComponents();
@@ -219,5 +222,36 @@ describe('BowlingViewComponent', () =>
          expect(dialog.open).toHaveBeenCalledTimes(1);
          expect(service.events.changeAllPlayersRatings).toHaveBeenCalledOnceWith(100, [player]);
       }));
+   });
+
+   describe('when toggle status invoked', () =>
+   {
+      it('should set availability to online', () =>
+      {
+         // Arrange
+         spyOn(service.events, 'setAvailability');
+         component.isChecked = false;
+
+         // Act
+         component.toggleStatus();
+
+         // Assert
+         expect(component.isChecked).toBeTrue();
+         expect(service.events.setAvailability).toHaveBeenCalledOnceWith('online');
+      });
+
+      it('should set availability to offline', () =>
+      {
+         // Arrange
+         spyOn(service.events, 'setAvailability');
+         component.isChecked = true;
+
+         // Act
+         component.toggleStatus();
+
+         // Assert
+         expect(component.isChecked).toBeFalse();
+         expect(service.events.setAvailability).toHaveBeenCalledOnceWith('offline');
+      });
    });
 });

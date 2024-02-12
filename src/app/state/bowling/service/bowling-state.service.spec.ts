@@ -28,7 +28,8 @@ describe('BowlingStateService', () =>
    const initialState: BowlingState = {
       players: [],
       ratings: [],
-      game: defaultGame
+      game: defaultGame,
+      status: 'offline'
    };
 
    beforeEach(() =>
@@ -133,6 +134,18 @@ describe('BowlingStateService', () =>
             expect(store.dispatch).toHaveBeenCalled();
          });
       });
+
+      describe('when setAvailability invoked', () =>
+      {
+         it('should dispatch setAvailability action', () =>
+         {
+            spyOn(store, 'dispatch');
+
+            service.events.setAvailability('online');
+
+            expect(store.dispatch).toHaveBeenCalled();
+         });
+      });
    });
 
    describe('observables', () =>
@@ -217,6 +230,20 @@ describe('BowlingStateService', () =>
                .subscribe(rating =>
                {
                   expect(rating).toEqual(defaultRatings[0]);
+               });
+         }));
+      });
+
+      describe('when status$ invoked', () =>
+      {
+         it('should return status observable', waitForAsync(() =>
+         {
+            spyOn(store, 'select').and.returnValue(of('online'));
+
+            service.observables.status$
+               .subscribe(status =>
+               {
+                  expect(status).toEqual('online');
                });
          }));
       });

@@ -54,8 +54,20 @@ describe('ScorecardComponent', () =>
 
    describe('when ngOnInit invoked', () =>
    {
-      it('should set frames', () =>
+      it('should set frames from map', () => 
       {
+         bowler.frames = new Map<number, Frame>();
+         frames.forEach((frame, index) => bowler.frames.set(index, frame));
+
+         component.ngOnInit();
+
+         expect(component.frames).toEqual([frame]);
+      });
+
+      it('should set frames from array', () =>
+      {
+         component.bowler.frames = Object.fromEntries(frames.map((frame, index) => [index, frame])) as unknown as Map<number, Frame>;
+
          component.ngOnInit();
 
          expect(component.frames).toEqual([frame]);

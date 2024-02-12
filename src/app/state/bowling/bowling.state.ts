@@ -8,4 +8,5 @@ export interface BowlingState
    players: ReadonlyArray<Player>;
    game?: Readonly<Game>;
    ratings: ReadonlyArray<BowlerRating>;
+   status: 'offline' | 'online';
 }

@@ -48,11 +48,19 @@ export class BowlingStateService implements IStateService
       changeAllPlayersRatings(rating: number, players: ReadonlyArray<Player>): void
       {
          return this._store.dispatch(actions.BowlingActions.changeAllPlayersRatings({ payload: { rating, players } }));
+      },
+      setAvailability(status: 'offline' | 'online'): void
+      {
+         this._store.dispatch(actions.BowlingActions.setStatus({ payload: status }));
       }
    };
 
    observables = {
       _store: this._store,
+      get status$(): Observable<'offline' | 'online'>
+      {
+         return this._store.select(selectors.getStatus);
+      },
       get players$(): Observable<ReadonlyArray<Player>>
       {
          return this._store.select(selectors.getPlayers);

@@ -6,9 +6,9 @@ import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model
 
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
-import { CacheService } from '../../cache/cache.service';
 import { GameService } from './game/game.service';
 import { OfflineBowlingService } from './offline-bowling.service';
+import { OfflineRatingService } from './offline-rating/offline-rating.service';
 import { PlayerService } from './player/player.service';
 
 describe('OfflineBowlingService', () =>
@@ -16,7 +16,7 @@ describe('OfflineBowlingService', () =>
    let service: OfflineBowlingService;
    const playerService: jasmine.SpyObj<PlayerService> = jasmine.createSpyObj('PlayerService', ['generateBowlers']);
    const gameService: jasmine.SpyObj<GameService> = jasmine.createSpyObj('GameService', ['newGame', 'playGame']);
-   const cacheService: jasmine.SpyObj<CacheService> = jasmine.createSpyObj('CacheService', ['localHas', 'getLocal', 'setLocal']);
+   const ratingService: jasmine.SpyObj<OfflineRatingService> = jasmine.createSpyObj('OfflineBowlingService', ['bowl$', 'getRatings$']);
 
    const rating: BowlerRating = {
       key: 0,
@@ -50,9 +50,10 @@ describe('OfflineBowlingService', () =>
             OfflineBowlingService,
             { provide: PlayerService, useValue: playerService },
             { provide: GameService, useValue: gameService },
-            { provide: CacheService, useValue: cacheService }
+            { provide: OfflineRatingService, useValue: ratingService }
          ]
       });
+
       service = TestBed.inject(OfflineBowlingService);
    });
 
@@ -95,11 +96,10 @@ describe('OfflineBowlingService', () =>
 
    describe('when getRatings$ invoked', () =>
    {
-      it('should return ratings from cache', waitForAsync(() =>
+      it('should return ratings from rating service', waitForAsync(() =>
       {
          // Arrange
-         cacheService.localHas.and.returnValue(true);
-         cacheService.getLocal.and.returnValue(ratings);
+         Object.defineProperty(ratingService, 'ratings', { value: ratings, writable: true });
 
          // Act & Assert
          service.getRatings$().subscribe(r =>
@@ -107,28 +107,5 @@ describe('OfflineBowlingService', () =>
             expect(r).toEqual(ratings);
          });
       }));
-
-      it('should return ratings from list', waitForAsync(() =>
-      {
-         // Arrange
-         cacheService.localHas.and.returnValue(false);
-         cacheService.setLocal.and.returnValue(undefined);
-         spyOnProperty<any>(service, 'ratings').and.returnValue(ratings);
-
-         // Act & Assert
-         service.getRatings$().subscribe(r =>
-         {
-            expect(r).toEqual(ratings);
-         });
-      }));
-   });
-
-   describe('when getRating invoked', () =>
-   {
-      it('should return rating', () =>
-      {
-         // Act & Assert
-         expect(service.getRating(0)).toEqual(service['ratings'][0]);
-      });
    });
 });

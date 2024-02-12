@@ -26,7 +26,10 @@ export class BowlerComponent implements OnInit
 
    ngOnInit(): void
    {
-      this.frames = Object.values(this.bowler.frames);
+      if (this.bowler.frames instanceof Map)
+         this.frames = Array.from(this.bowler.frames.values());
+      else
+         this.frames = Object.values(this.bowler.frames);
    }
 
    frameScore(frameScore: number, index: number): number

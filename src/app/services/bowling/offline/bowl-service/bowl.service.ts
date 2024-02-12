@@ -2,9 +2,7 @@ import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model
 
 import { Injectable } from '@angular/core';
 
-@Injectable({
-   providedIn: 'root'
-})
+@Injectable()
 export class BowlService
 {
    rollFirstBall(rating: BowlerRating): number
@@ -21,7 +19,8 @@ export class BowlService
    private rollBall(rating: BowlerRating, pins: number): number
    {
       const handycap: number = rating.key * 3;
-      const pinsKnockedDown = Math.floor(Math.random() * (pins + handycap));
+      const random = Math.floor(Math.random() * pins);
+      const pinsKnockedDown = Math.min((pins - random + handycap), pins);
 
       return Math.min(pins, pinsKnockedDown);
    }

@@ -6,14 +6,14 @@ import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
-import { CacheService } from '../../cache/cache.service';
+import { RatingService } from '../rating/rating.service';
 import { BowlingService } from './bowling.service';
 
 describe('BowlingService', () =>
 {
    let service: BowlingService;
    let httpClient: jasmine.SpyObj<HttpClient> = jasmine.createSpyObj('HttpClient', ['get', 'post']);
-   let cacheService: jasmine.SpyObj<CacheService> = jasmine.createSpyObj('CacheService', ['getLocal', 'localHas', 'setLocal']);
+   let ratingService: jasmine.SpyObj<RatingService> = jasmine.createSpyObj('RatingService', ['getRatings$']);
 
    const defaultGame: Game = {
       bowlers: [],
@@ -31,16 +31,13 @@ describe('BowlingService', () =>
          providers: [
             BowlingService,
             { provide: HttpClient, useValue: httpClient },
-            { provide: CacheService, useValue: cacheService }
+            { provide: RatingService, useValue: ratingService },
          ]
       });
       service = TestBed.inject(BowlingService);
 
-      httpClient.get.calls.reset();
       httpClient.post.calls.reset();
-      cacheService.getLocal.calls.reset();
-      cacheService.localHas.calls.reset();
-      cacheService.setLocal.calls.reset();
+      ratingService.getRatings$.calls.reset();
    });
 
    it('should be created', () =>
@@ -64,27 +61,14 @@ describe('BowlingService', () =>
 
    describe('when getRatings$ invoked', () =>
    {
-      it('should call httpClient.get and return ratings', () =>
+      it('should call rating service', () =>
       {
-         httpClient.get.and.returnValue(of(defaultRatings));
-         cacheService.localHas.and.returnValue(false);
+         ratingService.getRatings$.and.returnValue(of({ ...defaultRatings }));
 
          service.getRatings$()
             .subscribe((ratings) =>
             {
-               expect(ratings).toEqual(defaultRatings);
-            });
-      });
-
-      it('should return cached', () =>
-      {
-         cacheService.localHas.and.returnValue(true);
-         cacheService.getLocal.and.returnValue(defaultRatings);
-
-         service.getRatings$()
-            .subscribe((ratings) =>
-            {
-               expect(ratings).toEqual(defaultRatings);
+               expect(ratings).toEqual({ ...defaultRatings });
             });
       });
    });

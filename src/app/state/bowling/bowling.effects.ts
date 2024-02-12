@@ -1,17 +1,24 @@
-import { map, mergeMap } from 'rxjs';
-import { BowlingService } from 'src/app/services/bowling/online/bowling.service';
+import { map, mergeMap, switchMap } from 'rxjs';
+import { BowlingHttpResponse } from 'src/app/interfaces/models/bowling/bowling-http-response';
+import { Game } from 'src/app/interfaces/models/bowling/game';
+import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model';
+import { OfflineBowlingService } from 'src/app/services/bowling/offline/offline-bowling.service';
+import { BowlingService } from 'src/app/services/bowling/online/bowling/bowling.service';
 import { PlayersService } from 'src/app/services/players/players.service';
 
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import * as actions from './bowling.actions';
+import { BowlingStateService } from './service/bowling-state.service';
 
 @Injectable()
 export class BowlingEffects
 {
    constructor(private readonly _actions$: Actions,
+      private readonly _offlineService: OfflineBowlingService,
       private readonly _bowlingService: BowlingService,
+      private readonly _bowlingStateService: BowlingStateService,
       private readonly _playerService: PlayersService) { }
 
    getPlayers$ = createEffect(() => this._actions$.pipe(
@@ -53,19 +60,62 @@ export class BowlingEffects
    bowl$ = createEffect(() => this._actions$.pipe(
       ofType(actions.BowlingActions.bowl),
       mergeMap(action =>
-         this._bowlingService.bowl$(action.payload)
+         this._bowlingStateService.observables.status$
             .pipe(
-               map(game => actions.BowlingActions.bowlSuccess({ payload: game }))
+               switchMap(available =>
+               {
+                  const response: BowlingHttpResponse<Game> = { status: 'offline', data: {} as Game };
+                  if (available === 'online')
+                     return this._bowlingService.bowl$(action.payload).pipe(map(game =>
+                     {
+                        response.status = 'online';
+                        response.data = game;
+                        return response;
+                     }));
+
+                  return this._offlineService.bowl$(action.payload).pipe(map(game => 
+                  {
+                     response.data = game;
+                     return response;
+                  }));
+               }),
+               map(response =>
+               {
+                  return actions.BowlingActions.bowlSuccess({ payload: response });
+               })
             ))
    ));
 
    getRatings$ = createEffect(() => this._actions$.pipe(
       ofType(actions.BowlingActions.getRatings),
       mergeMap(() =>
-         this._bowlingService.getRatings$()
+      {
+         return this._bowlingStateService.observables.status$
             .pipe(
-               map(ratings => actions.BowlingActions.getRatingsSuccess({ payload: ratings }))
-            ))
+               switchMap(available =>
+               {
+                  const response: BowlingHttpResponse<Array<BowlerRating>> = { status: 'offline', data: [] };
+                  if (available === 'online')
+                     return this._bowlingService.getRatings$().pipe(map(ratings => 
+                     {
+                        response.status = 'online';
+                        response.data = ratings;
+                        return response;
+
+                     }));
+
+                  return this._offlineService.getRatings$().pipe(map(ratings => 
+                  {
+                     response.data = ratings;
+                     return response;
+                  }));
+               }),
+               map(response =>
+               {
+                  return actions.BowlingActions.getRatingsSuccess({ payload: response });
+               })
+            )
+      })
    ));
 
    changeAllPlayersRatings$ = createEffect(() => this._actions$.pipe(

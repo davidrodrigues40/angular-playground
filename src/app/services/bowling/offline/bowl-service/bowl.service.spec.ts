@@ -8,7 +8,9 @@ describe('BowlService', () =>
 
    beforeEach(() =>
    {
-      TestBed.configureTestingModule({});
+      TestBed.configureTestingModule({
+         providers: [BowlService]
+      });
       service = TestBed.inject(BowlService);
    });
 
