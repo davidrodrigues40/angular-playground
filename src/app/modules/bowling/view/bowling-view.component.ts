@@ -1,4 +1,4 @@
-import { first, map, Observable, tap } from 'rxjs';
+import { first, map, Observable } from 'rxjs';
 import { Game } from 'src/app/interfaces/models/bowling/game';
 import { Player } from 'src/app/interfaces/models/bowling/player';
 import { BowlingStateService } from 'src/app/state/bowling/service/bowling-state.service';

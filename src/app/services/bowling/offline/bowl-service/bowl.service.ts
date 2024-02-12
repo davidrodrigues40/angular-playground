@@ -19,9 +19,22 @@ export class BowlService
    private rollBall(rating: BowlerRating, pins: number): number
    {
       const handycap: number = rating.key * 3;
-      const random = Math.floor(Math.random() * pins);
+
+      const random = this.getRandomNumber(pins);
       const pinsKnockedDown = Math.min((pins - random + handycap), pins);
 
       return Math.min(pins, pinsKnockedDown);
+   }
+
+   private getRandomNumber(pins: number): number
+   {
+      const crypto = window.crypto;
+      const array = new Int32Array(1);
+      const num = crypto.getRandomValues(array);
+      if (num[0] < 0)
+         num[0] = num[0] * -1;
+      num[0] = num[0] * Math.pow(2, -32);
+
+      return Math.floor(num[0] * pins);
    }
 }

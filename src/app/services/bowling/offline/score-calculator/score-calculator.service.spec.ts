@@ -11,8 +11,7 @@ describe('ScoreCalculatorService', () =>
    const frame: Frame = {
       rolls: new Map<number, number>(),
       score: 0
-   }
-   const rolls: Map<number, number> = new Map<number, number>();
+   };
 
    beforeEach(() =>
    {
@@ -20,8 +19,6 @@ describe('ScoreCalculatorService', () =>
          providers: [ScoreCalculatorService]
       });
       service = TestBed.inject(ScoreCalculatorService);
-
-      rolls.clear();
    });
 
    it('should be created', () =>
@@ -51,16 +48,7 @@ describe('ScoreCalculatorService', () =>
             rating: 0
          };
 
-         for (let i = 1; i <= 10; i++)
-         {
-            bowler.frames.set(i, { ...frame, rolls: new Map<number, number>([[1, 10], [2, 0]]) });
-
-            if (i === 10)
-            {
-               bowler.frames.get(i)!.rolls.set(2, 10);
-               bowler.frames.get(i)!.rolls.set(3, 10);
-            }
-         }
+         generatePerfectGame(bowler);
 
          service.calculateBowlerScore(bowler);
 
@@ -77,15 +65,7 @@ describe('ScoreCalculatorService', () =>
             rating: 0
          };
 
-         for (let i = 1; i <= 10; i++)
-         {
-            bowler.frames.set(i, { ...frame, rolls: new Map<number, number>([[1, 9], [2, 1]]) });
-
-            if (i === 10)
-            {
-               bowler.frames.get(i)!.rolls.set(3, 9);
-            }
-         }
+         generate190Game(bowler);
 
          service.calculateBowlerScore(bowler);
 
@@ -102,18 +82,7 @@ describe('ScoreCalculatorService', () =>
             rating: 0
          };
 
-         for (let i = 1; i <= 10; i++)
-         {
-            if (i % 2 === 0)
-               bowler.frames.set(i, { ...frame, rolls: new Map<number, number>([[1, 10], [2, 0]]) });
-            else
-               bowler.frames.set(i, { ...frame, rolls: new Map<number, number>([[1, 9], [2, 1]]) });
-
-            if (i === 10)
-            {
-               bowler.frames.get(i)!.rolls.set(3, 10);
-            }
-         }
+         generate200Game(bowler);
 
          service.calculateBowlerScore(bowler);
 
@@ -187,4 +156,47 @@ describe('ScoreCalculatorService', () =>
          expect(winner).toEqual({ name: 'Test Bowler1 and Test Bowler2', score: 120 });
       });
    });
+
+   function generatePerfectGame(bowler: Bowler): void
+   {
+      for (let i = 1; i <= 10; i++)
+      {
+         bowler.frames.set(i, { ...frame, rolls: new Map<number, number>([[1, 10], [2, 0]]) });
+
+         if (i === 10)
+         {
+            bowler.frames.get(i)!.rolls.set(2, 10);
+            bowler.frames.get(i)!.rolls.set(3, 10);
+         }
+      }
+   }
+
+   function generate200Game(bowler: Bowler): void
+   {
+      for (let i = 1; i <= 10; i++)
+      {
+         if (i % 2 === 0)
+            bowler.frames.set(i, { ...frame, rolls: new Map<number, number>([[1, 10], [2, 0]]) });
+         else
+            bowler.frames.set(i, { ...frame, rolls: new Map<number, number>([[1, 9], [2, 1]]) });
+
+         if (i === 10)
+         {
+            bowler.frames.get(i)!.rolls.set(3, 10);
+         }
+      }
+   }
+
+   function generate190Game(bowler: Bowler): void
+   {
+      for (let i = 1; i <= 10; i++)
+      {
+         bowler.frames.set(i, { ...frame, rolls: new Map<number, number>([[1, 9], [2, 1]]) });
+
+         if (i === 10)
+         {
+            bowler.frames.get(i)!.rolls.set(3, 9);
+         }
+      }
+   }
 });

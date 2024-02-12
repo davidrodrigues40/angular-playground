@@ -82,11 +82,12 @@ export class ScoreCalculatorService
 
    private calculateTenthFrameScore(frame: Frame): void
    {
-      let score: number = 0;
+      const frameOne: number | undefined = frame.rolls.get(1);
+      const frameTwo: number | undefined = frame.rolls.get(2);
 
-      if (frame.rolls.get(1)! === 10)
+      if (frameOne && frameOne === 10)
          frame.score = 10 + frame.rolls.get(2)! + frame.rolls.get(3)!;
-      else if (frame.rolls.get(1)! + frame.rolls.get(2)! === 10)
+      else if (frameOne && frameTwo && frameOne + frameTwo === 10)
          frame.score = 10 + frame.rolls.get(3)!;
       else
          this.calculateOpenFrame(frame);
@@ -94,11 +95,12 @@ export class ScoreCalculatorService
 
    private calculateNinthFrame(frame: Frame, nextFrame: Frame): void
    {
-      let score: number = 0;
+      const frameOne: number | undefined = frame.rolls.get(1);
+      const frameTwo: number | undefined = frame.rolls.get(2);
 
-      if (frame.rolls.get(1) && frame.rolls.get(1) === 10)
+      if (frameOne && frameOne === 10)
          frame.score = 10 + nextFrame.rolls.get(1)! + nextFrame.rolls.get(2)!;
-      else if (frame.rolls.get(1)! + frame.rolls.get(2)! === 10)
+      else if (frameOne && frameTwo && frameOne + frameTwo === 10)
          frame.score = 10 + nextFrame.rolls.get(1)!;
       else
          this.calculateOpenFrame(frame);
@@ -116,11 +118,18 @@ export class ScoreCalculatorService
 
    private calculateStrike(frame: Frame, nextFrame: Frame, nextNextFrame: Frame): void
    {
+      const nextFrameRollOne: number | undefined = nextFrame.rolls.get(1);
+      const nextFrameRollTwo: number | undefined = nextFrame.rolls.get(2);
+      const nextNextFrameRollOne: number | undefined = nextNextFrame.rolls.get(1);
+
       frame.score = 10;
 
-      if (nextFrame.rolls.get(1)! === 10)
-         frame.score = 20 + nextNextFrame.rolls.get(1)!;
-      else
-         frame.score = 10 + nextFrame.rolls.get(1)! + nextFrame.rolls.get(2)!;
+      if (nextFrameRollOne)
+      {
+         if (nextFrameRollOne === 10 && nextNextFrameRollOne)
+            frame.score = 20 + nextNextFrameRollOne;
+         else if (nextFrameRollTwo)
+            frame.score = 10 + nextFrameRollOne + nextFrameRollTwo;
+      }
    }
 }

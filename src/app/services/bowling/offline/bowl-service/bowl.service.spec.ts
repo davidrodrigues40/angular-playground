@@ -29,8 +29,11 @@ describe('BowlService', () =>
 
    describe('when rollSecondBall', () =>
    {
-      it('should return a number', () =>
+      it('should return a number with a negative crypto', () =>
       {
+         let pins = -1;
+         spyOn(window.crypto, 'getRandomValues').and.returnValue(new Int32Array([pins]));
+
          expect(service.rollSecondBall({ key: 1, value: 'any' }, 5)).toEqual(jasmine.any(Number));
       });
    });

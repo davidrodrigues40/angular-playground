@@ -19,6 +19,7 @@ describe('BaseDialogComponent', () =>
       component = fixture.componentInstance;
 
       component.dialogRef = dialogRef;
+      dialogRef.close.calls.reset();
       spyOn(component.onClose, 'emit');
    });
 
