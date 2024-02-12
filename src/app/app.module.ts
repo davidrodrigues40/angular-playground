@@ -15,6 +15,7 @@ import { ChuckNorrisFactModule } from './modules/chuck-norris-fact/chuck-norris-
 import { HomeModule } from './modules/home/home.module';
 import { MenuModule } from './modules/menu/menu.module';
 import { reducers } from './state/app.reducers';
+import { NotificationService } from './services/notification/notification.service';
 
 @NgModule({
    imports: [
@@ -32,6 +33,7 @@ import { reducers } from './state/app.reducers';
       MenuModule,
       FooterHostDirective
    ],
+   providers: [NotificationService],
    declarations: [AppComponent],
    bootstrap: [AppComponent],
 })

@@ -7,12 +7,14 @@ import { DialogOptions } from 'src/app/interfaces/models/dialog-options';
 
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
    selector: 'app-ngrx-details',
    templateUrl: './ngrx-details.component.html',
    styleUrls: ['./ngrx-details.component.scss'],
    standalone: true,
+   providers: [NotificationService],
    imports: [
       Title2Component,
       MatDialogModule,
@@ -27,7 +29,6 @@ export class NgrxDetailsComponent
 
    openDialog(name: string): void
    {
-      let dialogRef;
       let options: DialogOptions = {
          cancelButton: {
             text: 'Cancel',
@@ -37,11 +38,10 @@ export class NgrxDetailsComponent
       }
       switch (name)
       {
-         case 'state':
-            this._dialog.open(StateDialogComponent, {
-               data: { options: options },
-               position: { top: '100px' }
-            });
+         case 'state': this._dialog.open(StateDialogComponent, {
+            data: { options: options },
+            position: { top: '100px' }
+         });
             break;
          default:
             break;

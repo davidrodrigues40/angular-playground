@@ -1,5 +1,4 @@
 import { DialogOptions } from 'src/app/interfaces/models/dialog-options';
-import { StateDetailsComponent } from 'src/app/modules/home/components/state-details/state-details.component';
 import { MockComponent } from 'src/app/testing/testing.directive';
 
 import { CommonModule } from '@angular/common';
@@ -32,17 +31,22 @@ describe('StateDialogComponent', () =>
    {
       TestBed.configureTestingModule({
          imports: [
-            StateDialogComponent
+            StateDialogComponent,
          ],
+         providers: [
+            { provide: MAT_DIALOG_DATA, useValue: { options: {}, message: '' } },
+            { provide: MatDialogRef, useValue: {} }
+         ]
       })
          .overrideComponent(StateDialogComponent, {
             set: {
                imports: [
-                  StateDetailsComponent,
                   CommonModule,
                   MatButtonModule,
                   MatDialogModule,
+                  MockComponent({ selector: 'app-base-dialog', template: '', standalone: true }),
                   MockComponent({ selector: 'app-ngrx-canvas', template: '', standalone: true }),
+                  MockComponent({ selector: 'app-state-details', template: '', standalone: true }),
                ],
                providers: [
                   { provide: MAT_DIALOG_DATA, useValue: data },
