@@ -1,0 +1,21 @@
+<ng-container *ngIf="books.length > 0; else empty;">
+   <ng-container *ngFor="let book of books">
+      <div class="book"
+           [ngClass]="{'book-highlight': book.id === hoverBookId}">
+         <div class="book-list-item">
+            <app-book-item [book]="book"></app-book-item>
+         </div>
+         <div class="book-action"
+              (mouseenter)="onMouseEnter(book.id)"
+              (mouseout)="onMouseOut()">
+            <button mat-icon-button
+                    [color]="buttonColor"
+                    (click)="bookClick.emit(book.id)">
+               <mat-icon>{{icon}}</mat-icon></button>
+         </div>
+      </div>
+   </ng-container>
+</ng-container>
+<ng-template #empty>
+   <app-empty-data dataName='books'></app-empty-data>
+</ng-template>

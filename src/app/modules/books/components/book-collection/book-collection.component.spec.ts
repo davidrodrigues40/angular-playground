@@ -1,29 +1,29 @@
-import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BookCollectionComponent } from './book-collection.component';
+import { MockComponent } from 'src/app/testing/testing.directive';
 
-describe('BookCollectionComponent', () => {
-    let component: BookCollectionComponent;
-    let fixture: ComponentFixture<BookCollectionComponent>;
+describe('BookCollectionComponent', () =>
+{
+   let component: BookCollectionComponent;
+   let fixture: ComponentFixture<BookCollectionComponent>;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
-            declarations: [BookCollectionComponent, BookItemMockComponent, EmptyDataMockComponent]
-        })
-            .compileComponents();
+   beforeEach(async () =>
+   {
+      await TestBed.configureTestingModule({
+         declarations: [BookCollectionComponent],
+         imports: [
+            MockComponent({ selector: 'app-base-book-list', inputs: ['books', 'buttonColor', 'icon'] })
+         ]
+      })
+         .compileComponents();
 
-        fixture = TestBed.createComponent(BookCollectionComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+      fixture = TestBed.createComponent(BookCollectionComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+   });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
-
-    @Component({ selector: 'app-book-item', template: '' })
-    class BookItemMockComponent { }
-
-    @Component({ selector: 'app-empty-data', template: '' })
-    class EmptyDataMockComponent { }
+   it('should create', () =>
+   {
+      expect(component).toBeTruthy();
+   });
 });

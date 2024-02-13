@@ -6,8 +6,6 @@ import { TestingSpys } from 'src/app/testing/testing.spys';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BookCollectionComponent } from '../book-collection/book-collection.component';
-import { BookListComponent } from '../book-list/book-list.component';
 import { BooksComponent } from './books.component';
 
 describe('BooksComponent', () =>
@@ -36,10 +34,11 @@ describe('BooksComponent', () =>
       await TestBed.configureTestingModule({
          declarations: [
             BooksComponent,
-            BookListComponent,
-            BookCollectionComponent
+            MockComponent({ selector: 'app-book-list', standalone: false }),
+            MockComponent({ selector: 'app-book-collection', standalone: false }),
          ],
-         imports: [MockComponent({ selector: 'app-title' })],
+         imports: [
+            MockComponent({ selector: 'app-title' })],
          providers: [
             { provide: BookSignalService, useValue: signalService },
             { provide: BookService, useValue: bookService },

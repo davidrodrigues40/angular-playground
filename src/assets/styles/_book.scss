@@ -3,10 +3,11 @@
 .book {
    display: flex;
    gap: $gap;
+   padding: $gap * 0.5;
    align-items: center;
    justify-content: space-between;
 
-   &-list-item {
-      margin-bottom: $gap;
+   &-highlight {
+      background-color: $color--highlight;
    }
 }

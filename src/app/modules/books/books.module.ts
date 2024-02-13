@@ -10,13 +10,15 @@ import { BookItemComponent } from './components/book-item/book-item.component';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { BooksComponent } from './components/books/books.component';
 import { MatIconModule } from '@angular/material/icon';
+import { BaseBookListComponent } from './components/base-book-list/base-book-list.component';
 
 @NgModule({
    declarations: [
       BookListComponent,
       BookCollectionComponent,
       BooksComponent,
-      BookItemComponent],
+      BookItemComponent,
+      BaseBookListComponent],
    imports: [
       CommonModule,
       MatButtonModule,

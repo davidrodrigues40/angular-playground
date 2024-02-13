@@ -59,7 +59,7 @@ describe('BooksService', () =>
             getBooks: service['getBooks'],
             _books: [],
             httpClient: httpClient,
-            base_url: 'https://www.googleapis.com/books/v1/volumes?maxResults=10&orderBy=relevance&q=oliver%20sacks'
+            base_url: `https://www.googleapis.com/books/v1/volumes?maxResults=${service['_take']}&orderBy=relevance&q=oliver%20sacks`
          });
       });
    });
