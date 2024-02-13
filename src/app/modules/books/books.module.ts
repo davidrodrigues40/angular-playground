@@ -9,6 +9,7 @@ import { BookCollectionComponent } from './components/book-collection/book-colle
 import { BookItemComponent } from './components/book-item/book-item.component';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { BooksComponent } from './components/books/books.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
    declarations: [
@@ -19,6 +20,7 @@ import { BooksComponent } from './components/books/books.component';
    imports: [
       CommonModule,
       MatButtonModule,
+      MatIconModule,
       TitleComponent,
       EmptyDataComponent,
    ]

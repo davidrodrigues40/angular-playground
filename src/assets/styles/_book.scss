@@ -1,0 +1,12 @@
+@import "src/assets/styles/variables";
+
+.book {
+   display: flex;
+   gap: $gap;
+   align-items: center;
+   justify-content: space-between;
+
+   &-list-item {
+      margin-bottom: $gap;
+   }
+}

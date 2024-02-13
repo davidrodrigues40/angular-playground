@@ -12,7 +12,8 @@ import { Book } from '../../interfaces/models/books/book.';
 export class BookService extends HttpSignalService implements ISignalService
 {
    private _books: Book[] = [];
-   private readonly base_url: string = 'https://www.googleapis.com/books/v1/volumes?maxResults=10&orderBy=relevance&q=oliver%20sacks';
+   private _take: number = 20;
+   private readonly base_url: string = `https://www.googleapis.com/books/v1/volumes?maxResults=${this._take}&orderBy=relevance&q=oliver%20sacks`;
 
    methods: {
       getBooks: string;

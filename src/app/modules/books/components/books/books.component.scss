@@ -1,21 +1,20 @@
 @import "src/assets/styles/variables";
 
 .main h2 {
-  margin-top: 0;
+   margin-top: 0;
 }
 
 .main {
-  display: flex;
-  gap: $gap;
-  align-items: stretch;
+   display: flex;
+   gap: $gap;
+   align-items: stretch;
 
-  &-column {
-    padding: $gap;
-    width: 50%;
-  }
+   &-column {
+      width: 50%;
+   }
 
-  &-divider {
-    width: 2px;
-    background-color: $color--white;
-  }
+   &-divider {
+      width: 2px;
+      background-color: $color--white;
+   }
 }
