@@ -19,7 +19,8 @@ describe('DataFlowDetailsComponent', () =>
             set: {
                imports: [
                   NgrxDataFlowComponent,
-                  MockComponent({ selector: 'app-title2', standalone: true })
+                  MockComponent({ selector: 'app-title2', standalone: true }),
+                  MockComponent({ selector: 'app-signal-data-flow', standalone: true })
                ]
             }
          });

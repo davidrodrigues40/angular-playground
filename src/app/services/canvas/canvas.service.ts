@@ -14,20 +14,4 @@ export class CanvasService
          nodes: nodes
       };
    }
-
-   createCanvas(startX: number, startY: number, width: number, height: number,
-      lineHeight: number, lineLength: number, backgroundColor: string, font: string, node: CanvasNode): CanvasDrawing
-   {
-      return {
-         startX: startX,
-         startY: startY,
-         width: width,
-         height: height,
-         lineHeight: lineHeight,
-         lineWidth: lineLength,
-         backgroundColor: backgroundColor,
-         font: font,
-         node: node
-      }
-   }
 }

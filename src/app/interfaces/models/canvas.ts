@@ -18,3 +18,10 @@ export interface CanvasNode
    text: string;
    nodes: Array<CanvasNode>;
 }
+
+
+export interface CanvasRequest
+{
+   startX: number, startY: number, width: number, height: number,
+   lineHeight: number, lineLength: number, backgroundColor: string, font: string, node: CanvasNode
+}

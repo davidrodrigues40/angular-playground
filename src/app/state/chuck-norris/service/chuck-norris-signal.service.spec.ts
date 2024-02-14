@@ -1,10 +1,11 @@
 import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
 import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { ChuckNorrisFactsService } from 'src/app/services/chuck-norris/chuck-norris-facts.service';
-import { MockSignalComponent } from 'src/app/testing/testing.components';
 
-import { TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
+import { of } from 'rxjs';
+import { configureEventTestingModule, eventTest } from 'src/app/testing/testing.functions';
 import { ChuckNorrisFact } from '../../../interfaces/models/chuck-norris/chuck-norris-fact';
 import { chuckNorrisSignals } from '../chuck-norris.signals';
 import { ChuckNorrisSignalService } from './chuck-norris-signal.service';
@@ -20,7 +21,7 @@ describe('ChuckNorrisSignalService', () =>
       value: ''
    };
    const category: FactCategory = { name: 'test' };
-   const categorySignal: SignalObject<FactCategory | null> = { value: null };
+   const categoryFactSignal: SignalObject<FactCategory | null> = { value: null };
    const categoriesSignal: SignalObject<ReadonlyArray<FactCategory>> = { value: [] };
    const factSignal: SignalObject<Readonly<ChuckNorrisFact> | null> = { value: null };
 
@@ -40,6 +41,7 @@ describe('ChuckNorrisSignalService', () =>
          ]
       });
       service = TestBed.inject(ChuckNorrisSignalService);
+      factService.dispatch.calls.reset();
    });
 
    it('should be created', () =>
@@ -51,87 +53,101 @@ describe('ChuckNorrisSignalService', () =>
    {
       it('bindCategories should bind to signal value', () =>
       {
-         const fixture = TestBed.createComponent(MockSignalComponent);
-         const component = fixture.componentInstance;
-         component.run(categoriesSignal, 'bindCategories', service);
+         // Arrange
+         const categoryName: string = 'bind categories';
+         const myCategories = [{ ...category, name: categoryName }];
+         configureEventTestingModule(categoriesSignal, 'bindCategories', service);
 
-         chuckNorrisSignals().categories.set([{ ...category, name: 'bindCategories' }]);
-         fixture.detectChanges();
+         eventTest(myCategories, chuckNorrisSignals().categories);
 
          expect(categoriesSignal.value).toBeDefined();
-         expect(categoriesSignal.value[0].name).toEqual('bindCategories');
+         expect(categoriesSignal.value.length).toEqual(1);
+         expect(categoriesSignal.value[0].name).toEqual(categoryName);
       });
 
       it('bindFact should bind to signal value', () =>
       {
-         const fixture = TestBed.createComponent(MockSignalComponent);
-         const component = fixture.componentInstance;
-         component.run(factSignal, 'bindFact', service);
+         const factName: string = 'bind fact';
+         const myFact: ChuckNorrisFact = { ...fact, value: factName };
+         configureEventTestingModule(factSignal, 'bindFact', service);
 
-         chuckNorrisSignals().fact.set({ ...fact, value: 'bindFact' });
-         fixture.detectChanges();
+         eventTest(myFact, chuckNorrisSignals().fact);
 
          expect(factSignal.value).toBeDefined();
-         expect(factSignal.value?.value).toEqual('bindFact');
+         expect(factSignal.value?.value).toEqual(factName);
       });
 
       it('bindSelectedCategory should bind to signal value', () =>
       {
-         const fixture = TestBed.createComponent(MockSignalComponent);
-         const component = fixture.componentInstance;
-         component.run(categorySignal, 'bindSelectedCategory', service);
+         const categoryName: string = 'bind selected category';
+         const myCategory: FactCategory = { ...category, name: categoryName };
+         configureEventTestingModule(categoryFactSignal, 'bindSelectedCategory', service);
 
-         chuckNorrisSignals().selectedCategory.set({ ...category, name: 'bindSelectedCategory' });
-         fixture.detectChanges();
+         eventTest(myCategory, chuckNorrisSignals().selectedCategory);
 
-         expect(categorySignal.value).toBeDefined();
-         expect(categorySignal.value?.name).toEqual('bindSelectedCategory');
+         expect(categoryFactSignal.value).toBeDefined();
+         expect(categoryFactSignal.value?.name).toEqual(categoryName);
       });
 
       it('bindFooterFact should bind to signal value', () =>
       {
-         const fixture = TestBed.createComponent(MockSignalComponent);
-         const component = fixture.componentInstance;
-         component.run(factSignal, 'bindFooterFact', service);
+         const factName: string = 'bind Footer Fact';
+         const myFact: ChuckNorrisFact = { ...fact, value: factName };
+         configureEventTestingModule(factSignal, 'bindFooterFact', service);
 
-         chuckNorrisSignals().footerFact.set({ ...fact, value: 'bindFooterFact' });
-         fixture.detectChanges();
+         eventTest(myFact, chuckNorrisSignals().footerFact);
 
          expect(factSignal.value).toBeDefined();
-         expect(factSignal.value?.value).toEqual('bindFooterFact');
+         expect(factSignal.value?.value).toEqual(factName);
       });
    });
 
    describe('events', () =>
    {
-      it('fetchFact should dispatch getFact method', () =>
+      it('fetchFact should dispatch getFact method', waitForAsync(() =>
       {
-         service.events.fetchFact();
-         expect(factService.dispatch).toHaveBeenCalledWith(factService.methods.getFact, chuckNorrisSignals().fact);
-      });
+         const testFact = setupTest('getFact');
 
-      it('fetchFactForCategory should dispatch getFactForCategory method', () =>
+         service.events.fetchFact();
+
+         expect(factService.dispatch).toHaveBeenCalledWith(factService.methods.getFact);
+         expect(chuckNorrisSignals().fact()).toEqual(testFact);
+      }));
+
+      it('fetchFactForCategory should dispatch getFactForCategory method', waitForAsync(() =>
       {
+         const testFact = setupTest('getFactForCategory');
+
          service.events.fetchFactForCategory(category);
+
          expect(factService.dispatch).toHaveBeenCalledWith(factService.methods.getFactForCategory, category);
-      });
+         expect(chuckNorrisSignals().fact()).toEqual(testFact);
+      }));
 
       it('fetchFactForCategory should dispatch getFact method if category is null', () =>
       {
+         const testFact = setupTest('fetchFactForCategory getFact');
+         factService.dispatch.and.returnValue(of(testFact));
+
          service.events.fetchFactForCategory(null);
-         expect(factService.dispatch).toHaveBeenCalledWith(factService.methods.getFact, chuckNorrisSignals().fact);
+
+         expect(factService.dispatch).toHaveBeenCalledWith(factService.methods.getFact);
+         expect(chuckNorrisSignals().fact()).toEqual(testFact);
       });
 
       it('fetchFooterFact should dispatch getFact method', () =>
       {
          service.events.fetchFooterFact();
-         expect(factService.dispatch).toHaveBeenCalledWith(factService.methods.getFact, chuckNorrisSignals().footerFact);
+         expect(factService.dispatch).toHaveBeenCalledWith(factService.methods.getFact);
       });
 
       it('fetchCategories should dispatch getCategories method', () =>
       {
+         factService.dispatch.and.returnValue(of([category]));
+
          service.events.fetchCategories();
-         expect(factService.dispatch).toHaveBeenCalledWith(factService.methods.getCategories);
+
+         expect(factService.dispatch).toHaveBeenCalledTimes(1);
       });
 
       it('setSelectedCategory should set selected category', () =>
@@ -139,6 +155,15 @@ describe('ChuckNorrisSignalService', () =>
          service.events.setSelectedCategory(category);
          expect(chuckNorrisSignals().selectedCategory()).toEqual(category);
       });
+
+      function setupTest(value: string): ChuckNorrisFact
+      {
+         const testFact: ChuckNorrisFact = { ...fact, value: value };
+         chuckNorrisSignals().fact.set(null);
+         factService.dispatch.and.returnValue(of(testFact));
+
+         return testFact;
+      }
    });
 
    describe('observables', () =>

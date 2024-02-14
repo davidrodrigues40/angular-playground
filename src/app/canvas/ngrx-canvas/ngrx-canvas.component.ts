@@ -39,8 +39,16 @@ export class NgrxCanvasComponent implements OnInit
 
       const ngrxNode: CanvasNode = this._canvasService.addNode(1, this._tier1Color, 'ngrx', [actionsNode, selectorsNode]);
 
-      const canvas: CanvasDrawing = this._canvasService.createCanvas(10, 20, 0, 0, 30, 10, 'white', '16px Arial', ngrxNode);
-
-      this.drawing = canvas;
+      this.drawing = {
+         startX: 10,
+         startY: 20,
+         width: 0,
+         height: 0,
+         lineHeight: 30,
+         font: '16px Arial',
+         node: ngrxNode,
+         lineWidth: 10,
+         backgroundColor: 'white'
+      };
    }
 }

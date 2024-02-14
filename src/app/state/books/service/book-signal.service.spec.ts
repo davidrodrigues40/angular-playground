@@ -1,9 +1,10 @@
 import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { BookService } from 'src/app/services/books/books.service';
-import { MockSignalComponent } from 'src/app/testing/testing.components';
 
-import { TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
+import { of } from 'rxjs';
+import { configureEventTestingModule, eventTest } from 'src/app/testing/testing.functions';
 import { Book } from '../../../interfaces/models/books/book.';
 import { bookSignals } from '../books.signals';
 import { BookSignalService } from './book-signal.service';
@@ -13,13 +14,14 @@ describe('BookSignalService', () =>
    let service: BookSignalService;
    const bookService: jasmine.SpyObj<BookService> = jasmine.createSpyObj('BookService', ['dispatch', 'methods']);
    const bookSignal: SignalObject<ReadonlyArray<Book>> = { value: [] };
+   const collectionSignal: SignalObject<ReadonlyArray<Book>> = { value: [] };
    const book: Book = {
       id: '',
       volumeInfo: {
          title: '',
          authors: []
       }
-   }
+   };
 
    beforeEach(() =>
    {
@@ -41,40 +43,49 @@ describe('BookSignalService', () =>
    {
       it('should bind books', () =>
       {
-         const fixture = TestBed.createComponent(MockSignalComponent);
-         const component = fixture.componentInstance;
+         // Arrange
          const title: string = 'bind book';
-         component.run(bookSignal, 'bindBooks', service);
+         const myBook: Book = { ...book, volumeInfo: { ...book.volumeInfo, title: title } };
+         configureEventTestingModule(bookSignal, 'bindBooks', service);
 
-         bookSignals().books.set([{ ...book, volumeInfo: { ...book.volumeInfo, title: title } }]);
-         fixture.detectChanges();
+         // Act
+         eventTest([myBook], bookSignals().books);
 
+         // Assert
          expect(bookSignal.value).toBeDefined();
+         expect(bookSignal.value.length).toEqual(1);
          expect(bookSignal.value[0].volumeInfo.title).toEqual(title);
       });
 
       it('should bind collection', () =>
       {
-         const fixture = TestBed.createComponent(MockSignalComponent);
-         const component = fixture.componentInstance;
+         // Arrange
          const title: string = 'bind collection';
-         component.run(bookSignal, 'bindCollection', service);
+         const myBook: Book = { ...book, volumeInfo: { ...book.volumeInfo, title: title } };
+         configureEventTestingModule(collectionSignal, 'bindCollection', service);
 
-         bookSignals().collection.set([{ ...book, volumeInfo: { ...book.volumeInfo, title: title } }]);
-         fixture.detectChanges();
+         // Act
+         eventTest([myBook], bookSignals().collection);
 
-         expect(bookSignal.value).toBeDefined();
-         expect(bookSignal.value[0].volumeInfo.title).toEqual(title);
+         // Assert
+         expect(collectionSignal.value).toBeDefined();
+         expect(collectionSignal.value.length).toEqual(1);
+         expect(collectionSignal.value[0].volumeInfo.title).toEqual(title);
       });
    });
 
    describe('events', () =>
    {
-      it('should fetch books', () =>
+      it('should fetch books', waitForAsync(() =>
       {
+         bookSignals().books.set([]);
+         bookService.dispatch.and.returnValue(of([book]));
+
          service.events.fetchBooks();
+
          expect(bookService.dispatch).toHaveBeenCalledWith(bookService.methods.getBooks);
-      });
+         expect(bookSignals().books()).toEqual([book]);
+      }));
 
       it('should add book', () =>
       {

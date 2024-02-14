@@ -4,6 +4,7 @@ import { MockSignalComponent } from 'src/app/testing/testing.components';
 
 import { TestBed } from '@angular/core/testing';
 
+import { configureEventTestingModule, eventTest } from 'src/app/testing/testing.functions';
 import { MenuItem } from '../../../interfaces/models/menu/menu-item';
 import { homeMenuSignals } from '../home-menu.signals';
 import { HomeMenuSignalService } from './home-menu-signal.service';
@@ -42,12 +43,9 @@ describe('HomeMenuSignalService', () =>
    {
       it('bindMenu should call dispatch when _menuItems is empty', () =>
       {
-         const fixture = TestBed.createComponent(MockSignalComponent);
-         const component = fixture.componentInstance;
-         component.run(signal, 'bindMenu', service);
+         configureEventTestingModule(signal, 'bindMenu', service);
 
-         homeMenuSignals().items.set(myMenu);
-         fixture.detectChanges();
+         eventTest(myMenu, homeMenuSignals().items);
 
          expect(signal.value).toEqual(myMenu);
       });

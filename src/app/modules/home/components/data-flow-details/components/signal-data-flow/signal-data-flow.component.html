@@ -1,0 +1,19 @@
+<app-title2>Signals Data Flow</app-title2>
+
+<p>Using Angular signals coupled with a service which exposes the state so I don't have to worry about binding the
+   effect and which service to call for each piece of data.
+</p>
+
+<p>Each component will inject the service associated with the state it needs.
+   The service will expose actions as events and the signal as observables.
+   It will also allow to bind to an effect under the effects property.<br>
+   If a component requires data from multple states then that component will inject multiple services.
+</p>
+<ul>
+   <li>The service's effects will bind objects to signals.</li>
+   <li>The service's events will trigger.perform various functions needed to update the signal including calling other
+      services.
+   </li>
+   <li>The service's observables with return the signal's current value.</li>
+</ul>
+<app-signals-data-flow-canvas></app-signals-data-flow-canvas>

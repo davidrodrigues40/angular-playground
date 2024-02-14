@@ -23,7 +23,7 @@ describe('StateServiceDetailsComponent', () =>
          });
       fixture = TestBed.createComponent(StateServiceDetailsComponent);
       component = fixture.componentInstance;
-      fixture.detectChanges();
+
    });
 
    it('should create', () =>

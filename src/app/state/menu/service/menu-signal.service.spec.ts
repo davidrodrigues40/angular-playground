@@ -4,6 +4,7 @@ import { MockSignalComponent } from 'src/app/testing/testing.components';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { configureEventTestingModule, eventTest } from 'src/app/testing/testing.functions';
 import { MenuItem } from '../../../interfaces/models/menu/menu-item';
 import { menuSignals } from '../menu.signals';
 import { MenuSignalService } from './menu-signal.service';
@@ -35,8 +36,6 @@ describe('MenuSignalService', () =>
       });
 
       service = TestBed.inject(MenuSignalService);
-      fixture = TestBed.createComponent(MockSignalComponent);
-      component = fixture.componentInstance;
    });
 
    it('should be created', () =>
@@ -48,10 +47,13 @@ describe('MenuSignalService', () =>
    {
       it('should bind menu', () =>
       {
+         // Arrange
          const title: string = 'bind menu';
-         component.run(signal, 'bindMenu', service);
-         menuSignals().items.set([{ ...menuItem, value: title }]);
-         fixture.detectChanges();
+         const menu: MenuItem[] = [{ ...menuItem, value: title }];
+         configureEventTestingModule(signal, 'bindMenu', service);
+
+         // Act
+         eventTest(menu, menuSignals().items);
 
          expect(signal.value).toBeDefined();
          expect(signal.value[0].value).toEqual(title);

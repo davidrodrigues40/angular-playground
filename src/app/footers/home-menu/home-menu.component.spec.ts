@@ -1,5 +1,4 @@
 import { HomeMenuSignalService } from 'src/app/state/home-menu/services/home-menu-signal.service';
-import { MockBaseFooterComponent } from 'src/app/testing/testing.components';
 import { TestingSpys } from 'src/app/testing/testing.spys';
 
 import { CommonModule } from '@angular/common';
@@ -7,6 +6,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { HomeMenuComponent } from './home-menu.component';
+import { MockComponent } from 'src/app/testing/testing.directive';
 
 describe('HomeMenuComponent', () =>
 {
@@ -24,7 +24,8 @@ describe('HomeMenuComponent', () =>
                imports: [
                   CommonModule,
                   RouterTestingModule,
-                  MockBaseFooterComponent],
+                  MockComponent({ selector: 'app-base-footer', inputs: ['item'] })
+               ],
                providers: [
                   { provide: HomeMenuSignalService, useValue: signalService }
                ]

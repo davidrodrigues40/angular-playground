@@ -1,32 +1,30 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { SignalsDataFlowCanvasComponent } from './signals-data-flow-canvas.component';
 import { CanvasService } from 'src/app/services/canvas/canvas.service';
 import { MockDirective } from 'src/app/testing/testing.directive';
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { StateCanvasComponent } from './state-canvas.component';
-
-describe('StateCanvasComponent', () =>
+describe('SignalsDataFlowCanvasComponent', () =>
 {
-   let component: StateCanvasComponent;
-   let fixture: ComponentFixture<StateCanvasComponent>;
+   let component: SignalsDataFlowCanvasComponent;
+   let fixture: ComponentFixture<SignalsDataFlowCanvasComponent>;
    const service: jasmine.SpyObj<CanvasService> = jasmine.createSpyObj('CanvasService', ['addNode', 'createCanvas']);
 
    beforeEach(() =>
    {
       TestBed.configureTestingModule({
          imports: [
-            StateCanvasComponent,
+            SignalsDataFlowCanvasComponent,
             MockDirective({ selector: 'appCanvas', inputs: [], standalone: true }),
-         ],
-      })
-         .overrideComponent(StateCanvasComponent, {
-            set: {
-               providers: [
-                  { provide: CanvasService, useValue: service }
-               ]
-            }
-         });
-      fixture = TestBed.createComponent(StateCanvasComponent);
+         ]
+      }).overrideComponent(SignalsDataFlowCanvasComponent, {
+         set: {
+            providers: [
+               { provide: CanvasService, useValue: service }
+            ]
+         }
+      });
+      fixture = TestBed.createComponent(SignalsDataFlowCanvasComponent);
       component = fixture.componentInstance;
    });
 
@@ -43,7 +41,7 @@ describe('StateCanvasComponent', () =>
 
          component.ngOnInit();
 
-         expect(service.addNode).toHaveBeenCalledTimes(9);
+         expect(service.addNode).toHaveBeenCalledTimes(7);
          expect(component.drawing).toBeDefined();
       });
    });

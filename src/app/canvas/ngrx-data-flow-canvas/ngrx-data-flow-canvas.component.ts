@@ -39,11 +39,17 @@ export class NgrxDataFlowCanvasComponent implements OnInit
 
       const componentNode: CanvasNode = this._canvasService.addNode(1, this._tier1Color, 'component', [serviceNode, otherServiceNode]);
 
-      const canvas: CanvasDrawing = this._canvasService.createCanvas(10, 20, 0, 0, 30, 10, 'white', '16px Arial', componentNode);
-
-      canvas.width = 210;
-
-      this.drawing = canvas;
+      this.drawing = {
+         startX: 10,
+         startY: 20,
+         width: 210,
+         height: 0,
+         lineHeight: 30,
+         font: '16px Arial',
+         node: componentNode,
+         lineWidth: 10,
+         backgroundColor: 'white'
+      };
    }
 
 }

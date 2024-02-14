@@ -45,8 +45,16 @@ export class StateCanvasComponent implements OnInit
 
       const serviceNode: CanvasNode = this._canvasService.addNode(1, this._tier1Color, 'state service', [eventNode, observablesNode]);
 
-      const canvas: CanvasDrawing = this._canvasService.createCanvas(10, 20, 0, 0, 30, 10, 'white', '16px Arial', serviceNode)
-
-      this.drawing = canvas;
+      this.drawing = {
+         startX: 10,
+         startY: 20,
+         width: 500,
+         height: 0,
+         lineHeight: 30,
+         font: '16px Arial',
+         node: serviceNode,
+         lineWidth: 10,
+         backgroundColor: 'white'
+      };
    }
 }

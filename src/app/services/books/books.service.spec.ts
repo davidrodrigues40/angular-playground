@@ -1,9 +1,8 @@
 import { of } from 'rxjs';
 import { Book } from 'src/app/interfaces/models/books/book.';
-import { bookSignals } from 'src/app/state/books/books.signals';
 
 import { HttpClient } from '@angular/common/http';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BookService } from './books.service';
 
@@ -75,26 +74,26 @@ describe('BooksService', () =>
          expect(httpClient.get).toHaveBeenCalled();
       });
 
-      it('should set books', () =>
+      it('should set books', waitForAsync(() =>
       {
-         let signalSpy = spyOn(bookSignals().books, 'set');
-
          httpClient.get.and.returnValue(of(defaultBooks));
 
-         service['getBooks']();
+         service['getBooks']()
+            .subscribe(response =>
+            {
+               expect(response).toEqual(defaultBooks.items as Book[]);
+            });
+      }));
 
-         expect(signalSpy).toHaveBeenCalledWith(defaultBooks.items as Book[]);
-      });
-
-      it('should set books to empty array', () =>
+      it('should set books to empty array', waitForAsync(() =>
       {
-         const signalSpy = spyOn(bookSignals().books, 'set');
-
          httpClient.get.and.returnValue(of({ ...defaultBooks, items: undefined }));
 
-         service['getBooks']();
-
-         expect(signalSpy).toHaveBeenCalledWith([] as Book[]);
-      });
+         service['getBooks']()
+            .subscribe(response =>
+            {
+               expect(response).toEqual([]);
+            });
+      }));
    });
 });

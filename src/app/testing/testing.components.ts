@@ -1,4 +1,4 @@
-import { Component, EnvironmentInjector, inject, runInInjectionContext } from '@angular/core';
+import { Component, EnvironmentInjector, Inject, inject } from '@angular/core';
 
 import { SignalObject } from '../interfaces/models/signal-object';
 import { ISignalStateService } from '../interfaces/services/signal-state-service.interface';
@@ -19,17 +19,18 @@ export class MockSignalComponent
 {
    private injector = inject(EnvironmentInjector);
 
-   run(signal: SignalObject<any>, effectName: string, service: ISignalStateService): void
+   constructor(
+      @Inject('signal') public signal: SignalObject<any>,
+      @Inject('effectName') public effectName: string,
+      @Inject('service') public service: ISignalStateService)
    {
-      const innerEffect = service.effects[effectName];
+      this.runEffect();
+   }
+
+   runEffect(): void
+   {
+      const innerEffect = this.service.effects[this.effectName];
       if (innerEffect instanceof Function)
-         runInInjectionContext(this.injector, () => innerEffect(signal));
+         innerEffect(this.signal);
    }
 }
-
-@Component({
-   selector: 'app-base-footer',
-   template: '',
-   standalone: true
-})
-export class MockBaseFooterComponent { }

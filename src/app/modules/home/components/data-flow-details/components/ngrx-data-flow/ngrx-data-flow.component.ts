@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
       NgrxDataFlowCanvasComponent
    ],
    templateUrl: './ngrx-data-flow.component.html',
-   styleUrls: ['./ngrx-data-flow.component.scss']
 })
 export class NgrxDataFlowComponent
 {

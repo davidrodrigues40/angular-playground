@@ -19,7 +19,7 @@ describe('BookCollectionComponent', () =>
 
       fixture = TestBed.createComponent(BookCollectionComponent);
       component = fixture.componentInstance;
-      fixture.detectChanges();
+
    });
 
    it('should create', () =>

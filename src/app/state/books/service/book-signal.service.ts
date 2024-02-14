@@ -31,7 +31,8 @@ export class BookSignalService implements ISignalStateService
       _service: this._service,
       fetchBooks(): void
       {
-         this._service.dispatch(this._service.methods.getBooks);
+         this._service.dispatch(this._service.methods.getBooks)
+            .subscribe((books: ReadonlyArray<Book>) => bookSignals().books.set(books));
       },
       addBook(bookId: string): void
       {

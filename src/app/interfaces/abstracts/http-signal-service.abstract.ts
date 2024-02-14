@@ -1,17 +1,11 @@
 import { HttpClient } from '@angular/common/http';
+import { EMPTY, Observable } from 'rxjs';
 
 export abstract class HttpSignalService
 {
-   protected readonly details: {
-      [k: string]: any,
-      httpClient?: HttpClient | undefined,
-      base_url?: string,
-   } = {
-         httpClient: undefined,
-         base_url: ''
-      };
+   abstract readonly details: HttpSignalServiceDetails;
 
-   dispatch(name: string, args?: { [key: string]: any; }): void
+   dispatch(name: string, args?: { [key: string]: any; }): Observable<any>
    {
       if (this.details[name] !== undefined && typeof this.details[name] === 'function')
       {
@@ -19,10 +13,19 @@ export abstract class HttpSignalService
          if (func instanceof Function)
          {
             if (args)
-               (this.details[name] as Function)(args);
+               return (this.details[name] as Function)(args);
             else
-               (this.details[name] as Function)();
+               return (this.details[name] as Function)();
          }
       }
+
+      return EMPTY;
    }
+}
+
+export class HttpSignalServiceDetails
+{
+   [k: string]: any;
+   httpClient?: HttpClient;
+   base_url?: string;
 }

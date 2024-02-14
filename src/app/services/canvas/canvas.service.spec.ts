@@ -40,39 +40,4 @@ describe('CanvasService', () =>
          });
       });
    });
-
-   describe('createCanvas', () =>
-   {
-      it('should return a new canvas', () =>
-      {
-         const startX = 1;
-         const startY = 2;
-         const width = 3;
-         const height = 4;
-         const lineHeight = 5;
-         const lineLength = 6;
-         const backgroundColor = 'red';
-         const font = 'Arial';
-         const node: CanvasNode = {
-            color: 'blue',
-            order: 1,
-            text: 'test',
-            nodes: []
-         };
-
-         const result = service.createCanvas(startX, startY, width, height, lineHeight, lineLength, backgroundColor, font, node);
-
-         expect(result).toEqual({
-            startX: startX,
-            startY: startY,
-            width: width,
-            height: height,
-            lineHeight: lineHeight,
-            lineWidth: lineLength,
-            backgroundColor: backgroundColor,
-            font: font,
-            node: node
-         });
-      });
-   });
 });

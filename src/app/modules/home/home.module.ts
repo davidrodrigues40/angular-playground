@@ -16,13 +16,14 @@ import { HomeComponent } from './home.component';
 import { DataFlowComponent } from './views/data-flow/data-flow.component';
 import { HomeDetailsComponent } from './views/home-details/home-details.component';
 import { NgrxViewComponent } from './views/ngrx-view/ngrx-view.component';
+import { SignalsDataFlowCanvasComponent } from 'src/app/canvas/signals-data-flow-canvas/signals-data-flow-canvas.component';
 
 @NgModule({
    declarations: [
       HomeComponent,
       HomeDetailsComponent,
       NgrxViewComponent,
-      DataFlowComponent
+      DataFlowComponent,
    ],
    imports: [
       HomeRoutingModule,
@@ -35,7 +36,8 @@ import { NgrxViewComponent } from './views/ngrx-view/ngrx-view.component';
       DataFlowDetailsComponent,
       HomeMenuComponent,
       StateCanvasComponent,
-      NgrxDetailsComponent
+      NgrxDetailsComponent,
+      SignalsDataFlowCanvasComponent
    ]
 })
 export class HomeModule { }

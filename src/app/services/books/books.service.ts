@@ -1,7 +1,6 @@
-import { map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { HttpSignalService } from 'src/app/interfaces/abstracts/http-signal-service.abstract';
 import { ISignalService } from 'src/app/interfaces/services/signal-service.interface';
-import { bookSignals } from 'src/app/state/books/books.signals';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -21,7 +20,7 @@ export class BookService extends HttpSignalService implements ISignalService
          getBooks: 'getBooks',
       };
 
-   override readonly details = {
+   readonly details = {
       getBooks: this.getBooks,
       _books: this._books,
       httpClient: this.httpClient,
@@ -30,16 +29,15 @@ export class BookService extends HttpSignalService implements ISignalService
 
    constructor(private httpClient: HttpClient) { super(); }
 
-   private getBooks(): void
+   private getBooks(): Observable<Book[]>
    {
-      this.httpClient
+      return this.httpClient
          .get<{ items: Book[] }>(this.base_url)
          .pipe(
             map((books) =>
             {
                this._books = books.items || [];
                return this._books;
-            }))
-         .subscribe(books => bookSignals().books.set(books));
+            }));
    }
 }

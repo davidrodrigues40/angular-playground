@@ -10,7 +10,7 @@ describe('NgrxDataFlowCanvasComponent', () =>
 {
    let component: NgrxDataFlowCanvasComponent;
    let fixture: ComponentFixture<NgrxDataFlowCanvasComponent>;
-   const service: jasmine.SpyObj<CanvasService> = jasmine.createSpyObj('CanvasService', ['addNode', 'createCanvas']);
+   const service: jasmine.SpyObj<CanvasService> = jasmine.createSpyObj('CanvasService', ['addNode']);
    const canvas: CanvasDrawing = {
       startX: 0,
       startY: 0,
@@ -56,30 +56,12 @@ describe('NgrxDataFlowCanvasComponent', () =>
    {
       it('should set drawing', () =>
       {
-         const myCanvas: CanvasDrawing = {
-            height: 10,
-            width: 20,
-            startX: 10,
-            startY: 20,
-            lineHeight: 10,
-            backgroundColor: 'black',
-            font: 'Verdanal',
-            node: {
-               order: 0,
-               color: '',
-               text: '',
-               nodes: []
-            },
-            lineWidth: 0
-         }
-         component.drawing = canvas;
-         service.createCanvas.and.returnValue(myCanvas);
+         Object.defineProperty(component, 'drawing', { writable: true, value: undefined });
 
          component.ngOnInit();
 
+         expect(service.addNode).toHaveBeenCalledTimes(5);
          expect(component.drawing).toBeDefined();
-         expect(component.drawing).toEqual(myCanvas);
-
       });
    });
 });

@@ -9,7 +9,7 @@ describe('NgrxCanvasComponent', () =>
 {
    let component: NgrxCanvasComponent;
    let fixture: ComponentFixture<NgrxCanvasComponent>;
-   let service: jasmine.SpyObj<CanvasService> = jasmine.createSpyObj('CanvasService', ['addNode', 'createCanvas']);
+   let service: jasmine.SpyObj<CanvasService> = jasmine.createSpyObj('CanvasService', ['addNode']);
 
    beforeEach(() =>
    {
@@ -32,7 +32,6 @@ describe('NgrxCanvasComponent', () =>
       component = fixture.componentInstance;
 
       service.addNode.calls.reset();
-      service.createCanvas.calls.reset();
    });
 
    it('should create', () =>
@@ -44,10 +43,12 @@ describe('NgrxCanvasComponent', () =>
    {
       it('should create canvas', () =>
       {
+         Object.defineProperty(component, 'drawing', { writable: true, value: undefined });
+
          component.ngOnInit();
 
          expect(service.addNode).toHaveBeenCalledTimes(6);
-         expect(service.createCanvas).toHaveBeenCalledTimes(1);
+         expect(component.drawing).toBeDefined();
       });
    });
 });

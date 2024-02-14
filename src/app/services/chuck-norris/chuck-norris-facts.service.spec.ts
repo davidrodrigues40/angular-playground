@@ -1,9 +1,7 @@
 import { of } from 'rxjs';
 import { ChuckNorrisFact } from 'src/app/interfaces/models/chuck-norris/chuck-norris-fact';
-import { chuckNorrisSignals } from 'src/app/state/chuck-norris/chuck-norris.signals';
 
 import { HttpClient } from '@angular/common/http';
-import { WritableSignal } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ChuckNorrisFactsService } from './chuck-norris-facts.service';
@@ -40,14 +38,14 @@ describe('ChuckNorrisFactsService', () =>
    {
       it('should call httpClient.get with the correct URL', waitForAsync(() =>
       {
-         const storage: WritableSignal<ChuckNorrisFact | null> = chuckNorrisSignals().fact;
-         spyOn(storage, 'set');
          httpClient.get.and.returnValue(of(defaultFact));
 
-         service.dispatch('getFact', storage);
-
-         expect(httpClient.get).toHaveBeenCalledWith(`${service['base_url']}/random`);
-         expect(storage.set).toHaveBeenCalledOnceWith(defaultFact);
+         service.dispatch('getFact')
+            .subscribe(response =>
+            {
+               expect(httpClient.get).toHaveBeenCalledWith(`${service['base_url']}/random`);
+               expect(response).toEqual(defaultFact);
+            });
       }));
    });
 
@@ -55,25 +53,26 @@ describe('ChuckNorrisFactsService', () =>
    {
       it('should call httpClient.get with the correct URL', waitForAsync(() =>
       {
-         const storage: WritableSignal<ChuckNorrisFact | null> = chuckNorrisSignals().fact;
-         spyOn(storage, 'set');
          httpClient.get.and.returnValue(of(defaultFact));
 
-         service.dispatch('getFactForCategory', { name: 'category' });
-
-         expect(httpClient.get).toHaveBeenCalledWith(`${service['base_url']}/random?category=category`);
-         expect(storage.set).toHaveBeenCalledOnceWith(defaultFact);
+         service.dispatch('getFactForCategory', { name: 'category' })
+            .subscribe(response =>
+            {
+               expect(httpClient.get).toHaveBeenCalledWith(`${service['base_url']}/random?category=category`);
+               expect(response).toEqual(defaultFact);
+            });
       }));
 
       it('should call getFact if category is random', waitForAsync(() =>
       {
-         spyOn(chuckNorrisSignals().fact, 'set');
          httpClient.get.and.returnValue(of(defaultFact));
 
-         service.dispatch('getFactForCategory', { name: 'random' });
-
-         expect(httpClient.get).toHaveBeenCalledOnceWith(`${service['base_url']}/random`);
-         expect(chuckNorrisSignals().fact.set).toHaveBeenCalledOnceWith(defaultFact);
+         service.dispatch('getFactForCategory', { name: 'random' })
+            .subscribe(response =>
+            {
+               expect(httpClient.get).toHaveBeenCalledOnceWith(`${service['base_url']}/random`);
+               expect(response).toEqual(defaultFact);
+            });
       }));
    });
 
@@ -81,13 +80,26 @@ describe('ChuckNorrisFactsService', () =>
    {
       it('should call httpClient.get with the correct URL', waitForAsync(() =>
       {
-         spyOn(chuckNorrisSignals().categories, 'set');
          httpClient.get.and.returnValue(of(['category']));
 
-         service.dispatch('getCategories');
+         service.dispatch('getCategories')
+            .subscribe(response =>
+            {
+               expect(httpClient.get).toHaveBeenCalledWith(`${service['base_url']}/categories`);
+               expect(response).toEqual([{ name: 'random' }, { name: 'category' }]);
+            });
+      }));
+   });
 
-         expect(httpClient.get).toHaveBeenCalledWith(`${service['base_url']}/categories`);
-         expect(chuckNorrisSignals().categories.set).toHaveBeenCalledOnceWith([{ name: 'random' }, { name: 'category' }]);
+   describe('when method not found', () =>
+   {
+      it('should return true', waitForAsync(() =>
+      {
+         service.dispatch('notFound')
+            .subscribe(response =>
+            {
+               expect(response).toBeTrue();
+            });
       }));
    });
 });

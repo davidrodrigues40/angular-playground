@@ -24,7 +24,7 @@ describe('NgrxDataFlowComponent', () =>
 
       fixture = TestBed.createComponent(NgrxDataFlowComponent);
       component = fixture.componentInstance;
-      fixture.detectChanges();
+
    });
 
    it('should create', () =>

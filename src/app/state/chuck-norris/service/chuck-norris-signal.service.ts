@@ -49,22 +49,26 @@ export class ChuckNorrisSignalService implements ISignalStateService
       _categories: chuckNorrisSignals().categories(),
       fetchFact(): void
       {
-         this._service.dispatch(this._service.methods.getFact, chuckNorrisSignals().fact);
+         this._service.dispatch(this._service.methods.getFact)
+            .subscribe((fact: Readonly<ChuckNorrisFact> | null) => chuckNorrisSignals().fact.set(fact));
       },
       fetchFactForCategory(category: FactCategory | null): void
       {
          if (category)
-            this._service.dispatch(this._service.methods.getFactForCategory, category);
+            this._service.dispatch(this._service.methods.getFactForCategory, category)
+               .subscribe((fact: Readonly<ChuckNorrisFact> | null) => chuckNorrisSignals().fact.set(fact));
          else
             this.fetchFact();
       },
       fetchFooterFact(): void
       {
-         this._service.dispatch(this._service.methods.getFact, chuckNorrisSignals().footerFact);
+         this._service.dispatch(this._service.methods.getFact)
+            .subscribe((fact: Readonly<ChuckNorrisFact> | null) => chuckNorrisSignals().footerFact.set(fact));
       },
       fetchCategories(): void
       {
-         this._service.dispatch(this._service.methods.getCategories);
+         this._service.dispatch(this._service.methods.getCategories)
+            .subscribe((categories: ReadonlyArray<FactCategory> | null) => chuckNorrisSignals().categories.set(categories));
       },
       setSelectedCategory(category: FactCategory): void
       {
