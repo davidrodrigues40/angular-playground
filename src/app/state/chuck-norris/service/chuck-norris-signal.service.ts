@@ -44,7 +44,7 @@ export class ChuckNorrisSignalService implements ISignalStateService
          });
       }
    };
-   events = {
+   methods = {
       _service: this._service,
       _categories: chuckNorrisSignals().categories(),
       fetchFact(): void
@@ -75,7 +75,7 @@ export class ChuckNorrisSignalService implements ISignalStateService
          chuckNorrisSignals().selectedCategory.set(category);
       },
    };
-   observables = {
+   data = {
       get fact(): Readonly<ChuckNorrisFact | null>
       { return chuckNorrisSignals().fact() },
       get footerFact(): Readonly<ChuckNorrisFact | null>

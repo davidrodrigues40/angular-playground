@@ -108,7 +108,7 @@ describe('ChuckNorrisSignalService', () =>
       {
          const testFact = setupTest('getFact');
 
-         service.events.fetchFact();
+         service.methods.fetchFact();
 
          expect(factService.dispatch).toHaveBeenCalledWith(factService.methods.getFact);
          expect(chuckNorrisSignals().fact()).toEqual(testFact);
@@ -118,7 +118,7 @@ describe('ChuckNorrisSignalService', () =>
       {
          const testFact = setupTest('getFactForCategory');
 
-         service.events.fetchFactForCategory(category);
+         service.methods.fetchFactForCategory(category);
 
          expect(factService.dispatch).toHaveBeenCalledWith(factService.methods.getFactForCategory, category);
          expect(chuckNorrisSignals().fact()).toEqual(testFact);
@@ -128,7 +128,7 @@ describe('ChuckNorrisSignalService', () =>
       {
          const testFact = setupTest('fetchFactForCategory getFact');
 
-         service.events.fetchFactForCategory(null);
+         service.methods.fetchFactForCategory(null);
 
          expect(factService.dispatch).toHaveBeenCalledWith(factService.methods.getFact);
          expect(chuckNorrisSignals().fact()).toEqual(testFact);
@@ -138,7 +138,7 @@ describe('ChuckNorrisSignalService', () =>
       {
          const testFact = setupTest('fetchFooterFact');
 
-         service.events.fetchFooterFact();
+         service.methods.fetchFooterFact();
 
          expect(factService.dispatch).toHaveBeenCalledWith(factService.methods.getFact);
          expect(chuckNorrisSignals().footerFact()).toEqual(testFact);
@@ -148,14 +148,14 @@ describe('ChuckNorrisSignalService', () =>
       {
          factService.dispatch.and.returnValue(of([category]));
 
-         service.events.fetchCategories();
+         service.methods.fetchCategories();
 
          expect(factService.dispatch).toHaveBeenCalledTimes(1);
       });
 
       it('setSelectedCategory should set selected category', () =>
       {
-         service.events.setSelectedCategory(category);
+         service.methods.setSelectedCategory(category);
          expect(chuckNorrisSignals().selectedCategory()).toEqual(category);
       });
 
@@ -175,25 +175,25 @@ describe('ChuckNorrisSignalService', () =>
       it('fact should return fact signal value', () =>
       {
          chuckNorrisSignals().fact.set({ ...fact, value: 'fact' });
-         expect(service.observables.fact).toEqual({ ...fact, value: 'fact' });
+         expect(service.data.fact).toEqual({ ...fact, value: 'fact' });
       });
 
       it('footerFact should return footer fact signal value', () =>
       {
          chuckNorrisSignals().footerFact.set({ ...fact, value: 'footerFact' });
-         expect(service.observables.footerFact).toEqual({ ...fact, value: 'footerFact' });
+         expect(service.data.footerFact).toEqual({ ...fact, value: 'footerFact' });
       });
 
       it('categories should return categories signal value', () =>
       {
          chuckNorrisSignals().categories.set([{ ...category, name: 'categories' }]);
-         expect(service.observables.categories).toEqual([{ ...category, name: 'categories' }]);
+         expect(service.data.categories).toEqual([{ ...category, name: 'categories' }]);
       });
 
       it('selectedCategory should return selected category signal value', () =>
       {
          chuckNorrisSignals().selectedCategory.set({ ...category, name: 'selectedCategory' });
-         expect(service.observables.selectedCategory).toEqual({ ...category, name: 'selectedCategory' });
+         expect(service.data.selectedCategory).toEqual({ ...category, name: 'selectedCategory' });
       });
    });
 });

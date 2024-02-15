@@ -20,7 +20,7 @@ export class MenuSignalService implements ISignalStateService
          });
       }
    };
-   events = {
+   methods = {
       _service: this._service,
       _menuItems: menuSignals().items(),
       fetchMenu(): void
@@ -29,7 +29,7 @@ export class MenuSignalService implements ISignalStateService
             this._service.dispatch(this._service.methods.getMenu);
       }
    };
-   observables = {
+   data = {
       get menu(): ReadonlyArray<MenuItem> { return menuSignals().items() }
    };
 }

@@ -49,7 +49,7 @@ describe('FactCategoriesComponent', () =>
          component.ngOnInit();
 
          expect(signalService.effects.bindCategories).toHaveBeenCalled();
-         expect(signalService.events.fetchCategories).toHaveBeenCalled();
+         expect(signalService.methods.fetchCategories).toHaveBeenCalled();
       });
    });
 

@@ -20,8 +20,8 @@ import
 export class FactGeneratorComponent implements OnInit
 {
    private injector: EnvironmentInjector = inject(EnvironmentInjector);
-   public fact: SignalObject<Readonly<ChuckNorrisFact | null>> = { value: this._service.observables.fact };
-   public selectedCategory: SignalObject<FactCategory | null> = { value: this._service.observables.selectedCategory };
+   public fact: SignalObject<Readonly<ChuckNorrisFact | null>> = { value: this._service.data.fact };
+   public selectedCategory: SignalObject<FactCategory | null> = { value: this._service.data.selectedCategory };
 
    constructor(private readonly _service: ChuckNorrisSignalService)
    { }
@@ -42,19 +42,19 @@ export class FactGeneratorComponent implements OnInit
 
    getFact(): void
    {
-      this._service.events.fetchFact();
+      this._service.methods.fetchFact();
    }
 
    getFactForCategory(): void
    {
       if (this.selectedCategory?.value)
-         this._service.events.fetchFactForCategory(this.selectedCategory.value);
+         this._service.methods.fetchFactForCategory(this.selectedCategory.value);
       else
          this.getFact();
    }
 
    categorySelected(category: FactCategory): void
    {
-      this._service.events.setSelectedCategory(category);
+      this._service.methods.setSelectedCategory(category);
    }
 }

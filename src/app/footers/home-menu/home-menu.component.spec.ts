@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { HomeMenuComponent } from './home-menu.component';
 import { MockComponent } from 'src/app/testing/testing.directive';
+import { HomeMenuComponent } from './home-menu.component';
 
 describe('HomeMenuComponent', () =>
 {
@@ -47,7 +47,7 @@ describe('HomeMenuComponent', () =>
          component.ngOnInit();
 
          expect(signalService.effects.bindMenu).toHaveBeenCalledWith(component.menuItems);
-         expect(signalService.events.fetchMenu).toHaveBeenCalled();
+         expect(signalService.methods.fetchMenu).toHaveBeenCalled();
       });
    });
 

@@ -20,7 +20,7 @@ import { MatSelectChange } from '@angular/material/select';
 })
 export class FactCategoriesComponent implements OnInit
 {
-   options: SignalObject<ReadonlyArray<FactCategory> | null> = { value: this._service.observables.categories };
+   options: SignalObject<ReadonlyArray<FactCategory> | null> = { value: this._service.data.categories };
    @Output() categorySelected: EventEmitter<FactCategory> = new EventEmitter<FactCategory>();
 
    private _injector: EnvironmentInjector = inject(EnvironmentInjector);
@@ -44,6 +44,6 @@ export class FactCategoriesComponent implements OnInit
       {
          this._service.effects.bindCategories(this.options);
       });
-      this._service.events.fetchCategories();
+      this._service.methods.fetchCategories();
    }
 }

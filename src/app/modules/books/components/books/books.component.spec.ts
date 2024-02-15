@@ -71,7 +71,7 @@ describe('BooksComponent', () =>
       {
          component.ngOnInit();
 
-         expect(signalService.events.fetchBooks).toHaveBeenCalled();
+         expect(signalService.methods.fetchBooks).toHaveBeenCalled();
       });
    });
 
@@ -81,7 +81,7 @@ describe('BooksComponent', () =>
       {
          component.onAdd("1");
 
-         expect(signalService.events.addBook).toHaveBeenCalledOnceWith('1');
+         expect(signalService.methods.addBook).toHaveBeenCalledOnceWith('1');
       });
    });
 
@@ -91,7 +91,7 @@ describe('BooksComponent', () =>
       {
          component.onRemove("1");
 
-         expect(signalService.events.removeBook).toHaveBeenCalledOnceWith('1');
+         expect(signalService.methods.removeBook).toHaveBeenCalledOnceWith('1');
       });
    });
 
@@ -101,7 +101,7 @@ describe('BooksComponent', () =>
       {
          component.onClear();
 
-         expect(signalService.events.clearCollection).toHaveBeenCalled();
+         expect(signalService.methods.clearCollection).toHaveBeenCalled();
       });
    });
 });

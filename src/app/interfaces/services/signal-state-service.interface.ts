@@ -5,8 +5,9 @@ export interface ISignalStateService
    effects: {
       [key: string]: Function | ISignalService;
    };
-   events: {
+   methods: {
       _service: ISignalService;
+      [key: string]: Function | ISignalService;
    };
-   observables: {};
+   data: {};
 }

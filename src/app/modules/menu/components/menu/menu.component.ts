@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit
 {
-   public items: SignalObject<ReadonlyArray<MenuItem>> = { value: this._service.observables.menu };
+   public items: SignalObject<ReadonlyArray<MenuItem>> = { value: this._service.data.menu };
 
    constructor(private readonly _service: MenuSignalService)
    {
@@ -27,6 +27,6 @@ export class MenuComponent implements OnInit
 
    private loadData(): void
    {
-      this._service.events.fetchMenu();
+      this._service.methods.fetchMenu();
    }
 }

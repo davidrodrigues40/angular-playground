@@ -17,7 +17,7 @@ import { BaseFooter } from '../base-footer.component';
 })
 export class ChuckNorrisFooterComponent implements OnInit
 {
-   fact: SignalObject<ChuckNorrisFact | null> = { value: this._service.observables.footerFact };
+   fact: SignalObject<ChuckNorrisFact | null> = { value: this._service.data.footerFact };
    constructor(private readonly _service: ChuckNorrisSignalService)
    {
       this._service.effects.bindFooterFact(this.fact);
@@ -25,6 +25,6 @@ export class ChuckNorrisFooterComponent implements OnInit
 
    ngOnInit(): void
    {
-      this._service.events.fetchFooterFact();
+      this._service.methods.fetchFooterFact();
    }
 }

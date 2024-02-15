@@ -64,9 +64,9 @@ describe('MenuSignalService', () =>
    {
       it('should fetch menu', () =>
       {
-         service.events._menuItems = [];
+         service.methods._menuItems = [];
 
-         service.events.fetchMenu();
+         service.methods.fetchMenu();
 
          expect(menuService.dispatch).toHaveBeenCalledWith(menuService.methods.getMenu);
       });
@@ -78,7 +78,7 @@ describe('MenuSignalService', () =>
       {
          menuSignals().items.set([{ ...menuItem, value: 'get menu' }]);
 
-         expect(service.observables.menu[0].value).toEqual('get menu');
+         expect(service.data.menu[0].value).toEqual('get menu');
       });
    });
 });

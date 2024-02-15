@@ -81,7 +81,7 @@ describe('BookSignalService', () =>
          bookSignals().books.set([]);
          bookService.dispatch.and.returnValue(of([book]));
 
-         service.events.fetchBooks();
+         service.methods.fetchBooks();
 
          expect(bookService.dispatch).toHaveBeenCalledWith(bookService.methods.getBooks);
          expect(bookSignals().books()).toEqual([book]);
@@ -92,7 +92,7 @@ describe('BookSignalService', () =>
          bookSignals().collection.set([]);
          bookSignals().books.set([{ ...book, id: '1' }]);
 
-         service.events.addBook('1');
+         service.methods.addBook('1');
 
          expect(bookSignals().collection().length).toEqual(1);
       });
@@ -100,7 +100,7 @@ describe('BookSignalService', () =>
       it('should remove book', () =>
       {
          bookSignals().collection.set([{ ...book, id: '2' }]);
-         service.events.removeBook('2');
+         service.methods.removeBook('2');
 
          expect(bookSignals().collection().length).toEqual(0);
       });
@@ -109,7 +109,7 @@ describe('BookSignalService', () =>
       {
          bookSignals().collection.set([book]);
 
-         service.events.clearCollection();
+         service.methods.clearCollection();
 
          expect(bookSignals().collection().length).toEqual(0);
       });
@@ -120,19 +120,19 @@ describe('BookSignalService', () =>
       it('should get books', () =>
       {
          bookSignals().books.set([book]);
-         expect(service.observables.books.length).toEqual(1);
+         expect(service.data.books.length).toEqual(1);
       });
 
       it('should get message', () =>
       {
          bookSignals().message.set('message');
-         expect(service.observables.message).toEqual('message');
+         expect(service.data.message).toEqual('message');
       });
 
       it('should get collection', () =>
       {
          bookSignals().collection.set([book]);
-         expect(service.observables.collection.length).toEqual(1);
+         expect(service.data.collection.length).toEqual(1);
       });
    });
 });

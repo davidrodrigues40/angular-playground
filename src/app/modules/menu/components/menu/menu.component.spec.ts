@@ -63,7 +63,7 @@ describe('MenuComponent', () =>
       {
          component.ngOnInit();
 
-         expect(signalService.events.fetchMenu).toHaveBeenCalledTimes(1);
+         expect(signalService.methods.fetchMenu).toHaveBeenCalledTimes(1);
       });
    });
 });

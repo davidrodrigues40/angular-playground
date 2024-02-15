@@ -37,7 +37,7 @@ export class CanvasDirective implements AfterViewInit
 
       console.log("Drawing: ", this.drawing);
       this._htmlCanvas.height = Math.max(this.calculateHeight([node]) + this.drawing.startX, this.drawing.height);
-      this._htmlCanvas.width = this.drawing.width > 0 ? this.drawing.width : this.calculateWidth([node], true) + this.drawing.startX;
+      this._htmlCanvas.width = this.drawing.width > 0 ? this.drawing.width : this.calculateWidth([node]) + this.drawing.startX;
       this._htmlCanvas.style.backgroundColor = 'white';
 
       context.font = this.drawing.font;
@@ -62,7 +62,7 @@ export class CanvasDirective implements AfterViewInit
       return height;
    }
 
-   private calculateWidth(nodes: CanvasNode[], isPrimary: boolean = false): number
+   private calculateWidth(nodes: CanvasNode[]): number
    {
       let width: number = 0;
 

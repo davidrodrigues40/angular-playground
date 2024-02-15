@@ -59,7 +59,7 @@ describe('ChuckNorrisFooterComponent', () =>
       {
          component.ngOnInit();
 
-         expect(signalService.events.fetchFooterFact).toHaveBeenCalled();
+         expect(signalService.methods.fetchFooterFact).toHaveBeenCalled();
       });
    });
 });

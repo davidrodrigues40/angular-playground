@@ -41,7 +41,7 @@ describe('FactGeneratorComponent', () =>
 
       fixture = TestBed.createComponent(FactGeneratorComponent);
       component = fixture.componentInstance;
-      (signalService.events.fetchFact as jasmine.Spy).calls.reset();
+      (signalService.methods.fetchFact as jasmine.Spy).calls.reset();
    });
 
    it('should create', () =>
@@ -66,7 +66,7 @@ describe('FactGeneratorComponent', () =>
       {
          component.getFact();
 
-         expect(signalService.events.fetchFact).toHaveBeenCalledTimes(1);
+         expect(signalService.methods.fetchFact).toHaveBeenCalledTimes(1);
       });
    });
 
@@ -79,7 +79,7 @@ describe('FactGeneratorComponent', () =>
 
          component.getFactForCategory();
 
-         expect(signalService.events.fetchFactForCategory).toHaveBeenCalledOnceWith(myCategory)
+         expect(signalService.methods.fetchFactForCategory).toHaveBeenCalledOnceWith(myCategory)
       });
 
       it('should call getFact', () =>
@@ -88,7 +88,7 @@ describe('FactGeneratorComponent', () =>
 
          component.getFactForCategory();
 
-         expect(signalService.events.fetchFact).toHaveBeenCalledTimes(1);
+         expect(signalService.methods.fetchFact).toHaveBeenCalledTimes(1);
       });
    });
 
@@ -98,7 +98,7 @@ describe('FactGeneratorComponent', () =>
       {
          component.categorySelected(category);
 
-         expect(signalService.events.setSelectedCategory).toHaveBeenCalledOnceWith(category);
+         expect(signalService.methods.setSelectedCategory).toHaveBeenCalledOnceWith(category);
       });
    });
 });

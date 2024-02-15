@@ -5,13 +5,13 @@ import { HomeMenuSignalService } from 'src/app/state/home-menu/services/home-men
 
 import { CommonModule } from '@angular/common';
 import
-{
-   Component,
-   EnvironmentInjector,
-   inject,
-   OnInit,
-   runInInjectionContext
-} from '@angular/core';
+   {
+      Component,
+      EnvironmentInjector,
+      inject,
+      OnInit,
+      runInInjectionContext
+   } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 
@@ -59,6 +59,6 @@ export class HomeMenuComponent implements OnInit
       {
          this._stateService.effects.bindMenu(this.menuItems);
       });
-      this._stateService.events.fetchMenu();
+      this._stateService.methods.fetchMenu();
    }
 }

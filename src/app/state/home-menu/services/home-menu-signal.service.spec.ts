@@ -55,17 +55,17 @@ describe('HomeMenuSignalService', () =>
    {
       it('should not dispatch when fetchMenu is called and _menuItems is set', () =>
       {
-         service.events._menuItems = myMenu;
+         service.methods._menuItems = myMenu;
 
-         service.events.fetchMenu();
+         service.methods.fetchMenu();
 
          expect(_service.dispatch).not.toHaveBeenCalled();
       });
       it('should call dispatch when fetchMenu is called and not set', () =>
       {
-         service.events._menuItems = [];
+         service.methods._menuItems = [];
 
-         service.events.fetchMenu();
+         service.methods.fetchMenu();
 
          expect(_service.dispatch).toHaveBeenCalledWith('getHomeMenu');
       });
@@ -77,7 +77,7 @@ describe('HomeMenuSignalService', () =>
       {
          homeMenuSignals().items.set(myMenu);
 
-         const actual = service.observables.menu;
+         const actual = service.data.menu;
 
          expect(actual).toEqual(myMenu);
       });

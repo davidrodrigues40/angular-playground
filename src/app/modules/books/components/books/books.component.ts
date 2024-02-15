@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
 export class BooksComponent
 {
    books: SignalObject<ReadonlyArray<Book>> = { value: [] };
-   collection: SignalObject<ReadonlyArray<Book>> = { value: this._service.observables.collection };
+   collection: SignalObject<ReadonlyArray<Book>> = { value: this._service.data.collection };
 
    constructor(private readonly _service: BookSignalService)
    {
@@ -24,21 +24,21 @@ export class BooksComponent
 
    ngOnInit()
    {
-      this._service.events.fetchBooks();
+      this._service.methods.fetchBooks();
    }
 
    onAdd(bookId: string): void
    {
-      this._service.events.addBook(bookId);
+      this._service.methods.addBook(bookId);
    }
 
    onRemove(bookId: string): void
    {
-      this._service.events.removeBook(bookId);
+      this._service.methods.removeBook(bookId);
    }
 
    onClear(): void
    {
-      this._service.events.clearCollection();
+      this._service.methods.clearCollection();
    }
 }

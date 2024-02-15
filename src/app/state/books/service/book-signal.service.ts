@@ -27,7 +27,7 @@ export class BookSignalService implements ISignalStateService
          });
       }
    };
-   events = {
+   methods = {
       _service: this._service,
       fetchBooks(): void
       {
@@ -51,7 +51,7 @@ export class BookSignalService implements ISignalStateService
          bookSignals().collection.set([]);
       }
    };
-   observables = {
+   data = {
       get books(): ReadonlyArray<Book>
       {
          return bookSignals().books();
