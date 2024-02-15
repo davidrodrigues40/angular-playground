@@ -3,12 +3,13 @@ import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-catego
 import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
 
-import {
-    Component,
-    EnvironmentInjector,
-    inject,
-    OnInit,
-    runInInjectionContext
+import
+{
+   Component,
+   EnvironmentInjector,
+   inject,
+   OnInit,
+   runInInjectionContext
 } from '@angular/core';
 
 @Component({
@@ -46,7 +47,7 @@ export class FactGeneratorComponent implements OnInit
 
    getFactForCategory(): void
    {
-      if (this.selectedCategory && this.selectedCategory.value)
+      if (this.selectedCategory?.value)
          this._service.events.fetchFactForCategory(this.selectedCategory.value);
       else
          this.getFact();

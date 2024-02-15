@@ -1,13 +1,14 @@
-import { filter, Subject, tap } from 'rxjs';
+import { filter, Subject } from 'rxjs';
 
 import { Component, OnDestroy, OnInit, Type, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 import { FooterHostDirective } from './directives/footer/footer-host.directive';
-import {
-    FooterComponentFactory,
-    FooterComponentType,
-    FooterTypes
+import
+{
+   FooterComponentFactory,
+   FooterComponentType,
+   FooterTypes
 } from './factories/footer.factory';
 
 @Component({

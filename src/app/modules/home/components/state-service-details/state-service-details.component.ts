@@ -8,8 +8,7 @@ import { StateCanvasComponent } from '../../../../canvas/state-canvas/state-canv
    imports: [
       StateCanvasComponent
    ],
-   templateUrl: './state-service-details.component.html',
-   styleUrls: ['./state-service-details.component.scss']
+   templateUrl: './state-service-details.component.html'
 })
 export class StateServiceDetailsComponent
 {

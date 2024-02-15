@@ -4,6 +4,7 @@ import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
+import { observableTest } from 'src/app/testing/testing.functions';
 import { Game } from '../../../interfaces/models/bowling/game';
 import { Scorecard } from '../../../interfaces/models/bowling/scorecard';
 import { BowlingState } from '../bowling.state';
@@ -156,11 +157,7 @@ describe('BowlingStateService', () =>
          {
             spyOn(store, 'select').and.returnValue(of([]));
 
-            service.observables.players$
-               .subscribe(players =>
-               {
-                  expect(players).toEqual([]);
-               });
+            observableTest(service.observables.players$, []);
          }));
       });
 
@@ -170,11 +167,7 @@ describe('BowlingStateService', () =>
          {
             spyOn(store, 'select').and.returnValue(of(defaultGame));
 
-            service.observables.game$
-               .subscribe(game =>
-               {
-                  expect(game).toEqual(defaultGame);
-               });
+            observableTest(service.observables.game$, defaultGame);
          }));
       });
 
@@ -184,11 +177,7 @@ describe('BowlingStateService', () =>
          {
             spyOn(store, 'select').and.returnValue(of(defaultWinner));
 
-            service.observables.winner$
-               .subscribe(winner =>
-               {
-                  expect(winner).toEqual(defaultWinner);
-               });
+            observableTest(service.observables.winner$, defaultWinner);
          }));
       });
 
@@ -198,11 +187,7 @@ describe('BowlingStateService', () =>
          {
             spyOn(store, 'select').and.returnValue(of(defaultRatings));
 
-            service.observables.ratings$
-               .subscribe(ratings =>
-               {
-                  expect(ratings).toEqual(defaultRatings);
-               });
+            observableTest(service.observables.ratings$, defaultRatings);
          }));
       });
 
@@ -212,11 +197,7 @@ describe('BowlingStateService', () =>
          {
             spyOn(store, 'select').and.returnValue(of(310))
 
-            service.observables.score$('chuck')
-               .subscribe(score =>
-               {
-                  expect(score).toEqual(310);
-               });
+            observableTest(service.observables.score$('chuck'), 310);
          }));
       });
 
@@ -226,11 +207,7 @@ describe('BowlingStateService', () =>
          {
             spyOn(store, 'select').and.returnValue(of(defaultRatings[0]))
 
-            service.observables.rating$(1)
-               .subscribe(rating =>
-               {
-                  expect(rating).toEqual(defaultRatings[0]);
-               });
+            observableTest(service.observables.rating$(1), defaultRatings[0]);
          }));
       });
 
@@ -240,11 +217,7 @@ describe('BowlingStateService', () =>
          {
             spyOn(store, 'select').and.returnValue(of('online'));
 
-            service.observables.status$
-               .subscribe(status =>
-               {
-                  expect(status).toEqual('online');
-               });
+            observableTest(service.observables.status$, 'online');
          }));
       });
    });

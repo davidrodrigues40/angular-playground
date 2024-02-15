@@ -110,15 +110,22 @@ describe('PlayersService', () =>
    {
       it('should return new array with updated players', () =>
       {
-         const players = [...defaultPlayers];
-         const rating = 3;
-
-         service.changePlayerRatings$(rating, players)
-            .subscribe((newPlayers) =>
-            {
-               expect(newPlayers.filter(f => f.rating === 3)).toHaveSize(defaultPlayers.length);
-               expect(cacheService.setSession).toHaveBeenCalledWith('players', newPlayers, StorageTranscoders.JSON);
-            });
+         assertRatingChange(3, [...defaultPlayers]);
       });
    });
+
+   function assertRatingChange(rating: number, players: ReadonlyArray<Player>): void
+   {
+      service.changePlayerRatings$(rating, players)
+         .subscribe((newPlayers) =>
+         {
+            expect(getFilteredByRating(rating, newPlayers)).toHaveSize(defaultPlayers.length);
+            expect(cacheService.setSession).toHaveBeenCalledWith('players', newPlayers, StorageTranscoders.JSON);
+         });
+   }
+
+   function getFilteredByRating(rating: number, players: ReadonlyArray<Player>): ReadonlyArray<Player>
+   {
+      return players.filter(f => f.rating === rating);
+   }
 });

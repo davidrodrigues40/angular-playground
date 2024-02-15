@@ -127,7 +127,6 @@ describe('ChuckNorrisSignalService', () =>
       it('fetchFactForCategory should dispatch getFact method if category is null', () =>
       {
          const testFact = setupTest('fetchFactForCategory getFact');
-         factService.dispatch.and.returnValue(of(testFact));
 
          service.events.fetchFactForCategory(null);
 
@@ -137,8 +136,12 @@ describe('ChuckNorrisSignalService', () =>
 
       it('fetchFooterFact should dispatch getFact method', () =>
       {
+         const testFact = setupTest('fetchFooterFact');
+
          service.events.fetchFooterFact();
+
          expect(factService.dispatch).toHaveBeenCalledWith(factService.methods.getFact);
+         expect(chuckNorrisSignals().footerFact()).toEqual(testFact);
       });
 
       it('fetchCategories should dispatch getCategories method', () =>
@@ -160,6 +163,7 @@ describe('ChuckNorrisSignalService', () =>
       {
          const testFact: ChuckNorrisFact = { ...fact, value: value };
          chuckNorrisSignals().fact.set(null);
+         chuckNorrisSignals().footerFact.set(null);
          factService.dispatch.and.returnValue(of(testFact));
 
          return testFact;

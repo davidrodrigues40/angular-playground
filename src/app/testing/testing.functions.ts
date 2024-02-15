@@ -3,6 +3,7 @@ import { TestBed } from "@angular/core/testing";
 import { SignalObject } from "../interfaces/models/signal-object";
 import { ISignalStateService } from "../interfaces/services/signal-state-service.interface";
 import { MockSignalComponent } from "./testing.components";
+import { Observable } from "rxjs";
 
 export function eventTest(obj: any, signal: WritableSignal<any>): void
 {
@@ -25,3 +26,12 @@ export function configureEventTestingModule(signal: SignalObject<any>, effectNam
       ]
    });
 };
+
+export function observableTest<T>(observable: Observable<T>, expected: T): void
+{
+   observable
+      .subscribe(result =>
+      {
+         expect(result).toEqual(expected);
+      });
+}

@@ -5,22 +5,22 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StateCanvasComponent } from './state-canvas.component';
 
-describe('StateCanvasComponent', () =>
+describe('NgrxDataFlowCanvasComponent', () =>
 {
    let component: StateCanvasComponent;
    let fixture: ComponentFixture<StateCanvasComponent>;
-   const service: jasmine.SpyObj<CanvasService> = jasmine.createSpyObj('CanvasService', ['addNode', 'createCanvas']);
+   const service: jasmine.SpyObj<CanvasService> = jasmine.createSpyObj('CanvasService', ['addNode']);
 
    beforeEach(() =>
    {
       TestBed.configureTestingModule({
-         imports: [
-            StateCanvasComponent,
-            MockDirective({ selector: 'appCanvas', inputs: [], standalone: true }),
-         ],
+         imports: [StateCanvasComponent],
       })
          .overrideComponent(StateCanvasComponent, {
             set: {
+               imports: [
+                  MockDirective({ selector: 'appCanvas' })
+               ],
                providers: [
                   { provide: CanvasService, useValue: service }
                ]
@@ -35,11 +35,11 @@ describe('StateCanvasComponent', () =>
       expect(component).toBeTruthy();
    });
 
-   describe('when ngOnInit is called', () =>
+   describe('ngOnInit', () =>
    {
-      it('should create canvas', () =>
+      it('should set drawing', () =>
       {
-         Object.defineProperty(component, 'drawing', { writable: true, value: undefined })
+         Object.defineProperty(component, 'drawing', { writable: true, value: undefined });
 
          component.ngOnInit();
 

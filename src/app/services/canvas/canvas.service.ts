@@ -1,4 +1,4 @@
-import { CanvasDrawing, CanvasNode } from 'src/app/interfaces/models/canvas';
+import { CanvasNode } from 'src/app/interfaces/models/canvas';
 
 import { Injectable } from '@angular/core';
 

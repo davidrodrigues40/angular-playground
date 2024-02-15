@@ -10,7 +10,6 @@ import { Component, OnInit } from '@angular/core';
    imports: [CanvasDirective],
    providers: [CanvasService],
    templateUrl: './state-canvas.component.html',
-   styleUrls: ['./state-canvas.component.scss'],
 })
 export class StateCanvasComponent implements OnInit
 {

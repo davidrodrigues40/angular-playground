@@ -36,15 +36,11 @@ export class NgrxDetailsComponent
             reason: 'Cancel'
          }
       }
-      switch (name)
-      {
-         case 'state': this._dialog.open(StateDialogComponent, {
+
+      if (name === 'state')
+         this._dialog.open(StateDialogComponent, {
             data: { options: options },
             position: { top: '100px' }
          });
-            break;
-         default:
-            break;
-      }
    }
 }
