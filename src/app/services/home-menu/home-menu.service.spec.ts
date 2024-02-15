@@ -1,5 +1,4 @@
 import { MenuItem } from 'src/app/interfaces/models/menu/menu-item';
-import { homeMenuSignals } from 'src/app/state/home-menu/home-menu.signals';
 
 import { TestBed } from '@angular/core/testing';
 
@@ -57,11 +56,13 @@ describe('HomeMenuService', () =>
                value: 'Data Flow',
                route: 'home/dataflow'
             }];
-         const signalSpy = spyOn(homeMenuSignals().items, 'set');
 
-         service.dispatch(service.methods.getHomeMenu);
+         service.dispatch(service.methods.getHomeMenu)
+            .subscribe((data: Array<MenuItem>) =>
+            {
+               expect(data).toEqual(menuItems);
 
-         expect(signalSpy).toHaveBeenCalledOnceWith(menuItems);
+            });
       });
    });
 });

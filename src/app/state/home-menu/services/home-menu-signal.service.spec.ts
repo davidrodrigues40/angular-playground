@@ -2,8 +2,9 @@ import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { HomeMenuService } from 'src/app/services/home-menu/home-menu.service';
 import { MockSignalComponent } from 'src/app/testing/testing.components';
 
-import { TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
+import { of } from 'rxjs';
 import { configureEventTestingModule, eventTest } from 'src/app/testing/testing.functions';
 import { MenuItem } from '../../../interfaces/models/menu/menu-item';
 import { homeMenuSignals } from '../home-menu.signals';
@@ -12,26 +13,26 @@ import { HomeMenuSignalService } from './home-menu-signal.service';
 describe('HomeMenuSignalService', () =>
 {
    let service: HomeMenuSignalService;
-   let _service: jasmine.SpyObj<HomeMenuService> = jasmine.createSpyObj('HomeMenuService', ['dispatch'], ['methods']);
+   let menuService: jasmine.SpyObj<HomeMenuService> = jasmine.createSpyObj('HomeMenuService', ['dispatch'], ['methods']);
    const menu: Array<MenuItem> = [];
    const signal: SignalObject<ReadonlyArray<MenuItem>> = { value: menu };
    const myMenu: Array<MenuItem> = [...menu, { value: 'test', route: '/test' }];
 
    beforeEach(() =>
    {
-      Object.defineProperty(_service, 'methods', { value: { getHomeMenu: 'getHomeMenu' } });
+      Object.defineProperty(menuService, 'methods', { value: { getHomeMenu: 'getHomeMenu' } });
       TestBed.configureTestingModule({
          imports: [MockSignalComponent],
          providers: [
             HomeMenuSignalService,
             {
-               provide: HomeMenuService, useValue: _service
+               provide: HomeMenuService, useValue: menuService
             }]
       });
 
       service = TestBed.inject(HomeMenuSignalService);
 
-      _service.dispatch.calls.reset();
+      menuService.dispatch.calls.reset();
    });
 
    it('should be created', () =>
@@ -51,27 +52,34 @@ describe('HomeMenuSignalService', () =>
       });
    });
 
-   describe('events', () =>
+   describe('methods', () =>
    {
-      it('should not dispatch when fetchMenu is called and _menuItems is set', () =>
+      it('should not dispatch when fetchMenu is called and _menuItems is set', waitForAsync(() =>
       {
-         service.methods._menuItems = myMenu;
+         spyOn(homeMenuSignals(), 'items').and.returnValue(myMenu);
+         spyOn(homeMenuSignals().items, 'set');
+         menuService.dispatch.and.returnValue(of(myMenu));
 
          service.methods.fetchMenu();
 
-         expect(_service.dispatch).not.toHaveBeenCalled();
-      });
-      it('should call dispatch when fetchMenu is called and not set', () =>
+         expect(menuService.dispatch).not.toHaveBeenCalled();
+         expect(homeMenuSignals().items.set).not.toHaveBeenCalled();
+      }));
+
+      it('should call dispatch when fetchMenu is called and not set', waitForAsync(() =>
       {
-         service.methods._menuItems = [];
+         spyOn(homeMenuSignals(), 'items').and.returnValue([]);
+         spyOn(homeMenuSignals().items, 'set');
+         menuService.dispatch.and.returnValue(of(myMenu));
 
          service.methods.fetchMenu();
 
-         expect(_service.dispatch).toHaveBeenCalledWith('getHomeMenu');
-      });
+         expect(menuService.dispatch).toHaveBeenCalledWith('getHomeMenu');
+         expect(homeMenuSignals().items.set).toHaveBeenCalledWith(myMenu);
+      }));
    });
 
-   describe('observables', () =>
+   describe('data', () =>
    {
       it('should return _menuItems when get menu is called', () =>
       {

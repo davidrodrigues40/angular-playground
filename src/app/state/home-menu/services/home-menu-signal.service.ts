@@ -22,11 +22,13 @@ export class HomeMenuSignalService implements ISignalStateService
    };
    methods = {
       _service: this._service,
-      _menuItems: homeMenuSignals().items(),
       fetchMenu(): void
       {
-         if (this._menuItems.length === 0)
-            this._service.dispatch(this._service.methods.getHomeMenu);
+         const menu = homeMenuSignals().items();
+
+         if (menu.length === 0)
+            this._service.dispatch(this._service.methods.getHomeMenu)
+               .subscribe((items: Array<MenuItem>) => homeMenuSignals().items.set(items));
       }
    };
    data = {

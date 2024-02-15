@@ -1,8 +1,7 @@
-import { first, of } from 'rxjs';
+import { Observable, first, of } from 'rxjs';
 import { HttpSignalService } from 'src/app/interfaces/abstracts/http-signal-service.abstract';
 import { MenuItem } from 'src/app/interfaces/models/menu/menu-item';
 import { ISignalService } from 'src/app/interfaces/services/signal-service.interface';
-import { menuSignals } from 'src/app/state/menu/menu.signals';
 
 import { Injectable } from '@angular/core';
 
@@ -21,7 +20,7 @@ export class MenuService extends HttpSignalService implements ISignalService
       base_url: ''
    };
 
-   private getMenu(): void
+   private getMenu(): Observable<Array<MenuItem>>
    {
       const _menuItems: MenuItem[] = [
          { value: 'Home', route: '/home' },
@@ -30,8 +29,7 @@ export class MenuService extends HttpSignalService implements ISignalService
          { value: 'Chuck Norris Facts', route: '/chuck-norris-facts' },
       ];
 
-      of(_menuItems)
+      return of(_menuItems)
          .pipe(first())
-         .subscribe((items: ReadonlyArray<MenuItem>) => menuSignals().items.set(items));
    }
 }

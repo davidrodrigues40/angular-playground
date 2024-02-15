@@ -102,7 +102,7 @@ describe('ChuckNorrisSignalService', () =>
       });
    });
 
-   describe('events', () =>
+   describe('methods', () =>
    {
       it('fetchFact should dispatch getFact method', waitForAsync(() =>
       {
@@ -170,7 +170,7 @@ describe('ChuckNorrisSignalService', () =>
       }
    });
 
-   describe('observables', () =>
+   describe('data', () =>
    {
       it('fact should return fact signal value', () =>
       {

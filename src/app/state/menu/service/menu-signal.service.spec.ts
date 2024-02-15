@@ -1,9 +1,9 @@
 import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { MenuService } from 'src/app/services/menu/menu.service';
-import { MockSignalComponent } from 'src/app/testing/testing.components';
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
+import { of } from 'rxjs';
 import { configureEventTestingModule, eventTest } from 'src/app/testing/testing.functions';
 import { MenuItem } from '../../../interfaces/models/menu/menu-item';
 import { menuSignals } from '../menu.signals';
@@ -12,8 +12,6 @@ import { MenuSignalService } from './menu-signal.service';
 describe('MenuSignalService', () =>
 {
    let service: MenuSignalService;
-   let fixture: ComponentFixture<MockSignalComponent>;
-   let component: MockSignalComponent;
    const menuService: jasmine.SpyObj<MenuService> = jasmine.createSpyObj('MenuService', ['dispatch', 'methods']);
    const signal: SignalObject<ReadonlyArray<MenuItem>> = { value: [] };
    const menuItem: MenuItem = {
@@ -60,19 +58,22 @@ describe('MenuSignalService', () =>
       });
    });
 
-   describe('events', () =>
+   describe('methods', () =>
    {
-      it('should fetch menu', () =>
+      it('should fetch menu', waitForAsync(() =>
       {
-         service.methods._menuItems = [];
+         spyOn(menuSignals(), 'items').and.returnValue([]);
+         spyOn(menuSignals().items, 'set');
+         menuService.dispatch.and.returnValue(of([menuItem]));
 
          service.methods.fetchMenu();
 
          expect(menuService.dispatch).toHaveBeenCalledWith(menuService.methods.getMenu);
-      });
+         expect(menuSignals().items.set).toHaveBeenCalledWith([menuItem]);
+      }));
    });
 
-   describe('observables', () =>
+   describe('data', () =>
    {
       it('should get menu', () =>
       {

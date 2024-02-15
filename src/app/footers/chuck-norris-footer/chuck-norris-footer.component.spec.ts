@@ -38,7 +38,7 @@ describe('ChuckNorrisFooterComponent', () =>
          });
 
       Object.defineProperties(signalService, {
-         observables: {
+         data: {
             value: {
                footerFact: footerFact
             }

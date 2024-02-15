@@ -20,7 +20,7 @@ describe('BooksComponent', () =>
    beforeAll(() =>
    {
       Object.defineProperties(signalService, {
-         observables: {
+         data: {
             value: {
                books: books,
                collection: books

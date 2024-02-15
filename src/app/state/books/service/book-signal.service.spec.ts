@@ -74,7 +74,7 @@ describe('BookSignalService', () =>
       });
    });
 
-   describe('events', () =>
+   describe('methods', () =>
    {
       it('should fetch books', waitForAsync(() =>
       {
@@ -115,7 +115,7 @@ describe('BookSignalService', () =>
       });
    });
 
-   describe('observables', () =>
+   describe('data', () =>
    {
       it('should get books', () =>
       {

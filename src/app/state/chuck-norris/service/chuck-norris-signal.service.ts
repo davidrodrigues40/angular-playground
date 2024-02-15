@@ -46,7 +46,6 @@ export class ChuckNorrisSignalService implements ISignalStateService
    };
    methods = {
       _service: this._service,
-      _categories: chuckNorrisSignals().categories(),
       fetchFact(): void
       {
          this._service.dispatch(this._service.methods.getFact)

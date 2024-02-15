@@ -1,17 +1,17 @@
 export abstract class TestingSpys
 {
-   static signalService<T>(effects: Array<string>, events: Array<string>): jasmine.SpyObj<T>
+   static signalService<T>(effects: Array<string>, methods: Array<string>): jasmine.SpyObj<T>
    {
-      const spy = jasmine.createSpyObj('signalService', [], ['effects', 'events', 'observables']);
+      const spy = jasmine.createSpyObj('signalService', [], ['effects', 'methods', 'data']);
 
       Object.defineProperties(spy, {
-         events: {
-            value: {}
-         },
          effects: {
             value: {}
          },
-         observables: {
+         methods: {
+            value: {}
+         },
+         data: {
             value: {}
          }
       });
@@ -21,10 +21,10 @@ export abstract class TestingSpys
          Object.defineProperty(spy.effects, element, { value: effectSpy, writable: true });
       });
 
-      events.forEach(element =>
+      methods.forEach(element =>
       {
-         const eventSpy = jasmine.createSpy(element, spy.events[element]);
-         Object.defineProperty(spy.events, element, { value: eventSpy, writable: true });
+         const eventSpy = jasmine.createSpy(element, spy.methods[element]);
+         Object.defineProperty(spy.methods, element, { value: eventSpy, writable: true });
       });
 
       return spy;

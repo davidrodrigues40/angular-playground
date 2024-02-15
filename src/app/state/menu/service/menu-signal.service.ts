@@ -22,11 +22,12 @@ export class MenuSignalService implements ISignalStateService
    };
    methods = {
       _service: this._service,
-      _menuItems: menuSignals().items(),
       fetchMenu(): void
       {
-         if (this._menuItems.length === 0)
-            this._service.dispatch(this._service.methods.getMenu);
+         const menu = menuSignals().items();
+         if (menu.length === 0)
+            this._service.dispatch(this._service.methods.getMenu)
+               .subscribe((items: MenuItem[]) => menuSignals().items.set(items));
       }
    };
    data = {

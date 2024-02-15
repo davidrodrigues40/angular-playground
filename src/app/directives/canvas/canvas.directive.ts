@@ -35,7 +35,6 @@ export class CanvasDirective implements AfterViewInit
       const node: CanvasNode = this.drawing.node;
       const context = this._htmlCanvas.getContext('2d') as CanvasRenderingContext2D;
 
-      console.log("Drawing: ", this.drawing);
       this._htmlCanvas.height = Math.max(this.calculateHeight([node]) + this.drawing.startX, this.drawing.height);
       this._htmlCanvas.width = this.drawing.width > 0 ? this.drawing.width : this.calculateWidth([node]) + this.drawing.startX;
       this._htmlCanvas.style.backgroundColor = 'white';

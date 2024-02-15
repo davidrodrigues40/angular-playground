@@ -1,6 +1,6 @@
 import { menuSignals } from 'src/app/state/menu/menu.signals';
 
-import { TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MenuService } from './menu.service';
 
@@ -47,7 +47,7 @@ describe('MenuService', () =>
 
    describe('dispatch', () =>
    {
-      it('should dispatch getMenu', () =>
+      it('should dispatch getMenu', waitForAsync(() =>
       {
          const menuItems = [
             { value: 'Home', route: '/home' },
@@ -57,9 +57,11 @@ describe('MenuService', () =>
          ];
          const signalSpy = spyOn(menuSignals().items, 'set');
 
-         service.dispatch(service.methods.getMenu);
-
-         expect(signalSpy).toHaveBeenCalledWith(menuItems);
-      });
+         service.dispatch(service.methods.getMenu)
+            .subscribe(items =>
+            {
+               expect(items).toEqual(menuItems);
+            });
+      }));
    });
 });

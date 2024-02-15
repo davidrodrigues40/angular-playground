@@ -1,8 +1,9 @@
 import { HttpSignalService } from 'src/app/interfaces/abstracts/http-signal-service.abstract';
 import { ISignalService } from 'src/app/interfaces/services/signal-service.interface';
-import { homeMenuSignals } from 'src/app/state/home-menu/home-menu.signals';
 
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { MenuItem } from 'src/app/interfaces/models/menu/menu-item';
 
 @Injectable()
 export class HomeMenuService extends HttpSignalService implements ISignalService
@@ -23,7 +24,7 @@ export class HomeMenuService extends HttpSignalService implements ISignalService
       base_url: undefined
    }
 
-   private getHomeMenu(): void
+   private getHomeMenu(): Observable<Array<MenuItem>>
    {
       const menuItems = [
          {
@@ -35,6 +36,6 @@ export class HomeMenuService extends HttpSignalService implements ISignalService
             route: 'home/dataflow'
          }];
 
-      homeMenuSignals().items.set(menuItems);
+      return of(menuItems);
    }
 }
