@@ -1,4 +1,3 @@
-import { menuSignals } from 'src/app/state/menu/menu.signals';
 
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
@@ -55,7 +54,6 @@ describe('MenuService', () =>
             { value: 'Bowling', route: '/bowling' },
             { value: 'Chuck Norris Facts', route: '/chuck-norris-facts' },
          ];
-         const signalSpy = spyOn(menuSignals().items, 'set');
 
          service.dispatch(service.methods.getMenu)
             .subscribe(items =>
