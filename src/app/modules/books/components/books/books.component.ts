@@ -1,44 +1,47 @@
 import { Book } from 'src/app/interfaces/models/books/book.';
-import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { BookService } from 'src/app/services/books/books.service';
 import { BookSignalService } from 'src/app/state/books/service/book-signal.service';
 
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, WritableSignal } from '@angular/core';
+import { bookSignals } from 'src/app/state/books/books.signals';
 
 @Component({
    selector: 'app-books',
    templateUrl: './books.component.html',
    styleUrls: ['./books.component.scss'],
-   providers: [BookSignalService, BookService]
+   providers: [BookSignalService, BookService],
+   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BooksComponent
 {
-   books: SignalObject<ReadonlyArray<Book>> = { value: [] };
-   collection: SignalObject<ReadonlyArray<Book>> = { value: this._service.data.collection };
+   books: WritableSignal<ReadonlyArray<Book>> = bookSignals().books;
+   searching: WritableSignal<boolean> = bookSignals().searching;
+   collection: WritableSignal<ReadonlyArray<Book>> = bookSignals().collection;
 
-   constructor(private readonly _service: BookSignalService)
-   {
-      this._service.effects.bindBooks(this.books);
-      this._service.effects.bindCollection(this.collection);
-   }
+   constructor(private readonly _service: BookSignalService) { }
 
    ngOnInit()
    {
-      this._service.methods.fetchBooks();
+      this.search();
    }
 
    onAdd(bookId: string): void
    {
-      this._service.methods.addBook(bookId);
+      this._service.addBook(bookId);
    }
 
    onRemove(bookId: string): void
    {
-      this._service.methods.removeBook(bookId);
+      this._service.removeBook(bookId);
    }
 
    onClear(): void
    {
-      this._service.methods.clearCollection();
+      this._service.clearCollection();
+   }
+
+   search(): void
+   {
+      this._service.fetchBooks();
    }
 }

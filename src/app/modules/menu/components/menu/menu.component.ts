@@ -3,21 +3,23 @@ import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { MenuService } from 'src/app/services/menu/menu.service';
 import { MenuSignalService } from 'src/app/state/menu/service/menu-signal.service';
 
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, WritableSignal } from '@angular/core';
+import { menuSignals } from 'src/app/state/menu/menu.signals';
 
 @Component({
    selector: 'app-menu',
    templateUrl: './menu.component.html',
    styleUrls: ['./menu.component.scss'],
-   providers: [MenuSignalService, MenuService]
+   providers: [MenuSignalService, MenuService],
+   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenuComponent implements OnInit
 {
-   public items: SignalObject<ReadonlyArray<MenuItem>> = { value: this._service.data.menu };
+   public items: WritableSignal<ReadonlyArray<MenuItem>> = menuSignals().items;
 
    constructor(private readonly _service: MenuSignalService)
    {
-      this._service.effects.bindMenu(this.items);
+
    }
 
    ngOnInit(): void
@@ -27,6 +29,6 @@ export class MenuComponent implements OnInit
 
    private loadData(): void
    {
-      this._service.methods.fetchMenu();
+      this._service.fetchMenu();
    }
 }

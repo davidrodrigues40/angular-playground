@@ -9,12 +9,12 @@
    </div>
    <div class="generator-column">
       <app-title2>FACT</app-title2>
-      <ng-container *ngIf="fact?.value; else nofact">
-         <app-fact [fact]="fact.value!"></app-fact>
+      <ng-container *ngIf="fact(); else nofact">
+         <app-fact [fact]="fact()!"></app-fact>
       </ng-container>
 
       <ng-template #nofact>
-         <ng-container *ngIf="!selectedCategory.value; else nocategory;">
+         <ng-container *ngIf="!selectedCategory(); else nocategory;">
             <p>Please select a catetory or get kicked in the head by Chuck Norris!</p>
             <p>He knows where you live!</p>
          </ng-container>

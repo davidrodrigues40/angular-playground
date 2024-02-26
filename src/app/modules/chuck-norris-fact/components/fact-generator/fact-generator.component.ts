@@ -1,60 +1,45 @@
 import { ChuckNorrisFact } from 'src/app/interfaces/models/chuck-norris/chuck-norris-fact';
 import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
-import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
 
 import
 {
+   ChangeDetectionStrategy,
    Component,
-   EnvironmentInjector,
-   inject,
-   OnInit,
-   runInInjectionContext
+   WritableSignal
 } from '@angular/core';
+import { chuckNorrisSignals } from 'src/app/state/chuck-norris/chuck-norris.signals';
 
 @Component({
    selector: 'app-fact-generator',
    templateUrl: './fact-generator.component.html',
-   styleUrls: ['./fact-generator.component.scss']
+   styleUrls: ['./fact-generator.component.scss'],
+   changeDetection: ChangeDetectionStrategy.OnPush
+
 })
-export class FactGeneratorComponent implements OnInit
+export class FactGeneratorComponent
 {
-   private injector: EnvironmentInjector = inject(EnvironmentInjector);
-   public fact: SignalObject<Readonly<ChuckNorrisFact | null>> = { value: this._service.data.fact };
-   public selectedCategory: SignalObject<FactCategory | null> = { value: this._service.data.selectedCategory };
+   public fact: WritableSignal<Readonly<ChuckNorrisFact | null>> = chuckNorrisSignals().fact;
+   public selectedCategory: WritableSignal<FactCategory | null> = chuckNorrisSignals().selectedCategory;
 
    constructor(private readonly _service: ChuckNorrisSignalService)
    { }
 
-   ngOnInit(): void
-   {
-      this.bindData();
-   }
-
-   bindData(): void
-   {
-      runInInjectionContext(this.injector, () =>
-      {
-         this._service.effects.bindFact(this.fact);
-         this._service.effects.bindSelectedCategory(this.selectedCategory);
-      });
-   }
-
    getFact(): void
    {
-      this._service.methods.fetchFact();
+      this._service.fetchFact();
    }
 
    getFactForCategory(): void
    {
-      if (this.selectedCategory?.value)
-         this._service.methods.fetchFactForCategory(this.selectedCategory.value);
+      if (this.selectedCategory())
+         this._service.fetchFactForCategory(this.selectedCategory());
       else
          this.getFact();
    }
 
    categorySelected(category: FactCategory): void
    {
-      this._service.methods.setSelectedCategory(category);
+      this._service.setSelectedCategory(category);
    }
 }

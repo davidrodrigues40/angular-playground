@@ -1,16 +1,33 @@
 <app-title>Oliver Sacks Books Collection</app-title>
+<div class="filter">
+   <app-author (authorChanged)="search()"></app-author>
+   <button mat-button
+           color="primary"
+           (click)="search()">Search</button>
+</div>
 <div class="main">
    <div class="main-column">
-      <h2>Available Books</h2>
-      <app-book-list class="book-list"
-                     [books]="books.value!"
-                     (add)="onAdd($event)"></app-book-list>
+      <div class="column-title">
+         <h2>Available Books</h2>
+      </div>
+      <ng-container *ngIf="searching(); else bookview">
+         <div class="spinner-container">
+            <mat-spinner></mat-spinner>
+            <p>Searching for books...</p>
+         </div>
+      </ng-container>
+      <ng-template #bookview>
+         <app-book-list class="book-list"
+                        [books]="books()"
+                        (add)="onAdd($event)"></app-book-list>
+      </ng-template>
    </div>
    <div class="main-divider">&nbsp;</div>
    <div class="main-column">
-      <h2>My Collection</h2>
-      <app-book-collection class="book-collection"
-                           [books]="collection.value!"
+      <div class="column-title">
+         <h2>My Collection</h2>
+      </div> <app-book-collection class="book-collection"
+                           [books]="collection()"
                            (remove)="onRemove($event)">
       </app-book-collection>
       <button mat-flat-button

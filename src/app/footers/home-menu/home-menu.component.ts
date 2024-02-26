@@ -1,20 +1,21 @@
 import { MenuItem } from 'src/app/interfaces/models/menu/menu-item';
-import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { HomeMenuService } from 'src/app/services/home-menu/home-menu.service';
 import { HomeMenuSignalService } from 'src/app/state/home-menu/services/home-menu-signal.service';
 
 import { CommonModule } from '@angular/common';
 import
-   {
-      Component,
-      EnvironmentInjector,
-      inject,
-      OnInit,
-      runInInjectionContext
-   } from '@angular/core';
+{
+   ChangeDetectionStrategy,
+   Component,
+   EnvironmentInjector,
+   inject,
+   OnInit,
+   WritableSignal
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 
+import { homeMenuSignals } from 'src/app/state/home-menu/home-menu.signals';
 import { BaseFooter } from '../base-footer.component';
 
 @Component({
@@ -30,12 +31,13 @@ import { BaseFooter } from '../base-footer.component';
    ],
    providers: [
       HomeMenuSignalService,
-      HomeMenuService]
+      HomeMenuService],
+   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeMenuComponent implements OnInit   
 {
    private readonly _injector: EnvironmentInjector = inject(EnvironmentInjector);
-   menuItems: SignalObject<Array<MenuItem>> = { value: [] };
+   menuItems: WritableSignal<Array<MenuItem>> = homeMenuSignals().items;
 
    constructor(public readonly router: Router,
       private readonly _stateService: HomeMenuSignalService)
@@ -55,10 +57,6 @@ export class HomeMenuComponent implements OnInit
 
    private loadData(): void
    {
-      runInInjectionContext(this._injector, () =>
-      {
-         this._stateService.effects.bindMenu(this.menuItems);
-      });
-      this._stateService.methods.fetchMenu();
+      this._stateService.fetchMenu();
    }
 }

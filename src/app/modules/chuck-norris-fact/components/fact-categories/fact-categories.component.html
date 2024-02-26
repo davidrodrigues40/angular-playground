@@ -2,7 +2,7 @@
                 subscriptSizing="dynamic">
    <mat-label>Category</mat-label>
    <mat-select (selectionChange)="selectionChange($event)">
-      <mat-option *ngFor="let option of options.value"
+      <mat-option *ngFor="let option of options()"
                   [value]="option">
          {{option.name}}
       </mat-option>

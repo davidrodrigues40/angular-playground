@@ -9,13 +9,12 @@ import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterHostDirective } from './directives/footer/footer-host.directive';
-import { BooksModule } from './modules/books/books.module';
 import { BowlingModule } from './modules/bowling/bowling.module';
 import { ChuckNorrisFactModule } from './modules/chuck-norris-fact/chuck-norris-fact.module';
 import { HomeModule } from './modules/home/home.module';
 import { MenuModule } from './modules/menu/menu.module';
-import { reducers } from './state/app.reducers';
 import { NotificationService } from './services/notification/notification.service';
+import { reducers } from './state/app.reducers';
 
 @NgModule({
    imports: [
@@ -26,7 +25,6 @@ import { NotificationService } from './services/notification/notification.servic
       BrowserModule,
       HttpClientModule,
       FormsModule,
-      BooksModule,
       ChuckNorrisFactModule,
       BowlingModule,
       HomeModule,

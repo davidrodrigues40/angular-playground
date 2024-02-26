@@ -11,6 +11,8 @@ export function bookSignals()
 const _bookSignals: BooksState =
 {
    books: signal<ReadonlyArray<Book>>([] as ReadonlyArray<Book>),
+   author: signal<string>('Oliver Sacks'),
    message: signal<string>(''),
-   collection: signal<Array<Book>>([])
+   collection: signal<Array<Book>>([]),
+   searching: signal<boolean>(true)
 }

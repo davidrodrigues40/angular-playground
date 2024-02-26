@@ -4,6 +4,11 @@
    margin-top: 0;
 }
 
+.filter {
+   display: flex;
+   align-items: center;
+}
+
 .main {
    display: flex;
    gap: $gap;
@@ -17,4 +22,12 @@
       width: 2px;
       background-color: $color--white;
    }
+}
+
+.spinner-container,
+.column-title {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
 }

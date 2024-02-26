@@ -5,6 +5,7 @@ import { ISignalService } from 'src/app/interfaces/services/signal-service.inter
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { Author } from 'src/app/interfaces/models/books/author';
 import { Book } from '../../interfaces/models/books/book.';
 
 @Injectable()
@@ -12,7 +13,7 @@ export class BookService extends HttpSignalService implements ISignalService
 {
    private _books: Book[] = [];
    private _take: number = 20;
-   private readonly base_url: string = `https://www.googleapis.com/books/v1/volumes?maxResults=${this._take}&orderBy=relevance&q=oliver%20sacks`;
+   private readonly base_url: string = `https://www.googleapis.com/books/v1/volumes?maxResults=${this._take}&orderBy=relevance`;
 
    methods: {
       getBooks: string;
@@ -29,10 +30,12 @@ export class BookService extends HttpSignalService implements ISignalService
 
    constructor(private httpClient: HttpClient) { super(); }
 
-   private getBooks(): Observable<Book[]>
+   private getBooks(author: Author): Observable<Book[]>
    {
+      const url = `${this.base_url}&q=${author.name}`;
+
       return this.httpClient
-         .get<{ items: Book[] }>(this.base_url)
+         .get<{ items: Book[] }>(url)
          .pipe(
             map((books) =>
             {
