@@ -1,5 +1,4 @@
 import { MenuItem } from 'src/app/interfaces/models/menu/menu-item';
-import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { MenuService } from 'src/app/services/menu/menu.service';
 import { MenuSignalService } from 'src/app/state/menu/service/menu-signal.service';
 
@@ -17,10 +16,7 @@ export class MenuComponent implements OnInit
 {
    public items: WritableSignal<ReadonlyArray<MenuItem>> = menuSignals().items;
 
-   constructor(private readonly _service: MenuSignalService)
-   {
-
-   }
+   constructor(private readonly _service: MenuSignalService) { }
 
    ngOnInit(): void
    {

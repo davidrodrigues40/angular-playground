@@ -1,6 +1,5 @@
 import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
 import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
-import { TestingSpys } from 'src/app/testing/testing.spys';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatOptionModule } from '@angular/material/core';

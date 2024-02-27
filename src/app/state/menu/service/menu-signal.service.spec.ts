@@ -1,4 +1,3 @@
-import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { MenuService } from 'src/app/services/menu/menu.service';
 
 import { TestBed, waitForAsync } from '@angular/core/testing';
@@ -12,7 +11,6 @@ describe('MenuSignalService', () =>
 {
    let service: MenuSignalService;
    const menuService: jasmine.SpyObj<MenuService> = jasmine.createSpyObj('MenuService', ['dispatch', 'methods']);
-   const signal: SignalObject<ReadonlyArray<MenuItem>> = { value: [] };
    const menuItem: MenuItem = {
       value: '',
       route: ''

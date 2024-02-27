@@ -1,4 +1,3 @@
-import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { HomeMenuService } from 'src/app/services/home-menu/home-menu.service';
 import { MockSignalComponent } from 'src/app/testing/testing.components';
 

@@ -1,5 +1,4 @@
 import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
-import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { ChuckNorrisFactsService } from 'src/app/services/chuck-norris/chuck-norris-facts.service';
 
 import { TestBed, waitForAsync } from '@angular/core/testing';
@@ -20,9 +19,6 @@ describe('ChuckNorrisSignalService', () =>
       value: ''
    };
    const category: FactCategory = { name: 'test' };
-   const categoryFactSignal: SignalObject<FactCategory | null> = { value: null };
-   const categoriesSignal: SignalObject<ReadonlyArray<FactCategory>> = { value: [] };
-   const factSignal: SignalObject<Readonly<ChuckNorrisFact> | null> = { value: null };
 
    beforeAll(() =>
    {
