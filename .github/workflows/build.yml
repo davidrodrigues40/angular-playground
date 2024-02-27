@@ -6,8 +6,8 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
-  sonarcloud:
-    name: SonarCloud
+  playgroundCI:
+    name: Playground CI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -28,7 +28,7 @@ jobs:
             npm run build
       
       - name: Test and Code Coverage
-        run: npm test --watch=false --browsers=ChromeHeadless --code-coverage
+        run: npm run headless-test
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
