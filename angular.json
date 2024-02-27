@@ -3,7 +3,7 @@
    "version": 1,
    "newProjectRoot": "projects",
    "projects": {
-      "resume-app": {
+      "angular-playground": {
          "projectType": "application",
          "schematics": {
             "@schematics/angular:component": {
@@ -17,7 +17,7 @@
             "build": {
                "builder": "@angular-devkit/build-angular:browser",
                "options": {
-                  "outputPath": "dist/resume-app",
+                  "outputPath": "dist/angular-playground",
                   "index": "src/index.html",
                   "main": "src/main.ts",
                   "polyfills": [
@@ -65,10 +65,10 @@
                "builder": "@angular-devkit/build-angular:dev-server",
                "configurations": {
                   "production": {
-                     "browserTarget": "resume-app:build:production"
+                     "browserTarget": "angular-playground:build:production"
                   },
                   "development": {
-                     "browserTarget": "resume-app:build:development"
+                     "browserTarget": "angular-playground:build:development"
                   }
                },
                "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
             "extract-i18n": {
                "builder": "@angular-devkit/build-angular:extract-i18n",
                "options": {
-                  "browserTarget": "resume-app:build"
+                  "browserTarget": "angular-playground:build"
                }
             },
             "test": {
@@ -98,7 +98,8 @@
                   "scripts": [],
                   "codeCoverageExclude": [
                      "src/app/testing/*testing*.ts"
-                  ]
+                  ],
+                  "karmaConfig": "karma.conf.js"
                }
             }
          }
