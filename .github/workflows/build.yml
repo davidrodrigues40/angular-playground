@@ -29,3 +29,9 @@ jobs:
       
       - name: Test and Code Coverage
         run: npm run headless-test
+
+      - name: SonarCloud Scan
+        uses: davidrodrigues40/angular-playground@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
