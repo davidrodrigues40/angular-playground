@@ -1,9 +1,8 @@
 import { WritableSignal } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
-import { SignalObject } from "../interfaces/models/signal-object";
-import { ISignalStateService } from "../interfaces/services/signal-state-service.interface";
-import { MockSignalComponent } from "./testing.components";
 import { Observable } from "rxjs";
+import { SignalObject } from "../interfaces/models/signal-object";
+import { MockSignalComponent } from "./testing.components";
 
 export function eventTest(obj: any, signal: WritableSignal<any>): void
 {
@@ -15,7 +14,7 @@ export function eventTest(obj: any, signal: WritableSignal<any>): void
    fixture.detectChanges();
 };
 
-export function configureEventTestingModule(signal: SignalObject<any>, effectName: string, service: ISignalStateService): void
+export function configureEventTestingModule(signal: SignalObject<any>, effectName: string, service: any): void
 {
    TestBed.resetTestingModule();
    TestBed.configureTestingModule({

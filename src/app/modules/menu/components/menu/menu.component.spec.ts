@@ -1,7 +1,6 @@
 import { MenuItem } from 'src/app/interfaces/models/menu/menu-item';
 import { MenuService } from 'src/app/services/menu/menu.service';
 import { MenuSignalService } from 'src/app/state/menu/service/menu-signal.service';
-import { TestingSpys } from 'src/app/testing/testing.spys';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,7 +12,7 @@ describe('MenuComponent', () =>
 {
    let component: MenuComponent;
    let fixture: ComponentFixture<MenuComponent>;
-   let signalService: jasmine.SpyObj<MenuSignalService> = TestingSpys.signalService<MenuSignalService>(['bindMenu'], ['fetchMenu']);
+   let signalService: jasmine.SpyObj<MenuSignalService> = jasmine.createSpyObj<MenuSignalService>('signal-service', ['fetchMenu']);
    let service: jasmine.SpyObj<MenuService> = jasmine.createSpyObj('MenuService', ['dispatch']);
    const menu: MenuItem[] = [];
 
@@ -63,7 +62,7 @@ describe('MenuComponent', () =>
       {
          component.ngOnInit();
 
-         expect(signalService.methods.fetchMenu).toHaveBeenCalledTimes(1);
+         expect(signalService.fetchMenu).toHaveBeenCalledTimes(1);
       });
    });
 });

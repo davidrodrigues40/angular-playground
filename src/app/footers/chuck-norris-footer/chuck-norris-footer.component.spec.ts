@@ -1,6 +1,4 @@
-import { ChuckNorrisFact } from 'src/app/interfaces/models/chuck-norris/chuck-norris-fact';
 import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
-import { TestingSpys } from 'src/app/testing/testing.spys';
 
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -12,13 +10,7 @@ describe('ChuckNorrisFooterComponent', () =>
 {
    let component: ChuckNorrisFooterComponent;
    let fixture: ComponentFixture<ChuckNorrisFooterComponent>;
-   const signalService: jasmine.SpyObj<ChuckNorrisSignalService> = TestingSpys.signalService<ChuckNorrisSignalService>(['bindFooterFact'], ['fetchFooterFact']);
-   const footerFact: ChuckNorrisFact = {
-      icon_url: '',
-      id: '',
-      url: '',
-      value: ''
-   };
+   const signalService: jasmine.SpyObj<ChuckNorrisSignalService> = jasmine.createSpyObj<ChuckNorrisSignalService>('signal-service', ['fetchFooterFact']);
 
    beforeEach(() =>
    {
@@ -36,14 +28,6 @@ describe('ChuckNorrisFooterComponent', () =>
                ]
             }
          });
-
-      Object.defineProperties(signalService, {
-         data: {
-            value: {
-               footerFact: footerFact
-            }
-         },
-      });
       fixture = TestBed.createComponent(ChuckNorrisFooterComponent);
       component = fixture.componentInstance;
    });
@@ -59,7 +43,7 @@ describe('ChuckNorrisFooterComponent', () =>
       {
          component.ngOnInit();
 
-         expect(signalService.methods.fetchFooterFact).toHaveBeenCalled();
+         expect(signalService.fetchFooterFact).toHaveBeenCalled();
       });
    });
 });

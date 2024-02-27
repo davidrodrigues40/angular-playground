@@ -1,4 +1,4 @@
-import { of } from 'rxjs';
+import { isEmpty, of } from 'rxjs';
 import { ChuckNorrisFact } from 'src/app/interfaces/models/chuck-norris/chuck-norris-fact';
 
 import { HttpClient } from '@angular/common/http';
@@ -96,6 +96,7 @@ describe('ChuckNorrisFactsService', () =>
       it('should return true', waitForAsync(() =>
       {
          service.dispatch('notFound')
+            .pipe(isEmpty())
             .subscribe(response =>
             {
                expect(response).toBeTrue();

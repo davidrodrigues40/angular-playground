@@ -2,7 +2,6 @@ import { Book } from 'src/app/interfaces/models/books/book.';
 import { BookService } from 'src/app/services/books/books.service';
 import { BookSignalService } from 'src/app/state/books/service/book-signal.service';
 import { MockComponent } from 'src/app/testing/testing.directive';
-import { TestingSpys } from 'src/app/testing/testing.spys';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -12,7 +11,7 @@ describe('BooksComponent', () =>
 {
    let component: BooksComponent;
    let fixture: ComponentFixture<BooksComponent>;
-   let signalService: jasmine.SpyObj<BookSignalService> = TestingSpys.signalService<BookSignalService>(['bindBooks', 'bindCollection'], ['fetchBooks', 'addBook', 'removeBook', 'clearCollection']);
+   let signalService: jasmine.SpyObj<BookSignalService> = jasmine.createSpyObj<BookSignalService>('signal-service', ['fetchBooks', 'addBook', 'removeBook', 'clearCollection']);
    let bookService: jasmine.SpyObj<BookService> = jasmine.createSpyObj('BookService', ['addBook', 'removeBook', 'clearCollection']);
 
    const books: Book[] = [];
@@ -38,7 +37,9 @@ describe('BooksComponent', () =>
             MockComponent({ selector: 'app-book-collection', standalone: false }),
          ],
          imports: [
-            MockComponent({ selector: 'app-title' })],
+            MockComponent({ selector: 'app-title' }),
+            MockComponent({ selector: 'app-author' })
+         ],
          providers: [
             { provide: BookSignalService, useValue: signalService },
             { provide: BookService, useValue: bookService },
@@ -71,7 +72,7 @@ describe('BooksComponent', () =>
       {
          component.ngOnInit();
 
-         expect(signalService.methods.fetchBooks).toHaveBeenCalled();
+         expect(signalService.fetchBooks).toHaveBeenCalled();
       });
    });
 
@@ -81,7 +82,7 @@ describe('BooksComponent', () =>
       {
          component.onAdd("1");
 
-         expect(signalService.methods.addBook).toHaveBeenCalledOnceWith('1');
+         expect(signalService.addBook).toHaveBeenCalledOnceWith('1');
       });
    });
 
@@ -91,7 +92,7 @@ describe('BooksComponent', () =>
       {
          component.onRemove("1");
 
-         expect(signalService.methods.removeBook).toHaveBeenCalledOnceWith('1');
+         expect(signalService.removeBook).toHaveBeenCalledOnceWith('1');
       });
    });
 
@@ -101,7 +102,7 @@ describe('BooksComponent', () =>
       {
          component.onClear();
 
-         expect(signalService.methods.clearCollection).toHaveBeenCalled();
+         expect(signalService.clearCollection).toHaveBeenCalled();
       });
    });
 });

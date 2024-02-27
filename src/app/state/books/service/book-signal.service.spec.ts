@@ -1,10 +1,9 @@
-import { SignalObject } from 'src/app/interfaces/models/signal-object';
 import { BookService } from 'src/app/services/books/books.service';
 
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { of } from 'rxjs';
-import { configureEventTestingModule, eventTest } from 'src/app/testing/testing.functions';
+import { Author } from 'src/app/interfaces/models/books/author';
 import { Book } from '../../../interfaces/models/books/book.';
 import { bookSignals } from '../books.signals';
 import { BookSignalService } from './book-signal.service';
@@ -13,8 +12,6 @@ describe('BookSignalService', () =>
 {
    let service: BookSignalService;
    const bookService: jasmine.SpyObj<BookService> = jasmine.createSpyObj('BookService', ['dispatch', 'methods']);
-   const bookSignal: SignalObject<ReadonlyArray<Book>> = { value: [] };
-   const collectionSignal: SignalObject<ReadonlyArray<Book>> = { value: [] };
    const book: Book = {
       id: '',
       volumeInfo: {
@@ -39,100 +36,63 @@ describe('BookSignalService', () =>
       expect(service).toBeTruthy();
    });
 
-   describe('effects', () =>
-   {
-      it('should bind books', () =>
-      {
-         // Arrange
-         const title: string = 'bind book';
-         const myBook: Book = { ...book, volumeInfo: { ...book.volumeInfo, title: title } };
-         configureEventTestingModule(bookSignal, 'bindBooks', service);
-
-         // Act
-         eventTest([myBook], bookSignals().books);
-
-         // Assert
-         expect(bookSignal.value).toBeDefined();
-         expect(bookSignal.value.length).toEqual(1);
-         expect(bookSignal.value[0].volumeInfo.title).toEqual(title);
-      });
-
-      it('should bind collection', () =>
-      {
-         // Arrange
-         const title: string = 'bind collection';
-         const myBook: Book = { ...book, volumeInfo: { ...book.volumeInfo, title: title } };
-         configureEventTestingModule(collectionSignal, 'bindCollection', service);
-
-         // Act
-         eventTest([myBook], bookSignals().collection);
-
-         // Assert
-         expect(collectionSignal.value).toBeDefined();
-         expect(collectionSignal.value.length).toEqual(1);
-         expect(collectionSignal.value[0].volumeInfo.title).toEqual(title);
-      });
-   });
-
    describe('methods', () =>
    {
       it('should fetch books', waitForAsync(() =>
       {
-         bookSignals().books.set([]);
+         const author: Author = { name: 'author' };
+         spyOn(bookSignals().searching, 'set');
+         spyOn(bookSignals(), 'author').and.returnValue(author.name);
+         spyOn(bookSignals().books, 'set');
          bookService.dispatch.and.returnValue(of([book]));
 
-         service.methods.fetchBooks();
+         service.fetchBooks();
 
-         expect(bookService.dispatch).toHaveBeenCalledWith(bookService.methods.getBooks);
-         expect(bookSignals().books()).toEqual([book]);
+         expect(bookService.dispatch).toHaveBeenCalledWith(bookService.methods.getBooks, author);
+         expect(bookSignals().books.set).toHaveBeenCalledOnceWith([book]);
+         expect(bookSignals().searching.set).toHaveBeenCalledTimes(2);
+         expect(bookSignals().searching.set).toHaveBeenCalledWith(false);
+         expect(bookSignals().searching.set).toHaveBeenCalledWith(true);
       }));
 
       it('should add book', () =>
       {
-         bookSignals().collection.set([]);
-         bookSignals().books.set([{ ...book, id: '1' }]);
+         const myBook: Book = { ...book, id: '1' };
+         spyOn(bookSignals().collection, 'set');
+         spyOn(bookSignals(), 'books').and.returnValue([myBook]);
 
-         service.methods.addBook('1');
+         service.addBook('1');
 
-         expect(bookSignals().collection().length).toEqual(1);
+         expect(bookSignals().collection.set).toHaveBeenCalledOnceWith([myBook]);
       });
 
       it('should remove book', () =>
       {
-         bookSignals().collection.set([{ ...book, id: '2' }]);
-         service.methods.removeBook('2');
+         const myBook: Book = { ...book, id: '2' };
+         spyOn(bookSignals().collection, 'set');
+         spyOn(bookSignals(), 'collection').and.returnValue([myBook]);
 
-         expect(bookSignals().collection().length).toEqual(0);
+         service.removeBook('2');
+
+         expect(bookSignals().collection.set).toHaveBeenCalledOnceWith([]);
       });
 
       it('should clear collection', () =>
       {
-         bookSignals().collection.set([book]);
+         spyOn(bookSignals().collection, 'set');
 
-         service.methods.clearCollection();
+         service.clearCollection();
 
-         expect(bookSignals().collection().length).toEqual(0);
-      });
-   });
-
-   describe('data', () =>
-   {
-      it('should get books', () =>
-      {
-         bookSignals().books.set([book]);
-         expect(service.data.books.length).toEqual(1);
+         expect(bookSignals().collection.set).toHaveBeenCalledOnceWith([]);
       });
 
-      it('should get message', () =>
+      it('should set author', () =>
       {
-         bookSignals().message.set('message');
-         expect(service.data.message).toEqual('message');
-      });
+         spyOn(bookSignals().author, 'set');
 
-      it('should get collection', () =>
-      {
-         bookSignals().collection.set([book]);
-         expect(service.data.collection.length).toEqual(1);
+         service.setAuthor('author');
+
+         expect(bookSignals().author.set).toHaveBeenCalledOnceWith('author');
       });
    });
 });

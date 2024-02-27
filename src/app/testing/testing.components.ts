@@ -1,7 +1,6 @@
 import { Component, EnvironmentInjector, Inject, inject } from '@angular/core';
 
 import { SignalObject } from '../interfaces/models/signal-object';
-import { ISignalStateService } from '../interfaces/services/signal-state-service.interface';
 
 @Component({
    selector: 'app-book-list',
@@ -22,7 +21,7 @@ export class MockSignalComponent
    constructor(
       @Inject('signal') public signal: SignalObject<any>,
       @Inject('effectName') public effectName: string,
-      @Inject('service') public service: ISignalStateService)
+      @Inject('service') public service: any)
    {
       this.runEffect();
    }

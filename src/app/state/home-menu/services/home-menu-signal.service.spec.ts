@@ -5,7 +5,6 @@ import { MockSignalComponent } from 'src/app/testing/testing.components';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { of } from 'rxjs';
-import { configureEventTestingModule, eventTest } from 'src/app/testing/testing.functions';
 import { MenuItem } from '../../../interfaces/models/menu/menu-item';
 import { homeMenuSignals } from '../home-menu.signals';
 import { HomeMenuSignalService } from './home-menu-signal.service';
@@ -15,7 +14,6 @@ describe('HomeMenuSignalService', () =>
    let service: HomeMenuSignalService;
    let menuService: jasmine.SpyObj<HomeMenuService> = jasmine.createSpyObj('HomeMenuService', ['dispatch'], ['methods']);
    const menu: Array<MenuItem> = [];
-   const signal: SignalObject<ReadonlyArray<MenuItem>> = { value: menu };
    const myMenu: Array<MenuItem> = [...menu, { value: 'test', route: '/test' }];
 
    beforeEach(() =>
@@ -40,18 +38,6 @@ describe('HomeMenuSignalService', () =>
       expect(service).toBeTruthy();
    });
 
-   describe('effects', () =>
-   {
-      it('bindMenu should call dispatch when _menuItems is empty', () =>
-      {
-         configureEventTestingModule(signal, 'bindMenu', service);
-
-         eventTest(myMenu, homeMenuSignals().items);
-
-         expect(signal.value).toEqual(myMenu);
-      });
-   });
-
    describe('methods', () =>
    {
       it('should not dispatch when fetchMenu is called and _menuItems is set', waitForAsync(() =>
@@ -60,7 +46,7 @@ describe('HomeMenuSignalService', () =>
          spyOn(homeMenuSignals().items, 'set');
          menuService.dispatch.and.returnValue(of(myMenu));
 
-         service.methods.fetchMenu();
+         service.fetchMenu();
 
          expect(menuService.dispatch).not.toHaveBeenCalled();
          expect(homeMenuSignals().items.set).not.toHaveBeenCalled();
@@ -72,22 +58,10 @@ describe('HomeMenuSignalService', () =>
          spyOn(homeMenuSignals().items, 'set');
          menuService.dispatch.and.returnValue(of(myMenu));
 
-         service.methods.fetchMenu();
+         service.fetchMenu();
 
          expect(menuService.dispatch).toHaveBeenCalledWith('getHomeMenu');
          expect(homeMenuSignals().items.set).toHaveBeenCalledWith(myMenu);
       }));
    });
-
-   describe('data', () =>
-   {
-      it('should return _menuItems when get menu is called', () =>
-      {
-         homeMenuSignals().items.set(myMenu);
-
-         const actual = service.data.menu;
-
-         expect(actual).toEqual(myMenu);
-      });
-   })
 });

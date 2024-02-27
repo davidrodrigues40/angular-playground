@@ -58,7 +58,7 @@ describe('BooksService', () =>
             getBooks: service['getBooks'],
             _books: [],
             httpClient: httpClient,
-            base_url: `https://www.googleapis.com/books/v1/volumes?maxResults=${service['_take']}&orderBy=relevance&q=oliver%20sacks`
+            base_url: `https://www.googleapis.com/books/v1/volumes?maxResults=${service['_take']}&orderBy=relevance`
          });
       });
    });
@@ -69,7 +69,7 @@ describe('BooksService', () =>
       {
          httpClient.get.and.returnValue(of(defaultBooks));
 
-         service['getBooks']();
+         service['getBooks']({ name: 'test' });
 
          expect(httpClient.get).toHaveBeenCalled();
       });
@@ -78,7 +78,7 @@ describe('BooksService', () =>
       {
          httpClient.get.and.returnValue(of(defaultBooks));
 
-         service['getBooks']()
+         service['getBooks']({ name: 'test' })
             .subscribe(response =>
             {
                expect(response).toEqual(defaultBooks.items as Book[]);
@@ -89,7 +89,7 @@ describe('BooksService', () =>
       {
          httpClient.get.and.returnValue(of({ ...defaultBooks, items: undefined }));
 
-         service['getBooks']()
+         service['getBooks']({ name: 'test' })
             .subscribe(response =>
             {
                expect(response).toEqual([]);

@@ -1,5 +1,4 @@
 import { HomeMenuSignalService } from 'src/app/state/home-menu/services/home-menu-signal.service';
-import { TestingSpys } from 'src/app/testing/testing.spys';
 
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -12,7 +11,7 @@ describe('HomeMenuComponent', () =>
 {
    let component: HomeMenuComponent;
    let fixture: ComponentFixture<HomeMenuComponent>;
-   const signalService: jasmine.SpyObj<HomeMenuSignalService> = TestingSpys.signalService<HomeMenuSignalService>(['bindMenu'], ['fetchMenu']);
+   const signalService: jasmine.SpyObj<HomeMenuSignalService> = jasmine.createSpyObj<HomeMenuSignalService>('signal-service', ['fetchMenu']);
 
    beforeEach(() =>
    {
@@ -46,8 +45,7 @@ describe('HomeMenuComponent', () =>
       {
          component.ngOnInit();
 
-         expect(signalService.effects.bindMenu).toHaveBeenCalledWith(component.menuItems);
-         expect(signalService.methods.fetchMenu).toHaveBeenCalled();
+         expect(signalService.fetchMenu).toHaveBeenCalled();
       });
    });
 

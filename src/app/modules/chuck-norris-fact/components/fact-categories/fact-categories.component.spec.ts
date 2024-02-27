@@ -15,7 +15,7 @@ describe('FactCategoriesComponent', () =>
    let component: FactCategoriesComponent;
    let fixture: ComponentFixture<FactCategoriesComponent>;
    let selectChange: jasmine.SpyObj<MatSelectChange> = jasmine.createSpyObj('MatSelectChange', ['value']);
-   const signalService: jasmine.SpyObj<ChuckNorrisSignalService> = TestingSpys.signalService<ChuckNorrisSignalService>(['bindCategories'], ['fetchCategories']);
+   const signalService: jasmine.SpyObj<ChuckNorrisSignalService> = jasmine.createSpyObj<ChuckNorrisSignalService>('service', ['fetchCategories']);
 
    beforeEach(async () =>
    {
@@ -48,8 +48,7 @@ describe('FactCategoriesComponent', () =>
       {
          component.ngOnInit();
 
-         expect(signalService.effects.bindCategories).toHaveBeenCalled();
-         expect(signalService.methods.fetchCategories).toHaveBeenCalled();
+         expect(signalService.fetchCategories).toHaveBeenCalled();
       });
    });
 

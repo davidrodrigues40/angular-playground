@@ -1,7 +1,6 @@
 import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
 import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
 import { MockComponent } from 'src/app/testing/testing.directive';
-import { TestingSpys } from 'src/app/testing/testing.spys';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,8 +13,9 @@ describe('FactGeneratorComponent', () =>
 {
    let component: FactGeneratorComponent;
    let fixture: ComponentFixture<FactGeneratorComponent>;
-   const signalService: jasmine.SpyObj<ChuckNorrisSignalService> = TestingSpys.signalService<ChuckNorrisSignalService>(
-      ['bindFact', 'bindSelectedCategory'], ['fetchFact', 'fetchFactForCategory', 'setSelectedCategory']);
+   const signalService: jasmine.SpyObj<ChuckNorrisSignalService> = jasmine.createSpyObj<ChuckNorrisSignalService>(
+      'service',
+      ['fetchFact', 'fetchFactForCategory', 'setSelectedCategory']);
    const category: FactCategory = {
       name: ''
    };
@@ -41,23 +41,12 @@ describe('FactGeneratorComponent', () =>
 
       fixture = TestBed.createComponent(FactGeneratorComponent);
       component = fixture.componentInstance;
-      (signalService.methods.fetchFact as jasmine.Spy).calls.reset();
+      signalService.fetchFact.calls.reset();
    });
 
    it('should create', () =>
    {
       expect(component).toBeTruthy();
-   });
-
-   describe('when ngOnInit invoked', () =>
-   {
-      it('should call bindData', () =>
-      {
-         component.ngOnInit();
-
-         expect(signalService.effects.bindFact).toHaveBeenCalledOnceWith(component.fact);
-         expect(signalService.effects.bindSelectedCategory).toHaveBeenCalledOnceWith(component.selectedCategory);
-      });
    });
 
    describe('when getFact invoked', () =>
@@ -66,7 +55,7 @@ describe('FactGeneratorComponent', () =>
       {
          component.getFact();
 
-         expect(signalService.methods.fetchFact).toHaveBeenCalledTimes(1);
+         expect(signalService.fetchFact).toHaveBeenCalledTimes(1);
       });
    });
 
@@ -75,20 +64,20 @@ describe('FactGeneratorComponent', () =>
       it('should call fetchFactForCategory', () =>
       {
          const myCategory: FactCategory = { ...category, name: 'test' };
-         component.selectedCategory.value = myCategory;
+         component.selectedCategory.set(myCategory);
 
          component.getFactForCategory();
 
-         expect(signalService.methods.fetchFactForCategory).toHaveBeenCalledOnceWith(myCategory)
+         expect(signalService.fetchFactForCategory).toHaveBeenCalledOnceWith(myCategory)
       });
 
       it('should call getFact', () =>
       {
-         component.selectedCategory.value = null;
+         component.selectedCategory.set(null);
 
          component.getFactForCategory();
 
-         expect(signalService.methods.fetchFact).toHaveBeenCalledTimes(1);
+         expect(signalService.fetchFact).toHaveBeenCalledTimes(1);
       });
    });
 
@@ -98,7 +87,7 @@ describe('FactGeneratorComponent', () =>
       {
          component.categorySelected(category);
 
-         expect(signalService.methods.setSelectedCategory).toHaveBeenCalledOnceWith(category);
+         expect(signalService.setSelectedCategory).toHaveBeenCalledOnceWith(category);
       });
    });
 });
