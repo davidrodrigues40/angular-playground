@@ -4,44 +4,39 @@ import { BookSignalService } from 'src/app/state/books/service/book-signal.servi
 
 import { ChangeDetectionStrategy, Component, WritableSignal } from '@angular/core';
 import { bookSignals } from 'src/app/state/books/books.signals';
+import { Title2Component } from 'src/app/components/title2/title2.component';
 
 @Component({
    selector: 'app-books',
    templateUrl: './books.component.html',
    styleUrls: ['./books.component.scss'],
-   providers: [BookSignalService, BookService],
+   providers: [BookSignalService, BookService, Title2Component],
    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BooksComponent
-{
+export class BooksComponent {
    books: WritableSignal<ReadonlyArray<Book>> = bookSignals().books;
    searching: WritableSignal<boolean> = bookSignals().searching;
    collection: WritableSignal<ReadonlyArray<Book>> = bookSignals().collection;
 
    constructor(private readonly _service: BookSignalService) { }
 
-   ngOnInit()
-   {
+   ngOnInit() {
       this.search();
    }
 
-   onAdd(bookId: string): void
-   {
+   onAdd(bookId: string): void {
       this._service.addBook(bookId);
    }
 
-   onRemove(bookId: string): void
-   {
+   onRemove(bookId: string): void {
       this._service.removeBook(bookId);
    }
 
-   onClear(): void
-   {
+   onClear(): void {
       this._service.clearCollection();
    }
 
-   search(): void
-   {
+   search(): void {
       this._service.fetchBooks();
    }
 }

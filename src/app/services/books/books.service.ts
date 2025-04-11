@@ -9,10 +9,9 @@ import { Author } from 'src/app/interfaces/models/books/author';
 import { Book } from '../../interfaces/models/books/book.';
 
 @Injectable()
-export class BookService extends HttpSignalService implements ISignalService
-{
+export class BookService extends HttpSignalService implements ISignalService {
    private _books: Book[] = [];
-   private _take: number = 20;
+   private readonly _take: number = 20;
    private readonly base_url: string = `https://www.googleapis.com/books/v1/volumes?maxResults=${this._take}&orderBy=relevance`;
 
    methods: {
@@ -28,17 +27,21 @@ export class BookService extends HttpSignalService implements ISignalService
       base_url: this.base_url
    };
 
-   constructor(private httpClient: HttpClient) { super(); }
+   constructor(private readonly httpClient: HttpClient) { super(); }
 
-   private getBooks(author: Author): Observable<Book[]>
-   {
+   private getBooks(author: Author): Observable<Book[]> {
+      if (!author.name) {
+         return new Observable<Book[]>((subscriber) => {
+            subscriber.next([]);
+            subscriber.complete();
+         });
+      }
       const url = `${this.base_url}&q=${author.name}`;
 
       return this.httpClient
          .get<{ items: Book[] }>(url)
          .pipe(
-            map((books) =>
-            {
+            map((books) => {
                this._books = books.items || [];
                return this._books;
             }));

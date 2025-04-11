@@ -8,28 +8,34 @@
 <div class="main">
    <div class="main-column">
       <div class="column-title">
-         <h2>Available Books</h2>
+         <app-title2>Available Books</app-title2>
       </div>
+
       <ng-container *ngIf="searching(); else bookview">
          <div class="spinner-container">
             <mat-spinner></mat-spinner>
             <p>Searching for books...</p>
          </div>
       </ng-container>
+
       <ng-template #bookview>
-         <app-book-list class="book-list"
+         <app-book-list icon="add_circle"
+                        buttonColor="accent"
                         [books]="books()"
-                        (add)="onAdd($event)"></app-book-list>
+                        (bookClick)="onAdd($event)"></app-book-list>
       </ng-template>
+
    </div>
    <div class="main-divider">&nbsp;</div>
    <div class="main-column">
       <div class="column-title">
-         <h2>My Collection</h2>
-      </div> <app-book-collection class="book-collection"
-                           [books]="collection()"
-                           (remove)="onRemove($event)">
-      </app-book-collection>
+         <app-title2>My Collection</app-title2>
+      </div>
+      <app-book-list class="book-list"
+                     icon="delete"
+                     buttonColor="accent"
+                     [books]="collection()"
+                     (bookClick)="onRemove($event)"></app-book-list>
       <button mat-flat-button
               color="warn"
               style="width: 100%"
