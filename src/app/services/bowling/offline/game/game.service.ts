@@ -9,10 +9,8 @@ import { OfflineRatingService } from '../offline-rating/offline-rating.service';
 import { ScoreCalculatorService } from '../score-calculator/score-calculator.service';
 
 @Injectable()
-export class GameService
-{
-   private get noBowlerError(): Error
-   {
+export class GameService {
+   private get noBowlerError(): Error {
       return new Error('No bowlers provided');
    }
 
@@ -21,17 +19,16 @@ export class GameService
       private readonly _bowlService: BowlService,
       private readonly _ratingService: OfflineRatingService) { }
 
-   newGame(bowlers: Array<Bowler>): Game
-   {
+   newGame(bowlers: Array<Bowler>): Game {
       if (bowlers.length === 0)
          throw this.noBowlerError;
 
       const game: Game = {
-         bowlers: []
+         bowlers: [],
+         completed: false
       };
 
-      bowlers.forEach(bowler =>
-      {
+      bowlers.forEach(bowler => {
          bowler.frames = this._scoreCalculator.clearScoreSheet();
          bowler.score = 0;
          game.bowlers.push(bowler);
@@ -40,36 +37,32 @@ export class GameService
       return game;
    }
 
-   playGame(game: Game): Game
-   {
+   playGame(game: Game): Game {
       if (game.bowlers.length === 0)
          throw this.noBowlerError;
 
-      game.bowlers.forEach(bowler =>
-      {
-         for (let frameNumber = 1; frameNumber <= 10; frameNumber++)
-         {
+      game.bowlers.forEach(bowler => {
+         for (let frameNumber = 1; frameNumber <= 10; frameNumber++) {
             this.playFrame(frameNumber, bowler);
          }
 
          this._scoreCalculator.calculateBowlerScore(bowler);
       });
 
+      game.winner = this._scoreCalculator.calculateWinner(game.bowlers);
+      game.completed = true;
       return game;
    }
 
-   private addRoll(bowler: Bowler, frameNumber: number, ballNumber: number, pinsKnockedDown: number): void
-   {
+   private addRoll(bowler: Bowler, frameNumber: number, ballNumber: number, pinsKnockedDown: number): void {
       const frame = bowler.frames.get(frameNumber) as Frame;
 
       if (frame)
          frame.rolls.set(ballNumber, pinsKnockedDown);
    }
 
-   private playFrame(frameNumber: number, bowler: Bowler): void
-   {
-      if (frameNumber === 10)
-      {
+   private playFrame(frameNumber: number, bowler: Bowler): void {
+      if (frameNumber === 10) {
          this.playTenthFrame(frameNumber, bowler);
          return;
       }
@@ -84,8 +77,7 @@ export class GameService
       this.addRoll(bowler, frameNumber, 2, secondBallPinCount);
    }
 
-   private playTenthFrame(frameNumber: number, bowler: Bowler): void
-   {
+   private playTenthFrame(frameNumber: number, bowler: Bowler): void {
       const firstBallCount = this._bowlService.rollFirstBall(this._ratingService.getRating(bowler.rating));
       let secondBallCount: number = 0;
       let thirdBallCount: number | undefined = undefined;
@@ -98,8 +90,7 @@ export class GameService
 
       this.addRoll(bowler, frameNumber, 2, secondBallCount);
 
-      if (firstBallCount + secondBallCount >= 10)
-      {
+      if (firstBallCount + secondBallCount >= 10) {
          thirdBallCount = this._bowlService.rollFirstBall(this._ratingService.getRating(bowler.rating));
          this.addRoll(bowler, frameNumber, 3, thirdBallCount);
       }

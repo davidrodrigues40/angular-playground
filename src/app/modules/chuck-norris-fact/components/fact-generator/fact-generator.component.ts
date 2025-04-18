@@ -1,14 +1,13 @@
 import { ChuckNorrisFact } from 'src/app/interfaces/models/chuck-norris/chuck-norris-fact';
 import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
-import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
 
-import
-{
+import {
    ChangeDetectionStrategy,
    Component,
    WritableSignal
 } from '@angular/core';
-import { chuckNorrisSignals } from 'src/app/state/chuck-norris/chuck-norris.signals';
+import { ChuckNorrisFactState } from 'src/app/state/chuck-norris.state';
+import { ChuckNorrisFactsService } from 'src/app/services/chuck-norris/chuck-norris-facts.service';
 
 @Component({
    selector: 'app-fact-generator',
@@ -17,29 +16,34 @@ import { chuckNorrisSignals } from 'src/app/state/chuck-norris/chuck-norris.sign
    changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export class FactGeneratorComponent
-{
-   public fact: WritableSignal<Readonly<ChuckNorrisFact | null>> = chuckNorrisSignals().fact;
-   public selectedCategory: WritableSignal<FactCategory | null> = chuckNorrisSignals().selectedCategory;
+export class FactGeneratorComponent {
+   public fact: WritableSignal<Readonly<ChuckNorrisFact | null>> = ChuckNorrisFactState.fact;
+   public selectedCategory: WritableSignal<FactCategory | null> = ChuckNorrisFactState.selectedCategory;
+   public favoriteFacts: WritableSignal<ReadonlyArray<ChuckNorrisFact>> = ChuckNorrisFactState.favoriteFacts;
 
-   constructor(private readonly _service: ChuckNorrisSignalService)
-   { }
+   constructor(private readonly _service: ChuckNorrisFactsService) { }
 
-   getFact(): void
-   {
-      this._service.fetchFact();
+   getFact(): void {
+      this._service.getFact();
    }
 
-   getFactForCategory(): void
-   {
-      if (this.selectedCategory())
-         this._service.fetchFactForCategory(this.selectedCategory());
+   getFactForCategory(): void {
+      const category: FactCategory | null = this.selectedCategory();
+      if (category !== null)
+         this._service.getFactForCategory(category);
       else
          this.getFact();
    }
 
-   categorySelected(category: FactCategory): void
-   {
-      this._service.setSelectedCategory(category);
+   getFavoriteFact(): void {
+      this._service.getFavoriteFact(this.selectedCategory()?.name ?? 'random');
+   }
+
+   getAllFavoriteFacts(): void {
+      this._service.getFavoriteFacts();
+   }
+
+   categorySelected(category: FactCategory): void {
+      ChuckNorrisFactState.selectedCategory.set(category);
    }
 }

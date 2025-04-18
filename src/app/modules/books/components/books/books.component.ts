@@ -1,42 +1,42 @@
 import { Book } from 'src/app/interfaces/models/books/book.';
 import { BookService } from 'src/app/services/books/books.service';
-import { BookSignalService } from 'src/app/state/books/service/book-signal.service';
 
 import { ChangeDetectionStrategy, Component, WritableSignal } from '@angular/core';
-import { bookSignals } from 'src/app/state/books/books.signals';
 import { Title2Component } from 'src/app/components/title2/title2.component';
+import { BooksState } from 'src/app/state/books.state';
 
 @Component({
    selector: 'app-books',
    templateUrl: './books.component.html',
    styleUrls: ['./books.component.scss'],
-   providers: [BookSignalService, BookService, Title2Component],
+   providers: [BookService, Title2Component],
    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BooksComponent {
-   books: WritableSignal<ReadonlyArray<Book>> = bookSignals().books;
-   searching: WritableSignal<boolean> = bookSignals().searching;
-   collection: WritableSignal<ReadonlyArray<Book>> = bookSignals().collection;
+   books: WritableSignal<ReadonlyArray<Book>> = BooksState.books;
+   searching: WritableSignal<boolean> = BooksState.searching;
+   collection: WritableSignal<ReadonlyArray<Book>> = BooksState.collection;
+   author: WritableSignal<string> = BooksState.author;
 
-   constructor(private readonly _service: BookSignalService) { }
+   constructor(private readonly _bookService: BookService) { }
 
    ngOnInit() {
-      this.search();
+      BooksState.searching.set(false);
    }
 
    onAdd(bookId: string): void {
-      this._service.addBook(bookId);
+      this._bookService.addBook(bookId);
    }
 
    onRemove(bookId: string): void {
-      this._service.removeBook(bookId);
+      this._bookService.removeBook(bookId);
    }
 
    onClear(): void {
-      this._service.clearCollection();
+      this._bookService.clearCollection();
    }
 
    search(): void {
-      this._service.fetchBooks();
+      this._bookService.getBooksFromGoogle(BooksState.author());
    }
 }

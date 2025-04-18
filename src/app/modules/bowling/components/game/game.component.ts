@@ -10,8 +10,7 @@ import { BowlerRating } from '../../models/bowler-rating.model';
    templateUrl: './game.component.html',
    styleUrls: ['./game.component.scss']
 })
-export class GameComponent
-{
+export class GameComponent {
    @Input() game?: Readonly<Game | null>;
    @Input() players: ReadonlyArray<Player> = [];
    @Input() ratings: ReadonlyArray<BowlerRating> = [];
@@ -23,8 +22,7 @@ export class GameComponent
    @Output() newGame = new EventEmitter<void>();
    @Output() changeAllPlayersRatings = new EventEmitter<void>();
 
-   getRating(rating: number): string
-   {
+   getRating(rating: number): string {
       const found = this.ratings.find(r => r.key === rating)?.value;
 
       return found ?? 'Beginner';

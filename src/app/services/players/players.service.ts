@@ -1,64 +1,42 @@
-import { StorageTranscoders } from 'ngx-webstorage-service';
-import { Observable, of } from 'rxjs';
 import { Player } from 'src/app/interfaces/models/bowling/player';
 
 import { Injectable } from '@angular/core';
 
-import { CacheService } from '../cache/cache.service';
+import { BowlingState } from 'src/app/state/bowling.state';
+import { Game } from 'src/app/interfaces/models/bowling/game';
 
 @Injectable()
-export class PlayersService
-{
+export class PlayersService {
    private readonly _sessionKey = 'players';
 
-   constructor(private readonly _cacheService: CacheService) { }
-
-   getPlayers$(): Observable<ReadonlyArray<Player>>
-   {
-      const players = this._cacheService.getSession(this._sessionKey, StorageTranscoders.JSON);
-
-      return of(players || []);
-   }
-
-   addPlayer$(name: string, rating: number, players: ReadonlyArray<Player>): Observable<ReadonlyArray<Player>>
-   {
+   addPlayer(name: string, rating: number): void {
+      const players = BowlingState.players();
       const nextNumber = players.length + 1;
       const playerList = [...players, { number: nextNumber, name, rating }];
 
-      this._cacheService.setSession(this._sessionKey, playerList, StorageTranscoders.JSON);
-
-      return of(playerList);
+      BowlingState.players.set(playerList);
    }
 
-   removePlayer$(playerNumber: number, players: ReadonlyArray<Player>): Observable<ReadonlyArray<Player>>
-   {
+   removePlayer(playerNumber: number): void {
+      const players = BowlingState.players();
       let newList: Player[] = [];
       newList = players.filter(player => player.number !== playerNumber);
-
       newList.forEach((player, index) => player.number = index + 1);
 
-      this._cacheService.setSession(this._sessionKey, newList, StorageTranscoders.JSON);
-
-      return of(newList);
+      BowlingState.players.set(newList);
    }
 
-   removeAllPlayers$(): Observable<ReadonlyArray<Player>>
-   {
-      this._cacheService.setSession(this._sessionKey, [], StorageTranscoders.JSON);
-
-      return of([]);
+   removeAllPlayers(): void {
+      BowlingState.players.set([]);
    }
-
-   changePlayerRatings$(rating: number, players: ReadonlyArray<Player>): Observable<ReadonlyArray<Player>>
-   {
+   changePlayerRatings(rating: number, players: ReadonlyArray<Player>): void {
       const newPlayers: Player[] = [];
-      players.forEach(player =>
-      {
+      const game: Game = BowlingState.game();
+      players.forEach(player => {
          newPlayers.push({ ...player, rating });
       });
 
-      this._cacheService.setSession(this._sessionKey, newPlayers, StorageTranscoders.JSON);
-
-      return of(newPlayers);
+      BowlingState.players.set(newPlayers);
+      BowlingState.game.set({ ...BowlingState.game(), bowlers: game.bowlers, winner: undefined, completed: false });
    }
 }

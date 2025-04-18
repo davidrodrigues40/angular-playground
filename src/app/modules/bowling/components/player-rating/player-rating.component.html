@@ -2,6 +2,8 @@
     <mat-label>Rating</mat-label>
     <mat-select [(value)]="playerRating"
                 (valueChange)="ratingChanged.emit(playerRating)">
+        <mat-option [value]="-1"
+                    disabled>Select a rating</mat-option>
         <mat-option *ngFor="let rating of ratings"
                     [value]="rating.key">{{rating.value}}</mat-option>
     </mat-select>

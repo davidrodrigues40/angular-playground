@@ -1,6 +1,5 @@
 import { MenuItem } from 'src/app/interfaces/models/menu/menu-item';
 import { MenuService } from 'src/app/services/menu/menu.service';
-import { MenuSignalService } from 'src/app/state/menu/service/menu-signal.service';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,16 +7,13 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { MenuComponent } from './menu.component';
 
-describe('MenuComponent', () =>
-{
+describe('MenuComponent', () => {
    let component: MenuComponent;
    let fixture: ComponentFixture<MenuComponent>;
-   let signalService: jasmine.SpyObj<MenuSignalService> = jasmine.createSpyObj<MenuSignalService>('signal-service', ['fetchMenu']);
-   let service: jasmine.SpyObj<MenuService> = jasmine.createSpyObj('MenuService', ['dispatch']);
+   let signalService: jasmine.SpyObj<MenuService> = jasmine.createSpyObj<MenuService>('signal-service', ['getMenu']);
    const menu: MenuItem[] = [];
 
-   beforeAll(() =>
-   {
+   beforeAll(() => {
       Object.defineProperties(signalService, {
          observables: {
             value: {
@@ -27,8 +23,7 @@ describe('MenuComponent', () =>
       });
    });
 
-   beforeEach(async () =>
-   {
+   beforeEach(async () => {
       await TestBed.configureTestingModule({
          declarations: [MenuComponent],
          imports: [
@@ -39,8 +34,7 @@ describe('MenuComponent', () =>
          .overrideComponent(MenuComponent, {
             set: {
                providers: [
-                  { provide: MenuSignalService, useValue: signalService },
-                  { provide: MenuService, useValue: service }
+                  { provide: MenuService, useValue: signalService }
                ]
             }
          })
@@ -51,18 +45,15 @@ describe('MenuComponent', () =>
 
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 
-   describe('when ngOnInit', () =>
-   {
-      it('should call fetchMenu', () =>
-      {
+   describe('when ngOnInit', () => {
+      it('should call getMenu', () => {
          component.ngOnInit();
 
-         expect(signalService.fetchMenu).toHaveBeenCalledTimes(1);
+         expect(signalService.getMenu).toHaveBeenCalledTimes(1);
       });
    });
 });

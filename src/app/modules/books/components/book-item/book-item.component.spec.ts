@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookItemComponent } from './book-item.component';
+import { Title4Component } from 'src/app/components/title4/title4.component';
 
-describe('BootItemComponent', () =>
-{
+describe('BootItemComponent', () => {
    let component: BookItemComponent;
    let fixture: ComponentFixture<BookItemComponent>;
 
-   beforeEach(async () =>
-   {
+   beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [BookItemComponent]
+         declarations: [BookItemComponent],
+         imports: [Title4Component]
       })
          .compileComponents();
 
@@ -19,8 +19,7 @@ describe('BootItemComponent', () =>
 
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 });

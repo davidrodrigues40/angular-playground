@@ -1,10 +1,7 @@
 import { MenuItem } from 'src/app/interfaces/models/menu/menu-item';
-import { HomeMenuService } from 'src/app/services/home-menu/home-menu.service';
-import { HomeMenuSignalService } from 'src/app/state/home-menu/services/home-menu-signal.service';
 
 import { CommonModule } from '@angular/common';
-import
-{
+import {
    ChangeDetectionStrategy,
    Component,
    EnvironmentInjector,
@@ -15,8 +12,9 @@ import
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 
-import { homeMenuSignals } from 'src/app/state/home-menu/home-menu.signals';
 import { BaseFooter } from '../base-footer.component';
+import { HomeMenuState } from 'src/app/state/home-menu.state';
+import { MenuService } from 'src/app/services/menu/menu.service';
 
 @Component({
    selector: 'app-home-menu',
@@ -30,33 +28,27 @@ import { BaseFooter } from '../base-footer.component';
       BaseFooter
    ],
    providers: [
-      HomeMenuSignalService,
-      HomeMenuService],
+      MenuService],
    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeMenuComponent implements OnInit   
-{
+export class HomeMenuComponent implements OnInit {
    private readonly _injector: EnvironmentInjector = inject(EnvironmentInjector);
-   menuItems: WritableSignal<Array<MenuItem>> = homeMenuSignals().items;
+   menuItems: WritableSignal<Array<MenuItem>> = HomeMenuState.items;
 
    constructor(public readonly router: Router,
-      private readonly _stateService: HomeMenuSignalService)
-   {
+      private readonly _menuService: MenuService) {
 
    }
 
-   ngOnInit(): void
-   {
+   ngOnInit(): void {
       this.loadData();
    }
 
-   markDisabled(route: string): boolean
-   {
+   markDisabled(route: string): boolean {
       return this.router.url === `/${route}`;
    }
 
-   private loadData(): void
-   {
-      this._stateService.fetchMenu();
+   private loadData(): void {
+      this._menuService.getMenu();
    }
 }
