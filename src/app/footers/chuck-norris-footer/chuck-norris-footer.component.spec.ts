@@ -1,19 +1,16 @@
-import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
-
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BaseFooter } from '../base-footer.component';
 import { ChuckNorrisFooterComponent } from './chuck-norris-footer.component';
+import { ChuckNorrisFactsService } from 'src/app/services/chuck-norris/chuck-norris-facts.service';
 
-describe('ChuckNorrisFooterComponent', () =>
-{
+describe('ChuckNorrisFooterComponent', () => {
    let component: ChuckNorrisFooterComponent;
    let fixture: ComponentFixture<ChuckNorrisFooterComponent>;
-   const signalService: jasmine.SpyObj<ChuckNorrisSignalService> = jasmine.createSpyObj<ChuckNorrisSignalService>('signal-service', ['fetchFooterFact']);
+   const signalService: jasmine.SpyObj<ChuckNorrisFactsService> = jasmine.createSpyObj<ChuckNorrisFactsService>('signal-service', ['getFooterFact']);
 
-   beforeEach(() =>
-   {
+   beforeEach(() => {
       TestBed.configureTestingModule({
          imports: [ChuckNorrisFooterComponent]
       })
@@ -24,7 +21,7 @@ describe('ChuckNorrisFooterComponent', () =>
                   BaseFooter
                ],
                providers: [
-                  { provide: ChuckNorrisSignalService, useValue: signalService }
+                  { provide: ChuckNorrisFactsService, useValue: signalService }
                ]
             }
          });
@@ -32,18 +29,15 @@ describe('ChuckNorrisFooterComponent', () =>
       component = fixture.componentInstance;
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 
-   describe('ngOnInit', () =>
-   {
-      it('should call fetchFooterFact', () =>
-      {
+   describe('ngOnInit', () => {
+      it('should call fetchFooterFact', () => {
          component.ngOnInit();
 
-         expect(signalService.fetchFooterFact).toHaveBeenCalled();
+         expect(signalService.getFooterFact).toHaveBeenCalled();
       });
    });
 });

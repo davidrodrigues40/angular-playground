@@ -1,6 +1,5 @@
-import { BowlingState } from './bowling/bowling.state';
+import { BowlingStateOld } from './bowling.state';
 
-export interface AppState
-{
-   bowlingState: BowlingState;
+export interface AppState {
+   bowlingState: BowlingStateOld;
 }

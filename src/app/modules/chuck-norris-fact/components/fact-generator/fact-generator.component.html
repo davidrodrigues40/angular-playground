@@ -1,13 +1,20 @@
 <div class="generator">
    <div class="generator-row">
       <app-fact-categories (categorySelected)="categorySelected($event)"></app-fact-categories>
-      <div>
+      <div class="buttons">
          <button mat-flat-button
                  color="primary"
                  (click)="getFactForCategory()">Get Fact</button>
+         <button mat-flat-button
+                 color="accent"
+                 (click)="getFavoriteFact()">From My Favorites</button>
+         <button mat-button
+                 color="primary"
+                 (click)="getAllFavoriteFacts()">Get All Favorites Fact</button>
       </div>
    </div>
    <div class="generator-column">
+      @if(favoriteFacts().length === 0) {
       <app-title2>FACT</app-title2>
       <ng-container *ngIf="fact(); else nofact">
          <app-fact [fact]="fact()!"></app-fact>
@@ -17,10 +24,17 @@
          <ng-container *ngIf="!selectedCategory(); else nocategory;">
             <p>Please select a catetory or get kicked in the head by Chuck Norris!</p>
             <p>He knows where you live!</p>
+            <p>Or select "Get All Favorites" to see my favorites.</p>
          </ng-container>
          <ng-template #nocategory>
-            Now select "Get Fact" to see an awesome fact about Chuck Norris!
+            Now select "Get Fact" or "From Favorites" to see an awesome fact about Chuck Norris!
          </ng-template>
       </ng-template>
+      }
+      @else {
+      @for(fact of favoriteFacts(); track fact) {
+      <app-fact [fact]="fact"></app-fact>
+      }
+      }
    </div>
 </div>

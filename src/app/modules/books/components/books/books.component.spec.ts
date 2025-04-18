@@ -1,35 +1,21 @@
 import { Book } from 'src/app/interfaces/models/books/book.';
 import { BookService } from 'src/app/services/books/books.service';
-import { BookSignalService } from 'src/app/state/books/service/book-signal.service';
 import { MockComponent } from 'src/app/testing/testing.directive';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BooksComponent } from './books.component';
+import { Title2Component } from 'src/app/components/title2/title2.component';
+import { BooksState } from 'src/app/state/books.state';
 
-describe('BooksComponent', () =>
-{
+describe('BooksComponent', () => {
    let component: BooksComponent;
    let fixture: ComponentFixture<BooksComponent>;
-   let signalService: jasmine.SpyObj<BookSignalService> = jasmine.createSpyObj<BookSignalService>('signal-service', ['fetchBooks', 'addBook', 'removeBook', 'clearCollection']);
-   let bookService: jasmine.SpyObj<BookService> = jasmine.createSpyObj('BookService', ['addBook', 'removeBook', 'clearCollection']);
+   let bookService: jasmine.SpyObj<BookService> = jasmine.createSpyObj<BookService>('signal-service', ['getBooksFromGoogle', 'addBook', 'removeBook', 'clearCollection']);
 
    const books: Book[] = [];
 
-   beforeAll(() =>
-   {
-      Object.defineProperties(signalService, {
-         data: {
-            value: {
-               books: books,
-               collection: books
-            }
-         }
-      });
-   });
-
-   beforeEach(async () =>
-   {
+   beforeEach(async () => {
       await TestBed.configureTestingModule({
          declarations: [
             BooksComponent,
@@ -37,18 +23,17 @@ describe('BooksComponent', () =>
             MockComponent({ selector: 'app-book-collection', standalone: false }),
          ],
          imports: [
+            Title2Component,
             MockComponent({ selector: 'app-title' }),
             MockComponent({ selector: 'app-author' })
          ],
          providers: [
-            { provide: BookSignalService, useValue: signalService },
             { provide: BookService, useValue: bookService },
          ]
       })
          .overrideComponent(BooksComponent, {
             set: {
                providers: [
-                  { provide: BookSignalService, useValue: signalService },
                   { provide: BookService, useValue: bookService }
                ]
             }
@@ -60,49 +45,51 @@ describe('BooksComponent', () =>
 
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 
-   describe('ngOnInit', () =>
-   {
+   describe('ngOnInit', () => {
 
-      it('should call the service events', () =>
-      {
+      it('should set searching to false', () => {
          component.ngOnInit();
 
-         expect(signalService.fetchBooks).toHaveBeenCalled();
+         expect(BooksState.searching()).toBeFalsy();
       });
    });
 
-   describe('onAdd', () =>
-   {
-      it('should call the service events', () =>
-      {
+   describe('onAdd', () => {
+      it('should call the service events', () => {
          component.onAdd("1");
 
-         expect(signalService.addBook).toHaveBeenCalledOnceWith('1');
+         expect(bookService.addBook).toHaveBeenCalledOnceWith('1');
       });
    });
 
-   describe('onRemove', () =>
-   {
-      it('should call the service events', () =>
-      {
+   describe('onRemove', () => {
+      it('should call the service events', () => {
          component.onRemove("1");
 
-         expect(signalService.removeBook).toHaveBeenCalledOnceWith('1');
+         expect(bookService.removeBook).toHaveBeenCalledOnceWith('1');
       });
    });
 
-   describe('onClear', () =>
-   {
-      it('should call the service events', () =>
-      {
+   describe('onClear', () => {
+      it('should call the service events', () => {
          component.onClear();
 
-         expect(signalService.clearCollection).toHaveBeenCalled();
+         expect(bookService.clearCollection).toHaveBeenCalled();
+      });
+   });
+
+   describe('search', () => {
+      it('should call the service events', () => {
+         const author = 'test author';
+         BooksState.author.set(author);
+
+         component.search();
+
+         expect(bookService.getBooksFromGoogle).toHaveBeenCalledOnceWith(author);
       });
    });
 });

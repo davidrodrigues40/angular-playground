@@ -1,5 +1,4 @@
 import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
-import { ChuckNorrisSignalService } from 'src/app/state/chuck-norris/service/chuck-norris-signal.service';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatOptionModule } from '@angular/material/core';
@@ -8,16 +7,15 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FactCategoriesComponent } from './fact-categories.component';
+import { ChuckNorrisFactsService } from 'src/app/services/chuck-norris/chuck-norris-facts.service';
 
-describe('FactCategoriesComponent', () =>
-{
+describe('FactCategoriesComponent', () => {
    let component: FactCategoriesComponent;
    let fixture: ComponentFixture<FactCategoriesComponent>;
    let selectChange: jasmine.SpyObj<MatSelectChange> = jasmine.createSpyObj('MatSelectChange', ['value']);
-   const signalService: jasmine.SpyObj<ChuckNorrisSignalService> = jasmine.createSpyObj<ChuckNorrisSignalService>('service', ['fetchCategories']);
+   const signalService: jasmine.SpyObj<ChuckNorrisFactsService> = jasmine.createSpyObj<ChuckNorrisFactsService>('service', ['getCategories']);
 
-   beforeEach(async () =>
-   {
+   beforeEach(async () => {
       await TestBed.configureTestingModule({
          declarations: [FactCategoriesComponent],
          imports: [
@@ -27,7 +25,7 @@ describe('FactCategoriesComponent', () =>
             BrowserAnimationsModule
          ],
          providers: [
-            { provide: ChuckNorrisSignalService, useValue: signalService }
+            { provide: ChuckNorrisFactsService, useValue: signalService }
          ]
       })
          .compileComponents();
@@ -36,25 +34,20 @@ describe('FactCategoriesComponent', () =>
       component = fixture.componentInstance;
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 
-   describe('ngOnInit', () =>
-   {
-      it('should call loadCategories', () =>
-      {
+   describe('ngOnInit', () => {
+      it('should call loadCategories', () => {
          component.ngOnInit();
 
-         expect(signalService.fetchCategories).toHaveBeenCalled();
+         expect(signalService.getCategories).toHaveBeenCalled();
       });
    });
 
-   describe('selection change', () =>
-   {
-      it('should emit selectedCategory', () =>
-      {
+   describe('selection change', () => {
+      it('should emit selectedCategory', () => {
          const category: FactCategory = { name: 'test' };
          spyOn(component.categorySelected, 'emit');
          selectChange.value = category;

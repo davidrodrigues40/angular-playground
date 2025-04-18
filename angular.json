@@ -65,23 +65,24 @@
                "builder": "@angular-devkit/build-angular:dev-server",
                "configurations": {
                   "production": {
-                    "buildTarget": "angular-playground:build:production"
+                     "buildTarget": "angular-playground:build:production"
                   },
                   "development": {
-                    "buildTarget": "angular-playground:build:development"
+                     "buildTarget": "angular-playground:build:development"
                   }
                },
                "defaultConfiguration": "development"
             },
             "extract-i18n": {
                "builder": "@angular-devkit/build-angular:extract-i18n",
-              "options": {
-                "buildTarget": "angular-playground:build"
+               "options": {
+                  "buildTarget": "angular-playground:build"
                }
             },
             "test": {
                "builder": "@angular-devkit/build-angular:karma",
                "options": {
+                  "codeCoverage": true,
                   "polyfills": [
                      "zone.js",
                      "zone.js/testing"

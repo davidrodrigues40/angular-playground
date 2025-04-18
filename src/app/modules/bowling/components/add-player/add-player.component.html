@@ -1,7 +1,7 @@
 <section>
-    <mat-form-field subscriptSizing="dynamic">
-        <mat-label>Player</mat-label>
+    <mat-form-field>
         <input matInput
+               type="text"
                placeholder="Bowler Full Name"
                (keypress)="keypressed($event)"
                [(ngModel)]="playerName" />
@@ -12,6 +12,7 @@
             color="accent"
             (click)="add()">
         <mat-icon>add</mat-icon>
-        <label>Add Player</label>
+        Add Player
     </button>
+
 </section>

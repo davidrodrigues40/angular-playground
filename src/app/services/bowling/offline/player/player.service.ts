@@ -4,15 +4,10 @@ import { Player } from 'src/app/interfaces/models/bowling/player';
 
 import { Injectable } from '@angular/core';
 
-@Injectable({
-   providedIn: 'root'
-})
-export class PlayerService
-{
-   generateBowlers(players: ReadonlyArray<Player>): Bowler[]
-   {
-      return players.map((player, index) =>
-      {
+@Injectable()
+export class PlayerService {
+   generateBowlers(players: ReadonlyArray<Player>): Bowler[] {
+      return players.map((player, index) => {
          const bowler: Bowler = {
             number: index,
             name: player.name,

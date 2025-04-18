@@ -3,20 +3,20 @@
    <div class="status">
       <p>Status: </p>
       <mat-slide-toggle [(ngModel)]="isChecked"
-                        (toggleChange)="toggleStatus()"></mat-slide-toggle>{{status$ | async}}
+                        (toggleChange)="toggleStatus()"></mat-slide-toggle>{{status()}}
    </div>
 
    <div class="add-player">
-      <app-add-player [ratings]="(ratings$ | async)!"
+      <app-add-player [ratings]="ratings()"
                       (addPlayer)="addPlayer($event)"
                       (clear)="newGame()"
                       (newGame)="playGame()"></app-add-player>
    </div>
    <div>
-      <app-game [game]="game$ | async"
-                [ratings]="(ratings$ | async)!"
-                [players]="(players$ | async)!"
-                [disablePlayGame]="(players$ | async)!.length === 0"
+      <app-game [game]="game()"
+                [ratings]="ratings()"
+                [players]="players()"
+                [disablePlayGame]="players()!.length === 0"
                 (removePlayer)="removePlayer($event)"
                 (newGame)="newGame()"
                 (playGame)="playGame()"

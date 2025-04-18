@@ -4,13 +4,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeDetailsComponent } from './home-details.component';
 
-describe('HomeDetailsComponent', () =>
-{
+describe('HomeDetailsComponent', () => {
    let component: HomeDetailsComponent;
    let fixture: ComponentFixture<HomeDetailsComponent>;
 
-   beforeEach(() =>
-   {
+   beforeEach(() => {
       TestBed.configureTestingModule({
          declarations: [HomeDetailsComponent],
          imports: [
@@ -24,8 +22,7 @@ describe('HomeDetailsComponent', () =>
 
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 });
