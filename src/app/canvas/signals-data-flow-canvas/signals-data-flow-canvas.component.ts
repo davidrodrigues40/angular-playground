@@ -10,8 +10,7 @@ import { CanvasService } from 'src/app/services/canvas/canvas.service';
    imports: [CanvasDirective],
    providers: [CanvasService],
 })
-export class SignalsDataFlowCanvasComponent
-{
+export class SignalsDataFlowCanvasComponent {
    public drawing: CanvasDrawing = {} as CanvasDrawing;
    private readonly _tier1Color: string = '#3399ff';
    private readonly _tier2Color: string = '#009900';
@@ -21,30 +20,31 @@ export class SignalsDataFlowCanvasComponent
 
    constructor(private readonly _canvasService: CanvasService) { }
 
-   ngOnInit(): void
-   {
+   ngOnInit(): void {
       this.drawCanvas();
    }
 
-   private drawCanvas(): void
-   {
-      const signals: CanvasNode = this._canvasService.addNode(1, this._tier5Color, 'signals', []);
+   private drawCanvas(): void {
+      const listSignal: CanvasNode = this._canvasService.addNode(1, this._tier5Color, 'update contacts signal', []);
 
-      const dataService: CanvasNode = this._canvasService.addNode(1, this._tier4Color, 'data service', [signals]);
+      const singleSignal: CanvasNode = this._canvasService.addNode(1, this._tier4Color, 'update contact signal', []);
 
-      const effects: CanvasNode = this._canvasService.addNode(1, this._tier3Color, 'effect', [signals]);
-      const events: CanvasNode = this._canvasService.addNode(2, this._tier3Color, 'events', [dataService]);
-      const observables: CanvasNode = this._canvasService.addNode(3, this._tier3Color, 'observables', [signals]);
+      const effects: CanvasNode = this._canvasService.addNode(1, this._tier3Color, 'get contact', [singleSignal]);
+      const effects2: CanvasNode = this._canvasService.addNode(1, this._tier3Color, 'get contacts', [listSignal]);
 
-      const stateService: CanvasNode = this._canvasService.addNode(1, this._tier2Color, 'state service', [effects, events, observables]);
+      const contact: CanvasNode = this._canvasService.addNode(1, this._tier3Color, 'contact', []);
+      const contacts: CanvasNode = this._canvasService.addNode(1, this._tier3Color, 'contacts', []);
 
-      const componentNode: CanvasNode = this._canvasService.addNode(1, this._tier1Color, 'component', [stateService]);
+      const apiService: CanvasNode = this._canvasService.addNode(1, this._tier2Color, 'api service', [effects, effects2]);
+      const signals: CanvasNode = this._canvasService.addNode(1, this._tier2Color, 'signals', [contact, contacts]);
+
+      const componentNode: CanvasNode = this._canvasService.addNode(1, this._tier1Color, 'component', [apiService, signals]);
 
       this.drawing = {
          startX: 10,
          startY: 20,
-         width: 300,
-         height: 0,
+         width: 360,
+         height: 300,
          lineHeight: 30,
          font: '16px Arial',
          node: componentNode,

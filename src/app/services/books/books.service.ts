@@ -15,6 +15,7 @@ export class BookService {
       if (!author) {
          BooksState.books.set([]);
          BooksState.searching.set(false);
+         return;
       }
 
       const url = `${this.base_url}&q=${author}`;

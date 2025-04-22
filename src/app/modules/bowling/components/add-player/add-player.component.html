@@ -1,11 +1,9 @@
 <section>
-    <mat-form-field>
-        <input matInput
-               type="text"
-               placeholder="Bowler Full Name"
-               (keypress)="keypressed($event)"
-               [(ngModel)]="playerName" />
-    </mat-form-field>
+    <input matInput
+           type="text"
+           placeholder="Bowler Full Name"
+           (keypress)="keypressed($event)"
+           [(ngModel)]="playerName" />
     <app-player-rating [ratings]="ratings"
                        (ratingChanged)="ratingChanged($event)"></app-player-rating>
     <button mat-raised-button

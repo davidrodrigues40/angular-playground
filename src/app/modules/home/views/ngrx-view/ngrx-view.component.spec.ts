@@ -1,25 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgrxDetailsComponent } from '../../components/ngrx-details/ngrx-details.component';
 import { NgrxViewComponent } from './ngrx-view.component';
+import { provideRouter } from '@angular/router';
 
-describe('NgrxViewComponent', () =>
-{
+describe('NgrxViewComponent', () => {
    let component: NgrxViewComponent;
    let fixture: ComponentFixture<NgrxViewComponent>;
 
-   beforeEach(() =>
-   {
+   beforeEach(() => {
       TestBed.configureTestingModule({
-         declarations: [NgrxViewComponent],
-         imports: [NgrxDetailsComponent]
+         imports: [
+            NgrxViewComponent
+         ],
+         providers: [provideRouter([])],
       });
       fixture = TestBed.createComponent(NgrxViewComponent);
       component = fixture.componentInstance;
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 });

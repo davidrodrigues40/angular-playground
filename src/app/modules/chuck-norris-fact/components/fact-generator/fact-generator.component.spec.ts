@@ -13,9 +13,10 @@ import { ChuckNorrisFactState } from 'src/app/state/chuck-norris.state';
 describe('FactGeneratorComponent', () => {
    let component: FactGeneratorComponent;
    let fixture: ComponentFixture<FactGeneratorComponent>;
+   let selectedCategorySpy: jasmine.Spy;
    const service: jasmine.SpyObj<ChuckNorrisFactsService> = jasmine.createSpyObj<ChuckNorrisFactsService>(
       'service',
-      ['getFact', 'getFactForCategory', 'getCategories', 'getFooterFact']);
+      ['getFact', 'getFactForCategory', 'getCategories', 'getFooterFact', 'getFavoriteFact', 'getFavoriteFacts'],);
    const category: FactCategory = {
       name: ''
    };
@@ -40,8 +41,13 @@ describe('FactGeneratorComponent', () => {
 
       fixture = TestBed.createComponent(FactGeneratorComponent);
       component = fixture.componentInstance;
+      selectedCategorySpy = spyOn(component, 'selectedCategory');
+
       service.getFact.calls.reset();
       service.getFactForCategory.calls.reset();
+      service.getFavoriteFact.calls.reset();
+      service.getFavoriteFacts.calls.reset();
+      service.getFooterFact.calls.reset();
    });
 
    it('should create', () => {
@@ -58,20 +64,20 @@ describe('FactGeneratorComponent', () => {
 
    describe('when getFactForCategory invoked', () => {
       it('should call getFact when category is not set', () => {
-         component.selectedCategory.set(null);
+         selectedCategorySpy.and.returnValue(null);
 
          component.getFactForCategory();
 
          expect(service.getFact).toHaveBeenCalled();
       });
 
-      it('should call call getFactForCategory when category is set', () => {
+      it('should call getFactForCategory when category is set', () => {
          const myCategory: FactCategory = { ...category, name: 'test' };
-         component.selectedCategory.set(JSON.parse(JSON.stringify(myCategory)));
+         selectedCategorySpy.and.returnValue(myCategory);
 
          component.getFactForCategory();
 
-         expect(service.getFactForCategory).toHaveBeenCalledOnceWith(JSON.parse(JSON.stringify(myCategory)));
+         expect(service.getFactForCategory).toHaveBeenCalledOnceWith(myCategory);
       });
    });
 
@@ -82,6 +88,33 @@ describe('FactGeneratorComponent', () => {
          component.categorySelected(category);
 
          expect(ChuckNorrisFactState.selectedCategory.set).toHaveBeenCalledOnceWith(category);
+      });
+   });
+
+   describe('when getFavoriteFact invoked', () => {
+      it('should call getFavoriteFact', () => {
+         const myCategory: FactCategory = { ...category, name: 'test' };
+         selectedCategorySpy.and.returnValue(myCategory);
+
+         component.getFavoriteFact();
+
+         expect(service.getFavoriteFact).toHaveBeenCalledOnceWith(myCategory.name);
+      });
+
+      it('should call getFavoriteFact with random category', () => {
+         selectedCategorySpy.and.returnValue(null);
+
+         component.getFavoriteFact();
+
+         expect(service.getFavoriteFact).toHaveBeenCalledOnceWith('random');
+      });
+   });
+
+   describe('when getAllFavoriteFacts invoked', () => {
+      it('should call getFavoriteFacts', () => {
+         component.getAllFavoriteFacts();
+
+         expect(service.getFavoriteFacts).toHaveBeenCalledTimes(1);
       });
    });
 });

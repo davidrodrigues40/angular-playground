@@ -29,6 +29,7 @@ export class FactGeneratorComponent {
 
    getFactForCategory(): void {
       const category: FactCategory | null = this.selectedCategory();
+
       if (category !== null)
          this._service.getFactForCategory(category);
       else

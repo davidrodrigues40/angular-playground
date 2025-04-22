@@ -29,6 +29,7 @@ export class PlayersService {
    removeAllPlayers(): void {
       BowlingState.players.set([]);
    }
+
    changePlayerRatings(rating: number, players: ReadonlyArray<Player>): void {
       const newPlayers: Player[] = [];
       const game: Game = BowlingState.game();

@@ -4,14 +4,12 @@ import { SignalsDataFlowCanvasComponent } from './signals-data-flow-canvas.compo
 import { CanvasService } from 'src/app/services/canvas/canvas.service';
 import { MockDirective } from 'src/app/testing/testing.directive';
 
-describe('SignalsDataFlowCanvasComponent', () =>
-{
+describe('SignalsDataFlowCanvasComponent', () => {
    let component: SignalsDataFlowCanvasComponent;
    let fixture: ComponentFixture<SignalsDataFlowCanvasComponent>;
    const service: jasmine.SpyObj<CanvasService> = jasmine.createSpyObj('CanvasService', ['addNode', 'createCanvas']);
 
-   beforeEach(() =>
-   {
+   beforeEach(() => {
       TestBed.configureTestingModule({
          imports: [
             SignalsDataFlowCanvasComponent,
@@ -28,20 +26,17 @@ describe('SignalsDataFlowCanvasComponent', () =>
       component = fixture.componentInstance;
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 
-   describe('when ngOnInit is called', () =>
-   {
-      it('should create canvas', () =>
-      {
+   describe('when ngOnInit is called', () => {
+      it('should create canvas', () => {
          Object.defineProperty(component, 'drawing', { writable: true, value: undefined })
 
          component.ngOnInit();
 
-         expect(service.addNode).toHaveBeenCalledTimes(7);
+         expect(service.addNode).toHaveBeenCalledTimes(9);
          expect(component.drawing).toBeDefined();
       });
    });

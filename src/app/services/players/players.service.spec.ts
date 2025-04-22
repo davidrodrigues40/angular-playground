@@ -1,13 +1,13 @@
-import { StorageTranscoders } from 'ngx-webstorage-service';
 import { Player } from 'src/app/interfaces/models/bowling/player';
 
 import { TestBed } from '@angular/core/testing';
 
 import { CacheService } from '../cache/cache.service';
 import { PlayersService } from './players.service';
+import { BowlingState } from 'src/app/state/bowling.state';
+import { Game } from 'src/app/interfaces/models/bowling/game';
 
-describe('PlayersService', () =>
-{
+describe('PlayersService', () => {
    let service: PlayersService;
    let cacheService: jasmine.SpyObj<CacheService> = jasmine.createSpyObj('CacheService', ['getSession', 'setSession']);
    let defaultPlayers: ReadonlyArray<Player> = [
@@ -16,8 +16,7 @@ describe('PlayersService', () =>
       { number: 3, name: 'test3', rating: 1 }
    ];
 
-   beforeEach(() =>
-   {
+   beforeEach(() => {
       TestBed.configureTestingModule({
          providers: [
             PlayersService,
@@ -27,105 +26,67 @@ describe('PlayersService', () =>
       service = TestBed.inject(PlayersService);
    });
 
-   it('should be created', () =>
-   {
+   it('should be created', () => {
       expect(service).toBeTruthy();
    });
 
-   describe('when getPlayers$ invoked', () =>
-   {
-      it('should return players from cache', () =>
-      {
-         const players = [...defaultPlayers];
-         cacheService.getSession.and.returnValue(players);
+   describe('when addPlayer invoked', () => {
+      it('should add a player to the list', () => {
+         const playerName = 'testPlayer';
+         const playerRating = 1;
+         const expectedPlayers = [...defaultPlayers, { number: 4, name: playerName, rating: playerRating }];
+         BowlingState.players.set(defaultPlayers);
+         BowlingState.players.set = jasmine.createSpy('set');
 
-         service.getPlayers$()
-            .subscribe((result) =>
-            {
-               expect(result).toEqual(players);
-               expect(cacheService.getSession).toHaveBeenCalledWith('players', StorageTranscoders.JSON);
-            });
-      });
+         service.addPlayer(playerName, playerRating);
 
-      it('should return empty array', () =>
-      {
-         cacheService.getSession.and.returnValue(undefined);
-
-         service.getPlayers$()
-            .subscribe((result) =>
-            {
-               expect(result).toEqual([]);
-               expect(cacheService.getSession).toHaveBeenCalledWith('players', StorageTranscoders.JSON);
-            });
+         expect(BowlingState.players.set).toHaveBeenCalledWith(expectedPlayers);
       });
    });
 
-   describe('when addPlayer$ invoked', () =>
-   {
-      it('should return new array with player', () =>
-      {
-         const players = [...defaultPlayers];
-         const newPlayer = { number: 4, name: 'testnew', rating: 1 };
+   describe('when removePlayer invoked', () => {
+      it('should remove a player from the list', () => {
+         const playerNumber = 2;
+         const expectedPlayers = [
+            { number: 1, name: 'test1', rating: 1 },
+            { number: 2, name: 'test3', rating: 1 }
+         ];
+         BowlingState.players.set(defaultPlayers);
+         BowlingState.players.set = jasmine.createSpy('set');
 
-         service.addPlayer$(newPlayer.name, newPlayer.rating, players)
-            .subscribe((newPlayers) =>
-            {
-               expect(newPlayers).toEqual([...players, newPlayer]);
-               expect(cacheService.setSession).toHaveBeenCalledWith('players', [...players, newPlayer], StorageTranscoders.JSON);
-            });
+         service.removePlayer(playerNumber);
+
+         expect(BowlingState.players.set).toHaveBeenCalledWith(expectedPlayers);
       });
    });
 
-   describe('when removePlayer$ invoked', () =>
-   {
-      it('should return new array without player', () =>
-      {
-         const players = [...defaultPlayers];
-         const expected = [{ number: 1, name: 'test2', rating: 1 }, { number: 2, name: 'test3', rating: 1 }];
-         const playerToRemove = 1;
+   describe('when removeAllPlayers invoked', () => {
+      it('should remove all players from the list', () => {
+         BowlingState.players.set(defaultPlayers);
+         BowlingState.players.set = jasmine.createSpy('set');
 
-         service.removePlayer$(playerToRemove, players)
-            .subscribe((newPlayers) =>
-            {
-               expect(newPlayers).toEqual(expected);
-               expect(cacheService.setSession).toHaveBeenCalledWith('players', expected, StorageTranscoders.JSON);
-            });
+         service.removeAllPlayers();
+
+         expect(BowlingState.players.set).toHaveBeenCalledWith([]);
       });
    });
 
-   describe('when removeAllPlayers$ invoked', () =>
-   {
-      it('should return empty array', () =>
-      {
-         service.removeAllPlayers$()
-            .subscribe((newPlayers) =>
-            {
-               expect(newPlayers).toEqual([]);
-               expect(cacheService.setSession).toHaveBeenCalledWith('players', [], StorageTranscoders.JSON);
-            });
+   describe('when changePlayerRatings invoked', () => {
+      it('should change the ratings of the players', () => {
+         const newRating = 2;
+         const playersToChange: ReadonlyArray<Player> = [{ number: 1, name: 'test1', rating: 1 }];
+         const expectedPlayers = [{ number: 1, name: 'test1', rating: newRating }];
+         const game: Game = { bowlers: [], winner: { name: 'me', score: 300 }, completed: true };
+         BowlingState.players.set(defaultPlayers);
+         BowlingState.game.set(game);
+
+         BowlingState.players.set = jasmine.createSpy('set');
+         BowlingState.game.set = jasmine.createSpy('set');
+
+         service.changePlayerRatings(newRating, playersToChange);
+
+         expect(BowlingState.players.set).toHaveBeenCalledWith(expectedPlayers);
+         expect(BowlingState.game.set).toHaveBeenCalledWith({ ...game, bowlers: game.bowlers, winner: undefined, completed: false });
       });
    });
-
-   describe('when changePlayerRatings$ invoked', () =>
-   {
-      it('should return new array with updated players', () =>
-      {
-         assertRatingChange(3, [...defaultPlayers]);
-      });
-   });
-
-   function assertRatingChange(rating: number, players: ReadonlyArray<Player>): void
-   {
-      service.changePlayerRatings$(rating, players)
-         .subscribe((newPlayers) =>
-         {
-            expect(getFilteredByRating(rating, newPlayers)).toHaveSize(defaultPlayers.length);
-            expect(cacheService.setSession).toHaveBeenCalledWith('players', newPlayers, StorageTranscoders.JSON);
-         });
-   }
-
-   function getFilteredByRating(rating: number, players: ReadonlyArray<Player>): ReadonlyArray<Player>
-   {
-      return players.filter(f => f.rating === rating);
-   }
 });

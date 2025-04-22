@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { CanvasService } from 'src/app/services/canvas/canvas.service';
+import { NgrxDetailsComponent } from '../../components/ngrx-details/ngrx-details.component';
 
 @Component({
    selector: 'app-ngrx-view',
    templateUrl: './ngrx-view.component.html',
-   providers: [CanvasService]
+   standalone: true,
+   imports: [NgrxDetailsComponent],
 })
-export class NgrxViewComponent
-{
+export class NgrxViewComponent {
 
 }

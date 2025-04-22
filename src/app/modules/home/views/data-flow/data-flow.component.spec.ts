@@ -1,25 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DataFlowDetailsComponent } from '../../components/data-flow-details/data-flow-details.component';
 import { DataFlowComponent } from './data-flow.component';
+import { provideRouter } from '@angular/router';
 
-describe('DataFlowComponent', () =>
-{
+describe('DataFlowComponent', () => {
    let component: DataFlowComponent;
    let fixture: ComponentFixture<DataFlowComponent>;
 
-   beforeEach(() =>
-   {
+   beforeEach(() => {
       TestBed.configureTestingModule({
-         declarations: [DataFlowComponent],
-         imports: [DataFlowDetailsComponent]
+         imports: [DataFlowComponent],
+         providers: [provideRouter([])],
       });
       fixture = TestBed.createComponent(DataFlowComponent);
       component = fixture.componentInstance;
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 });

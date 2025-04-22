@@ -22,11 +22,11 @@ import { SignalsDataFlowCanvasComponent } from 'src/app/canvas/signals-data-flow
    declarations: [
       HomeComponent,
       HomeDetailsComponent,
-      NgrxViewComponent,
-      DataFlowComponent,
    ],
    imports: [
       HomeRoutingModule,
+      DataFlowComponent,
+      NgrxViewComponent,
       CommonModule,
       TitleComponent,
       Title2Component,
