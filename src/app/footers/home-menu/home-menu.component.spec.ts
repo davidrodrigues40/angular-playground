@@ -1,20 +1,17 @@
-import { HomeMenuSignalService } from 'src/app/state/home-menu/services/home-menu-signal.service';
-
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'src/app/testing/testing.directive';
 import { HomeMenuComponent } from './home-menu.component';
+import { provideRouter, Router } from '@angular/router';
+import { MenuService } from 'src/app/services/menu/menu.service';
 
-describe('HomeMenuComponent', () =>
-{
+describe('HomeMenuComponent', () => {
    let component: HomeMenuComponent;
    let fixture: ComponentFixture<HomeMenuComponent>;
-   const signalService: jasmine.SpyObj<HomeMenuSignalService> = jasmine.createSpyObj<HomeMenuSignalService>('signal-service', ['fetchMenu']);
+   const menuService: jasmine.SpyObj<MenuService> = jasmine.createSpyObj<MenuService>('menu-service', ['getMenu']);
 
-   beforeEach(() =>
-   {
+   beforeEach(() => {
       TestBed.configureTestingModule({
          imports: [HomeMenuComponent]
       })
@@ -22,11 +19,11 @@ describe('HomeMenuComponent', () =>
             set: {
                imports: [
                   CommonModule,
-                  RouterTestingModule,
                   MockComponent({ selector: 'app-base-footer', inputs: ['item'] })
                ],
                providers: [
-                  { provide: HomeMenuSignalService, useValue: signalService }
+                  { provide: Router, useValue: provideRouter([]) },
+                  { provide: MenuService, useValue: menuService }
                ]
             }
          });
@@ -34,32 +31,26 @@ describe('HomeMenuComponent', () =>
       component = fixture.componentInstance;
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 
-   describe('ngOnInit', () =>
-   {
-      it('should bind menu and call fetchMenu', () =>
-      {
+   describe('ngOnInit', () => {
+      it('should bind menu and call fetchMenu', () => {
          component.ngOnInit();
 
-         expect(signalService.fetchMenu).toHaveBeenCalled();
+         expect(menuService.getMenu).toHaveBeenCalled();
       });
    });
 
-   describe('when markDisabled is called', () =>
-   {
-      it('should return true when route is the same as the current route', () =>
-      {
+   describe('when markDisabled is called', () => {
+      it('should return true when route is the same as the current route', () => {
          Object.defineProperty(component.router, 'url', { value: '/test' });
 
          expect(component.markDisabled('test')).toBeTrue();
       });
 
-      it('should return false when route is different from the current route', () =>
-      {
+      it('should return false when route is different from the current route', () => {
          Object.defineProperty(component.router, 'url', { value: '/test2' });
 
          expect(component.markDisabled('test3')).toBeFalse();

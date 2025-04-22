@@ -3,7 +3,8 @@ import { BowlerRating } from '../../models/bowler-rating.model';
 
 @Component({
   selector: 'app-add-player',
-  templateUrl: './add-player.component.html'
+  templateUrl: './add-player.component.html',
+  styleUrls: ['./add-player.component.scss']
 })
 export class AddPlayerComponent {
   @Input() ratings: ReadonlyArray<BowlerRating> = [];

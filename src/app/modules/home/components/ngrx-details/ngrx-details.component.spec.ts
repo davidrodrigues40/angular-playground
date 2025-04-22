@@ -6,13 +6,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { NgrxDetailsComponent } from './ngrx-details.component';
 
-describe('NgrxDetailsComponent', () =>
-{
+describe('NgrxDetailsComponent', () => {
    let component: NgrxDetailsComponent;
    let fixture: ComponentFixture<NgrxDetailsComponent>;
 
-   beforeEach(() =>
-   {
+   beforeEach(() => {
       TestBed.configureTestingModule({
          imports: [NgrxDetailsComponent]
       })
@@ -24,6 +22,7 @@ describe('NgrxDetailsComponent', () =>
                   MockComponent({ selector: 'app-state-canvas', template: '', standalone: true, }),
                   MockComponent({ selector: 'app-title2', template: '', standalone: true }),
                   MockComponent({ selector: 'app-title3', template: '', standalone: true }),
+                  MockComponent({ selector: 'app-back-button', template: '', standalone: true }),
                ]
             }
          });
@@ -31,15 +30,12 @@ describe('NgrxDetailsComponent', () =>
       component = fixture.componentInstance;
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 
-   describe('openDialog', () =>
-   {
-      it('should open state dialog', () =>
-      {
+   describe('openDialog', () => {
+      it('should open state dialog', () => {
          const name: string = 'state';
          const dialogSpy = spyOn(component['_dialog'], 'open');
 
@@ -51,8 +47,7 @@ describe('NgrxDetailsComponent', () =>
          });
       });
 
-      it('should not open dialog', () =>
-      {
+      it('should not open dialog', () => {
          const name: string = 'other';
          const dialogSpy = spyOn(component['_dialog'], 'open');
 

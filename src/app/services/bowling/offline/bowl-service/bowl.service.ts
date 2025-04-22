@@ -14,11 +14,11 @@ export class BowlService {
    }
 
    private rollBall(rating: BowlerRating, pins: number): number {
-      const handycap: number = rating.key * 3;
+      const handycap: number = rating.key * 2.5;
 
       const random = this.getRandomNumber(pins);
-      console.log('random', random);
-      const pinsKnockedDown = Math.min((pins - random + handycap), pins);
+
+      const pinsKnockedDown = Math.round(Math.min((pins - random + handycap), pins));
 
       return Math.min(pins, pinsKnockedDown);
    }

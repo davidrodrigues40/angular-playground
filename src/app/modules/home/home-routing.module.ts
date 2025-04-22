@@ -14,10 +14,6 @@ const homeRoutes: Routes = [
         component: DataFlowComponent
     },
     {
-        path: 'ngrx',
-        component: NgrxViewComponent
-    },
-    {
         path: '',
         component: HomeDetailsComponent
     }

@@ -7,11 +7,12 @@ import { BowlService } from '../bowl-service/bowl.service';
 import { OfflineRatingService } from '../offline-rating/offline-rating.service';
 import { ScoreCalculatorService } from '../score-calculator/score-calculator.service';
 import { GameService } from './game.service';
+import { Game } from 'src/app/interfaces/models/bowling/game';
 
-describe('GameService', () =>
-{
+describe('GameService', () => {
    let service: GameService;
-   const scoreCalculator: jasmine.SpyObj<ScoreCalculatorService> = jasmine.createSpyObj('ScoreCalculatorService', ['clearScoreSheet', 'calculateBowlerScore']);
+   const scoreCalculator: jasmine.SpyObj<ScoreCalculatorService> = jasmine.createSpyObj('ScoreCalculatorService',
+      ['clearScoreSheet', 'calculateBowlerScore', 'calculateWinner']);
    const bowlService: jasmine.SpyObj<BowlService> = jasmine.createSpyObj('BowlService', ['rollFirstBall', 'rollSecondBall', 'rollBall']);
    const ratingService: jasmine.SpyObj<OfflineRatingService> = jasmine.createSpyObj('RatingService', ['getRatings$', 'getRating']);
 
@@ -29,16 +30,13 @@ describe('GameService', () =>
 
    const frames: Map<number, Frame> = new Map<number, Frame>();
 
-   beforeAll(() =>
-   {
-      for (let i = 1; i <= 10; i++)
-      {
+   beforeAll(() => {
+      for (let i = 1; i <= 10; i++) {
          frames.set(i, { ...frame });
       }
    });
 
-   beforeEach(() =>
-   {
+   beforeEach(() => {
       TestBed.configureTestingModule({
          providers: [
             GameService,
@@ -57,15 +55,12 @@ describe('GameService', () =>
       bowlService.rollSecondBall.calls.reset();
    });
 
-   it('should be created', () =>
-   {
+   it('should be created', () => {
       expect(service).toBeTruthy();
    });
 
-   describe('when newGame is called', () =>
-   {
-      it('should throw an error if no bowlers are provided', () =>
-      {
+   describe('when newGame is called', () => {
+      it('should throw an error if no bowlers are provided', () => {
          // Arrange
          const bowlers: Array<Bowler> = [];
 
@@ -76,8 +71,7 @@ describe('GameService', () =>
          expect(act).toThrowError('No bowlers provided');
       });
 
-      it('should return a new game', () =>
-      {
+      it('should return a new game', () => {
          // Arrange
 
          const bowlers: Array<Bowler> = [{ ...bowler, name: 'Bowler 1' }];
@@ -90,12 +84,10 @@ describe('GameService', () =>
       });
    });
 
-   describe('when playGame is called', () =>
-   {
-      it('should throw an error if no bowlers are provided', () =>
-      {
+   describe('when playGame is called', () => {
+      it('should throw an error if no bowlers are provided', () => {
          // Arrange
-         const game = { bowlers: [] };
+         const game: Game = { bowlers: [], completed: false };
 
          // Act
          const act = () => service.playGame(game);
@@ -104,12 +96,11 @@ describe('GameService', () =>
          expect(act).toThrowError('No bowlers provided');
       });
 
-      it('should play a game', () =>
-      {
+      it('should play a game', () => {
          // Arrange
          const bowler1: Bowler = { ...bowler, name: 'Bowler 1', frames: frames };
          const bowler2: Bowler = { ...bowler, name: 'Bowler 2', frames: frames };
-         const game = { bowlers: [bowler1, bowler2] };
+         const game: Game = { bowlers: [bowler1, bowler2], completed: false };
          scoreCalculator.calculateBowlerScore.and.callFake((b: Bowler) => b.score = 100);
 
          // Act
@@ -124,11 +115,10 @@ describe('GameService', () =>
          expect(bowler2.score).toBe(100);
       });
 
-      it('should calculate all strikes', () =>
-      {
+      it('should calculate all strikes', () => {
          const bowler1: Bowler = { ...bowler, name: 'Bowler 1', frames: frames };
          const bowler2: Bowler = { ...bowler, name: 'Bowler 2', frames: frames };
-         const game = { bowlers: [bowler1, bowler2] };
+         const game: Game = { bowlers: [bowler1, bowler2], completed: false };
 
          bowlService.rollFirstBall.and.returnValue(10);
          scoreCalculator.calculateBowlerScore.and.callFake((b: Bowler) => b.score = 300);
@@ -146,11 +136,10 @@ describe('GameService', () =>
          expect(bowler2.score).toBe(300);
       });
 
-      it('should calculate all spares', () =>
-      {
+      it('should calculate all spares', () => {
          const bowler1: Bowler = { ...bowler, name: 'Bowler 1', frames: frames };
          const bowler2: Bowler = { ...bowler, name: 'Bowler 2', frames: frames };
-         const game = { bowlers: [bowler1, bowler2] };
+         const game: Game = { bowlers: [bowler1, bowler2], completed: false };
 
          bowlService.rollFirstBall.and.returnValue(9);
          bowlService.rollSecondBall.and.returnValue(1);

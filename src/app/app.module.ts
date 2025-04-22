@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,13 +12,10 @@ import { ChuckNorrisFactModule } from './modules/chuck-norris-fact/chuck-norris-
 import { HomeModule } from './modules/home/home.module';
 import { MenuModule } from './modules/menu/menu.module';
 import { NotificationService } from './services/notification/notification.service';
-import { reducers } from './state/app.reducers';
 
 @NgModule({
    imports: [
       AppRoutingModule,
-      StoreModule.forRoot(reducers),
-      EffectsModule.forRoot(),
       BrowserAnimationsModule,
       BrowserModule,
       HttpClientModule,

@@ -1,257 +1,166 @@
-import { of } from 'rxjs';
-import { Player } from 'src/app/interfaces/models/bowling/player';
-import { BowlingState } from 'src/app/state/bowling/bowling.state';
-import { BowlingStateService } from 'src/app/state/bowling/service/bowling-state.service';
-import { StateEvent } from 'src/app/state/common/state-event';
-import { MockComponent } from 'src/app/testing/testing.directive';
-
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { BowlingViewComponent } from './bowling-view.component';
+import { PlayersService } from 'src/app/services/players/players.service';
+import { AddPlayerComponent } from '../components/add-player/add-player.component';
+import { GameComponent } from '../components/game/game.component';
+import { PlayerRatingComponent } from '../components/player-rating/player-rating.component';
+import { BowlingServiceAbstract } from 'src/app/services/bowling/bowling-service.abstract';
+import { BowlingState } from 'src/app/state/bowling.state';
+import { PlayerService } from 'src/app/services/bowling/offline/player/player.service';
+import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import { Store } from '@ngrx/store';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TitleComponent } from 'src/app/components/title/title.component';
+import { of } from 'rxjs';
+import { Player } from 'src/app/interfaces/models/bowling/player';
 import { PlayerRatingDialogComponent } from '../components/player-rating-dialog/player-rating-dialog.component';
-import { BowlerRating } from '../models/bowler-rating.model';
-import { BowlingViewComponent } from './bowling-view.component';
+import { PlayerComponent } from '../components/player/player.component';
 
-describe('BowlingViewComponent', () =>
-{
+describe('BowlingViewComponent', () => {
    let component: BowlingViewComponent;
    let fixture: ComponentFixture<BowlingViewComponent>;
-   let service: jasmine.SpyObj<BowlingStateService> = jasmine.createSpyObj('BowlingStateService', [], ['events', 'observables']);
-   let event: jasmine.SpyObj<StateEvent<string, Store<BowlingState>>> = jasmine.createSpyObj('Event', ['emit']);
-   let playerEvent: jasmine.SpyObj<StateEvent<string, Store<BowlingState>>> = jasmine.createSpyObj('Event', ['emit']);
+   let bowlingAbstractService: jasmine.SpyObj<BowlingServiceAbstract> = jasmine.createSpyObj('BowlingService', ['bowl', 'getRatings']);
+   let playerService: jasmine.SpyObj<PlayersService> = jasmine.createSpyObj('PlayerService', ['addPlayer', 'removePlayer', 'removeAllPlayers', 'changePlayerRatings']);
    let dialog: jasmine.SpyObj<MatDialog> = jasmine.createSpyObj('MatDialog', ['open']);
-   let dialogRef: jasmine.SpyObj<MatDialogRef<PlayerRatingDialogComponent>> = jasmine.createSpyObj('MatDialogRef', ['afterClosed']);
 
-   let player: Player = {
-      number: 0,
-      name: '',
-      rating: 0
-   };
-   let rating: BowlerRating = {
-      key: 0,
-      value: 'beginner'
-   };
+   let bowlingStatePlayers: jasmine.Spy;
+   let bowlingStateSetGame: jasmine.Spy;
+   let bowlingStateStatusSet: jasmine.Spy;
+   let bowlStateRatings: jasmine.Spy;
 
-   beforeAll(() =>
-   {
-      Object.defineProperties(service, {
-         events: {
-            value: {
-               getPlayers: function () { return playerEvent; },
-               getRatings: function () { return event; },
-               newGame: function () { return event; },
-               bowl: function () { return event; },
-               addPlayer: function () { return event; },
-               removePlayer: function () { return event; },
-               changeAllPlayersRatings: function (rating: number, players: Player[]) { return event; },
-               setAvailability: function (status: string) { return event; }
-            },
-            writable: true
-         },
-         observables: {
-            value: {
-               players$: of([player]),
-               score$: function (playerName: string) { return of(100) },
-               rating$: function (rated: number) { return of(rating) },
-               ratings$: of([rating]),
-               status$: of('online')
-            },
-            writable: true
-         }
-      });
-   });
-
-   beforeEach(async () =>
-   {
+   beforeEach(async () => {
       await TestBed.configureTestingModule({
          declarations: [
-            BowlingViewComponent
+            BowlingViewComponent,
+            AddPlayerComponent,
+            GameComponent,
+            PlayerRatingComponent,
+            PlayerComponent,
          ],
          providers: [
-            { provide: BowlingStateService, useValue: service },
-            { provide: MatDialog, useValue: dialog }
+            { provide: BowlingServiceAbstract, useValue: bowlingAbstractService },
+            { provide: MatDialog, useValue: dialog },
+            { provide: PlayersService, useValue: playerService },
          ],
          imports: [
+            TitleComponent,
+            MatSlideToggleModule,
+            BrowserAnimationsModule,
             MatFormFieldModule,
-            MatSelectModule,
             MatIconModule,
-            MockComponent({ selector: 'app-add-player' }),
-            MockComponent({ selector: 'app-title' }),
-            MockComponent({ selector: 'app-game' }),
-            MockComponent({ selector: 'mat-slide-toggle' })
+            MatSelectModule,
+            FormsModule,
          ]
       })
+         .overrideComponent(BowlingViewComponent, {
+            set: {
+               providers: [
+                  { provide: BowlingServiceAbstract, useValue: bowlingAbstractService },
+                  { provide: PlayerService, useValue: playerService },
+               ]
+            }
+         })
          .compileComponents();
 
       fixture = TestBed.createComponent(BowlingViewComponent);
+
       component = fixture.componentInstance;
+      fixture.detectChanges();
+
+      jasmine.getEnv().allowRespy(true);
+
+      bowlingStatePlayers = spyOn(BowlingState, 'players');
+      bowlingStateSetGame = spyOn(BowlingState.game, 'set');
+      bowlStateRatings = spyOn(BowlingState, 'ratings');
+      bowlingStateStatusSet = spyOn(BowlingState.status, 'set');
+
+      dialog.open.calls.reset();
+
       dialog.open.calls.reset();
    });
 
-   it('should create', () =>
-   {
-
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 
-   describe('when ngOnInit invoked', () =>
-   {
-      it('should call subscribe', () =>
-      {
-         spyOn(service.events, 'getRatings');
-         spyOn(service.events, 'getPlayers');
+   describe('when add player invoked', () => {
+      it('should call player service addPlayer', () => {
+         const player = { name: 'John Doe', rating: 150 };
 
-         component.ngOnInit();
+         component.addPlayer(player);
 
-         expect(service.events.getRatings).toHaveBeenCalledTimes(1);
-         expect(service.events.getPlayers).toHaveBeenCalledTimes(1);
+         expect(playerService.addPlayer).toHaveBeenCalledWith(player.name, player.rating);
       });
    });
 
-   describe('when addPlayer invoked', () =>
-   {
-      it('should call addPlayer', waitForAsync(() =>
-      {
-         spyOn(service.events, 'addPlayer');
+   describe('when remove player invoked', () => {
+      it('should call player service removePlayer', () => {
+         const playerNumber = 1;
 
-         component.addPlayer({ name: 'player', rating: 100 });
+         component.removePlayer(playerNumber);
 
-         expect(service.events.addPlayer).toHaveBeenCalledTimes(1);
-         expect(service.events.addPlayer).toHaveBeenCalledWith('player', 100, [player]);
-      }));
+         expect(playerService.removePlayer).toHaveBeenCalledWith(playerNumber);
+      });
    });
 
-   describe('when removePlayer invoked', () =>
-   {
-      it('should call removePlayer', waitForAsync(() =>
-      {
-         spyOn(service.events, 'removePlayer');
-
-         component.removePlayer(0);
-
-         expect(service.events.removePlayer).toHaveBeenCalledTimes(1);
-         expect(service.events.removePlayer).toHaveBeenCalledWith(0, [player]);
-      }));
-   });
-
-   describe('when playGame invoked', () =>
-   {
-      it('should call bowl', waitForAsync(() =>
-      {
-         spyOn(service.events, 'bowl');
+   describe('when play game invoked', () => {
+      it('should call bowling service bowl', () => {
+         const players = [{ name: 'John Doe', rating: 150 }];
+         bowlingStatePlayers.and.returnValue([players]);
 
          component.playGame();
 
-         expect(service.events.bowl).toHaveBeenCalledTimes(1);
-         expect(service.events.bowl).toHaveBeenCalledWith([player]);
-      }));
+         expect(bowlingAbstractService.bowl).toHaveBeenCalled();
+      });
    });
 
-   describe('when getScore$ invoked', () =>
-   {
-      it('should return score', waitForAsync(() =>
-      {
-         let score = component.getScore$('player');
-
-         score.subscribe(value =>
-         {
-            expect(value).toBe(100);
-         });
-      }));
-   });
-
-   describe('when getRating$ invoked', () =>
-   {
-      it('should return intermediate', waitForAsync(() =>
-      {
-         Object.defineProperty(service.observables, 'rating$', {
-            value: function (r: number) { return of({ ...rating, value: 'Intermediate' }) },
-            writable: true
-         });
-
-         let rating$ = component.getRating$(0);
-
-         rating$.subscribe(value =>
-         {
-            expect(value).toBe('Intermediate');
-         });
-      }));
-
-      it('should return beginner with invalid rating', waitForAsync(() =>
-      {
-         Object.defineProperty(service.observables, 'rating$', {
-            value: function (rating: number) { return of(undefined) },
-            writable: true
-         });
-
-         let rating$ = component.getRating$(0);
-
-         rating$.subscribe(value =>
-         {
-            expect(value).toBe('Beginner');
-         });
-      }));
-   });
-
-   describe('when newGame invoked', () =>
-   {
-      it('should call newGame', waitForAsync(() =>
-      {
-         spyOn(service.events, 'newGame');
-
+   describe('when new game invoked', () => {
+      it('should call player service removeAllPlayers', () => {
          component.newGame();
 
-         expect(service.events.newGame).toHaveBeenCalledTimes(1);
-      }));
+         expect(playerService.removeAllPlayers).toHaveBeenCalled();
+         expect(bowlingStateSetGame).toHaveBeenCalledWith({ bowlers: [], completed: false, winner: undefined });
+      });
    });
 
-   describe('when changePlayerRatings invoked', () =>
-   {
-      it('should call openDialog', waitForAsync(() =>
-      {
-         spyOn(service.events, 'changeAllPlayersRatings');
+   describe('when change player ratings invoked', () => {
+      it('should open dialog', waitForAsync(() => {
+         const ratings = [{ key: 1, name: 'John Doe', rating: 150 }];
+         const dialogRef: jasmine.SpyObj<MatDialogRef<PlayerRatingComponent>> = jasmine.createSpyObj('MatDialogRef', ['afterClosed']);
+         const players: ReadonlyArray<Player> = [{ number: 1, name: 'John Doe', rating: 150 }];
+         bowlingStatePlayers.and.returnValue(players);
+         bowlStateRatings.and.returnValue(ratings);
+
          dialog.open.and.returnValue(dialogRef);
-         dialogRef.afterClosed.and.returnValue(of(100));
+
+         dialogRef.afterClosed.and.returnValue(of(1));
 
          component.changePlayerRatings();
 
-         expect(dialog.open).toHaveBeenCalledTimes(1);
-         expect(service.events.changeAllPlayersRatings).toHaveBeenCalledOnceWith(100, [player]);
+         expect(dialog.open).toHaveBeenCalledWith(PlayerRatingDialogComponent, { data: { ratings } });
+         expect(playerService.changePlayerRatings).toHaveBeenCalledWith(1, players);
       }));
    });
 
-   describe('when toggle status invoked', () =>
-   {
-      it('should set availability to online', () =>
-      {
-         // Arrange
-         spyOn(service.events, 'setAvailability');
-         component.isChecked = false;
-
-         // Act
+   describe('when toggle status invoked', () => {
+      it('should set status to online', () => {
          component.toggleStatus();
 
-         // Assert
+         expect(bowlingStateStatusSet).toHaveBeenCalledWith('online');
          expect(component.isChecked).toBeTrue();
-         expect(service.events.setAvailability).toHaveBeenCalledOnceWith('online');
       });
 
-      it('should set availability to offline', () =>
-      {
-         // Arrange
-         spyOn(service.events, 'setAvailability');
+      it('should set status to offline', () => {
          component.isChecked = true;
 
-         // Act
          component.toggleStatus();
 
-         // Assert
+         expect(bowlingStateStatusSet).toHaveBeenCalledWith('offline');
          expect(component.isChecked).toBeFalse();
-         expect(service.events.setAvailability).toHaveBeenCalledOnceWith('offline');
       });
    });
 });

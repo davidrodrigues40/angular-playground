@@ -1,4 +1,8 @@
-<app-title>Oliver Sacks Books Collection</app-title>
+<app-title>@if(author().length > 0){
+   {{author()}} Books Collection}
+   @else {
+   Enter author's name to see their books!
+   } </app-title>
 <div class="filter">
    <app-author (authorChanged)="search()"></app-author>
    <button mat-button

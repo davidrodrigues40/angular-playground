@@ -1,49 +1,50 @@
-import { Observable, map } from 'rxjs';
-import { HttpSignalService } from 'src/app/interfaces/abstracts/http-signal-service.abstract';
-import { ISignalService } from 'src/app/interfaces/services/signal-service.interface';
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Author } from 'src/app/interfaces/models/books/author';
 import { Book } from '../../interfaces/models/books/book.';
+import { BooksState } from 'src/app/state/books.state';
 
 @Injectable()
-export class BookService extends HttpSignalService implements ISignalService {
-   private _books: Book[] = [];
+export class BookService {
    private readonly _take: number = 20;
    private readonly base_url: string = `https://www.googleapis.com/books/v1/volumes?maxResults=${this._take}&orderBy=relevance`;
 
-   methods: {
-      getBooks: string;
-   } = {
-         getBooks: 'getBooks',
-      };
+   constructor(private readonly httpClient: HttpClient) { }
 
-   readonly details = {
-      getBooks: this.getBooks,
-      _books: this._books,
-      httpClient: this.httpClient,
-      base_url: this.base_url
+   getBooksFromGoogle(author: string): void {
+      if (!author) {
+         BooksState.books.set([]);
+         BooksState.searching.set(false);
+         return;
+      }
+
+      const url = `${this.base_url}&q=${author}`;
+
+      this.httpClient
+         .get<{ items: Book[] }>(url)
+         .subscribe(response => {
+            BooksState.books.set(response.items);
+            BooksState.searching.set(false);
+         });
+   }
+
+   addBook(bookId: string): void {
+      const collection: Array<Book> = BooksState.collection();
+      const book = BooksState.books().find(b => b.id === bookId);
+
+      if (book)
+         BooksState.collection.set([...collection, book]);
    };
 
-   constructor(private readonly httpClient: HttpClient) { super(); }
+   removeBook(bookId: string): void {
+      BooksState.collection.set(BooksState.collection().filter(b => b.id !== bookId));
+   };
 
-   private getBooks(author: Author): Observable<Book[]> {
-      if (!author.name) {
-         return new Observable<Book[]>((subscriber) => {
-            subscriber.next([]);
-            subscriber.complete();
-         });
-      }
-      const url = `${this.base_url}&q=${author.name}`;
+   clearCollection(): void {
+      BooksState.collection.set([]);
+   };
 
-      return this.httpClient
-         .get<{ items: Book[] }>(url)
-         .pipe(
-            map((books) => {
-               this._books = books.items || [];
-               return this._books;
-            }));
-   }
+   setAuthor(author: string): void {
+      BooksState.author.set(author);
+   };
 }

@@ -1,14 +1,13 @@
 
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { MenuService } from './menu.service';
+import { MenuState } from 'src/app/state/menu.state';
 
-describe('MenuService', () =>
-{
+describe('MenuService', () => {
    let service: MenuService;
 
-   beforeEach(() =>
-   {
+   beforeEach(() => {
       TestBed.configureTestingModule({
          providers: [
             MenuService
@@ -17,49 +16,17 @@ describe('MenuService', () =>
       service = TestBed.inject(MenuService);
    });
 
-   it('should be created', () =>
-   {
+   it('should be created', () => {
       expect(service).toBeTruthy();
    });
 
-   describe('methods', () =>
-   {
-      it('should return all methods', () =>
-      {
-         expect(service.methods).toEqual({
-            getMenu: 'getMenu'
-         });
+   describe('when getMenu invoked', () => {
+      it('should set menu items in the state', () => {
+         const menuStateSpy = spyOn(MenuState.items, 'set');
+
+         service.getMenu();
+
+         expect(menuStateSpy).toHaveBeenCalledWith(service['_menuItems']);
       });
-   });
-
-   describe('details', () =>
-   {
-      it('should return all details', () =>
-      {
-         expect(service.details).toEqual({
-            getMenu: service['getMenu'],
-            httpClient: undefined,
-            base_url: ''
-         });
-      });
-   });
-
-   describe('dispatch', () =>
-   {
-      it('should dispatch getMenu', waitForAsync(() =>
-      {
-         const menuItems = [
-            { value: 'Home', route: '/home' },
-            { value: 'Books', route: '/books' },
-            { value: 'Bowling', route: '/bowling' },
-            { value: 'Chuck Norris Facts', route: '/chuck-norris-facts' },
-         ];
-
-         service.dispatch(service.methods.getMenu)
-            .subscribe(items =>
-            {
-               expect(items).toEqual(menuItems);
-            });
-      }));
    });
 });
