@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { FrameComponent } from './components/frame/frame.component';
 import { GameComponent } from './components/game/game.component';
@@ -49,7 +50,8 @@ import { PlayerService } from 'src/app/services/bowling/offline/player/player.se
       MatSelectModule,
       MatInputModule,
       MatDialogModule,
-      MatSlideToggleModule
+      MatSlideToggleModule,
+      MatChipsModule,
    ],
    providers: [
       BowlingService,

@@ -24,19 +24,23 @@ export class FactGeneratorComponent {
    constructor(private readonly _service: ChuckNorrisFactsService) { }
 
    getFact(): void {
+      this.favoriteFacts.set([]);
       this._service.getFact();
    }
 
    getFactForCategory(): void {
       const category: FactCategory | null = this.selectedCategory();
 
-      if (category !== null)
+      if (category !== null) {
+         this.favoriteFacts.set([]);
          this._service.getFactForCategory(category);
+      }
       else
          this.getFact();
    }
 
    getFavoriteFact(): void {
+      this.favoriteFacts.set([]);
       this._service.getFavoriteFact(this.selectedCategory()?.name ?? 'random');
    }
 
