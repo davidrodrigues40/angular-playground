@@ -13,7 +13,7 @@ import { BooksState } from 'src/app/state/books.state';
       FormsModule,
       MatFormFieldModule,
       MatButtonModule,
-      MatInputModule
+      MatInputModule,
    ],
    changeDetection: ChangeDetectionStrategy.OnPush
 })
