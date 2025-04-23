@@ -25,10 +25,10 @@ describe('ScorecardComponent', () => {
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [ScorecardComponent],
          providers: [
             { provide: FrameService, useValue: frameService }
-         ]
+         ],
+         imports: [ScorecardComponent],
       })
          .overrideComponent(ScorecardComponent, {
             set: {
