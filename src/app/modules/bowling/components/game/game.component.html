@@ -3,11 +3,11 @@
       @if(players.length > 0) {
       <div class="game">
          <div class="players">
-            <div *ngFor="let player of players">
-               <app-player [player]="player"
-                           [rating]="(getRating(player.rating))"
-                           (removePlayer)="removePlayer.emit($event)"></app-player>
-            </div>
+            @for(player of players; track player) {
+            <app-player [player]="player"
+                        [rating]="(getRating(player.rating))"
+                        (removePlayer)="removePlayer.emit($event)"></app-player>
+            }
             <div>
                <button mat-raised-button
                        color="accent"
@@ -34,12 +34,14 @@
          </div>
       </div>
       }
+
       @if(game && game.completed) {
       <h1>Winner: {{game.winner?.name}} with a score of {{game.winner?.score}}</h1>
-      <div *ngFor="let bowler of game.bowlers"
-           class="bowlers">
+      @for(bowler of game.bowlers; track bowler){
+      <div class="bowlers">
          <app-scorecard [bowler]="bowler"></app-scorecard>
       </div>
+      }
       }
    </div>
 </section>

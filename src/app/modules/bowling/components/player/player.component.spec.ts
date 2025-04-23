@@ -3,17 +3,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { PlayerComponent } from './player.component';
 
-describe('PlayerComponent', () =>
-{
+describe('PlayerComponent', () => {
    let component: PlayerComponent;
    let fixture: ComponentFixture<PlayerComponent>;
 
-   beforeEach(async () =>
-   {
+   beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [PlayerComponent],
          imports: [
-            MatIconModule
+            MatIconModule,
+            PlayerComponent,
          ]
       })
          .compileComponents();
@@ -23,8 +21,7 @@ describe('PlayerComponent', () =>
 
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 });

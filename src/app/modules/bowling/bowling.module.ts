@@ -19,26 +19,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 
-import { FrameComponent } from './components/frame/frame.component';
-import { GameComponent } from './components/game/game.component';
-import { PlayerRatingDialogComponent } from './components/player-rating-dialog/player-rating-dialog.component';
-import { PlayerRatingComponent } from './components/player-rating/player-rating.component';
-import { PlayerComponent } from './components/player/player.component';
-import { BowlerComponent } from './components/scorecard/scorecard.component';
 import { BowlingViewComponent } from './view/bowling-view.component';
-import { AddPlayerComponent } from './components/add-player/add-player.component';
 import { PlayerService } from 'src/app/services/bowling/offline/player/player.service';
+import { AddPlayerComponent } from './components/add-player/add-player.component';
+import { GameComponent } from './components/game/game.component';
 
 @NgModule({
    declarations: [
       BowlingViewComponent,
-      BowlerComponent,
-      PlayerComponent,
-      GameComponent,
-      FrameComponent,
-      AddPlayerComponent,
-      PlayerRatingComponent,
-      PlayerRatingDialogComponent
    ],
    imports: [
       CommonModule,
@@ -52,6 +40,8 @@ import { PlayerService } from 'src/app/services/bowling/offline/player/player.se
       MatDialogModule,
       MatSlideToggleModule,
       MatChipsModule,
+      AddPlayerComponent,
+      GameComponent
    ],
    providers: [
       BowlingService,

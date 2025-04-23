@@ -3,9 +3,11 @@
         <h2>{{bowler.name}}</h2>
     </div>
     <div class="frames">
-        <app-frame *ngFor="let frame of frames; index as i;"
-                   [frame]="frame"
-                   [score]="frameScore(frame.score, i)"></app-frame>
+        @for(frame of frames; track $index;){
+        <app-frame [frame]="frame"
+                   [score]="frameScore(frame.score, $index)"></app-frame>
+        }
+
     </div>
     <div class="score">
         <div class="frame-score">

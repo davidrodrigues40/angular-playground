@@ -4,11 +4,26 @@ import { Player } from 'src/app/interfaces/models/bowling/player';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { BowlerRating } from '../../models/bowler-rating.model';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { PlayerComponent } from '../player/player.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ScorecardComponent } from '../scorecard/scorecard.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
    selector: 'app-game',
    templateUrl: './game.component.html',
-   styleUrls: ['./game.component.scss']
+   styleUrls: ['./game.component.scss'],
+   standalone: true,
+   imports: [
+      CommonModule,
+      PlayerComponent,
+      MatIconModule,
+      MatButtonModule,
+      MatFormFieldModule,
+      ScorecardComponent,
+   ],
 })
 export class GameComponent {
    @Input() game?: Readonly<Game | null>;

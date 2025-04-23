@@ -45,6 +45,8 @@ describe('BowlingService', () => {
       httpClient.post.calls.reset();
       ratingService.getRatings$.calls.reset();
 
+      jasmine.getEnv().allowRespy(true);
+
       gameSetSpy = spyOn(BowlingState.game, 'set');
       playersSetSpy = spyOn(BowlingState.players, 'set');
       ratingsSetSpy = spyOn(BowlingState.ratings, 'set');

@@ -5,28 +5,26 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PlayerRatingComponent } from '../player-rating/player-rating.component';
 import { AddPlayerComponent } from './add-player.component';
+import { MockComponent } from 'src/app/testing/testing.directive';
 
-describe('AddPlayerComponent', () =>
-{
+describe('AddPlayerComponent', () => {
    let component: AddPlayerComponent;
    let fixture: ComponentFixture<AddPlayerComponent>;
    let event: jasmine.SpyObj<KeyboardEvent> = jasmine.createSpyObj('Event', ['key']);
 
-   beforeEach(async () =>
-   {
+   beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [
-            AddPlayerComponent,
-            PlayerRatingComponent],
+         declarations: [],
          imports: [
             MatFormFieldModule,
             MatInputModule,
             MatSelectModule,
             MatIconModule,
             FormsModule,
-            BrowserAnimationsModule
+            BrowserAnimationsModule,
+            AddPlayerComponent,
+            MockComponent({ selector: 'app-player-rating', inputs: ['ratings'], outputs: ['ratingChanged'] }),
          ]
       })
          .compileComponents();
@@ -36,23 +34,19 @@ describe('AddPlayerComponent', () =>
 
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 
 
-   describe('when keypressed', () =>
-   {
-      beforeEach(() =>
-      {
+   describe('when keypressed', () => {
+      beforeEach(() => {
          Object.defineProperty(event, 'key', { value: 'Enter' });
          spyOn(component.addPlayer, 'emit');
          spyOn(component.clear, 'emit');
          spyOn(component.newGame, 'emit');
       })
-      it('should emit add player', () =>
-      {
+      it('should emit add player', () => {
          component.playerName = 'test';
          component.playerRating = 1;
 
@@ -61,8 +55,7 @@ describe('AddPlayerComponent', () =>
          expect(component.addPlayer.emit).toHaveBeenCalledOnceWith({ name: 'test', rating: 1 });
       });
 
-      it('should emit clear', () =>
-      {
+      it('should emit clear', () => {
          component.playerName = 'clear';
          component.playerRating = 1;
 
@@ -73,8 +66,7 @@ describe('AddPlayerComponent', () =>
          expect(component.playerRating).toEqual(0);
       });
 
-      it('should emit new game', () =>
-      {
+      it('should emit new game', () => {
          component.playerName = '';
          component.playerRating = 1;
 
@@ -84,10 +76,8 @@ describe('AddPlayerComponent', () =>
       })
    });
 
-   describe('when rating changed', () =>
-   {
-      it('should set playerRating', () =>
-      {
+   describe('when rating changed', () => {
+      it('should set playerRating', () => {
          component.playerRating = 0;
 
          component.ratingChanged(1);

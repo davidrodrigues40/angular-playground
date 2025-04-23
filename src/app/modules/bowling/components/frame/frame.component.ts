@@ -7,22 +7,20 @@ import { FrameService } from '../../services/frame.service';
 @Component({
    selector: 'app-frame',
    templateUrl: './frame.component.html',
-   styleUrls: ['./frame.component.scss']
+   styleUrls: ['./frame.component.scss'],
+   standalone: true,
 })
-export class FrameComponent
-{
+export class FrameComponent {
    @Input() frame: Frame = {
       rolls: new Map<number, number>(),
       score: 0
    };
    @Input() score: number = 0;
 
-   constructor(private readonly _frameService: FrameService)
-   {
+   constructor(private readonly _frameService: FrameService) {
    }
 
-   rolls(frame: Frame)
-   {
+   rolls(frame: Frame) {
       let values: number[] = [];
 
       if (frame.rolls instanceof Map)
