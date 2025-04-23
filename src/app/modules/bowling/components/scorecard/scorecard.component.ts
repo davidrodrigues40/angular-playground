@@ -4,15 +4,17 @@ import { Frame } from 'src/app/interfaces/models/bowling/frame';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { FrameService } from '../../services/frame.service';
+import { FrameComponent } from '../frame/frame.component';
 
 @Component({
    selector: 'app-scorecard',
    templateUrl: './scorecard.component.html',
    styleUrls: ['./scorecard.component.scss'],
-   providers: [FrameService]
+   standalone: true,
+   providers: [FrameService],
+   imports: [FrameComponent]
 })
-export class BowlerComponent implements OnInit
-{
+export class ScorecardComponent implements OnInit {
    @Input() bowler: Bowler = {
       number: 0,
       name: '',
@@ -24,16 +26,14 @@ export class BowlerComponent implements OnInit
 
    constructor(private readonly _frameService: FrameService) { }
 
-   ngOnInit(): void
-   {
+   ngOnInit(): void {
       if (this.bowler.frames instanceof Map)
          this.frames = Array.from(this.bowler.frames.values());
       else
          this.frames = Object.values(this.bowler.frames);
    }
 
-   frameScore(frameScore: number, index: number): number
-   {
+   frameScore(frameScore: number, index: number): number {
       return this._frameService.calculateFrameValue(frameScore, index, this.frames);
    }
 }

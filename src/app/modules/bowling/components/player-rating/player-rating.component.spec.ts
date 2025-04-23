@@ -4,19 +4,18 @@ import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PlayerRatingComponent } from './player-rating.component';
 
-describe('PlayerRatingComponent', () =>
-{
+describe('PlayerRatingComponent', () => {
    let component: PlayerRatingComponent;
    let fixture: ComponentFixture<PlayerRatingComponent>;
 
-   beforeEach(() =>
-   {
+   beforeEach(() => {
       TestBed.configureTestingModule({
-         declarations: [PlayerRatingComponent],
+         declarations: [],
          imports: [
             MatFormFieldModule,
             MatSelectModule,
-            BrowserAnimationsModule
+            BrowserAnimationsModule,
+            PlayerRatingComponent
          ]
       });
       fixture = TestBed.createComponent(PlayerRatingComponent);
@@ -24,8 +23,7 @@ describe('PlayerRatingComponent', () =>
 
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 });

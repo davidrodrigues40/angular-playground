@@ -1,12 +1,12 @@
 <app-base-footer>
    <div class="home-menu">
-      <div *ngFor="let item of menuItems()">
-         <button mat-flat-button
-                 type="button"
-                 color="basic"
-                 [routerLink]="item.route"
-                 [disabled]="markDisabled(item.route)"
-                 class="menu-item">{{item.value}}</button>
-      </div>
+      @for(item of menuItems(); track item){
+      <button mat-flat-button
+              type="button"
+              color="basic"
+              [routerLink]="item.route"
+              [disabled]="markDisabled(item.route)"
+              class="menu-item">{{item.value}}</button>
+      }
    </div>
 </app-base-footer>

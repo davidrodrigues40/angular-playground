@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GameComponent } from './game.component';
 
-describe('GameComponent', () =>
-{
+describe('GameComponent', () => {
    let component: GameComponent;
    let fixture: ComponentFixture<GameComponent>;
 
-   beforeEach(async () =>
-   {
+   beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [GameComponent]
+         providers: [
+            GameComponent
+         ]
       })
          .compileComponents();
 
@@ -18,29 +18,24 @@ describe('GameComponent', () =>
 
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 
-   describe('get rating', () =>
-   {
-      beforeEach(() =>
-      {
+   describe('get rating', () => {
+      beforeEach(() => {
          component.ratings = [
             { key: 1, value: 'novice' },
             { key: 2, value: 'intermediate' }
          ]
       })
-      it('should return rating', () =>
-      {
+      it('should return rating', () => {
          const actual = component.getRating(1);
 
          expect(actual).toEqual('novice');
       });
 
-      it('should return default', () =>
-      {
+      it('should return default', () => {
          const actual = component.getRating(3);
 
          expect(actual).toEqual('Beginner');

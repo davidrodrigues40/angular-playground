@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BowlingViewComponent } from './bowling-view.component';
 import { PlayersService } from 'src/app/services/players/players.service';
-import { AddPlayerComponent } from '../components/add-player/add-player.component';
 import { GameComponent } from '../components/game/game.component';
 import { PlayerRatingComponent } from '../components/player-rating/player-rating.component';
 import { BowlingServiceAbstract } from 'src/app/services/bowling/bowling-service.abstract';
@@ -19,6 +18,7 @@ import { of } from 'rxjs';
 import { Player } from 'src/app/interfaces/models/bowling/player';
 import { PlayerRatingDialogComponent } from '../components/player-rating-dialog/player-rating-dialog.component';
 import { PlayerComponent } from '../components/player/player.component';
+import { MockComponent } from 'src/app/testing/testing.directive';
 
 describe('BowlingViewComponent', () => {
    let component: BowlingViewComponent;
@@ -36,9 +36,7 @@ describe('BowlingViewComponent', () => {
       await TestBed.configureTestingModule({
          declarations: [
             BowlingViewComponent,
-            AddPlayerComponent,
             GameComponent,
-            PlayerRatingComponent,
             PlayerComponent,
          ],
          providers: [
@@ -54,6 +52,7 @@ describe('BowlingViewComponent', () => {
             MatIconModule,
             MatSelectModule,
             FormsModule,
+            MockComponent({ selector: 'app-add-player', template: '', inputs: ['ratings'] }),
          ]
       })
          .overrideComponent(BowlingViewComponent, {

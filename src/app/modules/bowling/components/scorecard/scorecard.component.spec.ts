@@ -4,12 +4,11 @@ import { Frame } from 'src/app/interfaces/models/bowling/frame';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FrameService } from '../../services/frame.service';
-import { BowlerComponent } from './scorecard.component';
+import { ScorecardComponent } from './scorecard.component';
 
-describe('ScorecardComponent', () =>
-{
-   let component: BowlerComponent;
-   let fixture: ComponentFixture<BowlerComponent>;
+describe('ScorecardComponent', () => {
+   let component: ScorecardComponent;
+   let fixture: ComponentFixture<ScorecardComponent>;
    let frameService: jasmine.SpyObj<FrameService> = jasmine.createSpyObj('FrameService', ['calculateFrameValue']);
    const frame: Frame = {
       rolls: new Map<number, number>(),
@@ -24,15 +23,14 @@ describe('ScorecardComponent', () =>
       rating: 0
    };
 
-   beforeEach(async () =>
-   {
+   beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [BowlerComponent],
+         declarations: [ScorecardComponent],
          providers: [
             { provide: FrameService, useValue: frameService }
          ]
       })
-         .overrideComponent(BowlerComponent, {
+         .overrideComponent(ScorecardComponent, {
             set: {
                providers: [
                   { provide: FrameService, useValue: frameService }
@@ -41,21 +39,18 @@ describe('ScorecardComponent', () =>
          })
          .compileComponents();
 
-      fixture = TestBed.createComponent(BowlerComponent);
+      fixture = TestBed.createComponent(ScorecardComponent);
       component = fixture.componentInstance;
 
       component.bowler = bowler;
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 
-   describe('when ngOnInit invoked', () =>
-   {
-      it('should set frames from map', () => 
-      {
+   describe('when ngOnInit invoked', () => {
+      it('should set frames from map', () => {
          bowler.frames = new Map<number, Frame>();
          frames.forEach((frame, index) => bowler.frames.set(index, frame));
 
@@ -64,8 +59,7 @@ describe('ScorecardComponent', () =>
          expect(component.frames).toEqual([frame]);
       });
 
-      it('should set frames from array', () =>
-      {
+      it('should set frames from array', () => {
          component.bowler.frames = Object.fromEntries(frames.map((frame, index) => [index, frame])) as unknown as Map<number, Frame>;
 
          component.ngOnInit();
@@ -74,14 +68,11 @@ describe('ScorecardComponent', () =>
       });
    });
 
-   describe('when frameScore invoked', () =>
-   {
-      beforeEach(() =>
-      {
+   describe('when frameScore invoked', () => {
+      beforeEach(() => {
          frameService.calculateFrameValue.calls.reset();
       });
-      it('should return value from frame service', () =>
-      {
+      it('should return value from frame service', () => {
          frameService.calculateFrameValue.and.returnValue(0);
          component.frames = frames;
 
