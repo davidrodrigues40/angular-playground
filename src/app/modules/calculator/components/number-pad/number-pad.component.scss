@@ -1,0 +1,22 @@
+@import 'src/assets/styles/variables.scss';
+
+.keypad {
+    &-button {
+        background-color: $color--blue;
+        color: $color--yellow;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        align-items: center;
+        justify-items: center;
+        font-size: 24px;
+
+        &:not(.disabled) {
+            cursor: pointer;
+        }
+
+        &:hover:not(.disabled) {
+            background-color: darken($color--blue, 10%);
+        }
+    }
+}

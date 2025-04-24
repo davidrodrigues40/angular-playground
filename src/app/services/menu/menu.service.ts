@@ -10,6 +10,7 @@ export class MenuService {
       { value: 'Books', route: '/books' },
       { value: 'Bowling', route: '/bowling' },
       { value: 'Chuck Norris Facts', route: '/chuck-norris-facts' },
+      { value: 'Calculator', route: '/calculator' },
    ];
 
    getMenu(): void {
