@@ -1,3 +1,15 @@
+@import 'src/assets/styles/variables.scss';
+
+.calculator {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.function-container {
+    width: 100px;
+}
+
 .keypad-container {
     width: 400px;
 }

@@ -34,7 +34,7 @@ export class NumberPad {
 
   keypadButtonPressed(key: KeypadInput): void {
     if (key.value !== undefined) {
-      this.keyPressed.emit(key.value);
+      this.keyPressed.emit(key.value as number);
     }
   }
 }

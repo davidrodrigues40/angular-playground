@@ -1,9 +1,9 @@
 @import 'src/assets/styles/variables.scss';
 
-.number-pad {
+.function-pad {
     &-button {
-        background-color: $color--blue;
-        color: $color--yellow;
+        background-color: $color--yellow;
+        color: $color--blue;
         height: 100%;
         width: 100%;
         text-align: center;

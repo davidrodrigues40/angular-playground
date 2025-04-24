@@ -1,7 +1,8 @@
-<div class="keypad-container">
-    <app-keypad (keyPressed)="numberPressed($event)"></app-keypad>
-</div>
-<div>
-    <button (click)="calculate()"
-            class="calculate-button">Calculate</button>
+<div class="calculator">
+    <div class="keypad-container">
+        <app-keypad (keyPressed)="numberPressed($event)"></app-keypad>
+    </div>
+    <div class="function-container">
+        <app-function-pad (keyPressed)="functionPressed($event)"></app-function-pad>
+    </div>
 </div>
