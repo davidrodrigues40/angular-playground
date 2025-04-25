@@ -3,12 +3,18 @@
 .calculator {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     height: 100vh;
+    width: 525px;
+
+    &:focus {
+        outline: none;
+    }
 
     &-keypad {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
+        align-items: stretch;
     }
 
     &-entered {

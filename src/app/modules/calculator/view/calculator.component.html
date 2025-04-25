@@ -1,4 +1,6 @@
-<div class="calculator">
+<div id="calculator"
+     class="calculator"
+     tabindex="0">
     <div class="calculator-entered">{{displayNumbers()}}</div>
     <div class="calculator-keypad">
         <div class="keypad-container">
@@ -8,5 +10,4 @@
             <app-function-pad (keyPressed)="functionPressed($event)"></app-function-pad>
         </div>
     </div>
-    <div>Value: {{total}}</div>
 </div>

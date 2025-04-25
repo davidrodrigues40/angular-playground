@@ -1,8 +1,10 @@
-import { Component, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { NumberPad } from '../components/number-pad/number-pad.component';
 import { FunctionPad } from '../components/function-pad/function-pad.component';
 import { KeypadInput } from '../models/keypad-input';
 import { KeypadFunction, KeypadFunctionType } from '../models/keypad-function';
+import { CalculatorOperationHandler } from 'src/app/services/calculator/calculator-operation-handler';
+import { OperationFactory } from 'src/app/services/calculator/operation-factory.service';
 
 @Component({
   selector: 'app-calculator',
@@ -11,75 +13,122 @@ import { KeypadFunction, KeypadFunctionType } from '../models/keypad-function';
     NumberPad,
     FunctionPad
   ],
+  providers: [
+    OperationFactory,
+  ],
   templateUrl: './calculator.component.html',
   styleUrl: './calculator.component.scss'
 })
-export class CalculatorComponent {
+export class CalculatorComponent implements OnInit {
 
-  numbersPressed: number[] = [];
-  currentFunction: KeypadFunction | undefined = undefined;
+  private readonly operationFactory: OperationFactory = inject(OperationFactory);
+  private pressedNumbers: number[] = [];
+  private previousFunction: KeypadFunction | undefined = undefined;
+
   total: number = 0;
-
   displayNumbers: WritableSignal<string> = signal('0');
 
+  ngOnInit(): void {
+    var div = document.getElementById('calculator') as HTMLDivElement;
+    div.addEventListener('keyup', (event: KeyboardEvent) => {
+      this.keyPressed(event);
+    });
+  }
+
   numberPressed(key: number): void {
-    this.numbersPressed.push(key);
-    this.displayNumbers.set(this.numbersPressed.join(''));
+    this.pressedNumbers.push(key);
+    this.displayNumbers.set(this.pressedNumbers.join(''));
   }
 
   functionPressed(key: KeypadInput): void {
+    const keyPressed: KeypadFunction = key.value as KeypadFunction;
+    const functionType: KeypadFunctionType = keyPressed?.value;
 
-    const keyPressed = key.value as KeypadFunction;
-    if (keyPressed && keyPressed.value === KeypadFunctionType.Clear) {
-      this.clear();
-      return;
+    this.processFunction(keyPressed);
+  }
+
+  private processFunction(func: KeypadFunction): void {
+    switch (func.value) {
+      case KeypadFunctionType.Equals:
+        this.calculate();
+        this.resetFunctions();
+        return;
+      case KeypadFunctionType.Clear:
+        this.clear();
+        return;
+      default:
+        if (this.previousFunction)
+          this.calculate();
+        else if (this.pressedNumbers.length > 0)
+          this.total = parseInt(this.pressedNumbers.join(''));
+
+        this.previousFunction = func;
+
+        this.pressedNumbers = [];
+        break;
     }
-
-    if (keyPressed && keyPressed.value === KeypadFunctionType.Equals) {
-      this.calculate();
-      return;
-    }
-
-    if (this.numbersPressed.length === 0) {
-      return;
-    }
-
-    this.currentFunction = key.value as KeypadFunction;
-    this.total = parseInt(this.numbersPressed.join(''));
-
-    console.log(this.total);
-    this.numbersPressed = [];
   }
 
   private calculate(): void {
-    switch (this.currentFunction?.value) {
-      case KeypadFunctionType.Add:
-        this.add();
-        break;
-      case KeypadFunctionType.Subtract:
-        this.subtract();
-        break;
-      default:
-        break;
-    }
+    if (!this.previousFunction)
+      return;
+    let handler: CalculatorOperationHandler | undefined = this.operationFactory.createOperationHandler(this.previousFunction?.value as KeypadFunctionType);
+
+    this.setTotal(handler!);
+  }
+
+  private setTotal(handler: CalculatorOperationHandler): void {
+    this.total = handler.handle(this.total, parseInt(this.pressedNumbers.join('')));
+    this.displayNumbers.set(this.total.toString());
+  }
+
+  private resetFunctions(): void {
+    this.pressedNumbers = [];
+    this.previousFunction = undefined;
   }
 
   private clear(): void {
-    console.log('clear');
-    this.numbersPressed = [];
-    this.currentFunction = undefined;
+    this.resetFunctions();
     this.total = 0;
     this.displayNumbers.set(this.total.toString());
   }
 
+  private keyPressed(key: KeyboardEvent): void {
+    const value: number = parseInt(key.key);
+    const functionKeys: string[] = ['+', '-', '*', '/', '=', 'Enter', 'Escape', 'C'];
+    console.log(`Key pressed: ${key.key}`);
 
-  private add(): void {
-    this.total += parseInt(this.numbersPressed.join(''));
-    this.displayNumbers.set(this.total.toString());
+    if (!isNaN(value))
+      this.numberPressed(value);
+
+    if (functionKeys.includes(key.key)) {
+      const type: KeypadFunctionType = this.getFunctionType(key.key);
+
+      const functionKey: KeypadFunction = new KeypadFunction(key.key, this.getFunctionType(key.key));
+
+      this.processFunction(functionKey);
+    }
   }
 
-  private subtract(): void {
-    this.total -= parseInt(this.numbersPressed.join(''));
-    this.displayNumbers.set(this.total.toString());
+  private getFunctionType(key: string): KeypadFunctionType {
+    switch (key) {
+      case '+':
+        return KeypadFunctionType.Add;
+      case '-':
+        return KeypadFunctionType.Subtract;
+      case '*':
+        return KeypadFunctionType.Multiply;
+      case '/':
+        return KeypadFunctionType.Divide;
+      case '=':
+      case 'Enter':
+        return KeypadFunctionType.Equals;
+      case 'C':
+      case 'Escape':
+        return KeypadFunctionType.Clear;
+      default:
+        throw new Error('Invalid function key');
+    }
   }
+
 }
