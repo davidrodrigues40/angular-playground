@@ -6,7 +6,9 @@ describe('AddHandlerService', () => {
   let service: AddHandler;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [AddHandler],
+    });
     service = TestBed.inject(AddHandler);
   });
 

@@ -6,7 +6,9 @@ describe('SubtractionHandlerService', () => {
   let service: SubtractionHandler;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [SubtractionHandler],
+    });
     service = TestBed.inject(SubtractionHandler);
   });
 

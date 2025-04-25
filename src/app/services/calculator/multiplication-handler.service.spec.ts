@@ -6,7 +6,9 @@ describe('MultiplicationHandlerService', () => {
   let service: MultiplicationHandler;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [MultiplicationHandler],
+    });
     service = TestBed.inject(MultiplicationHandler);
   });
 

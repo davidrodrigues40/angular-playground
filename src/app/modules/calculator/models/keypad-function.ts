@@ -3,6 +3,7 @@ export class KeypadFunction {
 }
 
 export enum KeypadFunctionType {
+    Invalid = 'invalid',
     Add = 'add',
     Subtract = 'subtract',
     Multiply = 'multiply',

@@ -22,6 +22,7 @@ import { OperationFactory } from 'src/app/services/calculator/operation-factory.
 export class CalculatorComponent implements OnInit {
 
   private readonly operationFactory: OperationFactory = inject(OperationFactory);
+  private readonly functionKeys: string[] = ['+', '-', '*', '/', '=', 'Enter', 'Escape', 'C'];
   private pressedNumbers: number[] = [];
   private previousFunction: KeypadFunction | undefined = undefined;
 
@@ -31,7 +32,7 @@ export class CalculatorComponent implements OnInit {
   ngOnInit(): void {
     var div = document.getElementById('calculator') as HTMLDivElement;
     div.addEventListener('keyup', (event: KeyboardEvent) => {
-      this.keyPressed(event);
+      return this.keyPressed(event);
     });
   }
 
@@ -93,24 +94,24 @@ export class CalculatorComponent implements OnInit {
     this.displayNumbers.set(this.total.toString());
   }
 
-  private keyPressed(key: KeyboardEvent): void {
+  private keyPressed(key: KeyboardEvent): boolean {
     const value: number = parseInt(key.key);
-    const functionKeys: string[] = ['+', '-', '*', '/', '=', 'Enter', 'Escape', 'C'];
-    console.log(`Key pressed: ${key.key}`);
 
     if (!isNaN(value))
       this.numberPressed(value);
 
-    if (functionKeys.includes(key.key)) {
-      const type: KeypadFunctionType = this.getFunctionType(key.key);
+    const functionKey: KeypadFunction = new KeypadFunction(key.key, this.getFunctionType(key.key));
 
-      const functionKey: KeypadFunction = new KeypadFunction(key.key, this.getFunctionType(key.key));
-
+    if (functionKey.value === KeypadFunctionType.Invalid)
+      return false;
+    else
       this.processFunction(functionKey);
-    }
+
+    return true;
   }
 
   private getFunctionType(key: string): KeypadFunctionType {
+    console.log(`Key pressed: ${key}`);
     switch (key) {
       case '+':
         return KeypadFunctionType.Add;
@@ -127,7 +128,7 @@ export class CalculatorComponent implements OnInit {
       case 'Escape':
         return KeypadFunctionType.Clear;
       default:
-        throw new Error('Invalid function key');
+        return KeypadFunctionType.Invalid;
     }
   }
 

@@ -11,27 +11,6 @@ export class OperationFactory {
   createOperationHandler(type: KeypadFunctionType): CalculatorOperationHandler | undefined {
     return operationHandlers.find(handler => handler.handles === type) || undefined;
   }
-
-  getOperator(key: string): KeypadFunctionType {
-    switch (key) {
-      case '+':
-        return KeypadFunctionType.Add;
-      case '-':
-        return KeypadFunctionType.Subtract;
-      case '*':
-        return KeypadFunctionType.Multiply;
-      case '/':
-        return KeypadFunctionType.Divide;
-      case '=':
-      case 'Enter':
-        return KeypadFunctionType.Equals;
-      case 'C':
-      case 'Escape':
-        return KeypadFunctionType.Clear;
-      default:
-        throw new Error('Invalid function key');
-    }
-  }
 }
 
 const operationHandlers: CalculatorOperationHandler[] = [
