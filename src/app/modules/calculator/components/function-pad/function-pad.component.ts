@@ -20,5 +20,9 @@ export class FunctionPad {
   protected readonly operationKeys: KeypadInput[] = [
     { display: '+', value: new KeypadFunction("+", KeypadFunctionType.Add) },
     { display: '-', value: new KeypadFunction("-", KeypadFunctionType.Subtract) },
+    // { display: '*', value: new KeypadFunction("*", KeypadFunctionType.Multiply) },
+    // { display: '/', value: new KeypadFunction("/", KeypadFunctionType.Divide) },
+    { display: '=', value: new KeypadFunction("=", KeypadFunctionType.Equals) },
+    { display: 'C', value: new KeypadFunction("C", KeypadFunctionType.Clear) },
   ];
 }

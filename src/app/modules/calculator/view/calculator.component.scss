@@ -2,8 +2,22 @@
 
 .calculator {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: flex-start;
     height: 100vh;
+
+    &-keypad {
+        display: flex;
+        flex-direction: row;
+    }
+
+    &-entered {
+        border: 1px solid $color--blue;
+        padding: $gap;
+        margin-bottom: $gap;
+        text-align: right;
+        font-size: 24px;
+    }
 }
 
 .function-container {
