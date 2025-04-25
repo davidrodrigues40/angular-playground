@@ -5,6 +5,7 @@ import { KeypadFunctionType } from 'src/app/modules/calculator/models/keypad-fun
 @Injectable()
 export class MultiplicationHandler implements CalculatorOperationHandler {
   handles: KeypadFunctionType = KeypadFunctionType.Multiply;
+  stringHandlers: string[] = ['*'];
 
   handle(currentValue: number, input: number): number {
     return currentValue * input;

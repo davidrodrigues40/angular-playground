@@ -5,6 +5,7 @@ import { KeypadFunctionType } from 'src/app/modules/calculator/models/keypad-fun
 @Injectable()
 export class SubtractionHandler implements CalculatorOperationHandler {
   handles: KeypadFunctionType = KeypadFunctionType.Subtract;
+  stringHandlers: string[] = ['-'];
 
   handle(currentValue: number, input: number): number {
     return currentValue - input;

@@ -5,6 +5,7 @@ import { KeypadFunctionType } from 'src/app/modules/calculator/models/keypad-fun
 @Injectable()
 export class DivisionHandler implements CalculatorOperationHandler {
   handles: KeypadFunctionType = KeypadFunctionType.Divide;
+  stringHandlers: string[] = ['/'];
 
   handle(currentValue: number, input: number): number {
     if (input === 0) {

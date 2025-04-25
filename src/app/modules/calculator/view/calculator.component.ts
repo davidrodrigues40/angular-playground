@@ -42,7 +42,6 @@ export class CalculatorComponent implements OnInit {
 
   functionPressed(key: KeypadInput): void {
     const keyPressed: KeypadFunction = key.value as KeypadFunction;
-    const functionType: KeypadFunctionType = keyPressed?.value;
 
     this.processFunction(keyPressed);
   }
@@ -72,6 +71,7 @@ export class CalculatorComponent implements OnInit {
   private calculate(): void {
     if (!this.previousFunction)
       return;
+
     let handler: CalculatorOperationHandler | undefined = this.operationFactory.createOperationHandler(this.previousFunction?.value as KeypadFunctionType);
 
     this.setTotal(handler!);
