@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,21 +13,14 @@ import { HomeModule } from './modules/home/home.module';
 import { MenuModule } from './modules/menu/menu.module';
 import { NotificationService } from './services/notification/notification.service';
 
-@NgModule({
-   imports: [
-      AppRoutingModule,
-      BrowserAnimationsModule,
-      BrowserModule,
-      HttpClientModule,
-      FormsModule,
-      ChuckNorrisFactModule,
-      BowlingModule,
-      HomeModule,
-      MenuModule,
-      FooterHostDirective
-   ],
-   providers: [NotificationService],
-   declarations: [AppComponent],
-   bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [AppComponent],
+    bootstrap: [AppComponent], imports: [AppRoutingModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        FormsModule,
+        ChuckNorrisFactModule,
+        BowlingModule,
+        HomeModule,
+        MenuModule,
+        FooterHostDirective], providers: [NotificationService, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
