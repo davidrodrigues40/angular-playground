@@ -3,12 +3,10 @@
 * https://materialtheme.arcsine.dev
 * Fork at: https://materialtheme.arcsine.dev/?c=YHBhbGV0dGU$YHByaW1hcnk$YF48I2NjN2ZjYiIsIj9lcjwjZjBkOWVmIiwiO2VyPCNiOTYyYjh$LCIlPmBePCM4YmRhOTUiLCI~ZXI8I2RjZjRkZiIsIjtlcjwjNmVjYjc4fiwid2Fybj5gXjwjZWI5NTk1IiwiP2VyPCNmOWRmZGYiLCI7ZXI8I2UyNzg3OH4sIj9UZXh0PCMwMDAwMDAiLCI~PTwjZmFmYWZhIiwiO1RleHQ8I2ZmZmZmZiIsIjs9PCMyYzJjMmN$LCJmb250cz5bYEA8KC00fixgQDwoLTN$LGBAPCgtMn4sYEA8KC0xfixgQDxoZWFkbGluZX4sYEA8dGl0bGV$LGBAPHN1YiktMn4sYEA8c3ViKS0xfixgQDxib2R5LTJ$LGBAPGJvZHktMX4sYEA8YnV0dG9ufixgQDxjYXB0aW9ufixgQDxpbnB1dCIsInNpemU$bnVsbH1dLCJpY29uczxGaWxsZWQiLCI~bmVzcz5mYWxzZSwidmVyc2lvbj4xMX0=
 */
-@import "https://fonts.googleapis.com/icon?family=Material+Icons";
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
-@import "./variables";
+@use "./variables" as vars;
 
 mat-form-field {
-   margin: $gap;
+   margin: vars.$gap;
 }
 
 .mat-badge-content {

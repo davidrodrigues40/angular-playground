@@ -1,10 +1,10 @@
-@import "src/assets/styles/variables";
+@use "src/assets/styles/variables" as vars;
 $margin: 5px;
 
 p {
   font-style: italic;
   margin: 0;
-  color: $color--yellow;
+  color: vars.$color--yellow;
   margin-bottom: $margin;
 }
 

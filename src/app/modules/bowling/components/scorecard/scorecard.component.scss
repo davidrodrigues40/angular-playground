@@ -1,4 +1,4 @@
-@import 'src/assets/styles/variables';
+@use 'src/assets/styles/variables' as vars;
 
 app-frame {
     display: flex;
@@ -16,8 +16,8 @@ app-frame {
 }
 
 .player {
-    padding: $gap * 0.25;
-    width: $player-width;
+    padding: vars.$gap * 0.25;
+    width: vars.$player-width;
 }
 
 .frames {
@@ -26,7 +26,7 @@ app-frame {
 }
 
 .score {
-    width: $frame-width;
+    width: vars.$frame-width;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,6 +1,6 @@
-@import 'src/assets/styles/variables.scss';
+@use 'src/assets/styles/variables.scss' as vars;
 
 .footer {
-   padding-left: $gap;
-   padding-right: $gap;
+   padding-left: vars.$gap;
+   padding-right: vars.$gap;
 }

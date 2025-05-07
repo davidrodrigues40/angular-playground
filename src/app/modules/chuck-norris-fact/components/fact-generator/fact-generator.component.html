@@ -16,23 +16,22 @@
    <div class="generator-column">
       @if(favoriteFacts().length === 0) {
       <app-title2>FACT</app-title2>
-      <ng-container *ngIf="fact(); else nofact">
-         <app-fact [fact]="fact()!"></app-fact>
-      </ng-container>
-
-      <ng-template #nofact>
-         <ng-container *ngIf="!selectedCategory(); else nocategory;">
-            <p>Please select a catetory or get kicked in the head by Chuck Norris!</p>
-            <p>He knows where you live!</p>
-            <p>Or select "Get All Favorites" to see my favorites.</p>
-         </ng-container>
-         <ng-template #nocategory>
-            Now select "Get Fact" or "From Favorites" to see an awesome fact about Chuck Norris!
-         </ng-template>
-      </ng-template>
+      @if(fact()) {
+      <app-fact [fact]="fact()!"></app-fact>
       }
       @else {
-      @for(fact of favoriteFacts(); track fact) {
+      @if(!selectedCategory()) {
+      <p>Please select a catetory or get kicked in the head by Chuck Norris!</p>
+      <p>He knows where you live!</p>
+      <p>Or select "Get All Favorites" to see my favorites.</p>
+      }
+      @else {
+      Now select "Get Fact" or "From Favorites" to see an awesome fact about Chuck Norris!
+      }
+      }
+      }
+      @else {
+      @for(fact of favoriteFacts(); track fact.id) {
       <app-fact [fact]="fact"></app-fact>
       }
       }

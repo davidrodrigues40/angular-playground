@@ -1,4 +1,4 @@
-@import "src/assets/styles/variables";
+@use "src/assets/styles/variables" as vars;
 
 .main h2 {
    margin-top: 0;
@@ -11,7 +11,7 @@
 
 .main {
    display: flex;
-   gap: $gap;
+   gap: vars.$gap;
    align-items: stretch;
 
    &-column {
@@ -20,7 +20,7 @@
 
    &-divider {
       width: 2px;
-      background-color: $color--white;
+      background-color: vars.$color--white;
    }
 }
 

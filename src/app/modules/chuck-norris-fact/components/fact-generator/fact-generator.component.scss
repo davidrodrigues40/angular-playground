@@ -1,9 +1,9 @@
-@import "src/assets/styles/variables";
+@use "src/assets/styles/variables" as vars;
 
 .generator {
   display: flex;
   flex-direction: column;
-  gap: $gap;
+  gap: vars.$gap;
 
   &-column {
     display: flex;
@@ -12,12 +12,12 @@
 
   &-row {
     display: flex;
-    gap: $gap;
+    gap: vars.$gap;
     align-items: center;
   }
 }
 
 .buttons {
   display: flex;
-  gap: $gap;
+  gap: vars.$gap;
 }

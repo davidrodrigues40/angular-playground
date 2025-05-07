@@ -15,19 +15,18 @@
          <app-title2>Available Books</app-title2>
       </div>
 
-      <ng-container *ngIf="searching(); else bookview">
-         <div class="spinner-container">
-            <mat-spinner></mat-spinner>
-            <p>Searching for books...</p>
-         </div>
-      </ng-container>
-
-      <ng-template #bookview>
-         <app-book-list icon="add_circle"
-                        buttonColor="accent"
-                        [books]="books()"
-                        (bookClick)="onAdd($event)"></app-book-list>
-      </ng-template>
+      @if (searching()) {
+      <div class="spinner-container">
+         <mat-spinner></mat-spinner>
+         <p>Searching for books...</p>
+      </div>
+      }
+      @else {
+      <app-book-list icon="add_circle"
+                     buttonColor="accent"
+                     [books]="books()"
+                     (bookClick)="onAdd($event)"></app-book-list>
+      }
 
    </div>
    <div class="main-divider">&nbsp;</div>

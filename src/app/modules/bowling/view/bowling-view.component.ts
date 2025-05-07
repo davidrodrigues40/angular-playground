@@ -11,12 +11,38 @@ import { BowlingServiceAbstract } from 'src/app/services/bowling/bowling-service
 import { bowlingServiceProvider } from 'src/app/services/bowling/bowling-service-factory';
 import { PlayerService } from 'src/app/services/bowling/offline/player/player.service';
 import { PlayersService } from 'src/app/services/players/players.service';
+import { TitleComponent } from 'src/app/components/title/title.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AddPlayerComponent } from '../components/add-player/add-player.component';
+import { GameComponent } from '../components/game/game.component';
+import { FormsModule } from '@angular/forms';
+import { OfflineRatingService } from 'src/app/services/bowling/offline/offline-rating/offline-rating.service';
+import { RatingService } from 'src/app/services/bowling/online/rating/rating.service';
+import { GameService } from 'src/app/services/bowling/offline/game/game.service';
+import { ScoreCalculatorService } from 'src/app/services/bowling/offline/score-calculator/score-calculator.service';
+import { BowlService } from 'src/app/services/bowling/offline/bowl-service/bowl.service';
 
 @Component({
    selector: 'app-bowl',
    templateUrl: './bowling-view.component.html',
    styleUrls: ['./bowling-view.component.scss'],
-   providers: [bowlingServiceProvider, PlayerService]
+   standalone: true,
+   imports: [
+      FormsModule,
+      TitleComponent,
+      MatSlideToggleModule,
+      AddPlayerComponent,
+      GameComponent
+   ],
+   providers: [
+      bowlingServiceProvider,
+      PlayerService,
+      PlayersService,
+      OfflineRatingService,
+      RatingService,
+      GameService,
+      ScoreCalculatorService,
+      BowlService,]
 })
 export class BowlingViewComponent implements OnInit {
    status: WritableSignal<string> = BowlingState.status;

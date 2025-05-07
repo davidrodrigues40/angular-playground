@@ -2,7 +2,7 @@
     <mat-label>Rating</mat-label>
     <mat-select [(value)]="playerRating"
                 (valueChange)="ratingChanged.emit(playerRating)">
-        @for(rating of ratings; track rating) {
+        @for(rating of ratings; track rating.key) {
         <mat-option [value]="rating.key">{{rating.value}}</mat-option>
         }
     </mat-select>

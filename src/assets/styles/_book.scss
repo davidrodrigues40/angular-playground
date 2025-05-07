@@ -1,13 +1,13 @@
-@import "src/assets/styles/variables";
+@use "src/assets/styles/variables" as vars;
 
 .book {
    display: flex;
-   gap: $gap;
-   padding: $gap * 0.5;
+   gap: vars.$gap;
+   padding: vars.$gap * 0.5;
    align-items: center;
    justify-content: space-between;
 
    &-highlight {
-      background-color: $color--highlight;
+      background-color: vars.$color--highlight;
    }
 }

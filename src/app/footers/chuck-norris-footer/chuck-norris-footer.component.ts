@@ -13,6 +13,7 @@ import { ChuckNorrisFactState } from 'src/app/state/chuck-norris.state';
    imports: [
       CommonModule,
       BaseFooter],
+   providers: [ChuckNorrisFactsService],
    standalone: true
 })
 export class ChuckNorrisFooterComponent implements OnInit {

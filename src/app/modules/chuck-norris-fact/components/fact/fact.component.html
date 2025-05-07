@@ -1,8 +1,7 @@
-<ng-container *ngIf="fact.value; else empty">
-  <p>{{fact.value}}</p>
-</ng-container>
-<ng-template #empty>
-  <p>
-    <app-empty-data [dataName]="'fact'"></app-empty-data>
-  </p>
-</ng-template>
+<p>
+  @if(fact.value) {
+  {{fact.value}}
+  } @else {
+  <app-empty-data [dataName]="'fact'"></app-empty-data>
+  }
+</p>

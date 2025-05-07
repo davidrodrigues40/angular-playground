@@ -1,11 +1,11 @@
-@import 'src/assets/styles/variables';
+@use 'src/assets/styles/variables' as vars;
 
 .dialog {
-   padding: $gap;
+   padding: vars.$gap;
 
    &-actions {
       display: flex;
       justify-content: flex-end;
-      margin-top: $gap;
+      margin-top: vars.$gap;
    }
 }

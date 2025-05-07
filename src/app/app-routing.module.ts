@@ -14,12 +14,10 @@ const routes: Routes = [
     {
         path: 'bowling',
         component: BowlingViewComponent,
-        loadChildren: () => import('./modules/bowling/bowling.module').then(m => m.BowlingModule),
     },
     {
         path: 'books',
         component: BooksComponent,
-        loadChildren: () => import('./modules/books/books.module').then(m => m.BooksModule),
     },
     {
         path: 'home',
@@ -29,7 +27,6 @@ const routes: Routes = [
     {
         path: 'chuck-norris-facts',
         component: FactGeneratorComponent,
-        loadChildren: () => import('./modules/chuck-norris-fact/chuck-norris-fact.module').then(m => m.ChuckNorrisFactModule),
     },
     {
         path: 'calculator',

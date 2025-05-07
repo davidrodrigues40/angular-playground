@@ -1,20 +1,20 @@
-@import 'src/assets/styles/variables';
+@use 'src/assets/styles/variables' as vars;
 
 .add-player {
    display: flex;
-   gap: $gap;
+   gap: vars.$gap;
    align-items: center;
-   margin-bottom: $gap;
+   margin-bottom: vars.$gap;
 }
 
 .alley {
    display: flex;
-   gap: $gap;
+   gap: vars.$gap;
    flex-direction: column;
 }
 
 .status {
    display: flex;
-   gap: $gap;
+   gap: vars.$gap;
    align-items: center;
 }

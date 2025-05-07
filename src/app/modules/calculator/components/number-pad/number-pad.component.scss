@@ -1,9 +1,9 @@
-@import 'src/assets/styles/variables.scss';
+@use 'src/assets/styles/variables.scss' as vars;
 
 .number-pad {
     &-button {
-        background-color: $color--blue;
-        color: $color--yellow;
+        background-color: vars.$color--blue;
+        color: vars.$color--yellow;
         height: 100%;
         width: 100%;
         text-align: center;
@@ -16,7 +16,7 @@
         }
 
         &:hover:not(.disabled) {
-            background-color: darken($color--blue, 10%);
+            background-color: darken(vars.$color--blue, 10%);
         }
     }
 }

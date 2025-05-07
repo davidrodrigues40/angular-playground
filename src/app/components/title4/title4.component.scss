@@ -1,8 +1,8 @@
-@import "src/assets/styles/variables";
-@import "src/assets/styles/functions";
+@use "src/assets/styles/variables" as vars;
+@use "src/assets/styles/functions";
 
 h4 {
-   color: $color--accent;
+   color: vars.$color--accent;
    margin-bottom: 0;
-   margin-top: $margin;
+   margin-top: vars.$margin;
 }

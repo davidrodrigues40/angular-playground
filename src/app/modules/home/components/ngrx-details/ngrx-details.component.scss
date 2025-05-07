@@ -1,4 +1,4 @@
-@import "src/assets/styles/variables.scss";
+@use "src/assets/styles/variables.scss" as vars;
 
 table {
    padding: 0;
@@ -6,8 +6,8 @@ table {
 }
 
 td {
-   border: 1px solid $color--white;
-   padding: $gap * 0.5;
+   border: 1px solid vars.$color--white;
+   padding: vars.$gap * 0.5;
 }
 
 a {
@@ -20,13 +20,13 @@ a {
    &-row {
       display: table-row;
       align-items: flex-start;
-      margin-bottom: $gap;
+      margin-bottom: vars.$gap;
    }
 
    &-col {
       display: table-cell;
-      padding: $gap * 0.5;
-      border-bottom: 1px solid $color--white;
+      padding: vars.$gap * 0.5;
+      border-bottom: 1px solid vars.$color--white;
 
       &--left {
          width: 70px;

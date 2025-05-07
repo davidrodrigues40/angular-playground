@@ -1,5 +1,5 @@
 <mat-grid-list cols="3">
-    @for(key of numberKeys; track key){
+    @for(key of numberKeys; track $index){
     <mat-grid-tile>
         <app-keypad-button class="number-pad-button"
                            [ngClass]="{disabled: key.value === undefined}"

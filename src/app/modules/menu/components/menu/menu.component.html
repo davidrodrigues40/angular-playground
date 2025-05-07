@@ -3,7 +3,7 @@
            [matMenuTriggerFor]="menu">
       <mat-icon>menu</mat-icon></button>
    <mat-menu #menu>
-      @for(item of items(); track item) {
+      @for(item of items(); track item.value) {
       <app-menu-item [item]="item"></app-menu-item>
       }
    </mat-menu>

@@ -1,5 +1,5 @@
 <mat-grid-list cols="1">
-    @for(key of operationKeys; track key){
+    @for(key of operationKeys; track $index){
     <mat-grid-tile>
         <app-keypad-button class="function-pad-button"
                            [key]="key"

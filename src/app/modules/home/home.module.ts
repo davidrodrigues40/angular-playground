@@ -12,32 +12,26 @@ import { StateCanvasComponent } from '../../canvas/state-canvas/state-canvas.com
 import { HomeMenuComponent } from '../../footers/home-menu/home-menu.component';
 import { NgrxDetailsComponent } from './components/ngrx-details/ngrx-details.component';
 import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home.component';
 import { DataFlowComponent } from './views/data-flow/data-flow.component';
-import { HomeDetailsComponent } from './views/home-details/home-details.component';
 import { NgrxViewComponent } from './views/ngrx-view/ngrx-view.component';
 import { SignalsDataFlowCanvasComponent } from 'src/app/canvas/signals-data-flow-canvas/signals-data-flow-canvas.component';
 
 @NgModule({
-   declarations: [
-      HomeComponent,
-      HomeDetailsComponent,
-   ],
-   imports: [
-      HomeRoutingModule,
-      DataFlowComponent,
-      NgrxViewComponent,
-      CommonModule,
-      TitleComponent,
-      Title2Component,
-      Title3Component,
-      Title4Component,
-      MatButtonModule,
-      DataFlowDetailsComponent,
-      HomeMenuComponent,
-      StateCanvasComponent,
-      NgrxDetailsComponent,
-      SignalsDataFlowCanvasComponent
-   ]
+    imports: [
+        HomeRoutingModule,
+        DataFlowComponent,
+        NgrxViewComponent,
+        CommonModule,
+        TitleComponent,
+        Title2Component,
+        Title3Component,
+        Title4Component,
+        MatButtonModule,
+        DataFlowDetailsComponent,
+        HomeMenuComponent,
+        StateCanvasComponent,
+        NgrxDetailsComponent,
+        SignalsDataFlowCanvasComponent
+    ]
 })
 export class HomeModule { }

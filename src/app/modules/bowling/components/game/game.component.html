@@ -3,7 +3,7 @@
       @if(players.length > 0) {
       <div class="game">
          <div class="players">
-            @for(player of players; track player) {
+            @for(player of players; track player.name) {
             <app-player [player]="player"
                         [rating]="(getRating(player.rating))"
                         (removePlayer)="removePlayer.emit($event)"></app-player>
@@ -37,7 +37,7 @@
 
       @if(game && game.completed) {
       <h1>Winner: {{game.winner?.name}} with a score of {{game.winner?.score}}</h1>
-      @for(bowler of game.bowlers; track bowler){
+      @for(bowler of game.bowlers; track bowler.number){
       <div class="bowlers">
          <app-scorecard [bowler]="bowler"></app-scorecard>
       </div>

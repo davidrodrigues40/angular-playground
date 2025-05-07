@@ -1,9 +1,9 @@
-@import 'src/assets/styles/variables.scss';
+@use 'src/assets/styles/variables.scss' as vars;
 
 .function-pad {
     &-button {
-        background-color: $color--yellow;
-        color: $color--blue;
+        background-color: vars.$color--yellow;
+        color: vars.$color--blue;
         height: 100%;
         width: 100%;
         text-align: center;
@@ -16,7 +16,7 @@
         }
 
         &:hover:not(.disabled) {
-            background-color: darken($color--blue, 10%);
+            background-color: darken(vars.$color--blue, 10%);
         }
     }
 }

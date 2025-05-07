@@ -1,8 +1,8 @@
 <app-base-footer>
-   <ng-container *ngIf="fact(); else noFact">
-      <p>{{fact()!.value}}</p>
-   </ng-container>
-   <ng-template #noFact>
-      <p>Chuck Norris is watching, he's always watching!</p>
-   </ng-template>
+   @if(fact()) {
+   <p>{{fact()!.value}}</p>
+   }
+   @else {
+   <p>Chuck Norris is watching, he's always watching!</p>
+   }
 </app-base-footer>

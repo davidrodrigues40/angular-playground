@@ -1,4 +1,4 @@
-@import 'src/assets/styles/variables.scss';
+@use 'src/assets/styles/variables.scss' as vars;
 
 .frame,
 .frame-ball {
@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: column;
     justify-content: right;
-    width: $frame-width;
+    width: vars.$frame-width;
     text-align: center;
     align-items: stretch;
 
@@ -20,7 +20,7 @@
     }
 
     &-score {
-        padding: $gap;
+        padding: vars.$gap;
     }
 
     &-ball {

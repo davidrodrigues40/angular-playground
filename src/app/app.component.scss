@@ -1,4 +1,5 @@
-@import "src/assets/styles/variables";
+@use "src/assets/styles/variables" as vars;
+
 $max-width: 1440px;
 $bottom: 64px;
 
@@ -8,8 +9,8 @@ $bottom: 64px;
    right: 0;
    height: 64px;
    display: flex;
-   gap: $gap * 0.5;
-   background-color: $color--dark;
+   gap: vars.$gap * 0.5;
+   background-color: vars.$color--dark;
 }
 
 .content {
@@ -18,11 +19,11 @@ $bottom: 64px;
    right: 0;
    left: 0;
    bottom: $bottom;
-   padding: $gap * 2;
-   background-color: lighten($color--dark, 10%);
+   padding: vars.$gap * 2;
+   background-color: lighten(vars.$color--dark, 10%);
    display: flex;
    flex-direction: column;
-   gap: $gap;
+   gap: vars.$gap;
    align-items: stretch;
    overflow: auto;
 }

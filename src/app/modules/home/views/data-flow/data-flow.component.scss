@@ -1,5 +1,5 @@
-@import 'src/assets/styles/variables';
+@use 'src/assets/styles/variables' as vars;
 
 canvas {
-    background-color: $color--white;
+    background-color: vars.$color--white;
 }

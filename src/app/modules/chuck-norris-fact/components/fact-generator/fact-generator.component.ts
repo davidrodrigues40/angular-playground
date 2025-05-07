@@ -8,13 +8,24 @@ import {
 } from '@angular/core';
 import { ChuckNorrisFactState } from 'src/app/state/chuck-norris.state';
 import { ChuckNorrisFactsService } from 'src/app/services/chuck-norris/chuck-norris-facts.service';
+import { FactCategoriesComponent } from '../fact-categories/fact-categories.component';
+import { Title2Component } from 'src/app/components/title2/title2.component';
+import { FactComponent } from '../fact/fact.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
    selector: 'app-fact-generator',
    templateUrl: './fact-generator.component.html',
    styleUrls: ['./fact-generator.component.scss'],
+   standalone: true,
+   imports: [
+      FactCategoriesComponent,
+      Title2Component,
+      FactComponent,
+      MatButtonModule
+   ],
+   providers: [ChuckNorrisFactsService],
    changeDetection: ChangeDetectionStrategy.OnPush
-
 })
 export class FactGeneratorComponent {
    public fact: WritableSignal<Readonly<ChuckNorrisFact | null>> = ChuckNorrisFactState.fact;

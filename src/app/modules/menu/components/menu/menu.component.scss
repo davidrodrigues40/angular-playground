@@ -1,7 +1,7 @@
-@import "src/assets/styles/variables";
+@use "src/assets/styles/variables" as vars;
 
 .menu {
   display: flex;
-  padding: $gap * 0.5;
-  background-color: $color--dark;
+  padding: vars.$gap * 0.5;
+  background-color: vars.$color--dark;
 }

@@ -2,7 +2,7 @@
                 subscriptSizing="dynamic">
    <mat-label>Category</mat-label>
    <mat-select (selectionChange)="selectionChange($event)">
-      @for(option of options(); track option) {
+      @for(option of options(); track option.name) {
       <mat-option [value]="option">
          {{option.name}}
       </mat-option>

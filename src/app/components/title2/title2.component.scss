@@ -1,7 +1,7 @@
-@import "src/assets/styles/variables";
-@import "src/assets/styles/functions";
+@use "src/assets/styles/variables" as vars;
+@use "src/assets/styles/functions";
 
 h2 {
-   color: $color--primary;
-   font-size: $gap * 1.5;
+   color: vars.$color--primary;
+   font-size: vars.$gap * 1.5;
 }

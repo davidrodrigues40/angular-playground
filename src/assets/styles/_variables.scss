@@ -1,4 +1,4 @@
-@import 'functions';
+@use 'functions' as func;
 
 $gap: 16px;
 $padding: 8px;
@@ -14,8 +14,8 @@ $color--highlight: $color--dark;
 $player-width: 150px;
 $frame-width: $gap * 3.5;
 
-$font-family: Arial, Helvetica, sans-serif;
-$line-height: #{to-string($gap * 1.25)};
+$font-family: Roboto, Arial;
+$line-height: #{func.to-string($gap * 1.25)};
 
 $title-margin-offset: 5px;
 $title-margin-block: 20px;

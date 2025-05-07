@@ -1,12 +1,12 @@
-@import 'src/assets/styles/variables';
+@use 'src/assets/styles/variables' as vars;
 
 .player {
     display: flex;
     align-items: center;
-    gap: $gap;
+    gap: vars.$gap;
 
     &-container {
-        padding: $gap;
+        padding: vars.$gap;
     }
 }
 

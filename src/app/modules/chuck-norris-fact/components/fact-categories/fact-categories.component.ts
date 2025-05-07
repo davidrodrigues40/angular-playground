@@ -8,13 +8,19 @@ import {
    Output,
    WritableSignal
 } from '@angular/core';
-import { MatSelectChange } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { ChuckNorrisFactsService } from 'src/app/services/chuck-norris/chuck-norris-facts.service';
 import { ChuckNorrisFactState } from 'src/app/state/chuck-norris.state';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
    selector: 'app-fact-categories',
    templateUrl: './fact-categories.component.html',
+   standalone: true,
+   imports: [
+      MatFormFieldModule,
+      MatSelectModule
+   ],
    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FactCategoriesComponent implements OnInit {

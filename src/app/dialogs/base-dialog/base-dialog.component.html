@@ -1,14 +1,20 @@
 <div class="dialog">
-   <app-title *ngIf="dialogOptions.title">{{dialogOptions.title}}</app-title>
+   @if(dialogOptions.title) {
+   <app-title>{{dialogOptions.title}}</app-title>
+   }
+
    <div class="dialog-content">
       <ng-content></ng-content>
    </div>
+
    <div class="dialog-actions">
+      @if(dialogOptions.cancelButton) {
       <button mat-button
-              *ngIf="dialogOptions?.cancelButton"
-              (click)="onClick(dialogOptions.cancelButton)">{{dialogOptions.cancelButton?.text}}</button>
+              (click)="onClick(dialogOptions.cancelButton)">{{dialogOptions.cancelButton.text}}</button>
+      }
+      @if(dialogOptions.okButton) {
       <button mat-button
-              *ngIf="dialogOptions?.okButton"
-              (click)="onClick(dialogOptions.okButton)">{{dialogOptions.okButton?.text}}</button>
+              (click)="onClick(dialogOptions.okButton)">{{dialogOptions.okButton.text}}</button>
+      }
    </div>
 </div>
