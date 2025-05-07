@@ -1,4 +1,4 @@
-import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
+import { FactCategory } from 'src/app/modules/chuck-norris-fact/models/fact-category';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatOptionModule } from '@angular/material/core';
@@ -7,7 +7,7 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FactCategoriesComponent } from './fact-categories.component';
-import { ChuckNorrisFactsService } from 'src/app/services/chuck-norris/chuck-norris-facts.service';
+import { ChuckNorrisFactsService } from 'src/app/modules/chuck-norris-fact/services/chuck-norris-facts.service';
 
 describe('FactCategoriesComponent', () => {
    let component: FactCategoriesComponent;

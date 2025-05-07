@@ -1,13 +1,13 @@
-import { ChuckNorrisFact } from 'src/app/interfaces/models/chuck-norris/chuck-norris-fact';
-import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
+import { ChuckNorrisFact } from 'src/app/modules/chuck-norris-fact/models/chuck-norris-fact';
+import { FactCategory } from 'src/app/modules/chuck-norris-fact/models/fact-category';
 
 import {
    ChangeDetectionStrategy,
    Component,
    WritableSignal
 } from '@angular/core';
-import { ChuckNorrisFactState } from 'src/app/state/chuck-norris.state';
-import { ChuckNorrisFactsService } from 'src/app/services/chuck-norris/chuck-norris-facts.service';
+import { ChuckNorrisFactState } from 'src/app/modules/chuck-norris-fact/chuck-norris.state';
+import { ChuckNorrisFactsService } from 'src/app/modules/chuck-norris-fact/services/chuck-norris-facts.service';
 import { FactCategoriesComponent } from '../fact-categories/fact-categories.component';
 import { Title2Component } from 'src/app/components/title2/title2.component';
 import { FactComponent } from '../fact/fact.component';

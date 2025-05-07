@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BowlingViewComponent } from './bowling-view.component';
-import { PlayersService } from 'src/app/services/players/players.service';
+import { PlayersService } from 'src/app/modules/bowling/services/players.service';
 import { PlayerRatingComponent } from '../components/player-rating/player-rating.component';
-import { BowlingServiceAbstract } from 'src/app/services/bowling/bowling-service.abstract';
+import { BowlingServiceAbstract } from 'src/app/modules/bowling/services/bowling-service.abstract';
 import { BowlingState } from 'src/app/state/bowling.state';
 import { PlayerService } from 'src/app/services/bowling/offline/player/player.service';
 import { FormsModule } from '@angular/forms';

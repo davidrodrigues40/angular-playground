@@ -1,8 +1,7 @@
-import { Player } from 'src/app/interfaces/models/bowling/player';
-
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { Player } from '../../models/player';
 
 @Component({
    selector: 'app-player',

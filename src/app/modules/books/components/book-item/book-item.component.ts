@@ -1,4 +1,4 @@
-import { Book } from 'src/app/interfaces/models/books/book.';
+import { Book } from 'src/app/modules/books/models/book.';
 
 import { Component, Input } from '@angular/core';
 import { Title4Component } from 'src/app/components/title4/title4.component';

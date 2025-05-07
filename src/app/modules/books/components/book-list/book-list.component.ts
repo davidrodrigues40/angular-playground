@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Book } from 'src/app/interfaces/models/books/book.';
+import { Book } from 'src/app/modules/books/models/book.';
 import { BookItemComponent } from '../book-item/book-item.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';

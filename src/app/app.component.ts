@@ -1,4 +1,4 @@
-import { filter, Subject } from 'rxjs';
+import { filter, Subject, takeUntil } from 'rxjs';
 
 import { Component, OnDestroy, OnInit, Type, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
@@ -26,6 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
    ngOnInit(): void {
       this._router.events
          .pipe(
+            takeUntil(this._destroy$),
             filter((event) => event instanceof NavigationEnd),
          )
          .subscribe(event => this.loadFooter((event as NavigationEnd).urlAfterRedirects));

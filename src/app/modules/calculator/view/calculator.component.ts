@@ -3,8 +3,8 @@ import { NumberPad } from '../components/number-pad/number-pad.component';
 import { FunctionPad } from '../components/function-pad/function-pad.component';
 import { KeypadInput } from '../models/keypad-input';
 import { KeypadFunction, KeypadFunctionType } from '../models/keypad-function';
-import { CalculatorOperationHandler } from 'src/app/services/calculator/calculator-operation-handler';
-import { OperationFactory } from 'src/app/services/calculator/operation-factory.service';
+import { CalculatorOperationHandler } from 'src/app/modules/calculator/services/calculator-operation-handler';
+import { OperationFactory } from 'src/app/modules/calculator/services/operation-factory.service';
 
 @Component({
   selector: 'app-calculator',

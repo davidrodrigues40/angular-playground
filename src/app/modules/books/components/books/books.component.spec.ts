@@ -1,5 +1,5 @@
-import { Book } from 'src/app/interfaces/models/books/book.';
-import { BookService } from 'src/app/services/books/books.service';
+import { Book } from 'src/app/modules/books/models/book.';
+import { BookService } from 'src/app/modules/books/services/books.service';
 import { MockComponent } from 'src/app/testing/testing.directive';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';

@@ -1,8 +1,6 @@
-import { Frame } from 'src/app/interfaces/models/bowling/frame';
-
 import { Component, Input } from '@angular/core';
-
 import { FrameService } from '../../services/frame.service';
+import { Frame } from '../../models/frame';
 
 @Component({
    selector: 'app-frame',

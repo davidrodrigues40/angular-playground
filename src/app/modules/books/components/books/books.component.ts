@@ -1,14 +1,14 @@
-import { Book } from 'src/app/interfaces/models/books/book.';
-import { BookService } from 'src/app/services/books/books.service';
+import { Book } from 'src/app/modules/books/models/book.';
+import { BookService } from 'src/app/modules/books/services/books.service';
 
 import { ChangeDetectionStrategy, Component, WritableSignal } from '@angular/core';
 import { Title2Component } from 'src/app/components/title2/title2.component';
-import { BooksState } from 'src/app/state/books.state';
 import { TitleComponent } from 'src/app/components/title/title.component';
 import { AuthorComponent } from '../author/author.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BookListComponent } from '../book-list/book-list.component';
 import { MatButtonModule } from '@angular/material/button';
+import { BooksState } from '../../books.state';
 
 
 @Component({

@@ -1,27 +1,25 @@
-import { Game } from 'src/app/interfaces/models/bowling/game';
-import { Player } from 'src/app/interfaces/models/bowling/player';
-
 import { Component, OnInit, WritableSignal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { PlayerRatingDialogComponent } from '../components/player-rating-dialog/player-rating-dialog.component';
 import { BowlerRating } from '../models/bowler-rating.model';
-import { BowlingState } from 'src/app/state/bowling.state';
-import { BowlingServiceAbstract } from 'src/app/services/bowling/bowling-service.abstract';
-import { bowlingServiceProvider } from 'src/app/services/bowling/bowling-service-factory';
-import { PlayerService } from 'src/app/services/bowling/offline/player/player.service';
-import { PlayersService } from 'src/app/services/players/players.service';
+import { BowlingState } from '../bowling.state';
+import { BowlingServiceAbstract } from 'src/app/modules/bowling/services/bowling-service.abstract';
+import { bowlingServiceProvider } from 'src/app/modules/bowling/services/bowling-service-factory';
+import { PlayersService } from 'src/app/modules/bowling/services/players.service';
 import { TitleComponent } from 'src/app/components/title/title.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AddPlayerComponent } from '../components/add-player/add-player.component';
 import { GameComponent } from '../components/game/game.component';
 import { FormsModule } from '@angular/forms';
-import { OfflineRatingService } from 'src/app/services/bowling/offline/offline-rating/offline-rating.service';
-import { RatingService } from 'src/app/services/bowling/online/rating/rating.service';
-import { GameService } from 'src/app/services/bowling/offline/game/game.service';
-import { ScoreCalculatorService } from 'src/app/services/bowling/offline/score-calculator/score-calculator.service';
-import { BowlService } from 'src/app/services/bowling/offline/bowl-service/bowl.service';
-
+import { RatingService } from 'src/app/modules/bowling/services/online/rating/rating.service';
+import { PlayerService } from '../services/offline/player/player.service';
+import { BowlService } from '../services/offline/bowl-service/bowl.service';
+import { GameService } from '../services/offline/game/game.service';
+import { OfflineRatingService } from '../services/offline/offline-rating/offline-rating.service';
+import { ScoreCalculatorService } from '../services/offline/score-calculator/score-calculator.service';
+import { Game } from '../models/game';
+import { Player } from '../models/player';
 @Component({
    selector: 'app-bowl',
    templateUrl: './bowling-view.component.html',

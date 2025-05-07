@@ -1,6 +1,3 @@
-import { Game } from 'src/app/interfaces/models/bowling/game';
-import { Player } from 'src/app/interfaces/models/bowling/player';
-
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { BowlerRating } from '../../models/bowler-rating.model';
@@ -10,6 +7,8 @@ import { PlayerComponent } from '../player/player.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ScorecardComponent } from '../scorecard/scorecard.component';
 import { CommonModule } from '@angular/common';
+import { Game } from '../../models/game';
+import { Player } from '../../models/player';
 
 @Component({
    selector: 'app-game',

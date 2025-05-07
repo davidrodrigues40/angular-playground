@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BaseFooter } from '../base-footer.component';
 import { ChuckNorrisFooterComponent } from './chuck-norris-footer.component';
-import { ChuckNorrisFactsService } from 'src/app/services/chuck-norris/chuck-norris-facts.service';
+import { ChuckNorrisFactsService } from 'src/app/modules/chuck-norris-fact/services/chuck-norris-facts.service';
 
 describe('ChuckNorrisFooterComponent', () => {
    let component: ChuckNorrisFooterComponent;

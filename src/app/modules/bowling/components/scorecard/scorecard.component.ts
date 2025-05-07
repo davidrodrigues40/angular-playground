@@ -1,10 +1,9 @@
-import { Bowler } from 'src/app/interfaces/models/bowling/bowler';
-import { Frame } from 'src/app/interfaces/models/bowling/frame';
-
 import { Component, Input, OnInit } from '@angular/core';
 
 import { FrameService } from '../../services/frame.service';
 import { FrameComponent } from '../frame/frame.component';
+import { Bowler } from '../../models/bowler';
+import { Frame } from '../../models/frame';
 
 @Component({
    selector: 'app-scorecard',

@@ -1,5 +1,5 @@
 import { EmptyDataComponent } from 'src/app/components/empty-data/empty-data.component';
-import { ChuckNorrisFact } from 'src/app/interfaces/models/chuck-norris/chuck-norris-fact';
+import { ChuckNorrisFact } from 'src/app/modules/chuck-norris-fact/models/chuck-norris-fact';
 
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
@@ -13,8 +13,7 @@ import { Component, Input } from '@angular/core';
       CommonModule,
       EmptyDataComponent]
 })
-export class FactComponent
-{
+export class FactComponent {
    @Input() fact: ChuckNorrisFact = {
       icon_url: '',
       id: '',

@@ -1,4 +1,4 @@
-import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
+import { FactCategory } from 'src/app/modules/chuck-norris-fact/models/fact-category';
 import { MockComponent } from 'src/app/testing/testing.directive';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -7,8 +7,8 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { FactCategoriesComponent } from '../fact-categories/fact-categories.component';
 import { FactGeneratorComponent } from './fact-generator.component';
-import { ChuckNorrisFactsService } from 'src/app/services/chuck-norris/chuck-norris-facts.service';
-import { ChuckNorrisFactState } from 'src/app/state/chuck-norris.state';
+import { ChuckNorrisFactsService } from 'src/app/modules/chuck-norris-fact/services/chuck-norris-facts.service';
+import { ChuckNorrisFactState } from 'src/app/modules/chuck-norris-fact/chuck-norris.state';
 
 describe('FactGeneratorComponent', () => {
    let component: FactGeneratorComponent;

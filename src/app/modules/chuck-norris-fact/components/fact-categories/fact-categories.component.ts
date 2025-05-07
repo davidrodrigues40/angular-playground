@@ -1,4 +1,4 @@
-import { FactCategory } from 'src/app/interfaces/models/chuck-norris/fact-category';
+import { FactCategory } from 'src/app/modules/chuck-norris-fact/models/fact-category';
 
 import {
    ChangeDetectionStrategy,
@@ -9,8 +9,8 @@ import {
    WritableSignal
 } from '@angular/core';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { ChuckNorrisFactsService } from 'src/app/services/chuck-norris/chuck-norris-facts.service';
-import { ChuckNorrisFactState } from 'src/app/state/chuck-norris.state';
+import { ChuckNorrisFactsService } from 'src/app/modules/chuck-norris-fact/services/chuck-norris-facts.service';
+import { ChuckNorrisFactState } from 'src/app/modules/chuck-norris-fact/chuck-norris.state';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({

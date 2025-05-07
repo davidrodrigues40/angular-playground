@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BooksState } from 'src/app/state/books.state';
+import { BooksState } from '../../books.state';
 
 @Component({
    selector: 'app-author',
