@@ -4,8 +4,6 @@ import { BowlingViewComponent } from './bowling-view.component';
 import { PlayersService } from 'src/app/modules/bowling/services/players.service';
 import { PlayerRatingComponent } from '../components/player-rating/player-rating.component';
 import { BowlingServiceAbstract } from 'src/app/modules/bowling/services/bowling-service.abstract';
-import { BowlingState } from 'src/app/state/bowling.state';
-import { PlayerService } from 'src/app/services/bowling/offline/player/player.service';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,9 +12,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TitleComponent } from 'src/app/components/title/title.component';
 import { of } from 'rxjs';
-import { Player } from 'src/app/interfaces/models/bowling/player';
 import { PlayerRatingDialogComponent } from '../components/player-rating-dialog/player-rating-dialog.component';
 import { MockComponent } from 'src/app/testing/testing.directive';
+import { PlayerService } from '../services/offline/player/player.service';
+import { BowlingState } from '../bowling.state';
+import { Player } from '../models/player';
 
 describe('BowlingViewComponent', () => {
    let component: BowlingViewComponent;
