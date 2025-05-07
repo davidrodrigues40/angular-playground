@@ -7,7 +7,7 @@ describe('GameComponent', () => {
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         providers: [
+         imports: [
             GameComponent
          ]
       })
