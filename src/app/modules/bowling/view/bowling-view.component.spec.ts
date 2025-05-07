@@ -60,6 +60,18 @@ describe('BowlingViewComponent', () => {
                   'players',
                   'disablePlayGame'],
             }),
+            MockComponent({
+               selector: 'app-add-player', template: '',
+               inputs: ['ratings']
+            }),
+            MockComponent({
+               selector: 'app-game', template: '',
+               inputs: [
+                  'game',
+                  'ratings',
+                  'players',
+                  'disablePlayGame'],
+            }),
          ]
       })
          .overrideComponent(BowlingViewComponent, {

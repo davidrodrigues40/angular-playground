@@ -12,7 +12,11 @@ import { Frame } from '../../models/frame';
    standalone: true,
    providers: [FrameService],
    imports: [FrameComponent]
+   standalone: true,
+   providers: [FrameService],
+   imports: [FrameComponent]
 })
+export class ScorecardComponent implements OnInit {
 export class ScorecardComponent implements OnInit {
    @Input() bowler: Bowler = {
       number: 0,
@@ -26,13 +30,15 @@ export class ScorecardComponent implements OnInit {
    constructor(private readonly _frameService: FrameService) { }
 
    ngOnInit(): void {
-      if (this.bowler.frames instanceof Map)
+      ngOnInit(): void {
+         if(this.bowler.frames instanceof Map)
          this.frames = Array.from(this.bowler.frames.values());
-      else
+         else
          this.frames = Object.values(this.bowler.frames);
-   }
+      }
 
-   frameScore(frameScore: number, index: number): number {
-      return this._frameService.calculateFrameValue(frameScore, index, this.frames);
-   }
-}
+      frameScore(frameScore: number, index: number): number {
+         frameScore(frameScore: number, index: number): number {
+            return this._frameService.calculateFrameValue(frameScore, index, this.frames);
+         }
+      }

@@ -12,7 +12,14 @@ import { Player } from '../../models/player';
       MatIconModule,
       MatFormFieldModule,
    ]
+   styleUrls: ['./player.component.scss'],
+   standalone: true,
+   imports: [
+      MatIconModule,
+      MatFormFieldModule,
+   ]
 })
+export class PlayerComponent {
 export class PlayerComponent {
    @Input() player: Player = {
       number: 0,

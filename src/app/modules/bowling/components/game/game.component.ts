@@ -23,6 +23,16 @@ import { Player } from '../../models/player';
       MatFormFieldModule,
       ScorecardComponent,
    ],
+   styleUrls: ['./game.component.scss'],
+   standalone: true,
+   imports: [
+      CommonModule,
+      PlayerComponent,
+      MatIconModule,
+      MatButtonModule,
+      MatFormFieldModule,
+      ScorecardComponent,
+   ],
 })
 export class GameComponent {
    @Input() game?: Readonly<Game | null>;

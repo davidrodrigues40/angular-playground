@@ -35,12 +35,14 @@
       </div>
       }
 
+
       @if(game && game.completed) {
       <h1>Winner: {{game.winner?.name}} with a score of {{game.winner?.score}}</h1>
       @for(bowler of game.bowlers; track bowler.number){
       <div class="bowlers">
          <app-scorecard [bowler]="bowler"></app-scorecard>
       </div>
+      }
       }
       }
    </div>
