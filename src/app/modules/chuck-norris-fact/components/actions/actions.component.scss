@@ -1,0 +1,6 @@
+@use 'src/assets/styles/variables' as vars;
+
+.buttons {
+    display: flex;
+    gap: vars.$gap;
+}

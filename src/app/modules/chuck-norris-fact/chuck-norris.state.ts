@@ -10,4 +10,6 @@ export class ChuckNorrisFactState {
    static readonly selectedCategory: WritableSignal<Readonly<FactCategory | null>> = signal<Readonly<FactCategory> | null>(null);
    static readonly footerFact: WritableSignal<Readonly<ChuckNorrisFact | null>> = signal<Readonly<ChuckNorrisFact> | null>(null);
    static readonly favoriteFacts: WritableSignal<ReadonlyArray<ChuckNorrisFact>> = signal<ReadonlyArray<ChuckNorrisFact>>([]);
+   static readonly loading: WritableSignal<boolean> = signal<boolean>(false);
+   static readonly footerLoading: WritableSignal<boolean> = signal<boolean>(false);
 }

@@ -5,10 +5,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
-import { FactCategoriesComponent } from '../fact-categories/fact-categories.component';
 import { FactGeneratorComponent } from './fact-generator.component';
 import { ChuckNorrisFactsService } from 'src/app/modules/chuck-norris-fact/services/chuck-norris-facts.service';
 import { ChuckNorrisFactState } from 'src/app/modules/chuck-norris-fact/chuck-norris.state';
+import { FactCategoriesComponent } from './components/fact-categories/fact-categories.component';
 
 describe('FactGeneratorComponent', () => {
    let component: FactGeneratorComponent;
@@ -41,7 +41,7 @@ describe('FactGeneratorComponent', () => {
 
       fixture = TestBed.createComponent(FactGeneratorComponent);
       component = fixture.componentInstance;
-      selectedCategorySpy = spyOn(component, 'selectedCategory');
+      selectedCategorySpy = spyOn<any>(component, 'selectedCategory');
 
       service.getFact.calls.reset();
       service.getFactForCategory.calls.reset();
@@ -54,32 +54,7 @@ describe('FactGeneratorComponent', () => {
       expect(component).toBeTruthy();
    });
 
-   describe('when getFact invoked', () => {
-      it('should call fetchFact', () => {
-         component.getFact();
 
-         expect(service.getFact).toHaveBeenCalledTimes(1);
-      });
-   });
-
-   describe('when getFactForCategory invoked', () => {
-      it('should call getFact when category is not set', () => {
-         selectedCategorySpy.and.returnValue(null);
-
-         component.getFactForCategory();
-
-         expect(service.getFact).toHaveBeenCalled();
-      });
-
-      it('should call getFactForCategory when category is set', () => {
-         const myCategory: FactCategory = { ...category, name: 'test' };
-         selectedCategorySpy.and.returnValue(myCategory);
-
-         component.getFactForCategory();
-
-         expect(service.getFactForCategory).toHaveBeenCalledOnceWith(myCategory);
-      });
-   });
 
    describe('when categorySelected invoked', () => {
       it('should call setSelectedCategory', () => {
@@ -91,30 +66,5 @@ describe('FactGeneratorComponent', () => {
       });
    });
 
-   describe('when getFavoriteFact invoked', () => {
-      it('should call getFavoriteFact', () => {
-         const myCategory: FactCategory = { ...category, name: 'test' };
-         selectedCategorySpy.and.returnValue(myCategory);
 
-         component.getFavoriteFact();
-
-         expect(service.getFavoriteFact).toHaveBeenCalledOnceWith(myCategory.name);
-      });
-
-      it('should call getFavoriteFact with random category', () => {
-         selectedCategorySpy.and.returnValue(null);
-
-         component.getFavoriteFact();
-
-         expect(service.getFavoriteFact).toHaveBeenCalledOnceWith('random');
-      });
-   });
-
-   describe('when getAllFavoriteFacts invoked', () => {
-      it('should call getFavoriteFacts', () => {
-         component.getAllFavoriteFacts();
-
-         expect(service.getFavoriteFacts).toHaveBeenCalledTimes(1);
-      });
-   });
 });

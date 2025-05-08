@@ -1,17 +1,7 @@
 <div class="generator">
    <div class="generator-row">
       <app-fact-categories (categorySelected)="categorySelected($event)"></app-fact-categories>
-      <div class="buttons">
-         <button mat-flat-button
-                 color="primary"
-                 (click)="getFactForCategory()">Get Fact</button>
-         <button mat-flat-button
-                 color="accent"
-                 (click)="getFavoriteFact()">From My Favorites</button>
-         <button mat-button
-                 color="primary"
-                 (click)="getAllFavoriteFacts()">Get All Favorites Fact</button>
-      </div>
+      <app-actions></app-actions>
    </div>
    <div class="generator-column">
       @if(favoriteFacts().length === 0) {
@@ -21,9 +11,11 @@
       }
       @else {
       @if(!selectedCategory()) {
+      @if(!isLoading()) {
       <p>Please select a catetory or get kicked in the head by Chuck Norris!</p>
       <p>He knows where you live!</p>
       <p>Or select "Get All Favorites" to see my favorites.</p>
+      }
       }
       @else {
       Now select "Get Fact" or "From Favorites" to see an awesome fact about Chuck Norris!
@@ -31,9 +23,13 @@
       }
       }
       @else {
+      <app-title2>FACTS</app-title2>
       @for(fact of favoriteFacts(); track fact.id) {
       <app-fact [fact]="fact"></app-fact>
       }
       }
    </div>
+   @if (isLoading()) {
+   <app-loading></app-loading>
+   }
 </div>

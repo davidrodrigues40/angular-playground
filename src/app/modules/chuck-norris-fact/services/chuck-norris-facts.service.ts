@@ -1,4 +1,4 @@
-import { first, map } from 'rxjs';
+import { debounceTime, delay, first, map } from 'rxjs';
 import { ChuckNorrisFact } from 'src/app/modules/chuck-norris-fact/models/chuck-norris-fact';
 import { FactCategory } from 'src/app/modules/chuck-norris-fact/models/fact-category';
 
@@ -13,7 +13,7 @@ export class ChuckNorrisFactsService {
    constructor(private readonly httpClient: HttpClient) { }
 
    getFact(): void {
-      this.getFactForState(ChuckNorrisFactState.fact);
+      this.getFactForState(ChuckNorrisFactState.fact, ChuckNorrisFactState.loading);
    }
 
    getFactForCategory(category: FactCategory): void {
@@ -21,8 +21,13 @@ export class ChuckNorrisFactsService {
          this.getFact();
       else
          this.httpClient?.get<ChuckNorrisFact>(`${this.base_url}/random?category=${category.name}`)
-            .pipe(first())
-            .subscribe((fact: ChuckNorrisFact) => ChuckNorrisFactState.fact.set(fact));
+            .pipe(
+               first(),
+               debounceTime(2000),)
+            .subscribe((fact: ChuckNorrisFact) => {
+               ChuckNorrisFactState.fact.set(fact);
+               ChuckNorrisFactState.loading.set(false);
+            });
    }
 
    getCategories(): void {
@@ -36,7 +41,7 @@ export class ChuckNorrisFactsService {
    }
 
    getFooterFact(): void {
-      this.getFactForState(ChuckNorrisFactState.footerFact);
+      this.getFactForState(ChuckNorrisFactState.footerFact, ChuckNorrisFactState.footerLoading);
    }
 
    getFavoriteFacts(): void {
@@ -50,10 +55,17 @@ export class ChuckNorrisFactsService {
       ChuckNorrisFactState.fact.set(list[index]);
    }
 
-   private getFactForState(signal: WritableSignal<Readonly<ChuckNorrisFact | null>>): void {
+   private getFactForState(
+      signal: WritableSignal<Readonly<ChuckNorrisFact | null>>,
+      loadingSignal: WritableSignal<Readonly<boolean>>): void {
       this.httpClient?.get<ChuckNorrisFact>(`${this.base_url}/random`)
-         .pipe(first())
-         .subscribe((fact: ChuckNorrisFact) => signal.set(fact));
+         .pipe(
+            first(),
+            delay(2000),)
+         .subscribe((fact: ChuckNorrisFact) => {
+            signal.set(fact);
+            loadingSignal.set(false);
+         });
    }
 
    private readonly favoriteFacts: ChuckNorrisFact[] = [

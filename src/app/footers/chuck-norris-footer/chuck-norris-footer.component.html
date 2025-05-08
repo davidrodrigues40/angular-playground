@@ -1,8 +1,11 @@
 <app-base-footer>
-   @if(fact()) {
+   @if(fact() && !isLoading()) {
    <p>{{fact()!.value}}</p>
    }
-   @else {
+   @else if(isLoading()) {
+   <app-loading [diameter]="50"></app-loading>
+   }
+   @else{
    <p>Chuck Norris is watching, he's always watching!</p>
    }
 </app-base-footer>
