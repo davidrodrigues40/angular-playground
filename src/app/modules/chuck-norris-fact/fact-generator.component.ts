@@ -12,7 +12,7 @@ import { Title2Component } from 'src/app/components/title2/title2.component';
 import { LoadingComponent } from 'src/app/components/loading/loading.component';
 import { FactCategoriesComponent } from './components/fact-categories/fact-categories.component';
 import { FactComponent } from './components/fact/fact.component';
-import { ActionsComponent } from './components/actions/actions.component';
+import { ActionsComponent } from './components/actions-buttons/actions.component';
 
 @Component({
    selector: 'app-fact-generator',

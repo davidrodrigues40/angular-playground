@@ -4,6 +4,7 @@ import {
    ChangeDetectionStrategy,
    Component,
    EventEmitter,
+   inject,
    OnInit,
    Output,
    WritableSignal
@@ -24,10 +25,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FactCategoriesComponent implements OnInit {
-   options: WritableSignal<ReadonlyArray<FactCategory> | null> = ChuckNorrisFactState.categories;
    @Output() categorySelected: EventEmitter<FactCategory> = new EventEmitter<FactCategory>();
 
-   constructor(private readonly _service: ChuckNorrisFactsService) { }
+   protected options: WritableSignal<ReadonlyArray<FactCategory> | null> = ChuckNorrisFactState.categories;
+   private readonly _service = inject(ChuckNorrisFactsService);
 
    ngOnInit(): void {
       this.loadCategories();
