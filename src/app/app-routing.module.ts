@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BooksComponent } from './modules/books/components/books/books.component';
+import { BooksComponent } from './modules/books/books.component';
 import { BowlingViewComponent } from './modules/bowling/view/bowling-view.component';
 import { FactGeneratorComponent } from './modules/chuck-norris-fact/fact-generator.component';
 import { HomeComponent } from './modules/home/home.component';

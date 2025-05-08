@@ -4,11 +4,12 @@ import { BookService } from 'src/app/modules/books/services/books.service';
 import { ChangeDetectionStrategy, Component, WritableSignal } from '@angular/core';
 import { Title2Component } from 'src/app/components/title2/title2.component';
 import { TitleComponent } from 'src/app/components/title/title.component';
-import { AuthorComponent } from '../author/author.component';
+import { AuthorComponent } from './components/author/author.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { BookListComponent } from '../book-list/book-list.component';
+import { BookListComponent } from './components/book-list/book-list.component';
 import { MatButtonModule } from '@angular/material/button';
-import { BooksState } from '../../books.state';
+import { BooksState } from './books.state';
+import { LoadingComponent } from "../../components/loading/loading.component";
 
 
 @Component({
@@ -23,6 +24,7 @@ import { BooksState } from '../../books.state';
       MatProgressSpinnerModule,
       BookListComponent,
       MatButtonModule,
+      LoadingComponent
    ],
    providers: [BookService, Title2Component],
    changeDetection: ChangeDetectionStrategy.OnPush
@@ -52,6 +54,7 @@ export class BooksComponent {
    }
 
    search(): void {
+      BooksState.searching.set(true);
       this._bookService.getBooksFromGoogle(BooksState.author());
    }
 }

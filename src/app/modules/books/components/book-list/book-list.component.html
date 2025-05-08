@@ -10,7 +10,7 @@
         (mouseout)="onMouseOut()">
       <button mat-icon-button
               [color]="buttonColor"
-              (click)="bookClick.emit(book.id)">
+              (click)="bookSelected(book.id)">
          <mat-icon>{{icon}}</mat-icon></button>
    </div>
 </div>

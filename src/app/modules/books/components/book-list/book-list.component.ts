@@ -34,4 +34,9 @@ export class BookListComponent {
    onMouseOut(): void {
       this.hoverBookId = '';
    }
+
+   bookSelected(id: string): void {
+      this.bookClick.emit(id);
+      this.hoverBookId = '';
+   }
 }

@@ -17,7 +17,7 @@
 
       @if (searching()) {
       <div class="spinner-container">
-         <mat-spinner></mat-spinner>
+         <app-loading></app-loading>
          <p>Searching for books...</p>
       </div>
       }
@@ -36,7 +36,7 @@
       </div>
       <app-book-list class="book-list"
                      icon="delete"
-                     buttonColor="accent"
+                     buttonColor="warn"
                      [books]="collection()"
                      (bookClick)="onRemove($event)"></app-book-list>
       <button mat-flat-button
