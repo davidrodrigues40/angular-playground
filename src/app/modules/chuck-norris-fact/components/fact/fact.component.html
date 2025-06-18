@@ -1,6 +1,7 @@
+@let thisFact = fact();
 <p>
-  @if(fact.value) {
-  {{fact.value}}
+  @if(thisFact.value) {
+  {{thisFact.value}}
   } @else {
   <app-empty-data [dataName]="'fact'"></app-empty-data>
   }

@@ -2,14 +2,13 @@ import { of } from 'rxjs';
 
 import { Component, ViewContainerRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NavigationEnd, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { FooterHostDirective } from './directives/footer/footer-host.directive';
+import { MockComponent } from './testing/testing.directive';
 
-describe('AppComponent', () =>
-{
+describe('AppComponent', () => {
    let fixture: ComponentFixture<AppComponent>;
    let component: AppComponent;
    const router: jasmine.SpyObj<Router> = jasmine.createSpyObj('Router', [], ['events']);
@@ -21,21 +20,19 @@ describe('AppComponent', () =>
    @Component({ selector: 'app-menu', template: '' })
    class MenuStubComponent { }
 
-   beforeAll(() =>
-   {
+   beforeAll(() => {
       Object.defineProperty(child, 'viewContainerRef', { value: containerRef });
    });
 
-   beforeEach(() =>
-   {
+   beforeEach(() => {
       TestBed.configureTestingModule({
-         imports: [
-            RouterTestingModule,
-            FooterHostDirective
-         ],
          declarations: [
-            AppComponent,
-            MenuStubComponent
+            AppComponent
+         ],
+         imports: [
+            FooterHostDirective,
+            RouterModule.forRoot([]),
+            MockComponent({ selector: 'app-menu', inputs: ['menu'], standalone: true }),
          ],
          providers: [
             { provide: Router, useValue: router }
@@ -48,17 +45,14 @@ describe('AppComponent', () =>
       containerRef.createComponent.calls.reset();
    });
 
-   it('should create the app', () =>
-   {
+   it('should create the app', () => {
       const fixture = TestBed.createComponent(AppComponent);
       const app = fixture.componentInstance;
       expect(app).toBeTruthy();
    });
 
-   describe('ngOnInit', () =>
-   {
-      it('should call loadFooter with the correct URL', () =>
-      {
+   describe('ngOnInit', () => {
+      it('should call loadFooter with the correct URL', () => {
          navEnd.urlAfterRedirects = '/home';
          Object.defineProperty(router, 'events', { value: events });
 
@@ -68,8 +62,7 @@ describe('AppComponent', () =>
          expect(child.viewContainerRef.createComponent).toHaveBeenCalledTimes(1);
       });
 
-      it('should load default footer if URL is not found', () =>
-      {
+      it('should load default footer if URL is not found', () => {
          navEnd.urlAfterRedirects = '/not-found';
          Object.defineProperty(router, 'events', { value: events });
 

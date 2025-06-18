@@ -31,6 +31,7 @@ export class PlayersService {
    changePlayerRatings(rating: number, players: ReadonlyArray<Player>): void {
       const newPlayers: Player[] = [];
       const game: Game = BowlingState.game();
+
       players.forEach(player => {
          newPlayers.push({ ...player, rating });
       });

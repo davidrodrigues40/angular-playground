@@ -1,16 +1,15 @@
-import { Game } from 'src/app/interfaces/models/bowling/game';
-import { Player } from 'src/app/interfaces/models/bowling/player';
-import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model';
+import { HttpClient } from "@angular/common/http";
+import { TestBed } from "@angular/core/testing";
+import { of } from "rxjs";
+import { BowlingState } from "../../../bowling.state";
+import { Bowler } from "../../../models/bowler";
+import { BowlerRating } from "../../../models/bowler-rating.model";
+import { Frame } from "../../../models/frame";
+import { Game } from "../../../models/game";
+import { Player } from "../../../models/player";
+import { RatingService } from "../rating/rating.service";
+import { BowlingService } from "./bowling.service";
 
-import { HttpClient } from '@angular/common/http';
-import { TestBed } from '@angular/core/testing';
-
-import { RatingService } from '../rating/rating.service';
-import { BowlingService } from './bowling.service';
-import { Bowler } from 'src/app/interfaces/models/bowling/bowler';
-import { Frame } from 'src/app/interfaces/models/bowling/frame';
-import { of } from 'rxjs';
-import { BowlingState } from 'src/app/state/bowling.state';
 
 describe('BowlingService', () => {
    let service: BowlingService;

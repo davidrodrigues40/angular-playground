@@ -1,32 +1,23 @@
-import { CommonModule } from '@angular/common';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import { BaseFooter } from '../base-footer.component';
 import { ChuckNorrisFooterComponent } from './chuck-norris-footer.component';
 import { ChuckNorrisFactsService } from 'src/app/modules/chuck-norris-fact/services/chuck-norris-facts.service';
 
 describe('ChuckNorrisFooterComponent', () => {
    let component: ChuckNorrisFooterComponent;
-   let fixture: ComponentFixture<ChuckNorrisFooterComponent>;
-   const signalService: jasmine.SpyObj<ChuckNorrisFactsService> = jasmine.createSpyObj<ChuckNorrisFactsService>('signal-service', ['getFooterFact']);
+   const factService: jasmine.SpyObj<ChuckNorrisFactsService> = jasmine.createSpyObj<ChuckNorrisFactsService>('service', ['getFooterFact']);
 
    beforeEach(() => {
       TestBed.configureTestingModule({
-         imports: [ChuckNorrisFooterComponent]
+         imports: [ChuckNorrisFooterComponent],
+         providers: [
+            ChuckNorrisFooterComponent,
+            { provide: ChuckNorrisFactsService, useValue: factService }
+         ],
       })
-         .overrideComponent(ChuckNorrisFooterComponent, {
-            set: {
-               imports: [
-                  CommonModule,
-                  BaseFooter
-               ],
-               providers: [
-                  { provide: ChuckNorrisFactsService, useValue: signalService }
-               ]
-            }
-         });
-      fixture = TestBed.createComponent(ChuckNorrisFooterComponent);
-      component = fixture.componentInstance;
+         .compileComponents();
+
+      component = TestBed.inject(ChuckNorrisFooterComponent);
    });
 
    it('should create', () => {
@@ -37,7 +28,7 @@ describe('ChuckNorrisFooterComponent', () => {
       it('should call fetchFooterFact', () => {
          component.ngOnInit();
 
-         expect(signalService.getFooterFact).toHaveBeenCalled();
+         expect(factService.getFooterFact).toHaveBeenCalled();
       });
    });
 });

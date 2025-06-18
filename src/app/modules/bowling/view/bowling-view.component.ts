@@ -13,7 +13,6 @@ import { AddPlayerComponent } from '../components/add-player/add-player.componen
 import { GameComponent } from '../components/game/game.component';
 import { FormsModule } from '@angular/forms';
 import { RatingService } from 'src/app/modules/bowling/services/online/rating/rating.service';
-import { PlayerService } from '../services/offline/player/player.service';
 import { BowlService } from '../services/offline/bowl-service/bowl.service';
 import { GameService } from '../services/offline/game/game.service';
 import { OfflineRatingService } from '../services/offline/offline-rating/offline-rating.service';
@@ -34,7 +33,6 @@ import { Player } from '../models/player';
    ],
    providers: [
       bowlingServiceProvider,
-      PlayerService,
       PlayersService,
       OfflineRatingService,
       RatingService,
@@ -51,18 +49,18 @@ export class BowlingViewComponent implements OnInit {
 
    constructor(private readonly _dialog: MatDialog,
       private readonly _bowlingService: BowlingServiceAbstract,
-      private readonly _playerService: PlayersService) { }
+      private readonly _playersService: PlayersService) { }
 
    ngOnInit() {
       this._bowlingService.getRatings();
    }
 
    addPlayer(player: { name: string, rating: number }): void {
-      this._playerService.addPlayer(player.name, player.rating);
+      this._playersService.addPlayer(player.name, player.rating);
    }
 
    removePlayer(playerNumber: number) {
-      this._playerService.removePlayer(playerNumber);
+      this._playersService.removePlayer(playerNumber);
    }
 
    playGame() {
@@ -70,7 +68,7 @@ export class BowlingViewComponent implements OnInit {
    }
 
    newGame() {
-      this._playerService.removeAllPlayers();
+      this._playersService.removeAllPlayers();
       BowlingState.game.set({ bowlers: [], completed: false, winner: undefined });
    }
 
@@ -84,6 +82,7 @@ export class BowlingViewComponent implements OnInit {
    }
 
    private openDialog(ratings: ReadonlyArray<BowlerRating>): void {
+      console.log('openDialog', this._dialog);
       const dialogRef = this._dialog.open(PlayerRatingDialogComponent, { data: { ratings } });
 
       dialogRef.afterClosed().subscribe((rating: number) => {
@@ -94,6 +93,6 @@ export class BowlingViewComponent implements OnInit {
    }
 
    private ratingChanged(rating: number): void {
-      this._playerService.changePlayerRatings(rating, BowlingState.players());
+      this._playersService.changePlayerRatings(rating, BowlingState.players());
    }
 }

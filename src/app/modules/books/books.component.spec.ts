@@ -6,7 +6,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BooksComponent } from './books.component';
 import { Title2Component } from 'src/app/components/title2/title2.component';
-import { BooksState } from 'src/app/state/books.state';
+import { BooksState } from './books.state';
 
 describe('BooksComponent', () => {
    let component: BooksComponent;

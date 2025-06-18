@@ -2,7 +2,7 @@ import { EmptyDataComponent } from 'src/app/components/empty-data/empty-data.com
 import { ChuckNorrisFact } from 'src/app/modules/chuck-norris-fact/models/chuck-norris-fact';
 
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input, InputSignal } from '@angular/core';
 
 @Component({
    selector: 'app-fact',
@@ -14,10 +14,10 @@ import { Component, Input } from '@angular/core';
       EmptyDataComponent]
 })
 export class FactComponent {
-   @Input() fact: ChuckNorrisFact = {
+   fact: InputSignal<ChuckNorrisFact> = input<ChuckNorrisFact>({
       icon_url: '',
       id: '',
       url: '',
       value: ''
-   };
+   });
 }

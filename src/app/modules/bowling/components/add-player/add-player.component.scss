@@ -1,4 +1,7 @@
+@use 'src/assets/styles/variables.scss' as vars;
+
 .row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    gap: vars.$gap;
 }

@@ -5,14 +5,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NgrxCanvasComponent } from './ngrx-canvas.component';
 
-describe('NgrxCanvasComponent', () =>
-{
+describe('NgrxCanvasComponent', () => {
    let component: NgrxCanvasComponent;
    let fixture: ComponentFixture<NgrxCanvasComponent>;
    let service: jasmine.SpyObj<CanvasService> = jasmine.createSpyObj('CanvasService', ['addNode']);
 
-   beforeEach(() =>
-   {
+   beforeEach(() => {
       TestBed.configureTestingModule({
          imports: [
             NgrxCanvasComponent
@@ -34,15 +32,12 @@ describe('NgrxCanvasComponent', () =>
       service.addNode.calls.reset();
    });
 
-   it('should create', () =>
-   {
+   it('should create', () => {
       expect(component).toBeTruthy();
    });
 
-   describe('when ngOnInit is called', () =>
-   {
-      it('should create canvas', () =>
-      {
+   describe('when ngOnInit is called', () => {
+      it('should create canvas', () => {
          Object.defineProperty(component, 'drawing', { writable: true, value: undefined });
 
          component.ngOnInit();

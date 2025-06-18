@@ -3,8 +3,8 @@
 
 .number-pad {
     &-button {
-        background-color: vars.$color--blue;
-        color: vars.$color--yellow;
+        background-color: var(--mat-sys-primary);
+        color: var(--mat-sys-on-primary);
         height: 100%;
         width: 100%;
         text-align: center;
@@ -17,7 +17,7 @@
         }
 
         &:hover:not(.disabled) {
-            background-color: color.adjust(vars.$color--blue, $lightness: -10%);
+            background-color: var(--mat-sys-on-primary)
         }
     }
 }

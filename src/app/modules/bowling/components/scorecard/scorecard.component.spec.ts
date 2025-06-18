@@ -1,10 +1,10 @@
-import { Bowler } from 'src/app/interfaces/models/bowling/bowler';
-import { Frame } from 'src/app/interfaces/models/bowling/frame';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FrameService } from '../../services/frame.service';
 import { ScorecardComponent } from './scorecard.component';
+import { Bowler } from '../../models/bowler';
+import { Frame } from '../../models/frame';
 
 describe('ScorecardComponent', () => {
    let component: ScorecardComponent;

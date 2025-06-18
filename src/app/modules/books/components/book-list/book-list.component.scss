@@ -1,1 +1,18 @@
-@use "src/assets/styles/book";
+@use "src/assets/styles/variables" as vars;
+@use "@angular/material" as mat;
+
+.book {
+    display: flex;
+    gap: vars.$gap;
+    padding: vars.$gap * 0.5;
+    align-items: center;
+    justify-content: space-between;
+
+    &-highlight {
+        background-color: vars.$color--highlight;
+    }
+}
+
+.danger-icon {
+    @include mat.button-overrides((filled-label-text-color: vars.$color--warn));
+}

@@ -21,7 +21,7 @@ import { EmptyDataComponent } from 'src/app/components/empty-data/empty-data.com
 })
 export class BookListComponent {
    @Input() books: ReadonlyArray<Book> = [];
-   @Input() buttonColor: string = 'accent';
+   @Input() buttonColor: string = 'primary';
    @Input() icon: string = 'add';
    @Output() bookClick = new EventEmitter<string>();
 

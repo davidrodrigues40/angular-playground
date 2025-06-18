@@ -8,7 +8,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { FactGeneratorComponent } from './fact-generator.component';
 import { ChuckNorrisFactsService } from 'src/app/modules/chuck-norris-fact/services/chuck-norris-facts.service';
 import { ChuckNorrisFactState } from 'src/app/modules/chuck-norris-fact/chuck-norris.state';
-import { FactCategoriesComponent } from './components/fact-categories/fact-categories.component';
 
 describe('FactGeneratorComponent', () => {
    let component: FactGeneratorComponent;
@@ -23,24 +22,22 @@ describe('FactGeneratorComponent', () => {
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         declarations: [
-            FactGeneratorComponent,
-            FactCategoriesComponent
-         ],
+         declarations: [],
          imports: [
+            FactGeneratorComponent,
             MatFormFieldModule,
             MatSelectModule,
             MockComponent({ selector: 'app-title2', standalone: true }),
             MockComponent({ selector: 'app-fact', standalone: true })
          ],
          providers: [
+            FactGeneratorComponent,
             { provide: ChuckNorrisFactsService, useValue: service }
          ]
       })
          .compileComponents();
 
-      fixture = TestBed.createComponent(FactGeneratorComponent);
-      component = fixture.componentInstance;
+      component = TestBed.inject(FactGeneratorComponent);
       selectedCategorySpy = spyOn<any>(component, 'selectedCategory');
 
       service.getFact.calls.reset();
@@ -65,6 +62,4 @@ describe('FactGeneratorComponent', () => {
          expect(ChuckNorrisFactState.selectedCategory.set).toHaveBeenCalledOnceWith(category);
       });
    });
-
-
 });

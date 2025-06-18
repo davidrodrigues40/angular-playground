@@ -1,11 +1,10 @@
-import { Player } from 'src/app/interfaces/models/bowling/player';
-
 import { TestBed } from '@angular/core/testing';
 
 import { CacheService } from '../../../services/cache/cache.service';
-import { PlayersService } from '../../../services/players/players.service';
-import { BowlingState } from 'src/app/state/bowling.state';
-import { Game } from 'src/app/interfaces/models/bowling/game';
+import { BowlingState } from '../bowling.state';
+import { Game } from '../models/game';
+import { Player } from '../models/player';
+import { PlayersService } from './players.service';
 
 describe('PlayersService', () => {
    let service: PlayersService;

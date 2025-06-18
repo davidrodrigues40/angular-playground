@@ -1,9 +1,9 @@
-import { Frame } from 'src/app/interfaces/models/bowling/frame';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FrameService } from '../../services/frame.service';
 import { FrameComponent } from './frame.component';
+import { Frame } from '../../models/frame';
 
 describe('FrameComponent', () => {
    let component: FrameComponent;

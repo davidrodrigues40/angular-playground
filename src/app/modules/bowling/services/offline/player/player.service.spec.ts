@@ -1,8 +1,7 @@
-import { Player } from 'src/app/interfaces/models/bowling/player';
-
 import { TestBed } from '@angular/core/testing';
 
 import { PlayerService } from './player.service';
+import { Player } from '../../../models/player';
 
 describe('PlayerService', () => {
    let service: PlayerService;

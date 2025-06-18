@@ -23,7 +23,7 @@
       }
       @else {
       <app-book-list icon="add_circle"
-                     buttonColor="accent"
+                     buttonColor="primary"
                      [books]="books()"
                      (bookClick)="onAdd($event)"></app-book-list>
       }
@@ -36,11 +36,11 @@
       </div>
       <app-book-list class="book-list"
                      icon="delete"
-                     buttonColor="warn"
+                     buttonColor="danger-button"
                      [books]="collection()"
                      (bookClick)="onRemove($event)"></app-book-list>
       <button mat-flat-button
-              color="warn"
+              class="danger-button"
               style="width: 100%"
               (click)="onClear()">Clear Collection</button>
    </div>

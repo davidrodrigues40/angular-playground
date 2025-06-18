@@ -1,7 +1,3 @@
-import { Bowler } from 'src/app/interfaces/models/bowling/bowler';
-import { Frame } from 'src/app/interfaces/models/bowling/frame';
-import { Game } from 'src/app/interfaces/models/bowling/game';
-import { Player } from 'src/app/interfaces/models/bowling/player';
 import { BowlerRating } from 'src/app/modules/bowling/models/bowler-rating.model';
 
 import { TestBed } from '@angular/core/testing';
@@ -10,8 +6,12 @@ import { GameService } from './game/game.service';
 import { OfflineBowlingService } from './offline-bowling.service';
 import { OfflineRatingService } from './offline-rating/offline-rating.service';
 import { PlayerService } from './player/player.service';
-import { BowlingState } from 'src/app/state/bowling.state';
 import { RatingService } from '../online/rating/rating.service';
+import { BowlingState } from '../../bowling.state';
+import { Bowler } from '../../models/bowler';
+import { Frame } from '../../models/frame';
+import { Game } from '../../models/game';
+import { Player } from '../../models/player';
 
 describe('OfflineBowlingService', () => {
    let service: OfflineBowlingService;

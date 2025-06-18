@@ -1,17 +1,24 @@
-<section>
-    <mat-form-field>
-        <mat-label>Bowler</mat-label>
-        <input matInput
-               type="text"
-               placeholder="Bowler Full Name"
-               (keypress)="keypressed($event)"
-               [(ngModel)]="playerName" /></mat-form-field>
-    <app-player-rating [ratings]="ratings"
-                       (ratingChanged)="ratingChanged($event)"></app-player-rating>
-    <button mat-raised-button
-            color="accent"
-            (click)="add()">
-        <mat-icon>add</mat-icon>
-        Add Player
-    </button>
+<section class="row">
+    <div>
+        <mat-form-field>
+            <mat-label>Bowler</mat-label>
+            <input matInput
+                   type="text"
+                   placeholder="Bowler Full Name"
+                   (keypress)="keypressed($event)"
+                   [(ngModel)]="playerName" /></mat-form-field>
+
+    </div>
+    <div>
+        <app-player-rating [ratings]="ratings"
+                           (ratingChanged)="ratingChanged($event)"></app-player-rating>
+    </div>
+    <div>
+        <button mat-raised-button
+                color="accent"
+                (click)="add()">
+            <mat-icon>add</mat-icon>
+            Add Player
+        </button>
+    </div>
 </section>

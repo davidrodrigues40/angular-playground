@@ -1,0 +1,11 @@
+@use '@angular/material' as mat;
+@use 'src/assets/styles/variables' as vars;
+
+.danger-icon {
+    @include mat.button-overrides((filled-label-text-color: vars.$color--warn));
+}
+
+.danger-button {
+    @include mat.button-overrides((filled-label-text-color: vars.$color--warn-on,
+            filled-container-color: vars.$color--warn));
+}

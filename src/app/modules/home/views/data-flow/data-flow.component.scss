@@ -1,5 +1,5 @@
 @use 'src/assets/styles/variables' as vars;
 
 canvas {
-    background-color: vars.$color--white;
+    background-color: var(--mat-sys-surface);
 }

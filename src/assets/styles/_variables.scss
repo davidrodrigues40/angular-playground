@@ -1,16 +1,16 @@
 @use 'functions' as func;
+@use 'sass:color';
 
 $gap: 16px;
 $padding: 8px;
-$color--white: rgb(218, 218, 218);
-$color--blue: rgb(64, 156, 218);
-$color--dark: rgb(49, 49, 49);
-$color--yellow: rgb(241, 241, 158);
-$color--primary: #cc7fcb;
-$color--accent: #8bda95;
-$color--warn: #eb9595;
-$color--highlight: $color--dark;
-
+$color--yellow: #f3ea9d;
+$color--white: var(--mat-sys-on-primary);
+$color--blue: var(--mat-sys-primary);
+$color--blue-dark: var(--mat-sys-on-primary);
+$color--accent: var(--mat-sys-on-accent);
+$color--warn: var(--mat-sys-error);
+$color--warn-on: var(--mat-sys-on-error);
+$color--highlight: var(--mat-sys-on-accent);
 $player-width: 150px;
 $frame-width: $gap * 3.5;
 

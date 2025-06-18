@@ -3,12 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActionsComponent } from './actions.component';
 import { FactCategory } from '../../models/fact-category';
 import { ChuckNorrisFactsService } from '../../services/chuck-norris-facts.service';
-import { ChuckNorrisFactState } from '../../chuck-norris.state';
 
 describe('ActionsComponent', () => {
   let component: ActionsComponent;
   let fixture: ComponentFixture<ActionsComponent>;
-  const selectedCategorySpy = spyOn(ChuckNorrisFactState, 'selectedCategory');
+  let selectedCategorySpy: jasmine.Spy;
   const service: jasmine.SpyObj<ChuckNorrisFactsService> = jasmine.createSpyObj<ChuckNorrisFactsService>(
     'service',
     ['getFact', 'getFactForCategory', 'getCategories', 'getFooterFact', 'getFavoriteFact', 'getFavoriteFacts'],);
@@ -24,6 +23,8 @@ describe('ActionsComponent', () => {
 
     fixture = TestBed.createComponent(ActionsComponent);
     component = fixture.componentInstance;
+
+    selectedCategorySpy = spyOn<any>(component, 'selectedCategory');
 
     service.getFact.calls.reset();
     service.getFactForCategory.calls.reset();
